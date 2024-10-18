@@ -1,0 +1,36 @@
+#footer-main {
+    display: flex;
+    padding: 1rem;
+    border-top: 1px solid rgba(var(--opposite-rgb), 0.25);
+    background-color: rgba(var(--opposite-rgb), 0.0325);
+    align-items: center;
+    color: rgba(var(--opposite-rgb), 0.875);
+
+    > ul {
+        display: flex;
+        flex-grow: 1;
+        gap: 1rem;
+
+        > li {
+            > button {
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+                transition: color 0.15s;
+
+                &:hover,
+                &:active {
+                    color: rgba(var(--opposite-rgb), 1);
+                }
+            }
+        }
+    }
+
+    > span:last-child {
+        font-size: 0.925;
+
+        > svg {
+            display: inline;
+        }
+    }
+}

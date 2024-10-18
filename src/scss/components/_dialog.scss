@@ -1,0 +1,31 @@
+[data-scope="dialog"] {
+    &[data-part="backdrop"] {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        background-color: rgba(var(--opposite-rgb), 0.75);
+    }
+
+    &[data-part="positioner"] {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        padding-top: 3rem;
+    }
+
+    &[data-part="content"] {
+        display: flex;
+        background-color: var(--bg-color);
+        flex-direction: column;
+        padding: 1rem;
+        min-width: 24rem;
+        gap: 1rem;
+        border-radius: 0.25rem;
+        box-shadow:
+            0px 8px 16px rgba(var(--opposite-rgb), 0.125),
+            0px 0px 1px rgba(var(--opposite-rgb), 0.125);
+    }
+}

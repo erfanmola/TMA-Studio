@@ -1,0 +1,28 @@
+.gh-button {
+    display: flex;
+    border: 1px solid rgba(var(--opposite-rgb), 0.25);
+    border-radius: 0.325rem;
+    transition: opacity 0.15s;
+    font-size: 0.925rem;
+    cursor: pointer;
+
+    > span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+
+        &:first-child {
+            border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.25);
+        }
+
+        > svg {
+            font-size: 1rem;
+        }
+    }
+
+    &:hover {
+        opacity: 0.75;
+    }
+}

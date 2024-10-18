@@ -1,0 +1,23 @@
+#sidebar-main {
+    padding: 1rem;
+    border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.25);
+
+    > ul {
+        display: flex;
+        flex-direction: column;
+
+        > li {
+            display: flex;
+            width: 100%;
+            font-size: 1.25rem;
+            padding: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            border-radius: 0.25rem;
+
+            &:hover {
+                background-color: rgba(var(--opposite-rgb), 0.125);
+            }
+        }
+    }
+}

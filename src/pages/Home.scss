@@ -1,0 +1,91 @@
+#container-section-projects {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    > div {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 3rem;
+
+        > ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            min-width: 20rem;
+
+            > li {
+                display: flex;
+                width: 100%;
+                align-items: center;
+
+                > p {
+                    text-align: start;
+                    flex-grow: 1;
+                    font-size: 1.125rem;
+                    opacity: 0.75;
+                }
+            }
+        }
+
+        > button {
+            border: 2px solid rgba(var(--opposite-rgb), 0.25);
+            color: rgba(var(--opposite-rgb), 0.5);
+            font-weight: 500;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.15s;
+
+            &:hover,
+            &:active {
+                background-color: rgba(var(--opposite-rgb), 0.075);
+            }
+        }
+    }
+
+    > ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+
+        > li {
+            display: flex;
+            flex-direction: column;
+            aspect-ratio: 4/3;
+            border-radius: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(var(--opposite-rgb), 0.125);
+            border: 2px solid rgba(var(--opposite-rgb), 0.25);
+            cursor: pointer;
+
+            &.project-item-placeholder {
+                content: "";
+                background-color: transparent;
+                pointer-events: none;
+            }
+
+            &.project-item-create-project,
+            &.project-item-placeholder {
+                border: 2px dashed rgba(var(--opposite-rgb), 0.25);
+            }
+
+            &.project-item-create-project {
+                gap: 2rem;
+
+                > svg {
+                    font-size: 2.5rem;
+                    opacity: 0.325;
+                }
+
+                > span {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
