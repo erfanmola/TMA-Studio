@@ -11,6 +11,7 @@ export const loadProjects = async () => {
     const projectsList = (await settings?.get("projects")) as Project[] | undefined;
     if (!projectsList) {
         await settings?.set("projects", []);
+        await settings?.save();
     } else {
         setProjects(projectsList);
     }

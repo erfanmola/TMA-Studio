@@ -8,6 +8,17 @@
     font-size: 14px;
     font-weight: 500;
     user-select: none;
+    position: relative;
+
+    &.required {
+        &::after {
+            content: "*";
+            color: red;
+            opacity: 0.625;
+            font-size: inherit;
+            padding-inline-start: 0.25rem;
+        }
+    }
 }
 .text-field__input {
     display: inline-flex;

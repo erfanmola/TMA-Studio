@@ -36,8 +36,7 @@ const DialogCreateProject: Component<{
 	});
 
 	const onClickCreate = async () => {
-		if (!(validator.isAlphanumeric(form.name) && validator.isURL(form.url)))
-			return;
+		if (!createButtonEnabled()) return;
 
 		const project = {
 			id: `${Math.random().toString(36)}00000000000000000`.slice(2, 10),
@@ -49,6 +48,7 @@ const DialogCreateProject: Component<{
 		setProjects([...projects(), project]);
 
 		await settings?.set("projects", projects());
+		await settings?.save();
 
 		props.setIsOpen(false);
 
@@ -72,7 +72,7 @@ const DialogCreateProject: Component<{
 						<div class="grid gap-4 py-4">
 							<div class="grid gap-4 grid-cols-2">
 								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
+									<TextField.Label class="text-field__label required">
 										Name
 									</TextField.Label>
 									<TextField.Input
@@ -84,7 +84,7 @@ const DialogCreateProject: Component<{
 								</TextField>
 
 								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
+									<TextField.Label class="text-field__label required">
 										URL
 									</TextField.Label>
 									<TextField.Input

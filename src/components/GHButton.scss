@@ -13,7 +13,7 @@
         font-weight: 500;
         padding: 0.25rem 0.5rem;
 
-        &:first-child {
+        &:first-child:not(:last-child) {
             border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.25);
         }
 

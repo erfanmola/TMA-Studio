@@ -24,6 +24,7 @@
 		"solid-icons": "^1.1.0",
 		"solid-js": "^1.9.2",
 		"solid-motionone": "^1.0.2",
+		"telegram": "^2.25.15",
 		"validator": "^13.12.0"
 	},
 	"devDependencies": {

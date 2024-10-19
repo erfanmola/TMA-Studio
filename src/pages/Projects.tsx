@@ -1,20 +1,16 @@
 import "./Projects.scss";
 
-import hotkeys from "hotkeys-js";
 import {
 	type Accessor,
 	type Component,
 	createResource,
 	For,
-	onCleanup,
-	onMount,
 	type Setter,
 	Show,
 	Suspense,
 } from "solid-js";
 import type { Project } from "../types";
 import { loadProjects, openProject, projects } from "../utils/project";
-import { getOSKeyComboExpression } from "../utils/shortcut";
 import ProjectPage from "./Project";
 import KeyboardCombo from "../components/KeyboardCombo";
 import { tabbarData } from "../components/Tabbar";
@@ -25,20 +21,6 @@ const ProjectsPage: Component<{
 }> = (props) => {
 	const [projectsLoaded] = createResource<boolean>(async () => {
 		return await loadProjects();
-	});
-
-	onMount(() => {
-		hotkeys([getOSKeyComboExpression("n")].join(","), (_, handler) => {
-			switch (handler.key) {
-				case getOSKeyComboExpression("n"):
-					props.setShowProjectDialog(true);
-					break;
-			}
-		});
-	});
-
-	onCleanup(() => {
-		hotkeys.unbind(getOSKeyComboExpression("n"));
 	});
 
 	const openProjectInner = (projectId: Project["id"]) => {

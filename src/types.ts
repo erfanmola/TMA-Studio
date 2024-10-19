@@ -14,3 +14,14 @@ export type TabbarTab = {
     component: Element | JSX.Element | (() => Element) | (() => JSX.Element),
     closable: boolean,
 };
+
+export type User = {
+    id: string,
+    first_name: string,
+    last_name?: string,
+    username?: string,
+    photo_url?: string,
+    language_code?: string,
+    is_premium?: true,
+    allows_write_to_pm?: true,
+};

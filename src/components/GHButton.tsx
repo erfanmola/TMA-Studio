@@ -1,7 +1,7 @@
 import "./GHButton.scss";
 
 import { BsGithub } from "solid-icons/bs";
-import type { Component } from "solid-js";
+import { Show, type Component } from "solid-js";
 
 const GHButton: Component<{
 	stars: number;
@@ -14,7 +14,9 @@ const GHButton: Component<{
 				Star
 			</span>
 
-			<span>{props.stars.toLocaleString()}</span>
+			<Show when={props.stars > 0}>
+				<span>{props.stars.toLocaleString()}</span>
+			</Show>
 		</a>
 	);
 };
