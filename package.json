@@ -12,8 +12,8 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@ark-ui/solid": "^4.2.1",
-		"@solidjs/router": "^0.14.9",
+		"@kobalte/core": "^0.13.7",
+		"@solidjs/router": "^0.14.10",
 		"@tauri-apps/api": "^2",
 		"@tauri-apps/plugin-http": "~2",
 		"@tauri-apps/plugin-os": "~2",
@@ -23,14 +23,16 @@
 		"hotkeys-js": "^3.13.7",
 		"solid-icons": "^1.1.0",
 		"solid-js": "^1.9.2",
-		"solid-motionone": "^1.0.2"
+		"solid-motionone": "^1.0.2",
+		"validator": "^13.12.0"
 	},
 	"devDependencies": {
 		"@tauri-apps/cli": "^2",
 		"@types/node": "^22.7.6",
+		"@types/validator": "^13.12.2",
 		"autoprefixer": "^10.4.20",
 		"postcss": "^8.4.47",
-		"sass": "^1.80.2",
+		"sass": "^1.80.3",
 		"tailwindcss": "^3.4.14",
 		"typescript": "^5.6.3",
 		"vite": "^5.4.9",

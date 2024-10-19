@@ -21,9 +21,7 @@
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
-		"paths": {
-			"~/*": ["./src/*"]
-		}
+		"paths": {}
 	},
 	"include": ["src", "styled-system"],
 	"references": [{ "path": "./tsconfig.node.json" }]

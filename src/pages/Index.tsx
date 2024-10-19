@@ -8,7 +8,7 @@ const IndexPage = () => {
 
 	onMount(async () => {
 		if (await settings?.get("intro_done")) {
-			navigate("/home", { replace: true });
+			navigate("/main", { replace: true });
 		} else {
 			navigate("/welcome", { replace: true });
 		}

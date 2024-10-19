@@ -49,7 +49,7 @@
 
     > ul {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
 
         > li {
@@ -59,32 +59,41 @@
             border-radius: 0.5rem;
             align-items: center;
             justify-content: center;
-            background-color: rgba(var(--opposite-rgb), 0.125);
-            border: 2px solid rgba(var(--opposite-rgb), 0.25);
             cursor: pointer;
+            border: 1px solid hsl(240 5% 84%);
+            background-color: white;
+            box-shadow:
+                0 10px 15px -3px rgb(0 0 0 / 0.1),
+                0 4px 6px -4px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            padding: 0.5rem;
+            border-bottom: 5px solid transparent;
+            transition: border-color 0.15s;
 
-            &.project-item-placeholder {
-                content: "";
-                background-color: transparent;
-                pointer-events: none;
+            > h2 {
+                font-size: 2rem;
+                font-weight: 500;
+                opacity: 0.75;
+                transition: opacity 0.15s;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 100%;
+                text-align: center;
             }
 
-            &.project-item-create-project,
-            &.project-item-placeholder {
-                border: 2px dashed rgba(var(--opposite-rgb), 0.25);
+            * {
+                cursor: pointer;
             }
 
-            &.project-item-create-project {
-                gap: 2rem;
-
-                > svg {
-                    font-size: 2.5rem;
-                    opacity: 0.325;
+            &:hover {
+                > h2 {
+                    opacity: 1;
                 }
+            }
 
-                > span {
-                    font-weight: 500;
-                }
+            &.active {
+                border-bottom-color: var(--accent-200);
             }
         }
     }

@@ -2,6 +2,8 @@
 
 @import "animate.css";
 
+@import "scss/components";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,5 +11,3 @@
 @import "scss/variables";
 @import "scss/fonts";
 @import "scss/general";
-
-@import "scss/components/dialog";

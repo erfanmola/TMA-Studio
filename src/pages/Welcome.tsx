@@ -12,7 +12,7 @@ const WelcomePage = () => {
 	const onClickButtonStart = async () => {
 		await settings?.set("intro_done", true);
 		await settings?.save();
-		navigate("/home", { replace: true });
+		navigate("/main", { replace: true });
 	};
 
 	return (
@@ -24,7 +24,7 @@ const WelcomePage = () => {
 			<button
 				onClick={onClickButtonStart}
 				type="button"
-				class="button animate__bounceIn"
+				class="button-primary animate__bounceIn"
 			>
 				Let's Start
 			</button>

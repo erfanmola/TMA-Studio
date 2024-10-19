@@ -5,7 +5,7 @@ import { SettingsProvider } from "./contexts/SettingsContext";
 import WelcomePage from "./pages/Welcome";
 import { createStore, type Store } from "@tauri-apps/plugin-store";
 import IndexPage from "./pages/Index";
-import HomePage from "./pages/Home";
+import MainPage from "./pages/Main";
 
 const App = () => {
 	const [settings] = createResource<Store>(async () => {
@@ -19,7 +19,7 @@ const App = () => {
 					<Router>
 						<Route path="/" component={IndexPage} />
 						<Route path="/welcome" component={WelcomePage} />
-						<Route path="/home" component={HomePage} />
+						<Route path="/main" component={MainPage} />
 					</Router>
 				</SettingsProvider>
 			</Show>

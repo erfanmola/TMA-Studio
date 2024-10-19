@@ -11,8 +11,13 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-*:not(.button):not(svg):not(svg *):not(button):not(input):not(select) {
-    cursor: default;
+// *:not(.button):not(.button-primary):not(svg):not(svg *):not(button):not(input):not(select) {
+//     cursor: default;
+// }
+
+button:disabled {
+    opacity: 0.75;
+    pointer-events: none;
 }
 
 :root {
@@ -47,7 +52,7 @@ body {
     flex-grow: 1;
 }
 
-.button {
+.button-primary {
     background-color: var(--accent-400);
     color: white;
     transition: background-color 0.15s;
