@@ -83,6 +83,7 @@
     position: relative;
     user-select: none;
     outline: none;
+    cursor: pointer;
 }
 .select__item[data-disabled] {
     color: hsl(240 5% 65%);

@@ -40,6 +40,7 @@
                 display: flex;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                cursor: default;
             }
 
             > svg {

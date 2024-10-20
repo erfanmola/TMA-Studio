@@ -1,0 +1,16 @@
+#container-page-project {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > svg {
+        z-index: -1;
+    }
+
+    > div {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-around;
+    }
+}

@@ -1,0 +1,71 @@
+#frame-iphone {
+    --iphone-frame-radius: 4.5rem;
+    --iphone-frame-width: 0.75rem;
+    --iphone-frame-border: 0.25rem;
+
+    display: flex;
+    background-color: var(--device-frame-color);
+    padding: var(--iphone-frame-width);
+    aspect-ratio: 0.5;
+    width: calc(390px + (2 * var(--iphone-frame-border)));
+    border-radius: calc(var(--iphone-frame-radius) - var(--iphone-frame-border));
+    position: relative;
+    overflow: hidden;
+    border: var(--iphone-frame-border) solid var(--device-frame-border);
+
+    &::before {
+        content: "";
+        background-color: var(--device-frame-color);
+        top: calc(var(--iphone-frame-width) + 0.625rem);
+        width: 7rem;
+        height: 2rem;
+        position: absolute;
+        border-radius: 100rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    > div {
+        background-color: var(--device-frame-bg);
+        display: flex;
+        flex-grow: 1;
+        border-radius: calc(var(--iphone-frame-radius) - var(--iphone-frame-width) - var(--iphone-frame-border));
+        overflow: hidden;
+    }
+}
+
+#frame-android {
+    --android-frame-radius: 3.5rem;
+    --android-frame-width: 0.625rem;
+    --android-frame-border: 0.25rem;
+
+    display: flex;
+    background-color: var(--device-frame-color);
+    padding: var(--android-frame-width);
+    aspect-ratio: 0.5;
+    width: calc(390px + (2 * var(--android-frame-border)));
+    border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
+    position: relative;
+    overflow: hidden;
+    border: var(--android-frame-border) solid var(--device-frame-border);
+
+    &::before {
+        content: "";
+        background-color: var(--device-frame-color);
+        top: calc(var(--android-frame-width) + 0.625rem);
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        border-radius: 100rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    > div {
+        background-color: var(--device-frame-bg);
+        display: flex;
+        flex-grow: 1;
+        border-radius: calc(var(--android-frame-radius) - var(--android-frame-width) - var(--android-frame-border));
+        overflow: hidden;
+    }
+}
