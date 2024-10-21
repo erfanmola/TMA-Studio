@@ -11,7 +11,6 @@ const WelcomePage = () => {
 
 	const onClickButtonStart = async () => {
 		await settings?.set("intro_done", true);
-		await settings?.save();
 		navigate("/main", { replace: true });
 	};
 

@@ -31,13 +31,11 @@ export const Tabbar = () => {
 	createEffect(async () => {
 		const tabs = tabbarData().filter((item) => !["projects"].includes(item.id));
 		await settings?.set("tabs", tabs);
-		await settings?.save();
 	});
 
 	createEffect(async () => {
 		if (activeTabId().length > 0) {
 			await settings?.set("active_tab", activeTabId());
-			await settings?.save();
 		}
 	});
 

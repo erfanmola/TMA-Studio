@@ -13,15 +13,13 @@ import { Separator } from "@kobalte/core/separator";
 import { TextField } from "@kobalte/core/text-field";
 import { createStore } from "solid-js/store";
 import { openProject, projects, setProjects } from "../utils/project";
-import { useSettings } from "../contexts/SettingsContext";
 import ProjectPage from "../pages/Project";
+import type { Project } from "src/types";
 
 const DialogCreateProject: Component<{
 	isOpen: Accessor<boolean>;
 	setIsOpen: Setter<boolean>;
 }> = (props) => {
-	const { settings } = useSettings();
-
 	const [createButtonEnabled, setCreateButtonEnabled] = createSignal(false);
 	const [form, setForm] = createStore({
 		name: "",
@@ -45,14 +43,26 @@ const DialogCreateProject: Component<{
 			token: form.token,
 		};
 
-		setProjects([...projects(), project]);
+		const defaultSettings: Project["settings"]["android"] = {
+			expanded: false,
+			mode: "light",
+		};
 
-		await settings?.set("projects", projects());
-		await settings?.save();
+		setProjects([
+			...projects(),
+			{
+				...project,
+				settings: {
+					android: defaultSettings,
+					ios: defaultSettings,
+					tdesktop: defaultSettings,
+				},
+			},
+		]);
 
 		props.setIsOpen(false);
 
-		openProject(project.id, <ProjectPage id={project.id} />);
+		openProject(project.id, () => <ProjectPage id={project.id} />);
 	};
 
 	return (

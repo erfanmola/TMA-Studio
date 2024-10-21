@@ -60,14 +60,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border: 1px solid hsl(240 5% 84%);
+            border: 1px solid rgba(var(--opposite-rgb), 0.125);
             background-color: white;
-            box-shadow:
-                0 10px 15px -3px rgb(0 0 0 / 0.1),
-                0 4px 6px -4px rgb(0 0 0 / 0.1);
+            box-shadow: var(--shadow-card);
             overflow: hidden;
-            padding: 0.5rem;
-            border-bottom: 5px solid transparent;
+            padding: 0.5rem 0.5rem 4px;
             transition: border-color 0.15s;
 
             > h2 {
@@ -93,7 +90,8 @@
             }
 
             &.active {
-                border-bottom-color: var(--accent-200);
+                border-bottom: 5px solid var(--accent-200);
+                padding-bottom: 0;
             }
         }
     }

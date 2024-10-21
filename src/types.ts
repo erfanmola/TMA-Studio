@@ -1,3 +1,5 @@
+import type { TelegramPlatform, ThemeMode } from "./utils/themes";
+
 import type { JSX } from "solid-js";
 
 export type Project = {
@@ -5,6 +7,12 @@ export type Project = {
     name: string,
     url: string,
     token?: string,
+    settings: {
+        [key in TelegramPlatform]: {
+            expanded: boolean,
+            mode: ThemeMode,
+        }
+    },
 };
 
 export type TabbarTab = {

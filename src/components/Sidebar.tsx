@@ -20,7 +20,6 @@ const Sidebar: ParentComponent = (props) => {
 
 	createEffect(async () => {
 		await settings?.set("sidebar_visible", sidebarVisiblity());
-		await settings?.save();
 	});
 
 	return (

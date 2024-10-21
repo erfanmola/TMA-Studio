@@ -12,7 +12,6 @@ import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
 import { TextField } from "@kobalte/core/text-field";
 import { createStore } from "solid-js/store";
-import { useSettings } from "../contexts/SettingsContext";
 import { Checkbox } from "@kobalte/core/checkbox";
 import { BsCheckLg } from "solid-icons/bs";
 import { Combobox } from "@kobalte/core/combobox";
@@ -25,8 +24,6 @@ const DialogAddUser: Component<{
 	isOpen: Accessor<boolean>;
 	setIsOpen: Setter<boolean>;
 }> = (props) => {
-	const { settings } = useSettings();
-
 	const [addButtonEnabled, setAddButtonEnabled] = createSignal(false);
 	const [form, setForm] = createStore({
 		id: "",
@@ -72,9 +69,6 @@ const DialogAddUser: Component<{
 		}
 
 		setUsers([...users(), user]);
-
-		await settings?.set("users", users());
-		await settings?.save();
 
 		props.setIsOpen(false);
 	};

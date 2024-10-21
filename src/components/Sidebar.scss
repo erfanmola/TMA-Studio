@@ -8,6 +8,7 @@
     transition:
         width 0.15s,
         padding 0.15s;
+    flex-shrink: 0;
 
     &.open {
         padding: 1rem;

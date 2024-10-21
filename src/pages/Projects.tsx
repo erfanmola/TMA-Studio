@@ -3,14 +3,12 @@ import "./Projects.scss";
 import {
 	type Accessor,
 	type Component,
-	createResource,
 	For,
 	type Setter,
 	Show,
-	Suspense,
 } from "solid-js";
 import type { Project } from "../types";
-import { loadProjects, openProject, projects } from "../utils/project";
+import { openProject, projects } from "../utils/project";
 import ProjectPage from "./Project";
 import KeyboardCombo from "../components/KeyboardCombo";
 import { tabbarData } from "../components/Tabbar";
@@ -19,68 +17,60 @@ const ProjectsPage: Component<{
 	showProjectDialog: Accessor<boolean>;
 	setShowProjectDialog: Setter<boolean>;
 }> = (props) => {
-	const [projectsLoaded] = createResource<boolean>(async () => {
-		return await loadProjects();
-	});
-
 	const openProjectInner = (projectId: Project["id"]) => {
-		openProject(projectId, <ProjectPage id={projectId} />);
+		openProject(projectId, () => <ProjectPage id={projectId} />);
 	};
 
 	return (
 		<section id="container-section-projects">
-			<Suspense>
-				<Show when={projectsLoaded()}>
-					<Show
-						when={(projects().length ?? 0) > 0}
-						fallback={
-							<div>
-								<ul>
-									<li>
-										<p>New Project</p>
-										<KeyboardCombo includeSuper={true} key="N" />
-									</li>
-
-									<li>
-										<p>New User</p>
-										<KeyboardCombo includeSuper={true} key="U" />
-									</li>
-								</ul>
-
-								<button
-									type="button"
-									onClick={() => props.setShowProjectDialog(true)}
-								>
-									Create New Project
-								</button>
-							</div>
-						}
-					>
+			<Show
+				when={(projects().length ?? 0) > 0}
+				fallback={
+					<div>
 						<ul>
-							<For each={projects()}>
-								{(project) => (
-									<li
-										classList={{
-											active:
-												tabbarData().find(
-													(item) => item.id === `project-${project.id}`,
-												) !== undefined,
-										}}
-										onClick={() => {
-											openProjectInner(project.id);
-										}}
-										onKeyUp={() => {
-											openProjectInner(project.id);
-										}}
-									>
-										<h2>{project.name}</h2>
-									</li>
-								)}
-							</For>
+							<li>
+								<p>New Project</p>
+								<KeyboardCombo includeSuper={true} key="N" />
+							</li>
+
+							<li>
+								<p>New User</p>
+								<KeyboardCombo includeSuper={true} key="U" />
+							</li>
 						</ul>
-					</Show>
-				</Show>
-			</Suspense>
+
+						<button
+							type="button"
+							onClick={() => props.setShowProjectDialog(true)}
+						>
+							Create New Project
+						</button>
+					</div>
+				}
+			>
+				<ul>
+					<For each={projects()}>
+						{(project) => (
+							<li
+								classList={{
+									active:
+										tabbarData().find(
+											(item) => item.id === `project-${project.id}`,
+										) !== undefined,
+								}}
+								onClick={() => {
+									openProjectInner(project.id);
+								}}
+								onKeyUp={() => {
+									openProjectInner(project.id);
+								}}
+							>
+								<h2>{project.name}</h2>
+							</li>
+						)}
+					</For>
+				</ul>
+			</Show>
 		</section>
 	);
 };

@@ -1,0 +1,21 @@
+.toggle-button {
+    appearance: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    outline: none;
+    border-radius: 6px;
+    background-color: rgba(var(--opposite-rgb), 0.025);
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 0;
+}
+.toggle-button:focus-visible {
+    outline: 2px solid rgba(var(--opposite-rgb), 0.175);
+    outline-offset: 2px;
+}
+.toggle-button[data-pressed] {
+    background-color: rgba(var(--opposite-rgb), 0.175);
+}

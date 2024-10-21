@@ -2,6 +2,7 @@ import "./Main.scss";
 
 import {
 	Show,
+	Suspense,
 	createEffect,
 	createSignal,
 	on,
@@ -9,7 +10,7 @@ import {
 	onMount,
 } from "solid-js";
 import { Tabbar, setActiveTabId, setTabbarData } from "../components/Tabbar";
-import { activeUserId, loadUsers } from "../utils/user";
+import { activeUserId, users } from "../utils/user";
 
 import DialogAddUser from "../components/DialogCreateUser";
 import DialogCreateProject from "../components/DialogCreateProject";
@@ -23,15 +24,20 @@ import Sidebar from "../components/Sidebar";
 import type { TabbarTab } from "../types";
 import { getOSKeyComboExpression } from "../utils/shortcut";
 import hotkeys from "hotkeys-js";
+import { initStore } from "../utils/store";
+import { projects } from "../utils/project";
 import { useSettings } from "../contexts/SettingsContext";
 
 const MainPage = () => {
 	const { settings } = useSettings();
+	const [initialized, setInitialized] = createSignal(false);
+
 	const [showProjectDialog, setShowProjectDialog] = createSignal(false);
 	const [showUserDialog, setShowUserDialog] = createSignal(false);
 
 	onMount(async () => {
-		loadUsers();
+		await initStore();
+		initStoreEffects();
 
 		const tabs = ((await settings?.get("tabs")) as TabbarTab[]) ?? [];
 		const activeTab =
@@ -54,7 +60,7 @@ const MainPage = () => {
 				let component: TabbarTab["component"];
 
 				if (tab.id.startsWith("project-")) {
-					component = <ProjectPage id={tab.id.replace("project-", "")} />;
+					component = () => <ProjectPage id={tab.id.replace("project-", "")} />;
 				} else {
 					component = <div />;
 				}
@@ -66,7 +72,31 @@ const MainPage = () => {
 			}),
 		]);
 		setActiveTabId(activeTab);
+
+		setInitialized(true);
 	});
+
+	const initStoreEffects = () => {
+		createEffect(
+			on(
+				projects,
+				async () => {
+					await settings?.set("projects", projects());
+				},
+				{ defer: true },
+			),
+		);
+
+		createEffect(
+			on(
+				users,
+				async () => {
+					await settings?.set("users", users());
+				},
+				{ defer: true },
+			),
+		);
+	};
 
 	onMount(() => {
 		hotkeys(
@@ -94,55 +124,59 @@ const MainPage = () => {
 			activeUserId,
 			async () => {
 				await settings?.set("active_user", activeUserId());
-				await settings?.save();
 			},
 			{ defer: true },
 		),
 	);
 
 	return (
-		<>
-			<main id="container-page-main">
-				<Header />
+		<Suspense>
+			<Show when={initialized()}>
+				<main id="container-page-main">
+					<Header />
 
-				<div id="container-page-content">
-					<Sidebar>
-						<ul>
-							<li
-								onClick={() => setShowProjectDialog(true)}
-								onKeyUp={() => setShowProjectDialog(true)}
-							>
-								<FaSolidPlus />
-							</li>
+					<div id="container-page-content">
+						<Sidebar>
+							<ul>
+								<li
+									onClick={() => setShowProjectDialog(true)}
+									onKeyUp={() => setShowProjectDialog(true)}
+								>
+									<FaSolidPlus />
+								</li>
 
-							<li
-								onClick={() => setShowUserDialog(true)}
-								onKeyUp={() => setShowUserDialog(true)}
-							>
-								<FiUserPlus style={{ "font-size": "1.625rem" }} />
-							</li>
-						</ul>
-					</Sidebar>
+								<li
+									onClick={() => setShowUserDialog(true)}
+									onKeyUp={() => setShowUserDialog(true)}
+								>
+									<FiUserPlus style={{ "font-size": "1.625rem" }} />
+								</li>
+							</ul>
+						</Sidebar>
 
-					<div>
-						<Tabbar />
+						<div>
+							<Tabbar />
 
-						<Footer />
+							<Footer />
+						</div>
 					</div>
-				</div>
-			</main>
+				</main>
 
-			<Show when={showProjectDialog()}>
-				<DialogCreateProject
-					isOpen={showProjectDialog}
-					setIsOpen={setShowProjectDialog}
-				/>
-			</Show>
+				<Show when={showProjectDialog()}>
+					<DialogCreateProject
+						isOpen={showProjectDialog}
+						setIsOpen={setShowProjectDialog}
+					/>
+				</Show>
 
-			<Show when={showUserDialog()}>
-				<DialogAddUser isOpen={showUserDialog} setIsOpen={setShowUserDialog} />
+				<Show when={showUserDialog()}>
+					<DialogAddUser
+						isOpen={showUserDialog}
+						setIsOpen={setShowUserDialog}
+					/>
+				</Show>
 			</Show>
-		</>
+		</Suspense>
 	);
 };
 
