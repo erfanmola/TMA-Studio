@@ -130,53 +130,48 @@ const MainPage = () => {
 	);
 
 	return (
-		<Suspense>
-			<Show when={initialized()}>
-				<main id="container-page-main">
-					<Header />
+		<Show when={initialized()}>
+			<main id="container-page-main">
+				<Header />
 
-					<div id="container-page-content">
-						<Sidebar>
-							<ul>
-								<li
-									onClick={() => setShowProjectDialog(true)}
-									onKeyUp={() => setShowProjectDialog(true)}
-								>
-									<FaSolidPlus />
-								</li>
+				<div id="container-page-content">
+					<Sidebar>
+						<ul>
+							<li
+								onClick={() => setShowProjectDialog(true)}
+								onKeyUp={() => setShowProjectDialog(true)}
+							>
+								<FaSolidPlus />
+							</li>
 
-								<li
-									onClick={() => setShowUserDialog(true)}
-									onKeyUp={() => setShowUserDialog(true)}
-								>
-									<FiUserPlus style={{ "font-size": "1.625rem" }} />
-								</li>
-							</ul>
-						</Sidebar>
+							<li
+								onClick={() => setShowUserDialog(true)}
+								onKeyUp={() => setShowUserDialog(true)}
+							>
+								<FiUserPlus style={{ "font-size": "1.625rem" }} />
+							</li>
+						</ul>
+					</Sidebar>
 
-						<div>
-							<Tabbar />
+					<div>
+						<Tabbar />
 
-							<Footer />
-						</div>
+						<Footer />
 					</div>
-				</main>
+				</div>
+			</main>
 
-				<Show when={showProjectDialog()}>
-					<DialogCreateProject
-						isOpen={showProjectDialog}
-						setIsOpen={setShowProjectDialog}
-					/>
-				</Show>
-
-				<Show when={showUserDialog()}>
-					<DialogAddUser
-						isOpen={showUserDialog}
-						setIsOpen={setShowUserDialog}
-					/>
-				</Show>
+			<Show when={showProjectDialog()}>
+				<DialogCreateProject
+					isOpen={showProjectDialog}
+					setIsOpen={setShowProjectDialog}
+				/>
 			</Show>
-		</Suspense>
+
+			<Show when={showUserDialog()}>
+				<DialogAddUser isOpen={showUserDialog} setIsOpen={setShowUserDialog} />
+			</Show>
+		</Show>
 	);
 };
 

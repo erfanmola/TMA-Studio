@@ -1,5 +1,5 @@
 import { Route, Router } from "@solidjs/router";
-import { Show, Suspense, createResource } from "solid-js";
+import { Show, createResource } from "solid-js";
 
 import { SettingsProvider } from "./contexts/SettingsContext";
 import WelcomePage from "./pages/Welcome";
@@ -15,17 +15,15 @@ const App = () => {
 	});
 
 	return (
-		<Suspense>
-			<Show when={settings()}>
-				<SettingsProvider value={{ settings: settings() }}>
-					<Router>
-						<Route path="/" component={IndexPage} />
-						<Route path="/welcome" component={WelcomePage} />
-						<Route path="/main" component={MainPage} />
-					</Router>
-				</SettingsProvider>
-			</Show>
-		</Suspense>
+		<Show when={settings()}>
+			<SettingsProvider value={{ settings: settings() }}>
+				<Router>
+					<Route path="/" component={IndexPage} />
+					<Route path="/welcome" component={WelcomePage} />
+					<Route path="/main" component={MainPage} />
+				</Router>
+			</SettingsProvider>
+		</Show>
 	);
 };
 

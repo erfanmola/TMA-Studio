@@ -24,6 +24,7 @@ import {
 import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
 import { FaSolidMoon, FaSolidSun } from "solid-icons/fa";
 import { useSettings } from "../contexts/SettingsContext";
+import { CgMoreO } from "solid-icons/cg";
 
 const ViewportIOS: Component<{
 	project: Project;
@@ -52,7 +53,10 @@ const ViewportIOS: Component<{
 
 	return (
 		<IPhoneFrame>
-			<div id="viewport-telegram-ios">
+			<div
+				id="viewport-telegram-ios"
+				classList={{ expanded: expanded(), dark: mode() === "dark" }}
+			>
 				{/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
 				<svg
 					width="428"
@@ -137,6 +141,54 @@ const ViewportIOS: Component<{
 						</span>
 					</div>
 				</header>
+				<div />
+				<span />
+				<section
+					classList={{ expanded: expanded(), dark: mode() === "dark" }}
+					style={{
+						"background-color": TelegramThemes[props.platform][mode()].bgColor,
+						color: TelegramThemes[props.platform][mode()].textColor,
+					}}
+				>
+					<header
+						style={{
+							"background-color":
+								TelegramThemes[props.platform][mode()].headerBgColor,
+						}}
+					>
+						<div>
+							<span
+								style={{
+									color: TelegramThemes[props.platform][mode()].buttonColor,
+								}}
+							>
+								Close
+							</span>
+						</div>
+						<div>
+							<h2>{props.project.name}</h2>
+							<span
+								style={{
+									color:
+										TelegramThemes[props.platform][mode()].subtitleTextColor,
+								}}
+							>
+								mini app
+							</span>
+						</div>
+						<div
+							style={{
+								color: TelegramThemes[props.platform][mode()].buttonColor,
+							}}
+						>
+							<CgMoreO />
+						</div>
+					</header>
+					<section>
+						<iframe title={props.platform} src={props.project.url} />
+					</section>
+					<BottomBar platform={props.platform} />
+				</section>
 			</div>
 		</IPhoneFrame>
 	);
@@ -222,6 +274,14 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				singnalExpanded={[expanded, setExpanded]}
 			/>
 		</div>
+	);
+};
+
+const BottomBar: Component<{ platform: TelegramPlatform }> = (props) => {
+	return (
+		<Show when={false}>
+			<div id="section-telegram-bottombar">Bottom Bar in {props.platform}</div>
+		</Show>
 	);
 };
 

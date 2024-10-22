@@ -135,3 +135,11 @@ export const TelegramThemes: {
         }
     }
 };
+
+for (const platform in TelegramThemes) {
+    for (const mode in TelegramThemes[platform as TelegramPlatform]) {
+        for (const key in TelegramThemes[platform as TelegramPlatform][mode as ThemeMode]) {
+            document.documentElement.style.setProperty(`--tg-var-${platform}-${mode}-${key}`, TelegramThemes[platform as TelegramPlatform][mode as ThemeMode][key as keyof ThemeParams]);
+        }
+    }
+}
