@@ -9,6 +9,7 @@ import {
 	type Signal,
 	type Component,
 	Show,
+	onMount,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
@@ -35,6 +36,8 @@ const ViewportIOS: Component<{
 	const [mode] = props.signalMode;
 	const [expanded] = props.singnalExpanded;
 
+	let iframe: HTMLIFrameElement | undefined;
+
 	const [statusBarColor, setStatusBarColor] = createSignal<"black" | "white">(
 		"black",
 	);
@@ -50,6 +53,17 @@ const ViewportIOS: Component<{
 			}
 		}
 	});
+
+	onMount(() => {
+		if (!iframe) return;
+		initializeIFrameEventListeners();
+	});
+
+	const initializeIFrameEventListeners = () => {
+		window.addEventListener("message", (e) => {
+			console.log(e);
+		});
+	};
 
 	return (
 		<IPhoneFrame>
@@ -185,7 +199,11 @@ const ViewportIOS: Component<{
 						</div>
 					</header>
 					<section>
-						<iframe title={props.platform} src={props.project.url} />
+						<iframe
+							ref={iframe}
+							title={props.platform}
+							src={props.project.url}
+						/>
 					</section>
 					<BottomBar platform={props.platform} />
 				</section>
