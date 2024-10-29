@@ -10,12 +10,16 @@ import {
 	type Component,
 	Show,
 	onMount,
+	on,
+	onCleanup,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 import { projects } from "../utils/project";
 import { getNameInitials, stringToColorDark } from "../utils/general";
 import { FaSolidChevronLeft } from "solid-icons/fa";
+import { FaSolidCode } from "solid-icons/fa";
+
 import {
 	type TelegramPlatform,
 	TelegramThemes,
@@ -32,11 +36,15 @@ const ViewportIOS: Component<{
 	platform: TelegramPlatform;
 	signalMode: Signal<ThemeMode>;
 	singnalExpanded: Signal<boolean>;
+	singnalInspectElement: Signal<boolean>;
 }> = (props) => {
 	const [mode] = props.signalMode;
 	const [expanded] = props.singnalExpanded;
+	const [inspectElement, setInspectElement] = props.singnalInspectElement;
 
-	let iframe: HTMLIFrameElement | undefined;
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	let webview: any;
+	let devToolsInterval: NodeJS.Timeout | undefined;
 
 	const [statusBarColor, setStatusBarColor] = createSignal<"black" | "white">(
 		"black",
@@ -54,14 +62,56 @@ const ViewportIOS: Component<{
 		}
 	});
 
+	createEffect(
+		on(
+			inspectElement,
+			() => {
+				if (inspectElement() && !webview.isDevToolsOpened()) {
+					webview.openDevTools();
+				} else if (webview.isDevToolsOpened()) {
+					webview.closeDevTools();
+				}
+			},
+			{ defer: true },
+		),
+	);
+
 	onMount(() => {
-		if (!iframe) return;
-		initializeIFrameEventListeners();
+		initializeWebviewEventListeners();
+		devToolsInterval = setInterval(devToolsIntervalHandler, 1e3);
 	});
 
-	const initializeIFrameEventListeners = () => {
-		window.addEventListener("message", (e) => {
-			console.log(e);
+	onCleanup(() => {
+		clearInterval(devToolsInterval);
+	});
+
+	const devToolsIntervalHandler = () => {
+		if (webview.isDevToolsOpened() && !inspectElement()) {
+			setInspectElement(true);
+		} else if (!webview.isDevToolsOpened() && inspectElement()) {
+			setInspectElement(false);
+		}
+	};
+
+	const initializeWebviewEventListeners = async () => {
+		if (!webview) return;
+
+		webview.addEventListener("ipc-message", (event) => {
+			console.log("Received message from webview:", event.channel, event.args);
+
+			// Handle the message based on its content
+		});
+
+		webview.addEventListener("dom-ready", async () => {
+			await webview.executeJavaScript(`
+				const { ipcRenderer } = require('electron');
+				window.TelegramWebviewProxy = {
+					postEvent: (eventType, eventData) => {
+						console.log({eventType, eventData});
+						ipcRenderer.sendToHost({eventType, eventData});
+					},
+				};
+			`);
 		});
 	};
 
@@ -199,11 +249,8 @@ const ViewportIOS: Component<{
 						</div>
 					</header>
 					<section>
-						<iframe
-							ref={iframe}
-							title={props.platform}
-							src={props.project.url}
-						/>
+						{/* @ts-ignore */}
+						<webview ref={webview} src={props.project.url} nodeintegration />
 					</section>
 					<BottomBar platform={props.platform} />
 				</section>
@@ -217,6 +264,7 @@ const ViewportAndroid: Component<{
 	platform: TelegramPlatform;
 	signalMode: Signal<ThemeMode>;
 	singnalExpanded: Signal<boolean>;
+	singnalInspectElement: Signal<boolean>;
 }> = (props) => {
 	return (
 		<AndroidFrame>
@@ -235,6 +283,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 	const [expanded, setExpanded] = createSignal(
 		props.project.settings.ios.expanded,
 	);
+	const [inspectElement, setInspectElement] = createSignal(false);
 
 	createEffect(async () => {
 		props.project.settings.ios.mode = mode();
@@ -248,6 +297,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				title="Telegram iOS"
 				signalMode={[mode, setMode]}
 				singnalExpanded={[expanded, setExpanded]}
+				singnalInspectElement={[inspectElement, setInspectElement]}
 			/>
 
 			<ViewportIOS
@@ -255,6 +305,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				platform={platform}
 				signalMode={[mode, setMode]}
 				singnalExpanded={[expanded, setExpanded]}
+				singnalInspectElement={[inspectElement, setInspectElement]}
 			/>
 		</div>
 	);
@@ -270,6 +321,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 	const [expanded, setExpanded] = createSignal(
 		props.project.settings.android.expanded,
 	);
+	const [inspectElement, setInspectElement] = createSignal(false);
 
 	createEffect(async () => {
 		props.project.settings.android.mode = mode();
@@ -283,6 +335,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				title="Telegram Android"
 				signalMode={[mode, setMode]}
 				singnalExpanded={[expanded, setExpanded]}
+				singnalInspectElement={[inspectElement, setInspectElement]}
 			/>
 
 			<ViewportAndroid
@@ -290,6 +343,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				platform={platform}
 				signalMode={[mode, setMode]}
 				singnalExpanded={[expanded, setExpanded]}
+				singnalInspectElement={[inspectElement, setInspectElement]}
 			/>
 		</div>
 	);
@@ -307,8 +361,10 @@ const HeaderSection: Component<{
 	title: string;
 	signalMode: Signal<ThemeMode>;
 	singnalExpanded: Signal<boolean>;
+	singnalInspectElement: Signal<boolean>;
 }> = (props) => {
 	const [mode, setMode] = props.signalMode;
+	const [inspectElement, setInspectElement] = props.singnalInspectElement;
 	const [expanded, setExpanded] = props.singnalExpanded;
 
 	return (
@@ -316,6 +372,18 @@ const HeaderSection: Component<{
 			<h2>{props.title}</h2>
 
 			<ul>
+				<li>
+					<ToggleButton
+						class="toggle-button"
+						style={{ "font-size": "1.325rem" }}
+						title="Inspect Element"
+						pressed={inspectElement()}
+						onChange={() => setInspectElement(!inspectElement())}
+					>
+						{() => <FaSolidCode />}
+					</ToggleButton>
+				</li>
+
 				<li>
 					<ToggleButton
 						class="toggle-button"

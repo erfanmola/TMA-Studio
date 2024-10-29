@@ -21,4 +21,13 @@
         rgba(208, 214, 140, 1) 100%
     );
     --telegram-android-bg-gradient-light: var(--telegram-ios-bg-gradient-light);
+
+    --telegram-ios-bg-gradient-dark: linear-gradient(
+        135deg,
+        rgba(32, 46, 32, 1) 0%,
+        rgba(64, 46, 64, 1) 40%,
+        rgba(64, 46, 64, 1) 60%,
+        rgba(32, 46, 32, 1) 100%
+    );
+    --telegram-android-bg-gradient-dark: var(--telegram-ios-bg-gradient-dark);
 }

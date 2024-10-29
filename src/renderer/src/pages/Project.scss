@@ -134,6 +134,16 @@
         }
     }
 
+    &.dark {
+        > div:nth-child(3) {
+            background: var(--telegram-ios-bg-gradient-dark);
+
+            &::before {
+                filter: invert(1);
+            }
+        }
+    }
+
     > div:nth-child(3) {
         display: flex;
         content: "";
@@ -259,8 +269,8 @@
             margin: 0;
             flex-grow: 1;
 
-            > iframe {
-                display: block;
+            > webview {
+                display: flex;
                 padding: 0;
                 margin: 0;
                 flex-grow: 1;
