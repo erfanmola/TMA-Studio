@@ -28,7 +28,7 @@ const createMainWindow = (): void => {
       nodeIntegrationInSubFrames: true,
     },
     resizable: true,
-    titleBarStyle: 'hidden',
+    titleBarStyle: 'default',
     titleBarOverlay: true,
   });
 

@@ -102,17 +102,7 @@ const ViewportIOS: Component<{
 			// Handle the message based on its content
 		});
 
-		webview.addEventListener("dom-ready", async () => {
-			await webview.executeJavaScript(`
-				const { ipcRenderer } = require('electron');
-				window.TelegramWebviewProxy = {
-					postEvent: (eventType, eventData) => {
-						console.log({eventType, eventData});
-						ipcRenderer.sendToHost({eventType, eventData});
-					},
-				};
-			`);
-		});
+		webview.addEventListener("dom-ready", async () => {});
 	};
 
 	return (
@@ -250,7 +240,12 @@ const ViewportIOS: Component<{
 					</header>
 					<section>
 						{/* @ts-ignore */}
-						<webview ref={webview} src={props.project.url} nodeintegration />
+						<webview
+							ref={webview}
+							src={props.project.url}
+							nodeintegration
+							nodeintegrationinsubframes
+						/>
 					</section>
 					<BottomBar platform={props.platform} />
 				</section>
