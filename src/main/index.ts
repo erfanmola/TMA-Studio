@@ -22,10 +22,10 @@ const createMainWindow = (): void => {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
-      webSecurity: false,
+      // webSecurity: false,
       webviewTag: true,
-      nodeIntegration: true,
-      nodeIntegrationInSubFrames: true,
+      // nodeIntegration: true,
+      // nodeIntegrationInSubFrames: true,
     },
     resizable: true,
     titleBarStyle: 'default',
@@ -40,6 +40,10 @@ const createMainWindow = (): void => {
       event.preventDefault(); // Prevents default behavior of Ctrl/Command shortcuts
       mainWindow.webContents.send('shortcut-pressed', input);
     }
+  });
+
+  mainWindow.webContents.on('will-attach-webview', (_, webPreferences) => {
+    webPreferences.preload = join(__dirname, '../preload/webview.js');
   });
 
   // WindowMain = mainWindow;

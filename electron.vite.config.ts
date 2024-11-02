@@ -13,6 +13,14 @@ export default defineConfig({
     })]
   },
   preload: {
+    build: {
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'src/preload/index.ts'),
+          webview: resolve(__dirname, 'src/preload/webview.ts'),
+        }
+      }
+    },
     plugins: [externalizeDepsPlugin({
       exclude: [
         'electron-store'
