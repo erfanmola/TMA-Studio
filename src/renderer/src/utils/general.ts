@@ -48,3 +48,28 @@ export const stringToColorDark = (str: string): string => {
 export const deserializeObject = (object: any): any => {
     return JSON.parse(JSON.stringify(object));
 };
+
+export const ksort = (obj) => {
+    const sortedKeys = Object.keys(obj).sort();
+    const sortedObj = {};
+
+    for (const key of sortedKeys) {
+        sortedObj[key] = obj[key];
+    }
+
+    return sortedObj;
+};
+
+export const buffer2Hex = (buffer) => {
+    return [...new Uint8Array(buffer)]
+    .map(x => x.toString(16).padStart(2, '0'))
+    .join('');
+};
+
+export const hex2Buffer = (hexString) => {
+    const bytes: number[] = [];
+    for (let i = 0; i < hexString.length; i += 2) {
+        bytes.push(Number.parseInt(hexString.substr(i, 2), 16));
+    }
+    return new Uint8Array(bytes);
+};

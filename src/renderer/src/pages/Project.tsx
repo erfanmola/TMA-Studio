@@ -12,6 +12,7 @@ import {
 	onMount,
 	on,
 	onCleanup,
+	createResource,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
@@ -30,6 +31,8 @@ import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
 import { FaSolidMoon, FaSolidSun } from "solid-icons/fa";
 import { useSettings } from "../contexts/SettingsContext";
 import { CgMoreO } from "solid-icons/cg";
+import { tgWebAppData } from "@renderer/utils/telegram";
+import { activeUserId, users } from "@renderer/utils/user";
 
 const ViewportIOS: Component<{
 	project: Project;
@@ -69,6 +72,8 @@ const ViewportIOS: Component<{
 				if (inspectElement() && !webview.isDevToolsOpened()) {
 					webview.openDevTools();
 				} else if (webview.isDevToolsOpened()) {
+					// TODO: remove this when the close bug fixed
+					console.log("Closed from here, debug if needed");
 					webview.closeDevTools();
 				}
 			},
@@ -76,9 +81,17 @@ const ViewportIOS: Component<{
 		),
 	);
 
-	onMount(() => {
+	const [webAppUrl] = createResource(async () => {
+		return `${props.project.url}${await tgWebAppData(
+			props.platform,
+			mode(),
+			users().find((item) => item.id === activeUserId()),
+			props.project.token,
+		)}`;
+	});
+
+	onMount(async () => {
 		initializeWebviewEventListeners();
-		devToolsInterval = setInterval(devToolsIntervalHandler, 1e3);
 	});
 
 	onCleanup(() => {
@@ -95,6 +108,10 @@ const ViewportIOS: Component<{
 
 	const initializeWebviewEventListeners = async () => {
 		if (!webview) return;
+
+		webview.addEventListener("did-attach", () => {
+			devToolsInterval = setInterval(devToolsIntervalHandler, 1e3);
+		});
 
 		webview.addEventListener("ipc-message", (event) => {
 			console.log("Received message from webview:", event.channel, event.args);
@@ -240,12 +257,7 @@ const ViewportIOS: Component<{
 					</header>
 					<section>
 						{/* @ts-ignore */}
-						<webview
-							ref={webview}
-							src={props.project.url}
-							nodeintegration
-							nodeintegrationinsubframes
-						/>
+						<webview ref={webview} src={webAppUrl()} />
 					</section>
 					<BottomBar platform={props.platform} />
 				</section>

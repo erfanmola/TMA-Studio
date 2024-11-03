@@ -48,7 +48,7 @@ const DialogAddUser: Component<{
 		if (!addButtonEnabled()) return;
 
 		const user: User = {
-			id: form.id,
+			id: Number.parseInt(form.id),
 			first_name: form.first_name,
 		};
 
@@ -67,6 +67,8 @@ const DialogAddUser: Component<{
 				user[key as keyof User] = true;
 			}
 		}
+
+		user.id = Number.parseInt(user.id.toString());
 
 		setUsers([...users(), user]);
 

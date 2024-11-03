@@ -29,7 +29,9 @@ const DialogCreateProject: Component<{
 
 	createEffect(() => {
 		setCreateButtonEnabled(
-			validator.isAlphanumeric(form.name) && validator.isURL(form.url),
+			form.name.length > 0 &&
+				form.name.length <= 64 &&
+				validator.isURL(form.url),
 		);
 	});
 

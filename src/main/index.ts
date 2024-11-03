@@ -37,8 +37,10 @@ const createMainWindow = (): void => {
       input.control ||  // Checks for Ctrl key on Windows/Linux
       input.meta        // Checks for Command key on macOS
     ) {
-      event.preventDefault(); // Prevents default behavior of Ctrl/Command shortcuts
-      mainWindow.webContents.send('shortcut-pressed', input);
+      if (!['a', 'c', 'v', 'x'].includes(input.key)) {
+        event.preventDefault(); // Prevents default behavior of Ctrl/Command shortcuts
+        mainWindow.webContents.send('shortcut-pressed', input);
+      }
     }
   });
 
