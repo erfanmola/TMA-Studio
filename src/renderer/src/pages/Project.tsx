@@ -11,11 +11,10 @@ import {
 	Show,
 	onMount,
 	on,
-	onCleanup,
 	createResource,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
-import type { Project } from "../types";
+import type { Project, TelegramMethodEvent } from "../types";
 import { projects } from "../utils/project";
 import { getNameInitials, stringToColorDark } from "../utils/general";
 import { FaSolidChevronLeft } from "solid-icons/fa";
@@ -33,6 +32,7 @@ import { useSettings } from "../contexts/SettingsContext";
 import { CgMoreO } from "solid-icons/cg";
 import { tgWebAppData } from "@renderer/utils/telegram";
 import { activeUserId, users } from "@renderer/utils/user";
+import { isColorDark } from "@renderer/utils/color";
 
 const ViewportIOS: Component<{
 	project: Project;
@@ -42,16 +42,25 @@ const ViewportIOS: Component<{
 	singnalInspectElement: Signal<boolean>;
 }> = (props) => {
 	const [mode] = props.signalMode;
-	const [expanded] = props.singnalExpanded;
+	const [expanded, setExpanded] = props.singnalExpanded;
 	const [inspectElement, setInspectElement] = props.singnalInspectElement;
 
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let webview: any;
-	let devToolsInterval: NodeJS.Timeout | undefined;
 
 	const [statusBarColor, setStatusBarColor] = createSignal<"black" | "white">(
 		"black",
 	);
+
+	const [colorHeader, setColorHeader] = createSignal<string | undefined>(
+		undefined,
+	);
+	const [colorHeaderText, setColorHeaderText] = createSignal<
+		string | undefined
+	>(undefined);
+	const [colorBackground, setColorBackground] = createSignal<
+		string | undefined
+	>(undefined);
 
 	createEffect(() => {
 		if (mode() === "dark") {
@@ -71,9 +80,7 @@ const ViewportIOS: Component<{
 			() => {
 				if (inspectElement() && !webview.isDevToolsOpened()) {
 					webview.openDevTools();
-				} else if (webview.isDevToolsOpened()) {
-					// TODO: remove this when the close bug fixed
-					console.log("Closed from here, debug if needed");
+				} else if (webview.isDevToolsOpened() && !inspectElement()) {
 					webview.closeDevTools();
 				}
 			},
@@ -94,32 +101,59 @@ const ViewportIOS: Component<{
 		initializeWebviewEventListeners();
 	});
 
-	onCleanup(() => {
-		clearInterval(devToolsInterval);
-	});
-
-	const devToolsIntervalHandler = () => {
-		if (webview.isDevToolsOpened() && !inspectElement()) {
-			setInspectElement(true);
-		} else if (!webview.isDevToolsOpened() && inspectElement()) {
-			setInspectElement(false);
-		}
-	};
-
 	const initializeWebviewEventListeners = async () => {
 		if (!webview) return;
 
+		webview.addEventListener("ipc-message", (e) => {
+			if (import.meta.env.DEV) {
+				console.log("Received message from webview:", e.channel, e.args);
+			}
+
+			if (e.channel === "method") {
+				const event: TelegramMethodEvent = e.args[0];
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+				let eventData: any = event.eventData;
+
+				try {
+					eventData = JSON.parse(eventData);
+				} catch (e) {}
+
+				switch (event.eventType) {
+					case "iframe_ready":
+						break;
+					case "web_app_expand":
+						setExpanded(true);
+						break;
+					case "web_app_set_header_color":
+						setColorHeader(eventData.color);
+						setColorHeaderText(
+							isColorDark(eventData.color) ? "#ffffff" : "#000000",
+						);
+						break;
+					case "web_app_set_background_color":
+						setColorBackground(eventData.color);
+						break;
+					case "web_app_set_bottom_bar_color":
+						break;
+					case "web_app_setup_swipe_behavior":
+						break;
+					case "web_app_setup_closing_behavior":
+						break;
+					case "web_app_trigger_haptic_feedback":
+						break;
+				}
+			}
+		});
+
 		webview.addEventListener("did-attach", () => {
-			devToolsInterval = setInterval(devToolsIntervalHandler, 1e3);
+			webview.addEventListener("devtools-opened", () => {
+				setInspectElement(true);
+			});
+
+			webview.addEventListener("devtools-closed", () => {
+				setInspectElement(false);
+			});
 		});
-
-		webview.addEventListener("ipc-message", (event) => {
-			console.log("Received message from webview:", event.channel, event.args);
-
-			// Handle the message based on its content
-		});
-
-		webview.addEventListener("dom-ready", async () => {});
 	};
 
 	return (
@@ -189,7 +223,6 @@ const ViewportIOS: Component<{
 							}}
 						>
 							<FaSolidChevronLeft />
-							Back
 						</span>
 					</div>
 					<div>
@@ -224,13 +257,19 @@ const ViewportIOS: Component<{
 					<header
 						style={{
 							"background-color":
+								colorHeader() ??
 								TelegramThemes[props.platform][mode()].headerBgColor,
+							color:
+								colorHeaderText() ??
+								TelegramThemes[props.platform][mode()].textColor,
 						}}
 					>
 						<div>
 							<span
 								style={{
-									color: TelegramThemes[props.platform][mode()].buttonColor,
+									color:
+										colorHeaderText() ??
+										TelegramThemes[props.platform][mode()].buttonColor,
 								}}
 							>
 								Close
@@ -249,13 +288,21 @@ const ViewportIOS: Component<{
 						</div>
 						<div
 							style={{
-								color: TelegramThemes[props.platform][mode()].buttonColor,
+								color:
+									colorHeaderText() ??
+									TelegramThemes[props.platform][mode()].buttonColor,
 							}}
 						>
 							<CgMoreO />
 						</div>
 					</header>
-					<section>
+					<section
+						style={{
+							"background-color":
+								colorBackground() ??
+								TelegramThemes[props.platform][mode()].bgColor,
+						}}
+					>
 						{/* @ts-ignore */}
 						<webview ref={webview} src={webAppUrl()} />
 					</section>

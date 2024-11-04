@@ -4,7 +4,7 @@ import hmac from 'js-crypto-hmac';
 import type { User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, hex2Buffer, ksort } from "./general";
 
-export const TGWebAppVersion = 7.10;
+export const TGWebAppVersion = '7.10';
 
 export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, user: User | undefined, token: string | undefined): Promise<string> => {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -22,7 +22,7 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
     webAppData.hash = await tgWebAppDataHash(webAppData, token ?? 'Nothing!');
 
     const extraData = {
-        tgWebAppVersion: TGWebAppVersion.toString(),
+        tgWebAppVersion: TGWebAppVersion,
         tgWebAppPlatform: platform,
         tgWebAppThemeParams: JSON.stringify(TelegramThemes[platform][mode]),
     };

@@ -3,9 +3,9 @@ import { contextBridge, ipcRenderer } from 'electron'
 contextBridge.exposeInMainWorld('TelegramWebviewProxy', {
     postEvent: (eventType, eventData) => {
         if (import.meta.env.DEV) {
-            console.log('Mini App Event Received', {eventType, eventData});
+            console.log('Mini App Method Emit', {eventType, eventData});
         }
         // @ts-ignore
-        ipcRenderer.sendToHost({eventType, eventData});
+        ipcRenderer.sendToHost('method', {eventType, eventData});
     },
 });

@@ -33,3 +33,8 @@ export type User = {
     is_premium?: true,
     allows_write_to_pm?: true,
 };
+
+export type TelegramMethodEvent = {
+	eventData: string;
+	eventType: string;
+};

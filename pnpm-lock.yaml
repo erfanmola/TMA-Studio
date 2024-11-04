@@ -29,6 +29,9 @@ importers:
       electron-updater:
         specifier: ^6.3.9
         version: 6.3.9
+      js-crypto-hmac:
+        specifier: ^1.0.7
+        version: 1.0.7
       solid-icons:
         specifier: ^1.1.0
         version: 1.1.0(solid-js@1.9.3)
@@ -50,10 +53,10 @@ importers:
         version: 2.0.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
-        version: 1.0.1(@types/node@22.8.6)
+        version: 1.0.1(@types/node@22.8.7)
       '@types/node':
-        specifier: ^22.8.6
-        version: 22.8.6
+        specifier: ^22.8.7
+        version: 22.8.7
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -65,7 +68,7 @@ importers:
         version: 25.1.8(electron-builder-squirrel-windows@24.13.3)
       electron-vite:
         specifier: ^2.3.0
-        version: 2.3.0(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6))
+        version: 2.3.0(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
       eslint:
         specifier: ^9.14.0
         version: 9.14.0(jiti@1.21.6)
@@ -95,10 +98,10 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.10
-        version: 5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)
+        version: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
       vite-plugin-solid:
         specifier: ^2.10.2
-        version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6))
+        version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
 
 packages:
 
@@ -785,8 +788,8 @@ packages:
   '@types/node@20.17.1':
     resolution: {integrity: sha512-j2VlPv1NnwPJbaCNv69FO/1z4lId0QmGvpT41YxitRtWlg96g/j8qcv2RKsLKe2F6OJgyXhupN1Xo17b2m139Q==}
 
-  '@types/node@22.8.6':
-    resolution: {integrity: sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==}
+  '@types/node@22.8.7':
+    resolution: {integrity: sha512-LidcG+2UeYIWcMuMUpBKOnryBWG/rnmOHQR5apjn8myTQcx3rinFRn7DcIFhMnS0PPFSC6OafdIKEad0lj6U0Q==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -1168,6 +1171,9 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
+  charenc@0.0.2:
+    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
@@ -1293,6 +1299,9 @@ packages:
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
+
+  crypt@0.0.2:
+    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1811,6 +1820,9 @@ packages:
   has-unicode@2.0.1:
     resolution: {integrity: sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ==}
 
+  hash.js@1.1.7:
+    resolution: {integrity: sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==}
+
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
@@ -1913,6 +1925,9 @@ packages:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
     engines: {node: '>=8'}
 
+  is-buffer@1.1.6:
+    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
+
   is-ci@3.0.1:
     resolution: {integrity: sha512-ZYvCgrefwqoQ6yTyYUbQu64HsITZ3NfKX1lzaEYdkTDcfKzzCI/wthRRYKkdjHKFVgNiXKAKm65Zo1pk2as/QQ==}
     hasBin: true
@@ -1984,6 +1999,15 @@ packages:
   jiti@1.21.6:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
+
+  js-crypto-env@1.0.5:
+    resolution: {integrity: sha512-8/UNN3sG8J+yMzqwSNVaobaWhIz4MqZFoOg5OB0DFXqS8eFjj2YvdmLJqIWXPl57Yw10SvYx0DQOtkfsWIV9Aw==}
+
+  js-crypto-hash@1.0.7:
+    resolution: {integrity: sha512-GdbcVKjplbXJdR9oF2ks8+sBCLD7BUZ144Bc+Ie8OJuBHSIiHyMzdg2eD+ZYf87awTsKckNn1xIv+31+V2ewcA==}
+
+  js-crypto-hmac@1.0.7:
+    resolution: {integrity: sha512-OVn2wjAuOV7ToQYvRKY2VoElCHoRW7BepycPPuH73xbLygDczkef41YsXMpKLnVAyS5kdwMJQy9qlMR9touHTg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2127,6 +2151,9 @@ packages:
     resolution: {integrity: sha512-OkeDaAZ/bQCxeFAozM55PKcKU0yJMPGifLwV4Qgjitu+5MoAfSQN4lsLJeXZ1b8w0x+/Emda6MZgXS1jvsapng==}
     engines: {node: '>=10'}
 
+  md5@2.3.0:
+    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
+
   merge-anything@5.1.7:
     resolution: {integrity: sha512-eRtbOb1N5iyH0tkQDAoQ4Ipsp/5qSR79Dzrz8hEPxRX10RWWR/iQXdoKmBSRCThY1Fh5EhISDtpSc93fpxUniQ==}
     engines: {node: '>=12.13'}
@@ -2172,6 +2199,9 @@ packages:
   mimic-response@3.1.0:
     resolution: {integrity: sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==}
     engines: {node: '>=10'}
+
+  minimalistic-assert@1.0.1:
+    resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
 
   minimatch@10.0.1:
     resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
@@ -2771,6 +2801,9 @@ packages:
   set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
 
+  sha3@2.1.4:
+    resolution: {integrity: sha512-S8cNxbyb0UGUM2VhRD4Poe5N58gJnJsLJ5vC7FYWGUmGhcsj4++WaIOBFVDxlG0W3To6xBuiRh+i0Qp2oNCOtg==}
+
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -3354,9 +3387,9 @@ snapshots:
     dependencies:
       electron: 33.0.2
 
-  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.8.6)':
+  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.8.7)':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
 
   '@electron-toolkit/utils@3.0.0(electron@33.0.2)':
     dependencies:
@@ -3888,7 +3921,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -3899,7 +3932,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -3907,7 +3940,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
 
   '@types/ms@0.7.34': {}
 
@@ -3915,26 +3948,26 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.8.6':
+  '@types/node@22.8.7':
     dependencies:
       undici-types: 6.19.8
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
       xmlbuilder: 15.1.1
     optional: true
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
 
   '@types/verror@1.10.10':
     optional: true
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)':
@@ -4472,6 +4505,8 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  charenc@0.0.2: {}
+
   chokidar@3.6.0:
     dependencies:
       anymatch: 3.1.3
@@ -4602,6 +4637,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  crypt@0.0.2: {}
 
   cssesc@3.0.0: {}
 
@@ -4813,7 +4850,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.3.0(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)):
+  electron-vite@2.3.0(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.0)
@@ -4821,7 +4858,7 @@ snapshots:
       esbuild: 0.21.5
       magic-string: 0.30.12
       picocolors: 1.1.1
-      vite: 5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)
+      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -5275,6 +5312,11 @@ snapshots:
 
   has-unicode@2.0.1: {}
 
+  hash.js@1.1.7:
+    dependencies:
+      inherits: 2.0.4
+      minimalistic-assert: 1.0.1
+
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
@@ -5383,6 +5425,8 @@ snapshots:
     dependencies:
       binary-extensions: 2.3.0
 
+  is-buffer@1.1.6: {}
+
   is-ci@3.0.1:
     dependencies:
       ci-info: 3.9.0
@@ -5437,6 +5481,21 @@ snapshots:
       minimatch: 3.1.2
 
   jiti@1.21.6: {}
+
+  js-crypto-env@1.0.5: {}
+
+  js-crypto-hash@1.0.7:
+    dependencies:
+      buffer: 6.0.3
+      hash.js: 1.1.7
+      js-crypto-env: 1.0.5
+      md5: 2.3.0
+      sha3: 2.1.4
+
+  js-crypto-hmac@1.0.7:
+    dependencies:
+      js-crypto-env: 1.0.5
+      js-crypto-hash: 1.0.7
 
   js-tokens@4.0.0: {}
 
@@ -5572,6 +5631,12 @@ snapshots:
       escape-string-regexp: 4.0.0
     optional: true
 
+  md5@2.3.0:
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
+
   merge-anything@5.1.7:
     dependencies:
       is-what: 4.1.16
@@ -5600,6 +5665,8 @@ snapshots:
   mimic-response@1.0.1: {}
 
   mimic-response@3.1.0: {}
+
+  minimalistic-assert@1.0.1: {}
 
   minimatch@10.0.1:
     dependencies:
@@ -6152,6 +6219,10 @@ snapshots:
 
   set-blocking@2.0.0: {}
 
+  sha3@2.1.4:
+    dependencies:
+      buffer: 6.0.3
+
   shebang-command@2.0.0:
     dependencies:
       shebang-regex: 3.0.0
@@ -6488,7 +6559,7 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)):
+  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -6496,24 +6567,24 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.3
       solid-refresh: 0.6.3(solid-js@1.9.3)
-      vite: 5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)
-      vitefu: 0.2.5(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6))
+      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
+      vitefu: 0.2.5(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6):
+  vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.24.0
     optionalDependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
       fsevents: 2.3.3
       sass-embedded: 1.80.6
 
-  vitefu@0.2.5(vite@5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)):
+  vitefu@0.2.5(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.8.6)(sass-embedded@1.80.6)
+      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
 
   wcwidth@1.0.1:
     dependencies:
