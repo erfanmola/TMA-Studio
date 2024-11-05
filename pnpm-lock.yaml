@@ -53,10 +53,10 @@ importers:
         version: 2.0.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
-        version: 1.0.1(@types/node@22.8.7)
+        version: 1.0.1(@types/node@22.9.0)
       '@types/node':
-        specifier: ^22.8.7
-        version: 22.8.7
+        specifier: ^22.9.0
+        version: 22.9.0
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
@@ -68,7 +68,7 @@ importers:
         version: 25.1.8(electron-builder-squirrel-windows@24.13.3)
       electron-vite:
         specifier: ^2.3.0
-        version: 2.3.0(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
+        version: 2.3.0(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6))
       eslint:
         specifier: ^9.14.0
         version: 9.14.0(jiti@1.21.6)
@@ -98,10 +98,10 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.4.10
-        version: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
+        version: 5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)
       vite-plugin-solid:
         specifier: ^2.10.2
-        version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
+        version: 2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6))
 
 packages:
 
@@ -788,8 +788,8 @@ packages:
   '@types/node@20.17.1':
     resolution: {integrity: sha512-j2VlPv1NnwPJbaCNv69FO/1z4lId0QmGvpT41YxitRtWlg96g/j8qcv2RKsLKe2F6OJgyXhupN1Xo17b2m139Q==}
 
-  '@types/node@22.8.7':
-    resolution: {integrity: sha512-LidcG+2UeYIWcMuMUpBKOnryBWG/rnmOHQR5apjn8myTQcx3rinFRn7DcIFhMnS0PPFSC6OafdIKEad0lj6U0Q==}
+  '@types/node@22.9.0':
+    resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -3387,9 +3387,9 @@ snapshots:
     dependencies:
       electron: 33.0.2
 
-  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.8.7)':
+  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.9.0)':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
 
   '@electron-toolkit/utils@3.0.0(electron@33.0.2)':
     dependencies:
@@ -3921,7 +3921,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -3932,7 +3932,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -3940,7 +3940,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
 
   '@types/ms@0.7.34': {}
 
@@ -3948,26 +3948,26 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.8.7':
+  '@types/node@22.9.0':
     dependencies:
       undici-types: 6.19.8
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
       xmlbuilder: 15.1.1
     optional: true
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
 
   '@types/verror@1.10.10':
     optional: true
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.14.0(jiti@1.21.6))(typescript@5.6.3)':
@@ -4850,7 +4850,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.3.0(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
+  electron-vite@2.3.0(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.0)
@@ -4858,7 +4858,7 @@ snapshots:
       esbuild: 0.21.5
       magic-string: 0.30.12
       picocolors: 1.1.1
-      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
+      vite: 5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -6559,7 +6559,7 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
+  vite-plugin-solid@2.10.2(solid-js@1.9.3)(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -6567,24 +6567,24 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.3
       solid-refresh: 0.6.3(solid-js@1.9.3)
-      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
-      vitefu: 0.2.5(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6))
+      vite: 5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)
+      vitefu: 0.2.5(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6))
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6):
+  vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.24.0
     optionalDependencies:
-      '@types/node': 22.8.7
+      '@types/node': 22.9.0
       fsevents: 2.3.3
       sass-embedded: 1.80.6
 
-  vitefu@0.2.5(vite@5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)):
+  vitefu@0.2.5(vite@5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)):
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.8.7)(sass-embedded@1.80.6)
+      vite: 5.4.10(@types/node@22.9.0)(sass-embedded@1.80.6)
 
   wcwidth@1.0.1:
     dependencies:

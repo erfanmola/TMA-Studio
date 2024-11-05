@@ -1,5 +1,6 @@
 import "./Project.scss";
 import { ToggleButton } from "@kobalte/core/toggle-button";
+import webviewStyle from "../scss/_webview.scss?inline";
 
 import { AndroidFrame, IPhoneFrame } from "../components/DeviceFrames";
 
@@ -12,6 +13,7 @@ import {
 	onMount,
 	on,
 	createResource,
+	onCleanup,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project, TelegramMethodEvent } from "../types";
@@ -51,6 +53,8 @@ const ViewportIOS: Component<{
 	const [statusBarColor, setStatusBarColor] = createSignal<"black" | "white">(
 		"black",
 	);
+
+	const [shake, setShake] = createSignal(false);
 
 	const [colorHeader, setColorHeader] = createSignal<string | undefined>(
 		undefined,
@@ -98,10 +102,10 @@ const ViewportIOS: Component<{
 	});
 
 	onMount(async () => {
-		initializeWebviewEventListeners();
+		initializeWebview();
 	});
 
-	const initializeWebviewEventListeners = async () => {
+	const initializeWebview = async () => {
 		if (!webview) return;
 
 		webview.addEventListener("ipc-message", (e) => {
@@ -139,8 +143,53 @@ const ViewportIOS: Component<{
 						break;
 					case "web_app_setup_closing_behavior":
 						break;
-					case "web_app_trigger_haptic_feedback":
+					case "web_app_trigger_haptic_feedback": {
+						setShake(true);
+						let shakeTimeout = 2e2;
+
+						switch (eventData.type) {
+							case "notification":
+								switch (eventData.notification_type) {
+									case "success":
+										shakeTimeout = 1e2;
+										break;
+									case "warning":
+										shakeTimeout = 1e2;
+										break;
+									case "error":
+										shakeTimeout = 3e2;
+										break;
+								}
+								break;
+
+							case "impact":
+								switch (eventData.impact_style) {
+									case "light":
+										shakeTimeout = 1e2;
+										break;
+									case "medium":
+										shakeTimeout = 2e2;
+										break;
+									case "heavy":
+										shakeTimeout = 3e2;
+										break;
+									case "rigid":
+										shakeTimeout = 4e2;
+										break;
+									case "soft":
+										shakeTimeout = 150;
+										break;
+								}
+								break;
+
+							case "selection_change":
+								shakeTimeout = 5e1;
+								break;
+						}
+
+						setTimeout(() => setShake(false), shakeTimeout);
 						break;
+					}
 				}
 			}
 		});
@@ -154,13 +203,26 @@ const ViewportIOS: Component<{
 				setInspectElement(false);
 			});
 		});
+
+		webview.addEventListener("dom-ready", () => {
+			webview.insertCSS(webviewStyle);
+		});
+
+		onCleanup(() => {
+			if (webview?.isDevToolsOpened) {
+				webview.closeDevTools();
+			}
+		});
 	};
 
 	return (
-		<IPhoneFrame>
+		<IPhoneFrame classList={{ shake: shake() }}>
 			<div
 				id="viewport-telegram-ios"
-				classList={{ expanded: expanded(), dark: mode() === "dark" }}
+				classList={{
+					expanded: expanded(),
+					dark: mode() === "dark",
+				}}
 			>
 				{/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
 				<svg
