@@ -1,4 +1,11 @@
 
+export type HEXColor = `#${string}`;
+
+export const isHexColor = (color: string): boolean => {
+  const hexColorRegex = /^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{4}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/;
+  return hexColorRegex.test(color);
+}
+
 export const isColorDark = (colorInput: string) => {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     let color: any = colorInput;

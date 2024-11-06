@@ -32,20 +32,23 @@ import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
 import { FaSolidMoon, FaSolidSun } from "solid-icons/fa";
 import { useSettings } from "../contexts/SettingsContext";
 import { CgMoreO } from "solid-icons/cg";
-import { tgWebAppData } from "@renderer/utils/telegram";
+import {
+	tgEmitEvent,
+	tgEventHandler,
+	tgWebAppData,
+} from "@renderer/utils/telegram";
 import { activeUserId, users } from "@renderer/utils/user";
-import { isColorDark } from "@renderer/utils/color";
 
 const ViewportIOS: Component<{
 	project: Project;
 	platform: TelegramPlatform;
 	signalMode: Signal<ThemeMode>;
-	singnalExpanded: Signal<boolean>;
-	singnalInspectElement: Signal<boolean>;
+	signalExpanded: Signal<boolean>;
+	signalInspectElement: Signal<boolean>;
 }> = (props) => {
 	const [mode] = props.signalMode;
-	const [expanded, setExpanded] = props.singnalExpanded;
-	const [inspectElement, setInspectElement] = props.singnalInspectElement;
+	const [expanded] = props.signalExpanded;
+	const [inspectElement, setInspectElement] = props.signalInspectElement;
 
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let webview: any;
@@ -66,6 +69,7 @@ const ViewportIOS: Component<{
 		string | undefined
 	>(undefined);
 
+	// Set Statusbar color based on theme colorScheme
 	createEffect(() => {
 		if (mode() === "dark") {
 			setStatusBarColor("white");
@@ -78,6 +82,48 @@ const ViewportIOS: Component<{
 		}
 	});
 
+	// Notify the webview about theme change
+	createEffect(
+		on(
+			mode,
+			() => {
+				tgEmitEvent(
+					"theme_changed",
+					{
+						theme_params: TelegramThemes[props.platform][mode()],
+					},
+					webview,
+					props.platform,
+				);
+			},
+			{ defer: true },
+		),
+	);
+
+	// Notify the webview about viewport change
+	createEffect(
+		on(
+			expanded,
+			() => {
+				const { width, height } = webview.getBoundingClientRect();
+
+				tgEmitEvent(
+					"viewport_changed",
+					{
+						height: Math.round(height),
+						width: Math.round(width),
+						is_expanded: expanded(),
+						is_state_stable: true,
+					},
+					webview,
+					props.platform,
+				);
+			},
+			{ defer: true },
+		),
+	);
+
+	// Sync inspect element indicator and actual open/close state
 	createEffect(
 		on(
 			inspectElement,
@@ -114,83 +160,17 @@ const ViewportIOS: Component<{
 			}
 
 			if (e.channel === "method") {
-				const event: TelegramMethodEvent = e.args[0];
-				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-				let eventData: any = event.eventData;
-
-				try {
-					eventData = JSON.parse(eventData);
-				} catch (e) {}
-
-				switch (event.eventType) {
-					case "iframe_ready":
-						break;
-					case "web_app_expand":
-						setExpanded(true);
-						break;
-					case "web_app_set_header_color":
-						setColorHeader(eventData.color);
-						setColorHeaderText(
-							isColorDark(eventData.color) ? "#ffffff" : "#000000",
-						);
-						break;
-					case "web_app_set_background_color":
-						setColorBackground(eventData.color);
-						break;
-					case "web_app_set_bottom_bar_color":
-						break;
-					case "web_app_setup_swipe_behavior":
-						break;
-					case "web_app_setup_closing_behavior":
-						break;
-					case "web_app_trigger_haptic_feedback": {
-						setShake(true);
-						let shakeTimeout = 2e2;
-
-						switch (eventData.type) {
-							case "notification":
-								switch (eventData.notification_type) {
-									case "success":
-										shakeTimeout = 1e2;
-										break;
-									case "warning":
-										shakeTimeout = 1e2;
-										break;
-									case "error":
-										shakeTimeout = 3e2;
-										break;
-								}
-								break;
-
-							case "impact":
-								switch (eventData.impact_style) {
-									case "light":
-										shakeTimeout = 1e2;
-										break;
-									case "medium":
-										shakeTimeout = 2e2;
-										break;
-									case "heavy":
-										shakeTimeout = 3e2;
-										break;
-									case "rigid":
-										shakeTimeout = 4e2;
-										break;
-									case "soft":
-										shakeTimeout = 150;
-										break;
-								}
-								break;
-
-							case "selection_change":
-								shakeTimeout = 5e1;
-								break;
-						}
-
-						setTimeout(() => setShake(false), shakeTimeout);
-						break;
-					}
-				}
+				tgEventHandler(
+					e.args[0] as TelegramMethodEvent,
+					webview,
+					props.platform,
+					props.signalMode,
+					props.signalExpanded,
+					[shake, setShake],
+					[colorHeader, setColorHeader],
+					[colorHeaderText, setColorHeaderText],
+					[colorBackground, setColorBackground],
+				);
 			}
 		});
 
@@ -274,14 +254,14 @@ const ViewportIOS: Component<{
 				</svg>
 				<header
 					style={{
-						"background-color": TelegramThemes[props.platform][mode()].bgColor,
-						color: TelegramThemes[props.platform][mode()].textColor,
+						"background-color": TelegramThemes[props.platform][mode()].bg_color,
+						color: TelegramThemes[props.platform][mode()].text_color,
 					}}
 				>
 					<div>
 						<span
 							style={{
-								color: TelegramThemes[props.platform][mode()].buttonColor,
+								color: TelegramThemes[props.platform][mode()].button_color,
 							}}
 						>
 							<FaSolidChevronLeft />
@@ -291,7 +271,8 @@ const ViewportIOS: Component<{
 						<h2>{props.project.name}</h2>
 						<span
 							style={{
-								color: TelegramThemes[props.platform][mode()].subtitleTextColor,
+								color:
+									TelegramThemes[props.platform][mode()].subtitle_text_color,
 							}}
 						>
 							bot
@@ -312,18 +293,18 @@ const ViewportIOS: Component<{
 				<section
 					classList={{ expanded: expanded(), dark: mode() === "dark" }}
 					style={{
-						"background-color": TelegramThemes[props.platform][mode()].bgColor,
-						color: TelegramThemes[props.platform][mode()].textColor,
+						"background-color": TelegramThemes[props.platform][mode()].bg_color,
+						color: TelegramThemes[props.platform][mode()].text_color,
 					}}
 				>
 					<header
 						style={{
 							"background-color":
 								colorHeader() ??
-								TelegramThemes[props.platform][mode()].headerBgColor,
+								TelegramThemes[props.platform][mode()].header_bg_color,
 							color:
 								colorHeaderText() ??
-								TelegramThemes[props.platform][mode()].textColor,
+								TelegramThemes[props.platform][mode()].text_color,
 						}}
 					>
 						<div>
@@ -331,7 +312,7 @@ const ViewportIOS: Component<{
 								style={{
 									color:
 										colorHeaderText() ??
-										TelegramThemes[props.platform][mode()].buttonColor,
+										TelegramThemes[props.platform][mode()].button_color,
 								}}
 							>
 								Close
@@ -342,7 +323,7 @@ const ViewportIOS: Component<{
 							<span
 								style={{
 									color:
-										TelegramThemes[props.platform][mode()].subtitleTextColor,
+										TelegramThemes[props.platform][mode()].subtitle_text_color,
 								}}
 							>
 								mini app
@@ -352,7 +333,7 @@ const ViewportIOS: Component<{
 							style={{
 								color:
 									colorHeaderText() ??
-									TelegramThemes[props.platform][mode()].buttonColor,
+									TelegramThemes[props.platform][mode()].button_color,
 							}}
 						>
 							<CgMoreO />
@@ -362,7 +343,7 @@ const ViewportIOS: Component<{
 						style={{
 							"background-color":
 								colorBackground() ??
-								TelegramThemes[props.platform][mode()].bgColor,
+								TelegramThemes[props.platform][mode()].bg_color,
 						}}
 					>
 						{/* @ts-ignore */}
@@ -379,8 +360,8 @@ const ViewportAndroid: Component<{
 	project: Project;
 	platform: TelegramPlatform;
 	signalMode: Signal<ThemeMode>;
-	singnalExpanded: Signal<boolean>;
-	singnalInspectElement: Signal<boolean>;
+	signalExpanded: Signal<boolean>;
+	signalInspectElement: Signal<boolean>;
 }> = (props) => {
 	return (
 		<AndroidFrame>
@@ -412,16 +393,16 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 			<HeaderSection
 				title="Telegram iOS"
 				signalMode={[mode, setMode]}
-				singnalExpanded={[expanded, setExpanded]}
-				singnalInspectElement={[inspectElement, setInspectElement]}
+				signalExpanded={[expanded, setExpanded]}
+				signalInspectElement={[inspectElement, setInspectElement]}
 			/>
 
 			<ViewportIOS
 				project={props.project}
 				platform={platform}
 				signalMode={[mode, setMode]}
-				singnalExpanded={[expanded, setExpanded]}
-				singnalInspectElement={[inspectElement, setInspectElement]}
+				signalExpanded={[expanded, setExpanded]}
+				signalInspectElement={[inspectElement, setInspectElement]}
 			/>
 		</div>
 	);
@@ -450,16 +431,16 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 			<HeaderSection
 				title="Telegram Android"
 				signalMode={[mode, setMode]}
-				singnalExpanded={[expanded, setExpanded]}
-				singnalInspectElement={[inspectElement, setInspectElement]}
+				signalExpanded={[expanded, setExpanded]}
+				signalInspectElement={[inspectElement, setInspectElement]}
 			/>
 
 			<ViewportAndroid
 				project={props.project}
 				platform={platform}
 				signalMode={[mode, setMode]}
-				singnalExpanded={[expanded, setExpanded]}
-				singnalInspectElement={[inspectElement, setInspectElement]}
+				signalExpanded={[expanded, setExpanded]}
+				signalInspectElement={[inspectElement, setInspectElement]}
 			/>
 		</div>
 	);
@@ -476,12 +457,12 @@ const BottomBar: Component<{ platform: TelegramPlatform }> = (props) => {
 const HeaderSection: Component<{
 	title: string;
 	signalMode: Signal<ThemeMode>;
-	singnalExpanded: Signal<boolean>;
-	singnalInspectElement: Signal<boolean>;
+	signalExpanded: Signal<boolean>;
+	signalInspectElement: Signal<boolean>;
 }> = (props) => {
 	const [mode, setMode] = props.signalMode;
-	const [inspectElement, setInspectElement] = props.singnalInspectElement;
-	const [expanded, setExpanded] = props.singnalExpanded;
+	const [inspectElement, setInspectElement] = props.signalInspectElement;
+	const [expanded, setExpanded] = props.signalExpanded;
 
 	return (
 		<header>

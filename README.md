@@ -1,34 +1,73 @@
-# tma-studio
+# Telegram Mini App Studio
 
-An Electron application with Solid and TypeScript
+## Parameters Support
+- [x] initData
+- [x] initDataUnsafe
+- [x] version
+- [x] platform
+- [x] colorScheme
+- [x] themeParams
+- [x] isExpanded
+- [x] viewportHeight
+- [x] viewportStableHeight
+- [x] headerColor
+- [x] backgroundColor
+- [x] bottomBarColor
+- [x] isClosingConfirmationEnabled
+- [x] isVerticalSwipesEnabled
 
-## Recommended IDE Setup
+## Managers Support
+- [ ] BackButton
+- [ ] MainButton
+- [ ] SecondaryButton
+- [ ] SettingsButton
+- [ ] HapticFeedback
+- [ ] CloudStorage
+- [ ] BiometricManager
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+## Methods Support
+- [x] isVersionAtLeast
+- [x] setHeaderColor
+- [x] setBackgroundColor
+- [x] setBottomBarColor
+- [ ] enableClosingConfirmation
+- [ ] disableClosingConfirmation
+- [ ] enableVerticalSwipes
+- [ ] disableVerticalSwipes
+- [x] onEvent
+- [x] offEvent
+- [ ] sendData
+- [ ] switchInlineQuery
+- [ ] openLink
+- [ ] openTelegramLink
+- [ ] openInvoice
+- [ ] shareToStory
+- [ ] showPopup
+- [ ] showAlert
+- [ ] showConfirm
+- [ ] showScanQrPopup
+- [ ] closeScanQrPopup
+- [ ] readTextFromClipboard
+- [ ] requestWriteAccess
+- [ ] requestContact
+- [ ] ready
+- [x] expand
+- [ ] close
 
-## Project Setup
-
-### Install
-
-```bash
-$ npm install
-```
-
-### Development
-
-```bash
-$ npm run dev
-```
-
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
-```
+## Events Support
+- [x] themeChanged
+- [x] viewportChanged
+- [ ] mainButtonClicked
+- [ ] secondaryButtonClicked
+- [ ] backButtonClicked
+- [ ] settingsButtonClicked
+- [ ] invoiceClosed
+- [ ] popupClosed
+- [ ] qrTextReceived
+- [ ] scanQrPopupClosed
+- [ ] clipboardTextReceived
+- [ ] writeAccessRequested
+- [ ] contactRequested
+- [ ] biometricManagerUpdated
+- [ ] biometricAuthRequested
+- [ ] biometricTokenUpdated
