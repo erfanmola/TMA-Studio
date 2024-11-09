@@ -42,9 +42,9 @@
 - [ ] openTelegramLink
 - [ ] openInvoice
 - [ ] shareToStory
-- [ ] showPopup
-- [ ] showAlert
-- [ ] showConfirm
+- [x] showPopup
+- [x] showAlert
+- [x] showConfirm
 - [ ] showScanQrPopup
 - [ ] closeScanQrPopup
 - [ ] readTextFromClipboard

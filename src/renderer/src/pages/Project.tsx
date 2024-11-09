@@ -14,9 +14,14 @@ import {
 	on,
 	createResource,
 	onCleanup,
+	For,
+	Switch,
+	Match,
+	Suspense,
+	batch,
 } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
-import type { Project, TelegramMethodEvent } from "../types";
+import type { Project, TelegramMethodEvent, TelegramPopup } from "../types";
 import { projects } from "../utils/project";
 import { getNameInitials, stringToColorDark } from "../utils/general";
 import { FaSolidChevronLeft } from "solid-icons/fa";
@@ -49,6 +54,10 @@ const ViewportIOS: Component<{
 	const [mode] = props.signalMode;
 	const [expanded] = props.signalExpanded;
 	const [inspectElement, setInspectElement] = props.signalInspectElement;
+	const [popup, setPopup] = createSignal<TelegramPopup | undefined>(undefined);
+	const [popupPressId, setPopupPressID] = createSignal<string | undefined>(
+		undefined,
+	);
 
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let webview: any;
@@ -138,6 +147,43 @@ const ViewportIOS: Component<{
 		),
 	);
 
+	// Reset the buttonId of previous popups, if any
+	createEffect(
+		on(
+			popup,
+			() => {
+				if (popup()) {
+					setPopupPressID(undefined);
+				}
+			},
+			{
+				defer: true,
+			},
+		),
+	);
+
+	// Notify the webview about popup close
+	createEffect(
+		on(
+			popupPressId,
+			() => {
+				if (typeof popupPressId() === "string") {
+					tgEmitEvent(
+						"popup_closed",
+						{
+							button_id: popupPressId(),
+						},
+						webview,
+						props.platform,
+					);
+				}
+			},
+			{
+				defer: true,
+			},
+		),
+	);
+
 	const [webAppUrl] = createResource(async () => {
 		return `${props.project.url}${await tgWebAppData(
 			props.platform,
@@ -167,6 +213,7 @@ const ViewportIOS: Component<{
 					props.signalMode,
 					props.signalExpanded,
 					[shake, setShake],
+					[popup, setPopup],
 					[colorHeader, setColorHeader],
 					[colorHeaderText, setColorHeaderText],
 					[colorBackground, setColorBackground],
@@ -351,6 +398,15 @@ const ViewportIOS: Component<{
 					</section>
 					<BottomBar platform={props.platform} />
 				</section>
+
+				<Show when={popup()}>
+					<PopupHandler
+						platform={props.platform}
+						mode={mode()}
+						signalPopup={[popup, setPopup]}
+						signalPopupPressId={[popupPressId, setPopupPressID]}
+					/>
+				</Show>
 			</div>
 		</IPhoneFrame>
 	);
@@ -450,6 +506,81 @@ const BottomBar: Component<{ platform: TelegramPlatform }> = (props) => {
 	return (
 		<Show when={false}>
 			<div id="section-telegram-bottombar">Bottom Bar in {props.platform}</div>
+		</Show>
+	);
+};
+
+const PopupHandler: Component<{
+	platform: TelegramPlatform;
+	mode: ThemeMode;
+	signalPopup: Signal<TelegramPopup | undefined>;
+	signalPopupPressId: Signal<string | undefined>;
+}> = (props) => {
+	const [popup, setPopup] = props.signalPopup;
+	const [, setPopupPressID] = props.signalPopupPressId;
+
+	const onClickButton = (id: string) => {
+		batch(() => {
+			setPopup(undefined);
+			setPopupPressID(id ?? "");
+		});
+	};
+
+	return (
+		<Show when={popup()}>
+			<div class={`popup-overlay ${props.platform} ${props.mode}`}>
+				<div
+					onClick={() => onClickButton("")}
+					onKeyUp={() => onClickButton("")}
+				/>
+
+				<section>
+					<div>
+						<Show when={popup()?.title}>
+							<b>{popup()?.title}</b>
+						</Show>
+
+						<Show when={popup()?.message}>
+							<p>{popup()?.message}</p>
+						</Show>
+					</div>
+
+					<Show when={popup()?.buttons}>
+						<ul>
+							<For each={popup()?.buttons}>
+								{(button) => (
+									<li
+										onClick={() => onClickButton(button.id ?? "")}
+										onKeyUp={() => onClickButton(button.id ?? "")}
+									>
+										<Switch>
+											<Match when={button.type === "cancel"}>
+												<span>Cancel</span>
+											</Match>
+
+											<Match when={button.type === "close"}>
+												<span>Close</span>
+											</Match>
+
+											<Match when={button.type === "ok"}>
+												<span>Ok</span>
+											</Match>
+
+											<Match when={button.type === "destructive"}>
+												<span class="destructive">{button.text}</span>
+											</Match>
+
+											<Match when={button.type === "default"}>
+												<span>{button.text}</span>
+											</Match>
+										</Switch>
+									</li>
+								)}
+							</For>
+						</ul>
+					</Show>
+				</section>
+			</div>
 		</Show>
 	);
 };

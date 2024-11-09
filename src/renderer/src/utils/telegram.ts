@@ -1,7 +1,7 @@
 import { TelegramThemes, type TelegramPlatform, type ThemeMode } from "./themes";
 import hmac from 'js-crypto-hmac';
 
-import type { TelegramMethodEvent, User } from "@renderer/types";
+import type { TelegramMethodEvent, TelegramPopup, User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, ksort } from "./general";
 import { batch, type Signal } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
@@ -72,7 +72,7 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signalMode: Signal<ThemeMode>, signalExpanded: Signal<boolean>, signalShake: Signal<boolean>, signalColorHeader: Signal<string | undefined>, signalColorHeaderText: Signal<string | undefined>, signalColorBackground: Signal<string | undefined>) => {
+export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signalMode: Signal<ThemeMode>, signalExpanded: Signal<boolean>, signalShake: Signal<boolean>, signalPopup: Signal<TelegramPopup | undefined>, signalColorHeader: Signal<string | undefined>, signalColorHeaderText: Signal<string | undefined>, signalColorBackground: Signal<string | undefined>) => {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     let eventData: any = event.eventData;
 
@@ -86,6 +86,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
     const [, setColorHeaderText] = signalColorHeaderText;
     const [, setColorBackground] = signalColorBackground;
     const [, setShake] = signalShake;
+    const [, setPopup] = signalPopup;
 
     switch (event.eventType) {
         case "iframe_ready":
@@ -300,6 +301,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_open_popup":
+            setPopup(eventData);
             break;
 
         case "web_app_read_text_from_clipboard":

@@ -38,3 +38,15 @@ export type TelegramMethodEvent = {
 	eventData: string;
 	eventType: string;
 };
+
+export type TelegramPopupButton = {
+    id?: string,
+    type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive',
+    text?: string,
+};
+
+export type TelegramPopup = {
+    title?: string,
+    message: string,
+    buttons?: TelegramPopupButton[]
+};
