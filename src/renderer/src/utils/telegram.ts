@@ -1,7 +1,7 @@
 import { TelegramThemes, type TelegramPlatform, type ThemeMode } from "./themes";
 import hmac from 'js-crypto-hmac';
 
-import type { TelegramMethodEvent, TelegramPopup, User } from "@renderer/types";
+import type { TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, ksort } from "./general";
 import { batch, type Signal } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
@@ -9,7 +9,6 @@ import { isHexColor, isColorDark } from "./color";
 export const TGWebAppVersion = '7.10';
 
 export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, user: User | undefined, token: string | undefined): Promise<string> => {
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const webAppData = {
         auth_date: Math.floor(Date.now() / 1000).toString(),
         query_id: 'SomeRandomQueryID',
@@ -72,7 +71,7 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signalMode: Signal<ThemeMode>, signalExpanded: Signal<boolean>, signalShake: Signal<boolean>, signalPopup: Signal<TelegramPopup | undefined>, signalColorHeader: Signal<string | undefined>, signalColorHeaderText: Signal<string | undefined>, signalColorBackground: Signal<string | undefined>) => {
+export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signalMode: Signal<ThemeMode>, signalExpanded: Signal<boolean>, signalShake: Signal<boolean>, signalPopup: Signal<TelegramPopup | undefined>, signalPopupQR: Signal<TelegramScanQRPopup | undefined>, signalColorHeader: Signal<string | undefined>, signalColorHeaderText: Signal<string | undefined>, signalColorBackground: Signal<string | undefined>) => {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     let eventData: any = event.eventData;
 
@@ -87,6 +86,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
     const [, setColorBackground] = signalColorBackground;
     const [, setShake] = signalShake;
     const [, setPopup] = signalPopup;
+    const [, setPopupQR] = signalPopupQR;
 
     switch (event.eventType) {
         case "iframe_ready":
@@ -277,9 +277,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_open_scan_qr_popup":
+            setPopupQR(eventData);
             break;
 
         case "web_app_close_scan_qr_popup":
+            setPopupQR(undefined);
             break;
 
         case "web_app_invoke_custom_method":

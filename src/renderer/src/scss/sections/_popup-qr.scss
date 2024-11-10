@@ -1,0 +1,86 @@
+.popup-qr-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 99999999;
+    border-radius: inherit;
+
+    > div {
+        position: absolute;
+        inset: 0;
+        transition: all 0.25s;
+        background-color: rgba(168, 216, 255, 1);
+        z-index: -1;
+        background-image: linear-gradient(-45deg, #6a6ae2, #b735de, #6b90ff, #df5be6);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    }
+
+    > section {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        gap: 1rem;
+
+        > textarea {
+            background-color: rgba(0, 0, 0, 0.25);
+            color: white;
+            border: none;
+            resize: none;
+            width: 60%;
+            aspect-ratio: 1/1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            outline: none;
+            box-shadow: none;
+        }
+
+        > button {
+            background-color: white;
+            width: 60%;
+            color: black;
+            border-radius: 0.325rem;
+            line-height: normal;
+            padding: 0.625rem;
+            margin-bottom: 1rem;
+
+            &:hover,
+            &:active {
+                opacity: 0.75;
+            }
+
+            &:disabled {
+                opacity: 0.625;
+            }
+        }
+    }
+
+    > svg {
+        position: absolute;
+        z-index: 10;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+}

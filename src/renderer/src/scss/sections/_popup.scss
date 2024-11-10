@@ -1,0 +1,109 @@
+.popup-overlay.ios {
+    position: absolute;
+    inset: 0;
+    z-index: 99999999;
+
+    > div {
+        position: absolute;
+        inset: 0;
+        transition: all 0.25s;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &.light {
+        > section {
+            background-color: rgba(255, 255, 255, 0.75);
+            color: #000000;
+
+            > ul {
+                border-color: rgba(0, 0, 0, 0.2);
+
+                > li {
+                    color: rgba(0, 128, 255);
+                    border-color: rgba(0, 0, 0, 0.2) !important;
+
+                    &:active {
+                        background-color: rgba(0, 0, 0, 0.1);
+                    }
+                }
+            }
+        }
+    }
+
+    &.dark {
+        > section {
+            background-color: rgba(38, 38, 38, 0.75);
+            color: #ffffff;
+
+            > ul {
+                border-color: rgba(255, 255, 255, 0.15);
+
+                > li {
+                    color: rgba(0, 128, 255);
+                    border-color: rgba(255, 255, 255, 0.15) !important;
+
+                    &:active {
+                        background-color: rgba(255, 255, 255, 0.1);
+                    }
+                }
+            }
+        }
+    }
+
+    > section {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 0.75rem;
+        width: 70%;
+        overflow: hidden;
+
+        > div {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+
+            > b {
+                font-weight: bold;
+                font-size: 1.25rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            > p {
+                font-size: 1rem;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        > ul {
+            border-top: 1px solid;
+            display: flex;
+            align-items: center;
+
+            > li {
+                display: flex;
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-basis: 0;
+                padding: 0.5rem 0;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                > span.destructive {
+                    color: rgba(255, 0, 32);
+                }
+
+                &:not(:last-child) {
+                    border-inline-end: 1px solid;
+                }
+            }
+        }
+    }
+}
