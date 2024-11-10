@@ -45,8 +45,8 @@
 - [x] showPopup
 - [x] showAlert
 - [x] showConfirm
-- [ ] showScanQrPopup
-- [ ] closeScanQrPopup
+- [x] showScanQrPopup
+- [x] closeScanQrPopup
 - [ ] readTextFromClipboard
 - [ ] requestWriteAccess
 - [ ] requestContact
@@ -62,9 +62,9 @@
 - [ ] backButtonClicked
 - [ ] settingsButtonClicked
 - [ ] invoiceClosed
-- [ ] popupClosed
-- [ ] qrTextReceived
-- [ ] scanQrPopupClosed
+- [x] popupClosed
+- [x] qrTextReceived
+- [x] scanQrPopupClosed
 - [ ] clipboardTextReceived
 - [ ] writeAccessRequested
 - [ ] contactRequested

@@ -50,3 +50,7 @@ export type TelegramPopup = {
     message: string,
     buttons?: TelegramPopupButton[]
 };
+
+export type TelegramScanQRPopup = {
+    text?: string,
+};
