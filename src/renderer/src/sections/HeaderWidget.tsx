@@ -9,43 +9,47 @@ export const HeaderWidget: Component<{
 	signalMode: Signal<ThemeMode>;
 	signalExpanded: Signal<boolean>;
 	signalInspectElement: Signal<boolean>;
+	signalOpen: Signal<boolean>;
 }> = (props) => {
 	const [mode, setMode] = props.signalMode;
 	const [inspectElement, setInspectElement] = props.signalInspectElement;
 	const [expanded, setExpanded] = props.signalExpanded;
+	const [open] = props.signalOpen;
 
 	return (
 		<header>
 			<h2>{props.title}</h2>
 
 			<ul>
-				<li>
-					<ToggleButton
-						class="toggle-button"
-						style={{ "font-size": "1.325rem" }}
-						title="Inspect Element"
-						pressed={inspectElement()}
-						onChange={() => setInspectElement(!inspectElement())}
-					>
-						{() => <FaSolidCode />}
-					</ToggleButton>
-				</li>
+				<Show when={open()}>
+					<li>
+						<ToggleButton
+							class="toggle-button"
+							style={{ "font-size": "1.325rem" }}
+							title="Inspect Element"
+							pressed={inspectElement()}
+							onChange={() => setInspectElement(!inspectElement())}
+						>
+							{() => <FaSolidCode />}
+						</ToggleButton>
+					</li>
 
-				<li>
-					<ToggleButton
-						class="toggle-button"
-						style={{ "font-size": "1.325rem" }}
-						title="Expand / Collapse"
-						pressed={expanded()}
-						onChange={setExpanded}
-					>
-						{(state) => (
-							<Show when={state.pressed()} fallback={<IoChevronCollapse />}>
-								<IoChevronExpand />
-							</Show>
-						)}
-					</ToggleButton>
-				</li>
+					<li>
+						<ToggleButton
+							class="toggle-button"
+							style={{ "font-size": "1.325rem" }}
+							title="Expand / Collapse"
+							pressed={expanded()}
+							onChange={setExpanded}
+						>
+							{(state) => (
+								<Show when={state.pressed()} fallback={<IoChevronCollapse />}>
+									<IoChevronExpand />
+								</Show>
+							)}
+						</ToggleButton>
+					</li>
+				</Show>
 
 				<li>
 					<ToggleButton

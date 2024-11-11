@@ -17,12 +17,12 @@
 - [x] isVerticalSwipesEnabled
 
 ## Managers Support
-- [ ] BackButton
+- [x] BackButton
 - [ ] MainButton
 - [ ] SecondaryButton
 - [ ] SettingsButton
-- [ ] HapticFeedback
-- [ ] CloudStorage
+- [x] HapticFeedback
+- [ ] CloudStorage*
 - [ ] BiometricManager
 
 ## Methods Support
@@ -30,18 +30,18 @@
 - [x] setHeaderColor
 - [x] setBackgroundColor
 - [x] setBottomBarColor
-- [ ] enableClosingConfirmation
-- [ ] disableClosingConfirmation
-- [ ] enableVerticalSwipes
-- [ ] disableVerticalSwipes
+- [x] enableClosingConfirmation
+- [x] disableClosingConfirmation
+- [ ] enableVerticalSwipes*
+- [ ] disableVerticalSwipes*
 - [x] onEvent
 - [x] offEvent
-- [ ] sendData
-- [ ] switchInlineQuery
-- [ ] openLink
-- [ ] openTelegramLink
-- [ ] openInvoice
-- [ ] shareToStory
+- [ ] sendData*
+- [ ] switchInlineQuery*
+- [ ] openLink*
+- [ ] openTelegramLink*
+- [ ] openInvoice*
+- [ ] shareToStory*
 - [x] showPopup
 - [x] showAlert
 - [x] showConfirm
@@ -52,14 +52,14 @@
 - [ ] requestContact
 - [ ] ready
 - [x] expand
-- [ ] close
+- [x] close
 
 ## Events Support
 - [x] themeChanged
 - [x] viewportChanged
 - [ ] mainButtonClicked
 - [ ] secondaryButtonClicked
-- [ ] backButtonClicked
+- [x] backButtonClicked
 - [ ] settingsButtonClicked
 - [ ] invoiceClosed
 - [x] popupClosed

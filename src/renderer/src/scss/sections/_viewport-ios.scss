@@ -177,6 +177,7 @@
                         display: flex;
                         align-items: center;
                         font-size: 0.875rem;
+                        cursor: pointer;
                     }
                 }
 
@@ -231,6 +232,50 @@
                 width: 100%;
                 height: 100%;
             }
+        }
+    }
+
+    > footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        display: flex;
+        padding: 0.75rem 1rem 1.75rem;
+        gap: 0.5rem;
+        align-items: center;
+
+        > button {
+            cursor: pointer;
+            line-height: normal;
+            padding: 0 0.625rem;
+            border-radius: 100rem;
+            font-size: 0.875rem;
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+            height: 2rem;
+
+            > svg {
+                font-size: 1.125rem;
+            }
+        }
+
+        > div {
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            border-radius: 100rem;
+            padding: 0.25rem 0.75rem;
+
+            > span {
+                flex-grow: 1;
+            }
+        }
+
+        svg {
+            font-size: 1.325rem;
         }
     }
 }

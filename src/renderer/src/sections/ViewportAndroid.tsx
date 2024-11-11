@@ -10,6 +10,7 @@ export const ViewportAndroid: Component<{
 	signalMode: Signal<ThemeMode>;
 	signalExpanded: Signal<boolean>;
 	signalInspectElement: Signal<boolean>;
+	signalOpen: Signal<boolean>;
 }> = (props) => {
 	return (
 		<AndroidFrame>

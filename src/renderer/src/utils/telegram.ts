@@ -55,6 +55,7 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const tgEmitEvent = async (eventType: string, eventData: any, webview: any, platform: TelegramPlatform) => {
+    if (!webview) return;
     let code = '';
 
     switch (platform) {
@@ -70,8 +71,21 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
     return await webview.executeJavaScript(code);
 };
 
+export type TGEventHandlerSignals = {
+    signalMode: Signal<ThemeMode>;
+    signalExpanded: Signal<boolean>; signalOpen: Signal<boolean>;
+    signalBackButtonEnabled: Signal<boolean>;
+    signalShake: Signal<boolean>;
+    signalPopup: Signal<TelegramPopup | undefined>;
+    signalPopupQR: Signal<TelegramScanQRPopup | undefined>;
+    signalColorHeader: Signal<string | undefined>;
+    signalColorHeaderText: Signal<string | undefined>;
+    signalColorBackground: Signal<string | undefined>;
+    signalCloseConfirmationEnabled: Signal<boolean>;
+}
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signalMode: Signal<ThemeMode>, signalExpanded: Signal<boolean>, signalShake: Signal<boolean>, signalPopup: Signal<TelegramPopup | undefined>, signalPopupQR: Signal<TelegramScanQRPopup | undefined>, signalColorHeader: Signal<string | undefined>, signalColorHeaderText: Signal<string | undefined>, signalColorBackground: Signal<string | undefined>) => {
+export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signals: TGEventHandlerSignals) => {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     let eventData: any = event.eventData;
 
@@ -79,14 +93,17 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         eventData = JSON.parse(eventData);
     } catch (e) {}
 
-    const [mode] = signalMode;
-	const [expanded, setExpanded] = signalExpanded;
-    const [, setColorHeader] = signalColorHeader;
-    const [, setColorHeaderText] = signalColorHeaderText;
-    const [, setColorBackground] = signalColorBackground;
-    const [, setShake] = signalShake;
-    const [, setPopup] = signalPopup;
-    const [, setPopupQR] = signalPopupQR;
+    const [mode] = signals.signalMode;
+	const [expanded, setExpanded] = signals.signalExpanded;
+    const [, setColorHeader] = signals.signalColorHeader;
+    const [, setColorHeaderText] = signals.signalColorHeaderText;
+    const [, setColorBackground] = signals.signalColorBackground;
+    const [, setShake] = signals.signalShake;
+    const [, setPopup] = signals.signalPopup;
+    const [, setPopupQR] = signals.signalPopupQR;
+    const [, setBackButtonEnabled] = signals.signalBackButtonEnabled;
+    const [, setOpen] = signals.signalOpen;
+    const [, setCloseConfirmationEnabled] = signals.signalCloseConfirmationEnabled;
 
     switch (event.eventType) {
         case "iframe_ready":
@@ -96,6 +113,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_close":
+            if (webview?.isDevToolsOpened) {
+                webview?.closeDevTools();
+            }
+            webview = undefined;
+            setOpen(false);
             break;
 
         case "web_app_expand":
@@ -247,9 +269,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_setup_closing_behavior":
+            setCloseConfirmationEnabled(eventData.need_confirmation);
             break;
 
         case "web_app_setup_back_button":
+            setBackButtonEnabled(eventData.is_visible);
             break;
 
         case "web_app_setup_main_button":

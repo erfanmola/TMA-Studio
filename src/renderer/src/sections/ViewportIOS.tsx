@@ -31,10 +31,15 @@ import {
 	onCleanup,
 	Show,
 	on,
+	batch,
 } from "solid-js";
 import { BottomBar } from "./BottomBar";
 import { PopupHandler } from "./PopupHandler";
 import { PopupQRHandler } from "./PopupQRHandler";
+import { RiEditorAttachment2 } from "solid-icons/ri";
+import { TbSticker } from "solid-icons/tb";
+import { TiMicrophoneOutline } from "solid-icons/ti";
+import { BiRegularWindow } from "solid-icons/bi";
 
 import webviewStyle from "../scss/_webview.scss?inline";
 
@@ -44,10 +49,16 @@ export const ViewportIOS: Component<{
 	signalMode: Signal<ThemeMode>;
 	signalExpanded: Signal<boolean>;
 	signalInspectElement: Signal<boolean>;
+	signalOpen: Signal<boolean>;
 }> = (props) => {
 	const [mode] = props.signalMode;
-	const [expanded] = props.signalExpanded;
+	const [expanded, setExpanded] = props.signalExpanded;
 	const [inspectElement, setInspectElement] = props.signalInspectElement;
+	const [open, setOpen] = props.signalOpen;
+
+	const [backButtonEnabled, setBackButtonEnabled] = createSignal(false);
+	const [closeConfirmationEnabled, setCloseConfirmationEnabled] =
+		createSignal(false);
 
 	const [popup, setPopup] = createSignal<TelegramPopup | undefined>(undefined);
 	const [popupPressId, setPopupPressID] = createSignal<string | undefined>(
@@ -98,6 +109,8 @@ export const ViewportIOS: Component<{
 		on(
 			mode,
 			() => {
+				if (!open()) return;
+
 				tgEmitEvent(
 					"theme_changed",
 					{
@@ -116,6 +129,8 @@ export const ViewportIOS: Component<{
 		on(
 			expanded,
 			() => {
+				if (!open()) return;
+
 				const { width, height } = webview.getBoundingClientRect();
 
 				tgEmitEvent(
@@ -139,6 +154,8 @@ export const ViewportIOS: Component<{
 		on(
 			inspectElement,
 			() => {
+				if (!open()) return;
+
 				if (inspectElement() && !webview.isDevToolsOpened()) {
 					webview.openDevTools();
 				} else if (webview.isDevToolsOpened() && !inspectElement()) {
@@ -154,6 +171,8 @@ export const ViewportIOS: Component<{
 		on(
 			popup,
 			() => {
+				if (!open()) return;
+
 				if (popup()) {
 					setPopupPressID(undefined);
 				}
@@ -169,15 +188,21 @@ export const ViewportIOS: Component<{
 		on(
 			popupPressId,
 			() => {
+				if (!open()) return;
+
 				if (typeof popupPressId() === "string") {
-					tgEmitEvent(
-						"popup_closed",
-						{
-							button_id: popupPressId(),
-						},
-						webview,
-						props.platform,
-					);
+					if (popupPressId() === "tg_webapp_close_confirm") {
+						CloseWebview();
+					} else {
+						tgEmitEvent(
+							"popup_closed",
+							{
+								button_id: popupPressId(),
+							},
+							webview,
+							props.platform,
+						);
+					}
 				}
 			},
 			{
@@ -191,6 +216,8 @@ export const ViewportIOS: Component<{
 		on(
 			popupQR,
 			() => {
+				if (!open()) return;
+
 				if (popupQR()) {
 					setPopupQRData(undefined);
 				} else {
@@ -208,6 +235,8 @@ export const ViewportIOS: Component<{
 		on(
 			popupQRData,
 			() => {
+				if (!open()) return;
+
 				if (typeof popupQRData() === "string") {
 					tgEmitEvent(
 						"qr_text_received",
@@ -234,8 +263,10 @@ export const ViewportIOS: Component<{
 		)}`;
 	});
 
-	onMount(async () => {
-		initializeWebview();
+	createEffect(() => {
+		if (open()) {
+			initializeWebview();
+		}
 	});
 
 	const initializeWebview = async () => {
@@ -251,14 +282,22 @@ export const ViewportIOS: Component<{
 					e.args[0] as TelegramMethodEvent,
 					webview,
 					props.platform,
-					props.signalMode,
-					props.signalExpanded,
-					[shake, setShake],
-					[popup, setPopup],
-					[popupQR, setPopupQR],
-					[colorHeader, setColorHeader],
-					[colorHeaderText, setColorHeaderText],
-					[colorBackground, setColorBackground],
+					{
+						signalMode: props.signalMode,
+						signalExpanded: props.signalExpanded,
+						signalOpen: [open, setOpen],
+						signalBackButtonEnabled: [backButtonEnabled, setBackButtonEnabled],
+						signalShake: [shake, setShake],
+						signalPopup: [popup, setPopup],
+						signalPopupQR: [popupQR, setPopupQR],
+						signalColorHeader: [colorHeader, setColorHeader],
+						signalColorHeaderText: [colorHeaderText, setColorHeaderText],
+						signalColorBackground: [colorBackground, setColorBackground],
+						signalCloseConfirmationEnabled: [
+							closeConfirmationEnabled,
+							setCloseConfirmationEnabled,
+						],
+					},
 				);
 			}
 		});
@@ -278,11 +317,62 @@ export const ViewportIOS: Component<{
 		});
 
 		onCleanup(() => {
-			if (webview?.isDevToolsOpened) {
-				webview.closeDevTools();
+			if (open() && webview?.isDevToolsOpened) {
+				webview?.closeDevTools();
 			}
 		});
 	};
+
+	const onClickBackOrCloseButton = () => {
+		if (backButtonEnabled()) {
+			tgEmitEvent("back_button_pressed", {}, webview, props.platform);
+		} else {
+			if (closeConfirmationEnabled()) {
+				setPopup({
+					message: "Changes that you made may not be saved.",
+					buttons: [
+						{
+							type: "cancel",
+						},
+						{
+							id: "tg_webapp_close_confirm",
+							type: "destructive",
+							text: "Close Anyway",
+						},
+					],
+				} as TelegramPopup);
+			} else {
+				CloseWebview();
+			}
+		}
+	};
+
+	const CloseWebview = () => {
+		batch(() => {
+			if (webview?.isDevToolsOpened) {
+				webview?.closeDevTools();
+			}
+			webview = undefined;
+			setOpen(false);
+		});
+	};
+
+	createEffect(
+		on(
+			open,
+			() => {
+				if (!open()) {
+					setInspectElement(false);
+					setExpanded(false);
+					setBackButtonEnabled(false);
+					setCloseConfirmationEnabled(false);
+				}
+			},
+			{
+				defer: true,
+			},
+		),
+	);
 
 	return (
 		<IPhoneFrame classList={{ shake: shake() }}>
@@ -343,7 +433,8 @@ export const ViewportIOS: Component<{
 				</svg>
 				<header
 					style={{
-						"background-color": TelegramThemes[props.platform][mode()].bg_color,
+						"background-color":
+							TelegramThemes[props.platform][mode()].secondary_bg_color,
 						color: TelegramThemes[props.platform][mode()].text_color,
 					}}
 				>
@@ -378,68 +469,112 @@ export const ViewportIOS: Component<{
 					</div>
 				</header>
 				<div />
-				<span />
-				<section
-					classList={{ expanded: expanded(), dark: mode() === "dark" }}
-					style={{
-						"background-color": TelegramThemes[props.platform][mode()].bg_color,
-						color: TelegramThemes[props.platform][mode()].text_color,
-					}}
+
+				<Show
+					when={open()}
+					fallback={
+						<footer
+							style={{
+								"background-color":
+									TelegramThemes[props.platform][mode()].secondary_bg_color,
+								color:
+									TelegramThemes[props.platform][mode()].subtitle_text_color,
+							}}
+						>
+							<button
+								type="button"
+								onClick={() => setOpen(true)}
+								style={{
+									"background-color":
+										TelegramThemes[props.platform][mode()].button_color,
+									color:
+										TelegramThemes[props.platform][mode()].button_text_color,
+								}}
+							>
+								<BiRegularWindow />
+								{props.project.name}
+							</button>
+							<RiEditorAttachment2 />
+							<div
+								style={{
+									"background-color":
+										TelegramThemes[props.platform][mode()].section_bg_color,
+								}}
+							>
+								<span>Message</span>
+								<TbSticker />
+							</div>
+							<TiMicrophoneOutline />
+						</footer>
+					}
 				>
-					<header
+					<span />
+					<section
+						classList={{ expanded: expanded(), dark: mode() === "dark" }}
 						style={{
 							"background-color":
-								colorHeader() ??
-								TelegramThemes[props.platform][mode()].header_bg_color,
-							color:
-								colorHeaderText() ??
-								TelegramThemes[props.platform][mode()].text_color,
+								TelegramThemes[props.platform][mode()].bg_color,
+							color: TelegramThemes[props.platform][mode()].text_color,
 						}}
 					>
-						<div>
-							<span
+						<header
+							style={{
+								"background-color":
+									colorHeader() ??
+									TelegramThemes[props.platform][mode()].header_bg_color,
+								color:
+									colorHeaderText() ??
+									TelegramThemes[props.platform][mode()].text_color,
+							}}
+						>
+							<div>
+								<span
+									style={{
+										color:
+											colorHeaderText() ??
+											TelegramThemes[props.platform][mode()].button_color,
+									}}
+									onClick={() => onClickBackOrCloseButton()}
+									onKeyUp={() => onClickBackOrCloseButton()}
+								>
+									{backButtonEnabled() ? "Back" : "Close"}
+								</span>
+							</div>
+							<div>
+								<h2>{props.project.name}</h2>
+								<span
+									style={{
+										color:
+											TelegramThemes[props.platform][mode()]
+												.subtitle_text_color,
+									}}
+								>
+									mini app
+								</span>
+							</div>
+							<div
 								style={{
 									color:
 										colorHeaderText() ??
 										TelegramThemes[props.platform][mode()].button_color,
 								}}
 							>
-								Close
-							</span>
-						</div>
-						<div>
-							<h2>{props.project.name}</h2>
-							<span
-								style={{
-									color:
-										TelegramThemes[props.platform][mode()].subtitle_text_color,
-								}}
-							>
-								mini app
-							</span>
-						</div>
-						<div
+								<CgMoreO />
+							</div>
+						</header>
+						<section
 							style={{
-								color:
-									colorHeaderText() ??
-									TelegramThemes[props.platform][mode()].button_color,
+								"background-color":
+									colorBackground() ??
+									TelegramThemes[props.platform][mode()].bg_color,
 							}}
 						>
-							<CgMoreO />
-						</div>
-					</header>
-					<section
-						style={{
-							"background-color":
-								colorBackground() ??
-								TelegramThemes[props.platform][mode()].bg_color,
-						}}
-					>
-						{/* @ts-ignore */}
-						<webview ref={webview} src={webAppUrl()} />
+							{/* @ts-ignore */}
+							<webview ref={webview} src={webAppUrl()} />
+						</section>
+						<BottomBar platform={props.platform} />
 					</section>
-					<BottomBar platform={props.platform} />
-				</section>
+				</Show>
 
 				<Show when={popup()}>
 					<PopupHandler

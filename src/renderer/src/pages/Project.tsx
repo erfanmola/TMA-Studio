@@ -23,10 +23,12 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 		props.project.settings.android.expanded,
 	);
 	const [inspectElement, setInspectElement] = createSignal(false);
+	const [open, setOpen] = createSignal(props.project.settings.android.open);
 
 	createEffect(async () => {
 		props.project.settings.android.mode = mode();
 		props.project.settings.android.expanded = expanded();
+		props.project.settings.android.open = open();
 		settings.set("projects", projects());
 	});
 
@@ -37,6 +39,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
+				signalOpen={[open, setOpen]}
 			/>
 
 			<ViewportAndroid
@@ -45,6 +48,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
+				signalOpen={[open, setOpen]}
 			/>
 		</div>
 	);
@@ -61,10 +65,12 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 		props.project.settings.ios.expanded,
 	);
 	const [inspectElement, setInspectElement] = createSignal(false);
+	const [open, setOpen] = createSignal(props.project.settings.ios.open);
 
 	createEffect(async () => {
 		props.project.settings.ios.mode = mode();
 		props.project.settings.ios.expanded = expanded();
+		props.project.settings.ios.open = open();
 		settings.set("projects", projects());
 	});
 
@@ -75,6 +81,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
+				signalOpen={[open, setOpen]}
 			/>
 
 			<ViewportIOS
@@ -83,6 +90,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
+				signalOpen={[open, setOpen]}
 			/>
 		</div>
 	);

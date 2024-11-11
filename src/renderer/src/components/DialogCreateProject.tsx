@@ -48,6 +48,7 @@ const DialogCreateProject: Component<{
 		const defaultSettings: Project["settings"]["android"] = {
 			expanded: false,
 			mode: "light",
+			open: true,
 		};
 
 		setProjects([
@@ -58,6 +59,8 @@ const DialogCreateProject: Component<{
 					android: defaultSettings,
 					ios: defaultSettings,
 					tdesktop: defaultSettings,
+					web: defaultSettings,
+					weba: defaultSettings,
 				},
 			},
 		]);
@@ -101,7 +104,7 @@ const DialogCreateProject: Component<{
 									</TextField.Label>
 									<TextField.Input
 										class="text-field__input"
-										placeholder="http://localhost:8080"
+										placeholder="http://127.0.0.1:8080"
 										onInput={(e) => setForm("url", e.currentTarget.value)}
 									/>
 								</TextField>

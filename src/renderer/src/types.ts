@@ -9,6 +9,7 @@ export type Project = {
     token?: string,
     settings: {
         [key in TelegramPlatform]: {
+            open: boolean,
             expanded: boolean,
             mode: ThemeMode,
         }
