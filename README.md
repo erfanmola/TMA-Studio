@@ -32,8 +32,8 @@
 - [x] setBottomBarColor
 - [x] enableClosingConfirmation
 - [x] disableClosingConfirmation
-- [ ] enableVerticalSwipes*
-- [ ] disableVerticalSwipes*
+- [x] enableVerticalSwipes
+- [x] disableVerticalSwipes
 - [x] onEvent
 - [x] offEvent
 - [ ] sendData*

@@ -82,6 +82,7 @@ export type TGEventHandlerSignals = {
     signalColorHeaderText: Signal<string | undefined>;
     signalColorBackground: Signal<string | undefined>;
     signalCloseConfirmationEnabled: Signal<boolean>;
+    signalVerticalSwipeEnabled: Signal<boolean>;
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -104,9 +105,13 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
     const [, setBackButtonEnabled] = signals.signalBackButtonEnabled;
     const [, setOpen] = signals.signalOpen;
     const [, setCloseConfirmationEnabled] = signals.signalCloseConfirmationEnabled;
+    const [, setVerticalSwipeEnabled] = signals.signalVerticalSwipeEnabled;
 
     switch (event.eventType) {
         case "iframe_ready":
+            break;
+
+        case "iframe_will_reload":
             break;
 
         case "web_app_ready":
@@ -266,6 +271,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         }
 
         case "web_app_setup_swipe_behavior":
+            setVerticalSwipeEnabled(eventData.allow_vertical_swipe);
             break;
 
         case "web_app_setup_closing_behavior":

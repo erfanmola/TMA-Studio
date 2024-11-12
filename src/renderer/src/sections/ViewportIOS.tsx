@@ -59,6 +59,7 @@ export const ViewportIOS: Component<{
 	const [backButtonEnabled, setBackButtonEnabled] = createSignal(false);
 	const [closeConfirmationEnabled, setCloseConfirmationEnabled] =
 		createSignal(false);
+	const [verticalSwipeEnabled, setVerticalSwipeEnabled] = createSignal(false);
 
 	const [popup, setPopup] = createSignal<TelegramPopup | undefined>(undefined);
 	const [popupPressId, setPopupPressID] = createSignal<string | undefined>(
@@ -296,6 +297,10 @@ export const ViewportIOS: Component<{
 						signalCloseConfirmationEnabled: [
 							closeConfirmationEnabled,
 							setCloseConfirmationEnabled,
+						],
+						signalVerticalSwipeEnabled: [
+							verticalSwipeEnabled,
+							setVerticalSwipeEnabled,
 						],
 					},
 				);
