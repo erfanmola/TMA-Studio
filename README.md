@@ -47,9 +47,9 @@
 - [x] showConfirm
 - [x] showScanQrPopup
 - [x] closeScanQrPopup
-- [ ] readTextFromClipboard
-- [ ] requestWriteAccess
-- [ ] requestContact
+- [x] readTextFromClipboard
+- [x] requestWriteAccess
+- [x] requestContact
 - [ ] ready
 - [x] expand
 - [x] close
@@ -65,9 +65,16 @@
 - [x] popupClosed
 - [x] qrTextReceived
 - [x] scanQrPopupClosed
-- [ ] clipboardTextReceived
-- [ ] writeAccessRequested
-- [ ] contactRequested
+- [x] clipboardTextReceived
+- [x] writeAccessRequested
+- [x] contactRequested
 - [ ] biometricManagerUpdated
 - [ ] biometricAuthRequested
 - [ ] biometricTokenUpdated
+
+## Custom Methods
+- [ ] getRequestedContact
+- [ ] saveStorageValue
+- [ ] getStorageValues
+- [ ] deleteStorageValues
+- [ ] getStorageKeys

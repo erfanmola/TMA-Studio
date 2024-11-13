@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { clipboard, contextBridge, ipcRenderer } from 'electron'
 
 import { electronAPI } from '@electron-toolkit/preload'
 
@@ -23,7 +23,7 @@ if (process.contextIsolated) {
 }
 
 contextBridge.exposeInMainWorld('store', {
-  get(key) {
+  get(key: string) {
     return ipcRenderer.sendSync('electron-store-get', key);
   },
   set(property, val) {
@@ -32,3 +32,15 @@ contextBridge.exposeInMainWorld('store', {
 });
 
 contextBridge.exposeInMainWorld('onShortcutPressed', (callback) => ipcRenderer.on('shortcut-pressed', callback));
+
+contextBridge.exposeInMainWorld('clipboard', {
+  getText() {
+    return clipboard.readText();
+  },
+  setText(text: string) {
+    return clipboard.writeText(text);
+  },
+  clear() {
+    return clipboard.clear();
+  },
+});

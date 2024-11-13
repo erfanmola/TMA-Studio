@@ -337,12 +337,60 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_read_text_from_clipboard":
+            setPopup({
+                title: "Mock Clipboard Request",
+                message: "Allow pasting into the app?",
+                buttons: [
+                    {
+                        id: `tg_webapp_clipboard_cancel_${eventData.req_id}`,
+                        type: "default",
+                        text: "Cancel",
+                    },
+                    {
+                        id: `tg_webapp_clipboard_confirm_${eventData.req_id}`,
+                        type: "default",
+                        text: "Allow",
+                    },
+                ],
+            } as TelegramPopup);
             break;
 
         case "web_app_request_write_access":
+            setPopup({
+                title: "Mock Write Request",
+                message: "Allow write access to user?",
+                buttons: [
+                    {
+                        id: "tg_webapp_write_access_cancel",
+                        type: "default",
+                        text: "Cancel",
+                    },
+                    {
+                        id: "tg_webapp_write_access_confirm",
+                        type: "default",
+                        text: "Allow",
+                    },
+                ],
+            } as TelegramPopup);
             break;
 
         case "web_app_request_phone":
+            setPopup({
+                title: "Mock Contact Request",
+                message: "Allow sharing your contact info with bot?",
+                buttons: [
+                    {
+                        id: "tg_webapp_contact_cancel",
+                        type: "default",
+                        text: "Cancel",
+                    },
+                    {
+                        id: "tg_webapp_contact_confirm",
+                        type: "default",
+                        text: "Allow",
+                    },
+                ],
+            } as TelegramPopup);
             break;
 
         case "web_app_share_to_story":

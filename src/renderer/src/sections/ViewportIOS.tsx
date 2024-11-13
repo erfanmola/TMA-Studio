@@ -27,7 +27,6 @@ import {
 	createSignal,
 	createEffect,
 	createResource,
-	onMount,
 	onCleanup,
 	Show,
 	on,
@@ -194,6 +193,73 @@ export const ViewportIOS: Component<{
 				if (typeof popupPressId() === "string") {
 					if (popupPressId() === "tg_webapp_close_confirm") {
 						CloseWebview();
+					} else if (
+						popupPressId()?.startsWith("tg_webapp_clipboard_confirm_")
+					) {
+						tgEmitEvent(
+							"clipboard_text_received",
+							{
+								req_id: popupPressId()?.replace(
+									"tg_webapp_clipboard_confirm_",
+									"",
+								),
+								data: window.clipboard.getText(),
+							},
+							webview,
+							props.platform,
+						);
+					} else if (
+						popupPressId()?.startsWith("tg_webapp_clipboard_cancel_")
+					) {
+						tgEmitEvent(
+							"clipboard_text_received",
+							{
+								req_id: popupPressId()?.replace(
+									"tg_webapp_clipboard_cancel_",
+									"",
+								),
+							},
+							webview,
+							props.platform,
+						);
+					} else if (popupPressId() === "tg_webapp_write_access_confirm") {
+						tgEmitEvent(
+							"write_access_requested",
+							{
+								status: "allowed",
+							},
+							webview,
+							props.platform,
+						);
+					} else if (popupPressId() === "tg_webapp_write_access_cancel") {
+						// TODO: this is not handled by official clients.
+						tgEmitEvent(
+							"write_access_requested",
+							{
+								status: "",
+							},
+							webview,
+							props.platform,
+						);
+					} else if (popupPressId() === "tg_webapp_contact_confirm") {
+						tgEmitEvent(
+							"phone_requested",
+							{
+								status: "sent",
+							},
+							webview,
+							props.platform,
+						);
+					} else if (popupPressId() === "tg_webapp_contact_cancel") {
+						// TODO: this is not handled by official clients.
+						tgEmitEvent(
+							"phone_requested",
+							{
+								status: "",
+							},
+							webview,
+							props.platform,
+						);
 					} else {
 						tgEmitEvent(
 							"popup_closed",

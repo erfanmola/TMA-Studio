@@ -13,5 +13,10 @@ declare global {
     },
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     onShortcutPressed: any,
+    clipboard: {
+      getText: () => string;
+      setText: (text: string) => void;
+      clear: () => void;
+    }
   }
 }
