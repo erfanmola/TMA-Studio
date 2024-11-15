@@ -232,11 +232,10 @@ export const ViewportIOS: Component<{
 							props.platform,
 						);
 					} else if (popupPressId() === "tg_webapp_write_access_cancel") {
-						// TODO: this is not handled by official clients.
 						tgEmitEvent(
 							"write_access_requested",
 							{
-								status: "",
+								status: "cancelled",
 							},
 							webview,
 							props.platform,
@@ -251,11 +250,10 @@ export const ViewportIOS: Component<{
 							props.platform,
 						);
 					} else if (popupPressId() === "tg_webapp_contact_cancel") {
-						// TODO: this is not handled by official clients.
 						tgEmitEvent(
 							"phone_requested",
 							{
-								status: "",
+								status: "cancelled",
 							},
 							webview,
 							props.platform,

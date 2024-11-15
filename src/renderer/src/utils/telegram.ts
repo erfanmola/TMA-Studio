@@ -48,7 +48,7 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
         value = typeof value === 'object' ? JSON.stringify(value, null, 0) : value;
         return `${key}=${value}`;
     })
-    .join('\n');
+    .join('\n').replace(/\//g, "\\/");
 
     return buffer2Hex(await hmac.compute(await hmac.compute(new TextEncoder().encode('WebAppData'), new TextEncoder().encode(token), 'SHA-256'), new TextEncoder().encode(initDataString), 'SHA-256'));
 }
