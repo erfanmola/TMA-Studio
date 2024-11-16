@@ -1,10 +1,11 @@
 import { TelegramThemes, type TelegramPlatform, type ThemeMode } from "./themes";
 import hmac from 'js-crypto-hmac';
 
-import type { TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, TelegramStory, User } from "@renderer/types";
+import type { TelegramButtonMain, TelegramButtonSecondary, TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, TelegramStory, User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, ksort } from "./general";
 import { batch, type Signal } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
+import type { SetStoreFunction } from "solid-js/store";
 
 export const TGWebAppVersion = '7.10';
 
@@ -72,9 +73,11 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
 };
 
 export type TGEventHandlerSignals = {
+    signalReady: Signal<boolean>;
     signalMode: Signal<ThemeMode>;
     signalExpanded: Signal<boolean>; signalOpen: Signal<boolean>;
     signalBackButtonEnabled: Signal<boolean>;
+    signalSettingsButtonEnabled: Signal<boolean>;
     signalShake: Signal<boolean>;
     signalPopup: Signal<TelegramPopup | undefined>;
     signalPopupQR: Signal<TelegramScanQRPopup | undefined>;
@@ -82,9 +85,12 @@ export type TGEventHandlerSignals = {
     signalColorHeader: Signal<string | undefined>;
     signalColorHeaderText: Signal<string | undefined>;
     signalColorBackground: Signal<string | undefined>;
+    signalColorBottomBar: Signal<string | undefined>;
     signalCloseConfirmationEnabled: Signal<boolean>;
     signalVerticalSwipeEnabled: Signal<boolean>;
-}
+    storeButtonMain: [TelegramButtonMain, SetStoreFunction<TelegramButtonMain>],
+    storeButtonSecondary: [TelegramButtonSecondary, SetStoreFunction<TelegramButtonSecondary>],
+};
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signals: TGEventHandlerSignals) => {
@@ -95,28 +101,35 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         eventData = JSON.parse(eventData);
     } catch (e) {}
 
+    const [ready, setReady] = signals.signalReady;
     const [mode] = signals.signalMode;
 	const [expanded, setExpanded] = signals.signalExpanded;
     const [, setColorHeader] = signals.signalColorHeader;
     const [, setColorHeaderText] = signals.signalColorHeaderText;
     const [, setColorBackground] = signals.signalColorBackground;
+    const [, setColorBottomBar] = signals.signalColorBottomBar
     const [, setShake] = signals.signalShake;
     const [, setPopup] = signals.signalPopup;
     const [, setPopupQR] = signals.signalPopupQR;
     const [, setPopupStory] = signals.signalPopupStory;
     const [, setBackButtonEnabled] = signals.signalBackButtonEnabled;
+    const [, setSettingsButtonEnabled] = signals.signalSettingsButtonEnabled;
     const [, setOpen] = signals.signalOpen;
     const [, setCloseConfirmationEnabled] = signals.signalCloseConfirmationEnabled;
     const [, setVerticalSwipeEnabled] = signals.signalVerticalSwipeEnabled;
+    const [, setButtonMain] = signals.storeButtonMain;
+    const [, setButtonSecondary] = signals.storeButtonSecondary;
 
     switch (event.eventType) {
         case "iframe_ready":
+            setReady(true);
             break;
 
         case "iframe_will_reload":
             break;
 
         case "web_app_ready":
+            setReady(true);
             break;
 
         case "web_app_close":
@@ -196,7 +209,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             }
 
             if (color) {
-                // TODO: implement bottom bar bg color
+                setColorBottomBar(color);
             }
             break;
         }
@@ -285,12 +298,15 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_setup_main_button":
+            setButtonMain(eventData);
             break;
 
         case "web_app_setup_secondary_button":
+            setButtonSecondary(eventData);
             break;
 
         case "web_app_setup_settings_button":
+            setSettingsButtonEnabled(eventData.is_visible);
             break;
 
         case "web_app_biometry_get_info":

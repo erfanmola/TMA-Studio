@@ -18,9 +18,9 @@
 
 ## Managers Support
 - [x] BackButton
-- [ ] MainButton
-- [ ] SecondaryButton
-- [ ] SettingsButton
+- [x] MainButton
+- [x] SecondaryButton
+- [x] SettingsButton
 - [x] HapticFeedback
 - [ ] CloudStorage*
 - [ ] BiometricManager
@@ -50,17 +50,17 @@
 - [x] readTextFromClipboard
 - [x] requestWriteAccess
 - [x] requestContact
-- [ ] ready
+- [x] ready
 - [x] expand
 - [x] close
 
 ## Events Support
 - [x] themeChanged
 - [x] viewportChanged
-- [ ] mainButtonClicked
-- [ ] secondaryButtonClicked
+- [x] mainButtonClicked
+- [x] secondaryButtonClicked
 - [x] backButtonClicked
-- [ ] settingsButtonClicked
+- [x] settingsButtonClicked
 - [ ] invoiceClosed
 - [x] popupClosed
 - [x] qrTextReceived

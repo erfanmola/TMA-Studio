@@ -64,3 +64,16 @@ export type TelegramStory = {
         name?: string,
     },
 };
+
+export type TelegramButtonMain = {
+    text: string,
+    color: string,
+    text_color: string,
+    is_active: boolean,
+    has_shine_effect: boolean,
+    is_progress_visible: boolean,
+    is_visible: boolean,
+    position?: 'left' | 'right' | 'top' | 'bottom',
+};
+
+export type TelegramButtonSecondary = TelegramButtonMain;

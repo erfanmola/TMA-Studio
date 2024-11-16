@@ -7,6 +7,8 @@ import type {
 	TelegramScanQRPopup,
 	TelegramMethodEvent,
 	TelegramStory,
+	TelegramButtonMain,
+	TelegramButtonSecondary,
 } from "@renderer/types";
 import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
 import {
@@ -20,7 +22,6 @@ import {
 	TelegramThemes,
 } from "@renderer/utils/themes";
 import { users, activeUserId } from "@renderer/utils/user";
-import { CgMoreO } from "solid-icons/cg";
 import { FaSolidChevronLeft } from "solid-icons/fa";
 import {
 	type Component,
@@ -43,6 +44,8 @@ import { BiRegularWindow } from "solid-icons/bi";
 
 import webviewStyle from "../scss/_webview.scss?inline";
 import { PopupStoryHandler } from "./PopupStory";
+import { createStore } from "solid-js/store";
+import { MenuMore } from "./MenuMore";
 
 export const ViewportIOS: Component<{
 	project: Project;
@@ -52,12 +55,19 @@ export const ViewportIOS: Component<{
 	signalInspectElement: Signal<boolean>;
 	signalOpen: Signal<boolean>;
 }> = (props) => {
+	const [ready, setReady] = createSignal(false);
+
+	const [openMore, setOpenMore] = createSignal(false);
+	const [settingsButtonClicked, setSettingsButtonClicked] = createSignal(false);
+	const [reloadButtonClicked, setReloadButtonClicked] = createSignal(false);
+
 	const [mode] = props.signalMode;
 	const [expanded, setExpanded] = props.signalExpanded;
 	const [inspectElement, setInspectElement] = props.signalInspectElement;
 	const [open, setOpen] = props.signalOpen;
 
 	const [backButtonEnabled, setBackButtonEnabled] = createSignal(false);
+	const [settingsButtonEnabled, setSettingsButtonEnabled] = createSignal(false);
 	const [closeConfirmationEnabled, setCloseConfirmationEnabled] =
 		createSignal(false);
 	const [verticalSwipeEnabled, setVerticalSwipeEnabled] = createSignal(false);
@@ -77,6 +87,27 @@ export const ViewportIOS: Component<{
 		undefined,
 	);
 
+	const [buttonMain, setButtonMain] = createStore<TelegramButtonMain>({
+		text: "Button",
+		color: TelegramThemes[props.platform][mode()].button_color,
+		text_color: TelegramThemes[props.platform][mode()].button_text_color,
+		is_active: true,
+		is_progress_visible: false,
+		has_shine_effect: false,
+		is_visible: false,
+	});
+
+	const [buttonSecondary, setButtonSecondary] =
+		createStore<TelegramButtonSecondary>({
+			text: "Button",
+			color: TelegramThemes[props.platform][mode()].button_color,
+			text_color: TelegramThemes[props.platform][mode()].button_text_color,
+			is_active: true,
+			is_progress_visible: false,
+			has_shine_effect: false,
+			is_visible: false,
+		});
+
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let webview: any;
 
@@ -95,6 +126,9 @@ export const ViewportIOS: Component<{
 	const [colorBackground, setColorBackground] = createSignal<
 		string | undefined
 	>(undefined);
+	const [colorBottomBar, setColorBottomBar] = createSignal<string | undefined>(
+		undefined,
+	);
 
 	// Set Statusbar color based on theme colorScheme
 	createEffect(() => {
@@ -324,6 +358,28 @@ export const ViewportIOS: Component<{
 		),
 	);
 
+	// Detect the reload button click from child menu component
+	createEffect(
+		on(reloadButtonClicked, () => {
+			if (reloadButtonClicked()) {
+				setReloadButtonClicked(false);
+				if (webview) {
+					webview.reload();
+				}
+			}
+		}),
+	);
+
+	// Detect the settings button click from child menu component
+	createEffect(
+		on(settingsButtonClicked, () => {
+			if (settingsButtonClicked()) {
+				setSettingsButtonClicked(false);
+				tgEmitEvent("settings_button_pressed", {}, webview, props.platform);
+			}
+		}),
+	);
+
 	const [webAppUrl] = createResource(async () => {
 		return `${props.project.url}${await tgWebAppData(
 			props.platform,
@@ -357,12 +413,17 @@ export const ViewportIOS: Component<{
 						signalExpanded: props.signalExpanded,
 						signalOpen: [open, setOpen],
 						signalBackButtonEnabled: [backButtonEnabled, setBackButtonEnabled],
+						signalSettingsButtonEnabled: [
+							settingsButtonEnabled,
+							setSettingsButtonEnabled,
+						],
 						signalShake: [shake, setShake],
 						signalPopup: [popup, setPopup],
 						signalPopupQR: [popupQR, setPopupQR],
 						signalColorHeader: [colorHeader, setColorHeader],
 						signalColorHeaderText: [colorHeaderText, setColorHeaderText],
 						signalColorBackground: [colorBackground, setColorBackground],
+						signalColorBottomBar: [colorBottomBar, setColorBottomBar],
 						signalCloseConfirmationEnabled: [
 							closeConfirmationEnabled,
 							setCloseConfirmationEnabled,
@@ -372,6 +433,9 @@ export const ViewportIOS: Component<{
 							setVerticalSwipeEnabled,
 						],
 						signalPopupStory: [popupStory, setPopupStory],
+						storeButtonMain: [buttonMain, setButtonMain],
+						storeButtonSecondary: [buttonSecondary, setButtonSecondary],
+						signalReady: [ready, setReady],
 					},
 				);
 			}
@@ -389,6 +453,7 @@ export const ViewportIOS: Component<{
 
 		webview.addEventListener("dom-ready", () => {
 			webview.insertCSS(webviewStyle);
+			setReady(true);
 		});
 
 		onCleanup(() => {
@@ -440,6 +505,7 @@ export const ViewportIOS: Component<{
 					setInspectElement(false);
 					setExpanded(false);
 					setBackButtonEnabled(false);
+					setSettingsButtonEnabled(false);
 					setCloseConfirmationEnabled(false);
 				}
 			},
@@ -634,7 +700,23 @@ export const ViewportIOS: Component<{
 										TelegramThemes[props.platform][mode()].button_color,
 								}}
 							>
-								<CgMoreO />
+								<MenuMore
+									signalOpen={[openMore, setOpenMore]}
+									signalSettingsButtonEnabled={[
+										settingsButtonEnabled,
+										setSettingsButtonEnabled,
+									]}
+									mode={mode()}
+									platform={props.platform}
+									signalReloadButtonClicked={[
+										reloadButtonClicked,
+										setReloadButtonClicked,
+									]}
+									signalSettingsButtonClicked={[
+										settingsButtonClicked,
+										setSettingsButtonClicked,
+									]}
+								/>
 							</div>
 						</header>
 						<section
@@ -644,10 +726,26 @@ export const ViewportIOS: Component<{
 									TelegramThemes[props.platform][mode()].bg_color,
 							}}
 						>
+							<Show when={!ready()}>
+								<div
+									style={{
+										"background-color":
+											colorBackground() ??
+											TelegramThemes[props.platform][mode()].bg_color,
+									}}
+								/>
+							</Show>
 							{/* @ts-ignore */}
 							<webview ref={webview} src={webAppUrl()} />
 						</section>
-						<BottomBar platform={props.platform} />
+						<BottomBar
+							platform={props.platform}
+							mode={mode()}
+							webview={webview}
+							signalColorBottomBar={[colorBottomBar, setColorBottomBar]}
+							buttonMain={buttonMain}
+							buttonSecondary={buttonSecondary}
+						/>
 					</section>
 				</Show>
 
