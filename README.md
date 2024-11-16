@@ -38,8 +38,8 @@
 - [x] offEvent
 - [ ] sendData*
 - [ ] switchInlineQuery*
-- [ ] openLink*
-- [ ] openTelegramLink*
+- [ ] openLink
+- [ ] openTelegramLink
 - [ ] openInvoice*
 - [x] shareToStory
 - [x] showPopup
@@ -61,7 +61,7 @@
 - [x] secondaryButtonClicked
 - [x] backButtonClicked
 - [x] settingsButtonClicked
-- [ ] invoiceClosed
+- [ ] invoiceClosed*
 - [x] popupClosed
 - [x] qrTextReceived
 - [x] scanQrPopupClosed
@@ -73,8 +73,10 @@
 - [ ] biometricTokenUpdated
 
 ## Custom Methods
-- [ ] getRequestedContact
-- [ ] saveStorageValue
-- [ ] getStorageValues
-- [ ] deleteStorageValues
-- [ ] getStorageKeys
+- [ ] getRequestedContact*
+- [ ] saveStorageValue*
+- [ ] getStorageValues*
+- [ ] deleteStorageValues*
+- [ ] getStorageKeys*
+
+**Note:** Items specified with `*` require a proper MTProto client up and running to communicate with real Telegram servers. This feature is not available right now, but planned to be implemented and logged in via a real Telegram Account.

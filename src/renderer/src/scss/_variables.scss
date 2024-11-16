@@ -29,5 +29,6 @@
         rgba(64, 46, 64, 1) 60%,
         rgba(32, 46, 32, 1) 100%
     );
-    --telegram-android-bg-gradient-dark: var(--telegram-ios-bg-gradient-dark);
+
+    --telegram-android-bg-gradient-dark: linear-gradient(135deg, #11212e 0%, #11212e 40%, #11212e 60%, #11212e 100%);
 }

@@ -1,12 +1,11 @@
 import "../scss/sections/_menu-more.scss";
 
-import { Show, type Component, type Signal } from "solid-js";
+import { Match, Show, Switch, type Component, type Signal } from "solid-js";
 import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
 
 import { CgMoreO } from "solid-icons/cg";
 import { IoReload } from "solid-icons/io";
-import { FiSettings } from "solid-icons/fi";
-import { Dynamic } from "solid-js/web";
+import { FiMoreVertical, FiSettings } from "solid-icons/fi";
 
 export const MenuMore: Component<{
 	signalOpen: Signal<boolean>;
@@ -33,7 +32,15 @@ export const MenuMore: Component<{
 
 	return (
 		<div id="section-button-more" class={`${props.platform} ${props.mode}`}>
-			<Dynamic component={CgMoreO} onClick={() => setOpenMore(!openMore())} />
+			<Switch>
+				<Match when={props.platform === "ios"}>
+					<CgMoreO onClick={() => setOpenMore(!openMore())} />
+				</Match>
+
+				<Match when={props.platform === "android"}>
+					<FiMoreVertical onClick={() => setOpenMore(!openMore())} />
+				</Match>
+			</Switch>
 
 			<div classList={{ active: openMore() }}>
 				<ul>
