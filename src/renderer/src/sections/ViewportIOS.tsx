@@ -6,6 +6,7 @@ import type {
 	TelegramPopup,
 	TelegramScanQRPopup,
 	TelegramMethodEvent,
+	TelegramStory,
 } from "@renderer/types";
 import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
 import {
@@ -41,6 +42,7 @@ import { TiMicrophoneOutline } from "solid-icons/ti";
 import { BiRegularWindow } from "solid-icons/bi";
 
 import webviewStyle from "../scss/_webview.scss?inline";
+import { PopupStoryHandler } from "./PopupStory";
 
 export const ViewportIOS: Component<{
 	project: Project;
@@ -69,6 +71,9 @@ export const ViewportIOS: Component<{
 		undefined,
 	);
 	const [popupQRData, setPopupQRData] = createSignal<string | undefined>(
+		undefined,
+	);
+	const [popupStory, setPopupStory] = createSignal<TelegramStory | undefined>(
 		undefined,
 	);
 
@@ -366,6 +371,7 @@ export const ViewportIOS: Component<{
 							verticalSwipeEnabled,
 							setVerticalSwipeEnabled,
 						],
+						signalPopupStory: [popupStory, setPopupStory],
 					},
 				);
 			}
@@ -660,6 +666,14 @@ export const ViewportIOS: Component<{
 						mode={mode()}
 						signalPopupQR={[popupQR, setPopupQR]}
 						signalPopupQRData={[popupQRData, setPopupQRData]}
+					/>
+				</Show>
+
+				<Show when={popupStory()}>
+					<PopupStoryHandler
+						platform={props.platform}
+						mode={mode()}
+						signalPopupStory={[popupStory, setPopupStory]}
 					/>
 				</Show>
 			</div>

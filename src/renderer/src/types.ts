@@ -55,3 +55,12 @@ export type TelegramPopup = {
 export type TelegramScanQRPopup = {
     text?: string,
 };
+
+export type TelegramStory = {
+    media_url: string,
+    text?: string,
+    widget_link?: {
+        url: string,
+        name?: string,
+    },
+};

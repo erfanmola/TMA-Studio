@@ -41,7 +41,7 @@
 - [ ] openLink*
 - [ ] openTelegramLink*
 - [ ] openInvoice*
-- [ ] shareToStory*
+- [x] shareToStory
 - [x] showPopup
 - [x] showAlert
 - [x] showConfirm

@@ -22,7 +22,7 @@ const createMainWindow = (): void => {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
-      // webSecurity: false,
+      webSecurity: false,
       webviewTag: true,
       // nodeIntegration: true,
       // nodeIntegrationInSubFrames: true,

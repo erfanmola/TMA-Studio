@@ -1,7 +1,7 @@
 import { TelegramThemes, type TelegramPlatform, type ThemeMode } from "./themes";
 import hmac from 'js-crypto-hmac';
 
-import type { TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, User } from "@renderer/types";
+import type { TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, TelegramStory, User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, ksort } from "./general";
 import { batch, type Signal } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
@@ -78,6 +78,7 @@ export type TGEventHandlerSignals = {
     signalShake: Signal<boolean>;
     signalPopup: Signal<TelegramPopup | undefined>;
     signalPopupQR: Signal<TelegramScanQRPopup | undefined>;
+    signalPopupStory: Signal<TelegramStory | undefined>;
     signalColorHeader: Signal<string | undefined>;
     signalColorHeaderText: Signal<string | undefined>;
     signalColorBackground: Signal<string | undefined>;
@@ -102,6 +103,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
     const [, setShake] = signals.signalShake;
     const [, setPopup] = signals.signalPopup;
     const [, setPopupQR] = signals.signalPopupQR;
+    const [, setPopupStory] = signals.signalPopupStory;
     const [, setBackButtonEnabled] = signals.signalBackButtonEnabled;
     const [, setOpen] = signals.signalOpen;
     const [, setCloseConfirmationEnabled] = signals.signalCloseConfirmationEnabled;
@@ -394,6 +396,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_share_to_story":
+            setPopupStory(eventData);
             break;
     }
 }
