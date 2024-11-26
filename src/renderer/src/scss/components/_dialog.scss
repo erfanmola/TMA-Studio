@@ -19,13 +19,13 @@
 .dialog__content {
     z-index: 50;
     max-width: min(calc(100vw - 16px), 720px);
-    border: 1px solid hsl(240 5% 84%);
+    border: 1px solid rgba(var(--opposite-rgb), 0.25);
     border-radius: 6px;
     padding: 16px;
-    background-color: white;
+    background-color: var(--bg-color);
     box-shadow:
-        0 10px 15px -3px rgb(0 0 0 / 0.1),
-        0 4px 6px -4px rgb(0 0 0 / 0.1);
+        0 10px 15px -3px rgba(var(--opposite-rgb), 0.125),
+        0 4px 6px -4px rgba(var(--opposite-rgb), 0.125);
     animation: contentHide 300ms ease-in forwards;
 }
 .dialog__content[data-expanded] {
@@ -40,16 +40,16 @@
 .dialog__close-button {
     height: 16px;
     width: 16px;
-    color: hsl(240 5% 34%);
+    color: var(--text-color);
 }
 .dialog__title {
     font-size: 20px;
     font-weight: 500;
-    color: hsl(240 6% 10%);
+    color: var(--text-color);
 }
 .dialog__description {
     font-size: 16px;
-    color: hsl(240 5% 26%);
+    color: var(--text-color);
 }
 @keyframes overlayShow {
     from {

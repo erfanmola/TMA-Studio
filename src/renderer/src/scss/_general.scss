@@ -50,6 +50,7 @@ body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    overflow: hidden;
 }
 
 .button-primary {
@@ -72,18 +73,24 @@ body {
     }
 }
 
+#container-page-main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100%;
+}
+
 #container-page-content {
     display: flex;
     flex-grow: 1;
+    overflow: hidden;
 
     > div {
         display: flex;
         flex-grow: 1;
         flex-direction: column;
-
-        > section {
-            flex-grow: 1;
-        }
+        overflow: hidden;
     }
 }
 

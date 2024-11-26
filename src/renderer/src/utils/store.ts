@@ -1,6 +1,7 @@
 import type { Project, User } from "../types";
 import { setActiveUserId, setUsers } from "./user";
 
+import { setPreferences } from "./preferences";
 import { setProjects } from "./project";
 import { useSettings } from "../contexts/SettingsContext";
 
@@ -21,6 +22,14 @@ export const initStore = () => {
         setUsers(usersList);
     }
     setActiveUserId(settings.get("active_user") ?? 'none');
+
+    const preferencesSaved = settings.get("preferences");
+    if (preferencesSaved) {
+        for (const key in preferencesSaved) {
+            // @ts-ignore
+            setPreferences(key, preferencesSaved[key]);
+        }
+    }
 
     return true;
 };

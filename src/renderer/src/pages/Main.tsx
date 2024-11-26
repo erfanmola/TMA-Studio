@@ -20,10 +20,12 @@ import { FaSolidPlus } from "solid-icons/fa";
 import { FiUserPlus } from "solid-icons/fi";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import PreferencesPage from "./Preferences";
 import ProjectPage from "./Project";
 import ProjectsPage from "./Projects";
 import type { TabbarTab } from "../types";
 import { initStore } from "@renderer/utils/store";
+import { preferences } from "@renderer/utils/preferences";
 import { projects } from "../utils/project";
 import { useSettings } from "../contexts/SettingsContext";
 
@@ -59,6 +61,8 @@ const MainPage = () => {
 
 				if (tab.id.startsWith("project-")) {
 					component = () => <ProjectPage id={tab.id.replace("project-", "")} />;
+				} else if (tab.id === "preferences") {
+					component = () => <PreferencesPage />;
 				} else {
 					component = <div />;
 				}
@@ -94,6 +98,15 @@ const MainPage = () => {
 				{ defer: true },
 			),
 		);
+
+		createEffect(() => {
+			settings.set("preferences", JSON.parse(JSON.stringify(preferences)));
+		});
+
+		createEffect(() => {
+			document.body.classList.remove("light", "dark");
+			document.body.classList.add(preferences.theme_mode);
+		});
 	};
 
 	onMount(() => {

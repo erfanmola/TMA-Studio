@@ -1,0 +1,49 @@
+#container-section-preferences {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+
+    > h1 {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    > section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding-inline-start: 1rem;
+        max-width: 640px;
+
+        > h2 {
+            font-size: 1.325rem;
+            font-weight: 600;
+        }
+
+        > ul {
+            padding-inline-start: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+
+            > li {
+                display: flex;
+                align-items: center;
+
+                > span {
+                    flex-grow: 1;
+                    font-weight: 500;
+                }
+
+                > div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

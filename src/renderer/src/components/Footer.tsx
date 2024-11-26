@@ -1,13 +1,29 @@
 import "./Footer.scss";
 
+import { setActiveTabId, setTabbarData, tabbarData } from "./Tabbar";
 import { setSidebarVisibility, sidebarVisiblity } from "./Sidebar";
 
 import { FaSolidHeart } from "solid-icons/fa";
 import { IoSettingsSharp } from "solid-icons/io";
 import { OcSidebarcollapse2 } from "solid-icons/oc";
+import PreferencesPage from "@renderer/pages/Preferences";
 import { Show } from "solid-js";
 
 const Footer = () => {
+	const onClickPreferences = () => {
+		setTabbarData([
+			...tabbarData(),
+			{
+				id: "preferences",
+				title: "Preferences",
+				dynamic: true,
+				component: () => <PreferencesPage />,
+				closable: true,
+			},
+		]);
+		setActiveTabId("preferences");
+	};
+
 	return (
 		<footer id="footer-main">
 			<ul>
@@ -20,7 +36,7 @@ const Footer = () => {
 				</Show>
 
 				<li>
-					<button type="button">
+					<button type="button" onClick={onClickPreferences}>
 						<IoSettingsSharp />
 						Preferences
 					</button>

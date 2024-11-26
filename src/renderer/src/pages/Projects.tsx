@@ -17,6 +17,7 @@ import ProjectPage from "./Project";
 import KeyboardCombo from "../components/KeyboardCombo";
 import { tabbarData } from "../components/Tabbar";
 import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
+import { preferences } from "@renderer/utils/preferences";
 
 const ProjectsPage: Component<{
 	showProjectDialog: Accessor<boolean>;
@@ -111,7 +112,11 @@ const ProjectsPage: Component<{
 				</ul>
 			</Show>
 
-			<Menu id={"menu-project"} animation="scale" theme="light">
+			<Menu
+				id={"menu-project"}
+				animation="scale"
+				theme={preferences.theme_mode}
+			>
 				<Item onClick={onClickMenuProjectOpen}>Open Project</Item>
 				<Separator />
 				<Item onClick={onClickMenuProjectDelete}>Delete Project</Item>

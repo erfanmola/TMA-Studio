@@ -5,6 +5,7 @@
     background-color: rgba(var(--opposite-rgb), 0.0325);
     align-items: center;
     color: rgba(var(--opposite-rgb), 0.875);
+    flex-shrink: 0;
 
     > ul {
         display: flex;

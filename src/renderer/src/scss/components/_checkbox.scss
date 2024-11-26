@@ -25,7 +25,7 @@
 }
 .checkbox__label {
     margin-left: 6px;
-    color: hsl(240 6% 10%);
+    color: var(--text-color);
     font-size: 14px;
     user-select: none;
 }

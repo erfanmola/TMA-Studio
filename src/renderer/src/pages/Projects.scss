@@ -61,7 +61,7 @@
             justify-content: center;
             cursor: pointer;
             border: 1px solid rgba(var(--opposite-rgb), 0.125);
-            background-color: white;
+            background-color: var(--bg-card);
             box-shadow: var(--shadow-card);
             overflow: hidden;
             padding: 0.5rem 0.5rem 4px;

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    overflow: hidden;
 
     > ul {
         display: flex;
@@ -63,6 +64,8 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        overflow: hidden;
+        overflow-y: auto;
 
         > * {
             flex-grow: 1;
