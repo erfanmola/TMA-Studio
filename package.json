@@ -29,6 +29,7 @@
     "electron-store": "^10.0.0",
     "electron-updater": "^6.3.9",
     "js-crypto-hmac": "^1.0.7",
+    "solid-contextmenu": "^0.0.2",
     "solid-icons": "^1.1.0",
     "solid-motionone": "^1.0.2",
     "telegram": "^2.26.8",

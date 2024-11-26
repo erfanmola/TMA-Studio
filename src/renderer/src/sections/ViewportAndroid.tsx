@@ -138,7 +138,6 @@ export const ViewportAndroid: Component<{
 	createEffect(() => {
 		if (expanded() && colorHeader()) {
 			setStatusBarColor(isColorDark(colorHeader() ?? "") ? "white" : "black");
-			console.log("here we go again");
 		} else {
 			setStatusBarColor("white");
 		}
