@@ -40,7 +40,7 @@
 - [ ] switchInlineQuery*
 - [ ] openLink
 - [ ] openTelegramLink
-- [ ] openInvoice*
+- [ ] openInvoice
 - [x] shareToStory
 - [x] showPopup
 - [x] showAlert
@@ -61,7 +61,7 @@
 - [x] secondaryButtonClicked
 - [x] backButtonClicked
 - [x] settingsButtonClicked
-- [ ] invoiceClosed*
+- [ ] invoiceClosed
 - [x] popupClosed
 - [x] qrTextReceived
 - [x] scanQrPopupClosed
