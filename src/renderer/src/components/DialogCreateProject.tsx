@@ -49,6 +49,7 @@ const DialogCreateProject: Component<{
 			expanded: false,
 			mode: "light",
 			open: true,
+			floating: false,
 		};
 
 		setProjects([

@@ -44,3 +44,10 @@ contextBridge.exposeInMainWorld('clipboard', {
     return clipboard.clear();
   },
 });
+
+contextBridge.exposeInMainWorld('project', {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  open: (project: string, platform: any) => {
+    ipcRenderer.send('project-open', project, platform);
+  },
+});

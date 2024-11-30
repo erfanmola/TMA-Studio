@@ -1,4 +1,5 @@
 import "./app.scss";
+import "./scss/_general.scss";
 
 import App from "./App";
 /* @refresh reload */

@@ -1,4 +1,5 @@
 import type { ElectronAPI } from '@electron-toolkit/preload'
+import type { TelegramPlatform } from '@renderer/utils/themes';
 
 declare global {
   interface Window {
@@ -17,6 +18,9 @@ declare global {
       getText: () => string;
       setText: (text: string) => void;
       clear: () => void;
+    },
+    project: {
+      open: (project: string, platform: TelegramPlatform) => void;
     }
   }
 }

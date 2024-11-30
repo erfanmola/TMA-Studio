@@ -12,6 +12,7 @@ export type Project = {
             open: boolean,
             expanded: boolean,
             mode: ThemeMode,
+            floating: boolean,
         }
     },
 };

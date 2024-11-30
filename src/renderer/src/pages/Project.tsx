@@ -1,6 +1,6 @@
 import "./Project.scss";
 
-import { createEffect, createSignal, type Component } from "solid-js";
+import { createEffect, createSignal, Show, type Component } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 import { projects } from "../utils/project";
@@ -24,22 +24,29 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 	);
 	const [inspectElement, setInspectElement] = createSignal(false);
 	const [open, setOpen] = createSignal(props.project.settings.android.open);
+	const [floating, setFloating] = createSignal(
+		props.project.settings.android.floating,
+	);
 
 	createEffect(async () => {
 		props.project.settings.android.mode = mode();
 		props.project.settings.android.expanded = expanded();
 		props.project.settings.android.open = open();
+		props.project.settings.android.floating = floating();
 		settings.set("projects", projects());
 	});
 
 	return (
 		<div id="section-telegram-android">
 			<HeaderWidget
+				project={props.project}
+				platform="android"
 				title="Telegram Android"
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
+				signalFloating={[floating, setFloating]}
 			/>
 
 			<ViewportAndroid
@@ -66,22 +73,29 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 	);
 	const [inspectElement, setInspectElement] = createSignal(false);
 	const [open, setOpen] = createSignal(props.project.settings.ios.open);
+	const [floating, setFloating] = createSignal(
+		props.project.settings.ios.floating,
+	);
 
 	createEffect(async () => {
 		props.project.settings.ios.mode = mode();
 		props.project.settings.ios.expanded = expanded();
 		props.project.settings.ios.open = open();
+		props.project.settings.ios.floating = floating();
 		settings.set("projects", projects());
 	});
 
 	return (
 		<div id="section-telegram-ios">
 			<HeaderWidget
+				project={props.project}
+				platform="ios"
 				title="Telegram iOS"
 				signalMode={[mode, setMode]}
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
+				signalFloating={[floating, setFloating]}
 			/>
 
 			<ViewportIOS

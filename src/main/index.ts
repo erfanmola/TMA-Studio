@@ -7,7 +7,6 @@ import { join } from 'node:path'
 
 Store.initRenderer();
 
-// let WindowMain: BrowserWindow | undefined;
 let WindowWelcome: BrowserWindow | undefined;
 
 const createMainWindow = (): void => {
@@ -82,8 +81,9 @@ const createWelcomeWindow = (): void => {
       contextIsolation: true,
     },
     resizable: false,
-    titleBarStyle: 'hidden',
+    frame: false,
     center: true,
+    alwaysOnTop: true,
   });
 
   WindowWelcome = mainWindow;
@@ -111,7 +111,7 @@ const createWelcomeWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('studio.tma')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -129,6 +129,36 @@ app.whenReady().then(() => {
   ipcMain.on('electron-store-set', async (_, key, val) => {
     // @ts-ignore
     store.set(key, val);
+  });
+  ipcMain.on('project-open', async (_, project, platform) => {
+    const window = new BrowserWindow({
+      width: 416,
+      height: 1024,
+      show: false,
+      autoHideMenuBar: true,
+      ...(process.platform === 'linux' ? { icon } : {}),
+      webPreferences: {
+        preload: join(__dirname, '../preload/index.js'),
+        sandbox: false,
+        contextIsolation: true,
+        webSecurity: false,
+        webviewTag: true,
+      },
+      resizable: false,
+      alwaysOnTop: true,
+      frame: false,
+      transparent: true,
+    });
+
+    window.on('ready-to-show', () => {
+      window.show()
+    });
+
+    if (is.dev && process.env.ELECTRON_RENDERER_URL) {
+      window.loadURL(`${process.env.ELECTRON_RENDERER_URL}/floating.html#/${project}/${platform}`)
+    } else {
+      window.loadFile(join(__dirname, `../renderer/floating.html#/${project}/${platform}`))
+    }
   });
 
   // @ts-ignore

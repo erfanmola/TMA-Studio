@@ -1,20 +1,41 @@
 import { ToggleButton } from "@kobalte/core/toggle-button";
-import type { ThemeMode } from "@renderer/utils/themes";
-import { FaSolidCode, FaSolidSun, FaSolidMoon } from "solid-icons/fa";
+import type { Project } from "@renderer/types";
+import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import { CgArrowTopRightR, CgArrowBottomLeftR } from "solid-icons/cg";
+import { FaSolidCode, FaRegularMoon, FaRegularSun } from "solid-icons/fa";
 import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
-import { type Component, type Signal, Show } from "solid-js";
+import { type Component, type Signal, createEffect, on, Show } from "solid-js";
 
 export const HeaderWidget: Component<{
+	project: Project;
+	platform: TelegramPlatform;
 	title: string;
 	signalMode: Signal<ThemeMode>;
 	signalExpanded: Signal<boolean>;
 	signalInspectElement: Signal<boolean>;
 	signalOpen: Signal<boolean>;
+	signalFloating: Signal<boolean>;
 }> = (props) => {
 	const [mode, setMode] = props.signalMode;
 	const [inspectElement, setInspectElement] = props.signalInspectElement;
 	const [expanded, setExpanded] = props.signalExpanded;
 	const [open] = props.signalOpen;
+	const [floating, setFloating] = props.signalFloating;
+
+	createEffect(
+		on(
+			floating,
+			() => {
+				if (floating()) {
+					window.project.open(props.project.id, props.platform);
+					setFloating(true);
+				} else {
+					// close window
+				}
+			},
+			{ defer: true },
+		),
+	);
 
 	return (
 		<header>
@@ -60,8 +81,24 @@ export const HeaderWidget: Component<{
 						onChange={() => setMode(mode() === "dark" ? "light" : "dark")}
 					>
 						{(state) => (
-							<Show when={state.pressed()} fallback={<FaSolidSun />}>
-								<FaSolidMoon />
+							<Show when={state.pressed()} fallback={<FaRegularSun />}>
+								<FaRegularMoon />
+							</Show>
+						)}
+					</ToggleButton>
+				</li>
+
+				<li>
+					<ToggleButton
+						class="toggle-button"
+						style={{ "font-size": "1.425rem" }}
+						title="Floating Window"
+						pressed={floating()}
+						onChange={() => setFloating(!floating())}
+					>
+						{(state) => (
+							<Show when={state.pressed()} fallback={<CgArrowTopRightR />}>
+								<CgArrowBottomLeftR />
 							</Show>
 						)}
 					</ToggleButton>
