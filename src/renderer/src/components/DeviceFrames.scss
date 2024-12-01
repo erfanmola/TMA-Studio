@@ -71,3 +71,19 @@
         overflow: hidden;
     }
 }
+
+#frame-iphone,
+#frame-android {
+    &.placeholder {
+        background-color: var(--device-frame-color-placeholder);
+        border-color: var(--device-frame-border-placeholder);
+
+        &::before {
+            background-color: var(--device-frame-color-placeholder);
+        }
+
+        > div {
+            background-color: var(--device-frame-bg-placeholder);
+        }
+    }
+}

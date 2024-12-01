@@ -21,6 +21,7 @@ declare global {
     },
     project: {
       open: (project: string, platform: TelegramPlatform) => void;
+      close: (project: string, platform: TelegramPlatform) => void;
     }
   }
 }

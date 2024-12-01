@@ -68,6 +68,7 @@ const FloatingProject: Component = () => {
 						signalInspectElement={[inspectElement, setInspectElement]}
 						signalOpen={[open, setOpen]}
 						signalFloating={[floating, setFloating]}
+						placeholder={false}
 					/>
 
 					<ViewportAndroid
@@ -77,6 +78,7 @@ const FloatingProject: Component = () => {
 						signalExpanded={[expanded, setExpanded]}
 						signalInspectElement={[inspectElement, setInspectElement]}
 						signalOpen={[open, setOpen]}
+						placeholder={false}
 					/>
 				</div>
 			</Match>
@@ -92,6 +94,7 @@ const FloatingProject: Component = () => {
 						signalInspectElement={[inspectElement, setInspectElement]}
 						signalOpen={[open, setOpen]}
 						signalFloating={[floating, setFloating]}
+						placeholder={false}
 					/>
 
 					<ViewportIOS
@@ -101,6 +104,7 @@ const FloatingProject: Component = () => {
 						signalExpanded={[expanded, setExpanded]}
 						signalInspectElement={[inspectElement, setInspectElement]}
 						signalOpen={[open, setOpen]}
+						placeholder={false}
 					/>
 				</div>
 			</Match>

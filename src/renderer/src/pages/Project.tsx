@@ -47,6 +47,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
 				signalFloating={[floating, setFloating]}
+				placeholder={floating()}
 			/>
 
 			<ViewportAndroid
@@ -56,6 +57,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
+				placeholder={floating()}
 			/>
 		</div>
 	);
@@ -96,6 +98,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
 				signalFloating={[floating, setFloating]}
+				placeholder={floating()}
 			/>
 
 			<ViewportIOS
@@ -105,6 +108,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				signalExpanded={[expanded, setExpanded]}
 				signalInspectElement={[inspectElement, setInspectElement]}
 				signalOpen={[open, setOpen]}
+				placeholder={floating()}
 			/>
 		</div>
 	);

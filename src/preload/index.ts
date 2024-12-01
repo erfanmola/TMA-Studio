@@ -1,6 +1,7 @@
 import { clipboard, contextBridge, ipcRenderer } from 'electron'
 
 import { electronAPI } from '@electron-toolkit/preload'
+import { platform } from 'node:os'
 
 // Custom APIs for renderer
 const api = {}
@@ -46,8 +47,10 @@ contextBridge.exposeInMainWorld('clipboard', {
 });
 
 contextBridge.exposeInMainWorld('project', {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  open: (project: string, platform: any) => {
+  open: (project: string, platform: string) => {
     ipcRenderer.send('project-open', project, platform);
+  },
+  close: (project: string, platform: string) => {
+    ipcRenderer.send('project-close', project, platform);
   },
 });

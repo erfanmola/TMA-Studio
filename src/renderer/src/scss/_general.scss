@@ -100,3 +100,8 @@ main {
     flex-grow: 1;
     max-height: 100%;
 }
+
+.solid-contextmenu__theme--dark,
+.solid-contextmenu__theme--dark .solid-contextmenu__submenu {
+    background-color: var(--bg-card) !important;
+}

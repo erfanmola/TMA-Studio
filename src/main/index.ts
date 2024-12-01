@@ -7,6 +7,7 @@ import { join } from 'node:path'
 
 Store.initRenderer();
 
+let WindowMain: BrowserWindow | undefined;
 let WindowWelcome: BrowserWindow | undefined;
 
 const createMainWindow = (): void => {
@@ -30,6 +31,8 @@ const createMainWindow = (): void => {
     titleBarStyle: 'default',
     titleBarOverlay: true,
   });
+
+  WindowMain = mainWindow;
 
   mainWindow.webContents.on('before-input-event', (event, input) => {
     if (
@@ -159,6 +162,10 @@ app.whenReady().then(() => {
     } else {
       window.loadFile(join(__dirname, `../renderer/floating.html#/${project}/${platform}`))
     }
+  });
+  ipcMain.on('project-close', async (_, project, platform) => {
+    _.sender.close();
+    WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
   });
 
   // @ts-ignore
