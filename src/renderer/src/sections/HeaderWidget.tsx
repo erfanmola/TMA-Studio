@@ -34,49 +34,43 @@ export const HeaderWidget: Component<{
 
 	const { settings } = useSettings();
 
-	if (floating()) {
-		createEffect(
-			on(
-				floating,
-				() => {
-					if (!floating()) {
-						setInspectElement(false);
-						setTimeout(() => {
-							window.project.close(props.project.id, props.platform);
-						});
-					}
-				},
-				{ defer: true },
-			),
-		);
-	} else {
-		createEffect(
-			on(
-				floating,
-				() => {
-					if (floating()) {
-						setInspectElement(false);
-						setTimeout(() => {
-							window.project.open(props.project.id, props.platform);
-						});
-					}
-				},
-				{ defer: true },
-			),
-		);
+	const handleProjectSync = (_) => {
+		const projectsList = settings.get("projects") as Project[];
+		const project = projectsList.find((item) => item.id === props.project.id);
 
-		const handleProjectSync = (_) => {
-			const projectsList = settings.get("projects") as Project[];
-			const project = projectsList.find((item) => item.id === props.project.id);
+		if (project) {
+			setMode(project.settings[props.platform].mode);
+			setExpanded(project.settings[props.platform].expanded);
+			setOpen(project.settings[props.platform].open);
+			setFloating(project.settings[props.platform].floating);
+		}
+	};
 
-			if (project) {
-				setMode(project.settings[props.platform].mode);
-				setExpanded(project.settings[props.platform].expanded);
-				setOpen(project.settings[props.platform].open);
-				setFloating(project.settings[props.platform].floating);
-			}
-		};
+	createEffect(
+		on(
+			floating,
+			() => {
+				if (floating()) {
+					setInspectElement(false);
+					setTimeout(() => {
+						window.project.open(props.project.id, props.platform);
+					});
+				} else if (!floating() && !props.placeholder) {
+					setInspectElement(false);
+					setTimeout(() => {
+						window.project.close(props.project.id, props.platform, false);
+					});
+				}
+			},
+			{ defer: true },
+		),
+	);
 
+	if (props.placeholder) {
+		window.project.open(props.project.id, props.platform);
+	}
+
+	if (!floating() || props.placeholder) {
 		onMount(() => {
 			window.electron.ipcRenderer.on(
 				`sync-project-${props.project.id}-${props.platform}`,

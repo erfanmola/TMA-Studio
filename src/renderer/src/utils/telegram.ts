@@ -51,7 +51,15 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
     })
     .join('\n').replace(/\//g, "\\/");
 
-    return buffer2Hex(await hmac.compute(await hmac.compute(new TextEncoder().encode('WebAppData'), new TextEncoder().encode(token), 'SHA-256'), new TextEncoder().encode(initDataString), 'SHA-256'));
+    return buffer2Hex(
+        await hmac.compute(
+            await hmac.compute(
+                new TextEncoder().encode('WebAppData'),
+                new TextEncoder().encode(token), 'SHA-256'
+            ),
+            new TextEncoder().encode(initDataString), 'SHA-256'
+        )
+        );
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>

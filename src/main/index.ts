@@ -10,6 +10,8 @@ Store.initRenderer();
 let WindowMain: BrowserWindow | undefined;
 let WindowWelcome: BrowserWindow | undefined;
 
+const popupWindows: { [key: string]: BrowserWindow[] } = {};
+
 const createMainWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -153,6 +155,11 @@ app.whenReady().then(() => {
       transparent: true,
     });
 
+    if (!(project in popupWindows)) {
+      popupWindows[project] = [];
+    }
+    popupWindows[project].push(window);
+
     window.on('ready-to-show', () => {
       window.show()
     });
@@ -163,9 +170,21 @@ app.whenReady().then(() => {
       window.loadFile(join(__dirname, `../renderer/floating.html#/${project}/${platform}`))
     }
   });
-  ipcMain.on('project-close', async (_, project, platform) => {
-    _.sender.close();
-    WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
+  ipcMain.on('project-close', async (_, project, platform, popup) => {
+    if (_.sender.id !== WindowMain?.webContents.id) {
+      _.sender.close();
+      WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
+
+      const windowItem = popupWindows[project].find(item => item.webContents.id === _.sender.id);
+      if (windowItem) {
+        popupWindows[project].splice(popupWindows[project].indexOf(windowItem), 1);
+      }
+    } else if (_.sender.id === WindowMain?.webContents.id && popup) {
+      for (const window of popupWindows[project]) {
+        window.close();
+      }
+      delete popupWindows[project];
+    }
   });
 
   // @ts-ignore

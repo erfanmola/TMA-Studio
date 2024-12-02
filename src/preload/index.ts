@@ -50,7 +50,7 @@ contextBridge.exposeInMainWorld('project', {
   open: (project: string, platform: string) => {
     ipcRenderer.send('project-open', project, platform);
   },
-  close: (project: string, platform: string) => {
-    ipcRenderer.send('project-close', project, platform);
+  close: (project: string, platform: string, popup: boolean) => {
+    ipcRenderer.send('project-close', project, platform, popup);
   },
 });

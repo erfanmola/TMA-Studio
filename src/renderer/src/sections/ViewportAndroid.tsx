@@ -459,7 +459,9 @@ export const ViewportAndroid: Component<{
 
 		onCleanup(() => {
 			if (open() && webview?.isDevToolsOpened) {
-				webview?.closeDevTools();
+				try {
+					webview?.closeDevTools();
+				} catch (e) {}
 			}
 		});
 	};
