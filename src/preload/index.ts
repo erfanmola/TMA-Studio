@@ -1,7 +1,6 @@
 import { clipboard, contextBridge, ipcRenderer } from 'electron'
 
 import { electronAPI } from '@electron-toolkit/preload'
-import { platform } from 'node:os'
 
 // Custom APIs for renderer
 const api = {}

@@ -109,7 +109,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         eventData = JSON.parse(eventData);
     } catch (e) {}
 
-    const [ready, setReady] = signals.signalReady;
+    const [, setReady] = signals.signalReady;
     const [mode] = signals.signalMode;
 	const [expanded, setExpanded] = signals.signalExpanded;
     const [, setColorHeader] = signals.signalColorHeader;

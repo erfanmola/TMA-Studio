@@ -1,6 +1,6 @@
 import "./Project.scss";
 
-import { createEffect, createSignal, Show, type Component } from "solid-js";
+import { createEffect, createSignal, type Component } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 import { projects } from "../utils/project";
