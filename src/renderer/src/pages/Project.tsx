@@ -38,27 +38,29 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 
 	return (
 		<div id="section-telegram-android">
-			<HeaderWidget
-				project={props.project}
-				platform="android"
-				title="Telegram Android"
-				signalMode={[mode, setMode]}
-				signalExpanded={[expanded, setExpanded]}
-				signalInspectElement={[inspectElement, setInspectElement]}
-				signalOpen={[open, setOpen]}
-				signalFloating={[floating, setFloating]}
-				placeholder={floating()}
-			/>
+			<div>
+				<HeaderWidget
+					project={props.project}
+					platform="android"
+					title="Telegram Android"
+					signalMode={[mode, setMode]}
+					signalExpanded={[expanded, setExpanded]}
+					signalInspectElement={[inspectElement, setInspectElement]}
+					signalOpen={[open, setOpen]}
+					signalFloating={[floating, setFloating]}
+					placeholder={floating()}
+				/>
 
-			<ViewportAndroid
-				project={props.project}
-				platform={platform}
-				signalMode={[mode, setMode]}
-				signalExpanded={[expanded, setExpanded]}
-				signalInspectElement={[inspectElement, setInspectElement]}
-				signalOpen={[open, setOpen]}
-				placeholder={floating()}
-			/>
+				<ViewportAndroid
+					project={props.project}
+					platform={platform}
+					signalMode={[mode, setMode]}
+					signalExpanded={[expanded, setExpanded]}
+					signalInspectElement={[inspectElement, setInspectElement]}
+					signalOpen={[open, setOpen]}
+					placeholder={floating()}
+				/>
+			</div>
 		</div>
 	);
 };
@@ -89,27 +91,29 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 
 	return (
 		<div id="section-telegram-ios">
-			<HeaderWidget
-				project={props.project}
-				platform="ios"
-				title="Telegram iOS"
-				signalMode={[mode, setMode]}
-				signalExpanded={[expanded, setExpanded]}
-				signalInspectElement={[inspectElement, setInspectElement]}
-				signalOpen={[open, setOpen]}
-				signalFloating={[floating, setFloating]}
-				placeholder={floating()}
-			/>
+			<div>
+				<HeaderWidget
+					project={props.project}
+					platform="ios"
+					title="Telegram iOS"
+					signalMode={[mode, setMode]}
+					signalExpanded={[expanded, setExpanded]}
+					signalInspectElement={[inspectElement, setInspectElement]}
+					signalOpen={[open, setOpen]}
+					signalFloating={[floating, setFloating]}
+					placeholder={floating()}
+				/>
 
-			<ViewportIOS
-				project={props.project}
-				platform={platform}
-				signalMode={[mode, setMode]}
-				signalExpanded={[expanded, setExpanded]}
-				signalInspectElement={[inspectElement, setInspectElement]}
-				signalOpen={[open, setOpen]}
-				placeholder={floating()}
-			/>
+				<ViewportIOS
+					project={props.project}
+					platform={platform}
+					signalMode={[mode, setMode]}
+					signalExpanded={[expanded, setExpanded]}
+					signalInspectElement={[inspectElement, setInspectElement]}
+					signalOpen={[open, setOpen]}
+					placeholder={floating()}
+				/>
+			</div>
 		</div>
 	);
 };

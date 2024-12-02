@@ -1,7 +1,17 @@
 #header-main {
     display: flex;
-    padding: 2rem 1.5rem 1rem;
+    padding: 3rem 1.5rem 1rem;
     border-bottom: 1px solid rgba(var(--opposite-rgb), 0.25);
+    position: relative;
+
+    &::before {
+        position: absolute;
+        z-index: 1;
+        inset: 0;
+        height: 3rem;
+        content: "";
+        app-region: drag;
+    }
 
     > div:first-child {
         display: flex;

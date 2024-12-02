@@ -59,53 +59,57 @@ const FloatingProject: Component = () => {
 		<Switch>
 			<Match when={platform === "android"}>
 				<div id="section-telegram-android">
-					<HeaderWidget
-						project={project}
-						platform="android"
-						title="Telegram Android"
-						signalMode={[mode, setMode]}
-						signalExpanded={[expanded, setExpanded]}
-						signalInspectElement={[inspectElement, setInspectElement]}
-						signalOpen={[open, setOpen]}
-						signalFloating={[floating, setFloating]}
-						placeholder={false}
-					/>
+					<div>
+						<HeaderWidget
+							project={project}
+							platform="android"
+							title="Telegram Android"
+							signalMode={[mode, setMode]}
+							signalExpanded={[expanded, setExpanded]}
+							signalInspectElement={[inspectElement, setInspectElement]}
+							signalOpen={[open, setOpen]}
+							signalFloating={[floating, setFloating]}
+							placeholder={false}
+						/>
 
-					<ViewportAndroid
-						project={project}
-						platform={platform}
-						signalMode={[mode, setMode]}
-						signalExpanded={[expanded, setExpanded]}
-						signalInspectElement={[inspectElement, setInspectElement]}
-						signalOpen={[open, setOpen]}
-						placeholder={false}
-					/>
+						<ViewportAndroid
+							project={project}
+							platform={platform}
+							signalMode={[mode, setMode]}
+							signalExpanded={[expanded, setExpanded]}
+							signalInspectElement={[inspectElement, setInspectElement]}
+							signalOpen={[open, setOpen]}
+							placeholder={false}
+						/>
+					</div>
 				</div>
 			</Match>
 
 			<Match when={platform === "ios"}>
 				<div id="section-telegram-ios">
-					<HeaderWidget
-						project={project}
-						platform="ios"
-						title="Telegram iOS"
-						signalMode={[mode, setMode]}
-						signalExpanded={[expanded, setExpanded]}
-						signalInspectElement={[inspectElement, setInspectElement]}
-						signalOpen={[open, setOpen]}
-						signalFloating={[floating, setFloating]}
-						placeholder={false}
-					/>
+					<div>
+						<HeaderWidget
+							project={project}
+							platform="ios"
+							title="Telegram iOS"
+							signalMode={[mode, setMode]}
+							signalExpanded={[expanded, setExpanded]}
+							signalInspectElement={[inspectElement, setInspectElement]}
+							signalOpen={[open, setOpen]}
+							signalFloating={[floating, setFloating]}
+							placeholder={false}
+						/>
 
-					<ViewportIOS
-						project={project}
-						platform={platform}
-						signalMode={[mode, setMode]}
-						signalExpanded={[expanded, setExpanded]}
-						signalInspectElement={[inspectElement, setInspectElement]}
-						signalOpen={[open, setOpen]}
-						placeholder={false}
-					/>
+						<ViewportIOS
+							project={project}
+							platform={platform}
+							signalMode={[mode, setMode]}
+							signalExpanded={[expanded, setExpanded]}
+							signalInspectElement={[inspectElement, setInspectElement]}
+							signalOpen={[open, setOpen]}
+							placeholder={false}
+						/>
+					</div>
 				</div>
 			</Match>
 		</Switch>

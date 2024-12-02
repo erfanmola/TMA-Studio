@@ -29,9 +29,13 @@ body.floating-project {
 
     #section-telegram-ios,
     #section-telegram-android {
-        > header {
-            > h2 {
-                app-region: drag;
+        > div {
+            width: 100%;
+
+            > header {
+                > h2 {
+                    app-region: drag;
+                }
             }
         }
     }

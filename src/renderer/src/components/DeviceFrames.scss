@@ -1,13 +1,15 @@
 #frame-iphone {
     --iphone-frame-radius: 4.5rem;
-    --iphone-frame-width: 0.75rem;
-    --iphone-frame-border: 0.25rem;
+    --iphone-frame-width: 0.625rem;
+    --iphone-frame-border: 0.225rem;
 
     display: flex;
     background-color: var(--device-frame-color);
     padding: var(--iphone-frame-width);
     aspect-ratio: 0.475;
-    width: calc(390px + (2 * var(--iphone-frame-border)) + (2 * var(--iphone-frame-width)));
+    max-width: 100%;
+    height: 100%;
+    // width: calc(390px + (2 * var(--iphone-frame-border)) + (2 * var(--iphone-frame-width)));
     border-radius: calc(var(--iphone-frame-radius) - var(--iphone-frame-border));
     position: relative;
     overflow: hidden;
@@ -38,13 +40,15 @@
 #frame-android {
     --android-frame-radius: 3.5rem;
     --android-frame-width: 0.625rem;
-    --android-frame-border: 0.25rem;
+    --android-frame-border: 0.225rem;
 
     display: flex;
     background-color: var(--device-frame-color);
     padding: var(--android-frame-width);
     aspect-ratio: 0.475;
-    width: calc(390px + (2 * var(--android-frame-border)) + (2 * var(--android-frame-width)));
+    max-width: 100%;
+    height: 100%;
+    // width: calc(390px + (2 * var(--android-frame-border)) + (2 * var(--android-frame-width)));
     border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
     position: relative;
     overflow: hidden;

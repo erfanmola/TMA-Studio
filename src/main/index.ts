@@ -15,8 +15,12 @@ const popupWindows: { [key: string]: BrowserWindow[] } = {};
 const createMainWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    // fullscreen: true,
+    enableLargerThanScreen: true,
+    width: 1820,
+    height: 1080,
+    minWidth: 1280,
+    minHeight: 1024,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -30,7 +34,7 @@ const createMainWindow = (): void => {
       // nodeIntegrationInSubFrames: true,
     },
     resizable: true,
-    titleBarStyle: 'default',
+    titleBarStyle: 'hidden',
     titleBarOverlay: true,
   });
 
@@ -137,7 +141,7 @@ app.whenReady().then(() => {
   });
   ipcMain.on('project-open', async (_, project, platform) => {
     const window = new BrowserWindow({
-      width: 416,
+      width: 420,
       height: 1024,
       show: false,
       autoHideMenuBar: true,
