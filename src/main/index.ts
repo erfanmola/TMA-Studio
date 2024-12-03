@@ -15,7 +15,7 @@ const popupWindows: { [key: string]: BrowserWindow[] } = {};
 const createMainWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    // fullscreen: true,
+    title: "TMA Studio",
     enableLargerThanScreen: true,
     width: 1820,
     height: 1080,
@@ -30,6 +30,7 @@ const createMainWindow = (): void => {
       contextIsolation: true,
       webSecurity: false,
       webviewTag: true,
+      devTools: false,
       // nodeIntegration: true,
       // nodeIntegrationInSubFrames: true,
     },
@@ -79,6 +80,7 @@ const createMainWindow = (): void => {
 const createWelcomeWindow = (): void => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    title: "TMA Studio Welcome",
     width: 720,
     height: 512,
     show: false,
@@ -88,6 +90,7 @@ const createWelcomeWindow = (): void => {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
+      devTools: false,
     },
     resizable: false,
     frame: false,
@@ -141,6 +144,7 @@ app.whenReady().then(() => {
   });
   ipcMain.on('project-open', async (_, project, platform) => {
     const window = new BrowserWindow({
+      title: "TMA Studio Project",
       width: 420,
       height: 1024,
       show: false,
@@ -152,6 +156,7 @@ app.whenReady().then(() => {
         contextIsolation: true,
         webSecurity: false,
         webviewTag: true,
+        devTools: false,
       },
       resizable: false,
       alwaysOnTop: true,
@@ -206,14 +211,14 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-      if (BrowserWindow.getAllWindows().length === 0) {
-        // @ts-ignore
-        if (store.get('intro_done')) {
-          createMainWindow();
-          } else {
-          createWelcomeWindow();
-        }
+    if (BrowserWindow.getAllWindows().length === 0) {
+      // @ts-ignore
+      if (store.get('intro_done')) {
+        createMainWindow();
+      } else {
+        createWelcomeWindow();
       }
+    }
   });
 })
 
