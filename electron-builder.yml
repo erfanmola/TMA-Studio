@@ -1,5 +1,5 @@
 appId: studio.tma
-productName: tma-studio
+productName: TMA Studio
 directories:
   buildResources: build
 files:
