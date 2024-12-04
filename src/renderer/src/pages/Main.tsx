@@ -112,7 +112,6 @@ const MainPage = () => {
 
 	onMount(() => {
 		window.onShortcutPressed((_, input) => {
-			console.log(input);
 			if (input.control || input.meta) {
 				switch (input.key) {
 					case "n":
