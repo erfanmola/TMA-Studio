@@ -4,7 +4,7 @@ import { For, Show, createEffect, createMemo, createSignal } from "solid-js";
 
 import { IoClose } from "solid-icons/io";
 import type { TabbarTab } from "../types";
-import { TelegramPlatform } from "@renderer/utils/themes";
+import type { TelegramPlatform } from "@renderer/utils/themes";
 import { deserializeObject } from "@renderer/utils/general";
 import { useSettings } from "../contexts/SettingsContext";
 
@@ -23,8 +23,12 @@ export const closeTab = (id: TabbarTab["id"]) => {
 	}
 	setTabbarData(tabbarData().filter((item) => item.id !== id));
 
-	if (id.startsWith('project-')) {
-		window.project.close(id.replace('project-', ''), '' as TelegramPlatform, true);
+	if (id.startsWith("project-")) {
+		window.project.close(
+			id.replace("project-", ""),
+			"" as TelegramPlatform,
+			true,
+		);
 	}
 };
 
@@ -57,6 +61,14 @@ export const Tabbar = () => {
 					{(item) => (
 						<li
 							classList={{ active: item.id === activeTabId() }}
+							onMouseUp={(e) => {
+								if (e.button === 1) {
+									e.preventDefault();
+									if (item.closable) {
+										closeTab(item.id);
+									}
+								}
+							}}
 							onClick={() => setActiveTabId(item.id)}
 							onKeyUp={() => setActiveTabId(item.id)}
 						>
