@@ -30,7 +30,7 @@ const createMainWindow = (): void => {
       contextIsolation: true,
       webSecurity: false,
       webviewTag: true,
-      devTools: false,
+      devTools: is.dev,
       // nodeIntegration: true,
       // nodeIntegrationInSubFrames: true,
     },
@@ -90,7 +90,7 @@ const createWelcomeWindow = (): void => {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
-      devTools: false,
+      devTools: is.dev,
     },
     resizable: false,
     frame: false,
@@ -156,7 +156,7 @@ app.whenReady().then(() => {
         contextIsolation: true,
         webSecurity: false,
         webviewTag: true,
-        devTools: false,
+        devTools: is.dev,
       },
       resizable: false,
       alwaysOnTop: true,
@@ -173,10 +173,16 @@ app.whenReady().then(() => {
       window.show()
     });
 
+    window.webContents.on('will-attach-webview', (_, webPreferences) => {
+      webPreferences.preload = join(__dirname, '../preload/webview.js');
+    });
+
     if (is.dev && process.env.ELECTRON_RENDERER_URL) {
       window.loadURL(`${process.env.ELECTRON_RENDERER_URL}/floating.html#/${project}/${platform}`)
     } else {
-      window.loadFile(join(__dirname, `../renderer/floating.html#/${project}/${platform}`))
+      window.loadFile(join(__dirname, "../renderer/floating.html"), {
+        hash: `/${project}/${platform}`,
+      })
     }
   });
   ipcMain.on('project-close', async (_, project, platform, popup) => {
