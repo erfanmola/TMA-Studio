@@ -11,16 +11,18 @@ import { Show } from "solid-js";
 
 const Footer = () => {
 	const onClickPreferences = () => {
-		setTabbarData([
-			...tabbarData(),
-			{
-				id: "preferences",
-				title: "Preferences",
-				dynamic: true,
-				component: () => <PreferencesPage />,
-				closable: true,
-			},
-		]);
+		if (!tabbarData().find((item) => item.id === "preferences")) {
+			setTabbarData([
+				...tabbarData(),
+				{
+					id: "preferences",
+					title: "Preferences",
+					dynamic: true,
+					component: () => <PreferencesPage />,
+					closable: true,
+				},
+			]);
+		}
 		setActiveTabId("preferences");
 	};
 

@@ -11,6 +11,7 @@ import {
 	closeTab,
 	setActiveTabId,
 	setTabbarData,
+	tabbarData,
 } from "../components/Tabbar";
 import { activeUserId, users } from "../utils/user";
 
@@ -111,6 +112,7 @@ const MainPage = () => {
 
 	onMount(() => {
 		window.onShortcutPressed((_, input) => {
+			console.log(_);
 			if (input.control || input.meta) {
 				switch (input.key) {
 					case "n":
@@ -124,6 +126,21 @@ const MainPage = () => {
 						break;
 					case "b":
 						setSidebarVisibility(!sidebarVisiblity());
+						break;
+					case ",":
+						if (!tabbarData().find((item) => item.id === "preferences")) {
+							setTabbarData([
+								...tabbarData(),
+								{
+									id: "preferences",
+									title: "Preferences",
+									dynamic: true,
+									component: () => <PreferencesPage />,
+									closable: true,
+								},
+							]);
+						}
+						setActiveTabId("preferences");
 						break;
 				}
 			}

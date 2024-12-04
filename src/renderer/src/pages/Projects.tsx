@@ -72,6 +72,11 @@ const ProjectsPage: Component<{
 								<p>Close Tab</p>
 								<KeyboardCombo includeSuper={true} key="W" />
 							</li>
+
+							<li>
+								<p>Open Preferences</p>
+								<KeyboardCombo includeSuper={true} key="," />
+							</li>
 						</ul>
 
 						<button
