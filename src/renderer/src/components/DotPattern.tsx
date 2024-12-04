@@ -8,7 +8,7 @@ const DotPattern: Component<{
 	return (
 		<svg
 			aria-hidden="true"
-			class="pointer-events-none absolute inset-0 h-full w-full fill-neutral-400/80 -z-10"
+			class="pointer-events-none absolute inset-0 h-full w-full -z-10"
 			style={{
 				"mask-image": `radial-gradient(${(props.blurRadius ?? 250) * 2}px circle at center,white,transparent)`,
 			}}
@@ -22,6 +22,8 @@ const DotPattern: Component<{
 					patternContentUnits="userSpaceOnUse"
 					x="0"
 					y="0"
+					style={{ fill: "var(--text-color)" }}
+					fill-opacity={0.75}
 				>
 					<circle
 						id="pattern-circle"
