@@ -112,7 +112,7 @@ const MainPage = () => {
 
 	onMount(() => {
 		window.onShortcutPressed((_, input) => {
-			console.log(_);
+			console.log(input);
 			if (input.control || input.meta) {
 				switch (input.key) {
 					case "n":
@@ -142,6 +142,27 @@ const MainPage = () => {
 						}
 						setActiveTabId("preferences");
 						break;
+					case "Tab": {
+						const activeTab = tabbarData().find(
+							(item) => item.id === activeTabId(),
+						);
+						if (!activeTab) return;
+						const tabIndex = tabbarData().indexOf(activeTab);
+						if (input.modifiers.includes("shift")) {
+							if (tabIndex > 0) {
+								setActiveTabId(tabbarData()[tabIndex - 1].id);
+							} else {
+								setActiveTabId(tabbarData()[tabbarData().length - 1].id);
+							}
+						} else {
+							if (tabIndex < tabbarData().length - 1) {
+								setActiveTabId(tabbarData()[tabIndex + 1].id);
+							} else {
+								setActiveTabId(tabbarData()[0].id);
+							}
+						}
+						break;
+					}
 				}
 			}
 		});
