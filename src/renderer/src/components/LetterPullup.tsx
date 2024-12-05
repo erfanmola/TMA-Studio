@@ -15,7 +15,7 @@ export const LetterPullup: Component<LetterPullupProps> = (props) => {
 		<div class="flex justify-center">
 			<For each={letters}>
 				{(letter, i) => (
-					<Motion.h1
+					<Motion.span
 						initial={{
 							y: 100,
 							opacity: 0,
@@ -30,9 +30,11 @@ export const LetterPullup: Component<LetterPullupProps> = (props) => {
 						style={{ "will-change": "auto" }}
 					>
 						{letter === " " ? <span>&nbsp;</span> : letter}
-					</Motion.h1>
+					</Motion.span>
 				)}
 			</For>
 		</div>
 	);
 };
+
+export default LetterPullup;
