@@ -1,7 +1,7 @@
 ![Telegram Mini App Studio](https://github.com/erfanmola/TMA-Studio/blob/master/resources/cover.png?raw=true)
 
 # Telegram Mini App Studio
-The ultimate development and testing environment for Telegram Mini Apps. Build, test, and debug your apps locally with full support for Telegram's features, including Mini Apps 2.0 compatibility.
+The ultimate development and testing environment for Telegram Mini Apps. Build, test, and debug your apps locally with full support for Telegram's features, including Mini Apps 2.0 compatibility. You can the watch the [full usage demo](https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo.mp4).
 
 ## Features
 
@@ -23,8 +23,8 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
 - **Token and InitData Simulation**
   Sign and verify `initData` using a bot token, just like Telegram’s backend.
 
-## Usage Demo
-https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo.mp4
+![Telegram Mini App Studio](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-2.png?raw=true)
+
 ---
 
 ## Platforms Support
