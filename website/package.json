@@ -15,6 +15,7 @@
     "animate.css": "^4.1.1",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.9.3",
+    "swiper": "^11.1.15",
     "vite-plugin-solid-svg": "^0.8.1"
   },
   "devDependencies": {

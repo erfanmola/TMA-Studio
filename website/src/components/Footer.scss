@@ -1,0 +1,19 @@
+footer#footer-main {
+    display: flex;
+    align-items: center;
+    padding: 2rem 1rem;
+
+    > span {
+        &:first-child {
+            flex-grow: 1;
+        }
+
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+}

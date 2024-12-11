@@ -55,3 +55,42 @@ a {
     color: var(--textPrimary);
     text-decoration: none;
 }
+
+.accordion {
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    > header {
+        padding: 1.25rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        line-height: normal;
+        width: 100%;
+
+        > svg {
+            font-size: 1.125rem;
+        }
+
+        > span {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    }
+
+    &.open {
+        > header {
+            border-bottom: 1px solid rgba(var(--opposite-rgb), 0.125);
+        }
+    }
+
+    > section {
+        width: 100%;
+        padding: 1.25rem;
+    }
+}

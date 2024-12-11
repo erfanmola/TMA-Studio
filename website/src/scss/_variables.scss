@@ -1,0 +1,23 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #252525;
+    --opposite-rgb: 64, 64, 64;
+    --accent-100: #82b1ff;
+    --accent-200: #448aff;
+    --accent-400: #2979ff;
+    --accent-700: #2962ff;
+    --bg-card: white;
+    --hr-gradient: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.125) 50%, transparent);
+    --shadow-card: 0 4px 5px 0 rgba(170, 179, 217, 0.175);
+    --shadow-deep: 0 8px 10px 0 rgba(170, 179, 217, 0.75);
+}
+
+body.dark {
+    --bg-color: #252830;
+    --text-color: #f5f5f5;
+    --opposite-rgb: 192, 192, 192;
+    --bg-card: #303335;
+    --hr-gradient: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.125) 50%, transparent);
+    --shadow-card: 0 4px 5px 0 rgba(92, 92, 64, 0.175);
+    --shadow-deep: 0 8px 10px 0 rgba(92, 92, 64, 0.75);
+}

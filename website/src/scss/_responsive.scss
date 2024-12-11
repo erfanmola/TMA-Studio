@@ -1,0 +1,64 @@
+@media screen and (max-width: 720px) {
+    header#header-main {
+        > a:first-child {
+            > h1 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        > ul {
+            display: none !important;
+        }
+    }
+
+    #container-page-home {
+        > div {
+            > div {
+                grid-template-columns: 1fr !important;
+                padding: 1rem !important;
+                gap: 2rem !important;
+
+                > div {
+                    &:first-child {
+                        > div:first-child {
+                            width: 100%;
+                            font-size: 1.5rem !important;
+                            text-align: center;
+                        }
+
+                        > p {
+                            text-align: justify;
+                        }
+
+                        > div:last-child {
+                            width: 100% !important;
+                            justify-content: center;
+                        }
+                    }
+
+                    &:last-child {
+                        order: -1;
+                    }
+                }
+            }
+        }
+    }
+
+    section#container-home-section-features {
+        padding: 1rem !important;
+
+        > ul {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    section#container-home-section-faq {
+        padding: 1rem !important;
+    }
+
+    footer#footer-main {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}
