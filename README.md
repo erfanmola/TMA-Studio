@@ -23,7 +23,7 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
 - **Token and InitData Simulation**
   Sign and verify `initData` using a bot token, just like Telegram’s backend.
 
-![Telegram Mini App Studio](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-2.png?raw=true)
+![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-2.png?raw=true)
 
 ---
 
