@@ -1,4 +1,4 @@
-![Telegram Mini App Studio]([http://url/to/img.png](https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/cover.png))
+![Telegram Mini App Studio]([Telegram Mini App Studio](https://github.com/erfanmola/TMA-Studio/blob/master/resources/cover.png?raw=true))
 
 # Telegram Mini App Studio
 The ultimate development and testing environment for Telegram Mini Apps. Build, test, and debug your apps locally with full support for Telegram's features, including Mini Apps 2.0 compatibility.
