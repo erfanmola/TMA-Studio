@@ -80,3 +80,6 @@
 - [ ] getStorageKeys*
 
 **Note:** Items specified with `*` require a proper MTProto client up and running to communicate with real Telegram servers. This feature is not available right now, but planned to be implemented and logged in via a real Telegram Account.
+
+## Roadmap
+The project's roadmap will be described here.
