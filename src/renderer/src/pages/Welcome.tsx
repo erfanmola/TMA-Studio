@@ -18,7 +18,7 @@ const WelcomePage = () => {
 
 	return (
 		<main id="container-page-welcome">
-			<DotPattern blurRadius={250} distance={16} size={1.25} />
+			<DotPattern blurRadius={250} distance={16} size={1.25} opacity={0.25} />
 
 			<LetterPullup words="Welcome to TMA Studio" />
 

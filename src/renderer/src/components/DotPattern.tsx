@@ -4,6 +4,7 @@ const DotPattern: Component<{
 	blurRadius?: number;
 	distance?: number;
 	size?: number;
+	opacity?: number;
 }> = (props) => {
 	return (
 		<svg
@@ -23,7 +24,7 @@ const DotPattern: Component<{
 					x="0"
 					y="0"
 					style={{ fill: "var(--text-color)" }}
-					fill-opacity={0.75}
+					fill-opacity={props.opacity ?? 0.75}
 				>
 					<circle
 						id="pattern-circle"
