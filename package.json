@@ -22,7 +22,7 @@
 		"@electron-toolkit/preload": "^3.0.1",
 		"@electron-toolkit/utils": "^3.0.0",
 		"@kobalte/core": "^0.13.7",
-		"@solidjs/router": "^0.15.1",
+		"@solidjs/router": "^0.15.2",
 		"animate.css": "^4.1.1",
 		"electron-store": "^10.0.0",
 		"electron-updater": "^6.3.9",
