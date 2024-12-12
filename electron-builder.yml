@@ -13,6 +13,11 @@ asarUnpack:
   - resources/**
 win:
   executableName: tma-studio
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - arm64
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -24,6 +29,11 @@ mac:
     - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
     - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
   notarize: false
+  target:
+    - target: default
+      arch:
+      - x64
+      - arm64
 dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
