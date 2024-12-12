@@ -20,9 +20,26 @@ jobs:
           node-version: 22
 
       - name: Install Yarn
-        uses: borales/actions-yarn@v4
+        run: npm install -g yarn
+
+      - name: Setup Python for node-gyp (macOS/Ubuntu only)
+        if: matrix.os != 'windows-latest'
+        uses: actions/setup-python@v4
         with:
-          cmd: install
+          python-version: 3.9  # Ensure compatibility with node-gyp
+
+      - name: Install required dependencies for node-gyp (macOS only)
+        if: matrix.os == 'macos-latest'
+        run: |
+          python3 -m ensurepip --upgrade
+          python3 -m pip install setuptools
+          xcode-select --install || true
+
+      - name: Install required dependencies for node-gyp (Ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip python3-setuptools build-essential
 
       # - name: Install Snapcraft
       #   uses: samuelmeuli/action-snapcraft@v1
