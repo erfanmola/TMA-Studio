@@ -10,7 +10,7 @@ import type { SetStoreFunction } from "solid-js/store";
 export const TGWebAppVersion = '7.10';
 
 export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, user: User | undefined, token: string | undefined): Promise<string> => {
-	const webAppData = {
+    const webAppData = {
         auth_date: Math.floor(Date.now() / 1000).toString(),
         query_id: 'SomeRandomQueryID',
         user: JSON.stringify(user ?? {
@@ -19,7 +19,7 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
             language_code: 'en',
         } as User),
         hash: '',
-	};
+    };
 
     webAppData.hash = await tgWebAppDataHash(webAppData, token ?? 'Nothing!');
 
@@ -31,7 +31,7 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
 
     const webAppDataEncoded = new URLSearchParams(webAppData).toString();
 
-	return `#${new URLSearchParams({
+    return `#${new URLSearchParams({
         tgWebAppData: webAppDataEncoded,
         ...extraData
     })}`;
@@ -45,11 +45,11 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
     delete initData.hash;
 
     const initDataString = Object.entries(initData)
-    .map(([key, value]) => {
-        value = typeof value === 'object' ? JSON.stringify(value, null, 0) : value;
-        return `${key}=${value}`;
-    })
-    .join('\n').replace(/\//g, "\\/");
+        .map(([key, value]) => {
+            value = typeof value === 'object' ? JSON.stringify(value, null, 0) : value;
+            return `${key}=${value}`;
+        })
+        .join('\n').replace(/\//g, "\\/");
 
     return buffer2Hex(
         await hmac.compute(
@@ -59,7 +59,7 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
             ),
             new TextEncoder().encode(initDataString), 'SHA-256'
         )
-        );
+    );
 }
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -77,7 +77,9 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
             break;
     }
 
-    return await webview.executeJavaScript(code);
+    try {
+        return await webview.executeJavaScript(code);
+    } catch (e) { }
 };
 
 export type TGEventHandlerSignals = {
@@ -107,11 +109,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
 
     try {
         eventData = JSON.parse(eventData);
-    } catch (e) {}
+    } catch (e) { }
 
     const [, setReady] = signals.signalReady;
     const [mode] = signals.signalMode;
-	const [expanded, setExpanded] = signals.signalExpanded;
+    const [expanded, setExpanded] = signals.signalExpanded;
     const [, setColorHeader] = signals.signalColorHeader;
     const [, setColorHeaderText] = signals.signalColorHeaderText;
     const [, setColorBackground] = signals.signalColorBackground;

@@ -1,4 +1,4 @@
-import { BrowserWindow, app, ipcMain, shell } from 'electron'
+import { BrowserWindow, Tray, app, ipcMain, shell } from 'electron'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
@@ -7,6 +7,7 @@ import { join } from 'node:path'
 
 Store.initRenderer();
 
+let tray: Tray | undefined;
 let WindowMain: BrowserWindow | undefined;
 let WindowWelcome: BrowserWindow | undefined;
 
@@ -67,6 +68,19 @@ const createMainWindow = (): void => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
+
+  mainWindow.on('close', (e) => {
+    if (BrowserWindow.getAllWindows().length > 1) {
+      e.preventDefault();
+      mainWindow.minimize();
+
+      tray = new Tray(join(__dirname, '../../icons/tray.png'));
+      tray.addListener('click', () => {
+        tray?.destroy();
+        mainWindow.show();
+      });
+    }
+  });
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
@@ -148,6 +162,7 @@ app.whenReady().then(() => {
       width: 420,
       height: 1024,
       show: false,
+      closable: false,
       autoHideMenuBar: true,
       ...(process.platform === 'linux' ? { icon } : {}),
       webPreferences: {
@@ -232,9 +247,10 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // if (process.platform !== 'darwin') {
+  tray?.destroy();
+  app.quit()
+  // }
 })
 
 // In this file you can include the rest of your app"s specific main process

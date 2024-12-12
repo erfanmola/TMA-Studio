@@ -140,7 +140,7 @@ export const ViewportAndroid: Component<{
 		if (expanded() && colorHeader()) {
 			setStatusBarColor(isColorDark(colorHeader() ?? "") ? "white" : "black");
 		} else {
-			setStatusBarColor("white");
+			setStatusBarColor(expanded() && mode() === "light" ? "black" : "white");
 		}
 	});
 
@@ -676,7 +676,10 @@ export const ViewportAndroid: Component<{
 									style={{
 										"background-color":
 											colorHeader() ??
-											TelegramThemes[props.platform][mode()].header_bg_color,
+											(expanded()
+												? TelegramThemes[props.platform][mode()].bg_color
+												: TelegramThemes[props.platform][mode()]
+														.header_bg_color),
 										color:
 											colorHeaderText() ??
 											TelegramThemes[props.platform][mode()].text_color,
