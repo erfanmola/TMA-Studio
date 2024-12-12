@@ -126,6 +126,7 @@ This phase has started from October 2024 and ended until January 2025.
 This phase is planned for early to mid 2025.
 - [ ] Full compatibility with Telegram Mini Apps 2.0.
 - [ ] Add support for Telegram Desktop, WebK, and WebA platforms.
+- [ ] Add support for auto-updates in app and streamline release process.
 ### Phase 3
 This phase is planned for mid to late 2025.
 - [ ] Improve mock data customization and support real user account login.
