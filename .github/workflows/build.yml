@@ -21,6 +21,8 @@ jobs:
 
       - name: Install Yarn
         uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
       # - name: Install Snapcraft
       #   uses: samuelmeuli/action-snapcraft@v1
