@@ -56,8 +56,8 @@ linux:
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
-publish:
-  provider: github
-  protocol: https
-  overwrite: true
-  onTag: true
+# publish:
+#   provider: github
+#   protocol: https
+#   overwrite: true
+#   onTag: true
