@@ -38,11 +38,21 @@ dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
   target:
-    - AppImage
-    - snap
-    - deb
+    - target: AppImage
+      arch:
+        - x64
+        - arm64
+    - target: snap
+      arch:
+        - x64
+        - arm64
+    - target: deb
+      arch:
+        - x64
+        - arm64
   maintainer: erfanmola.ir
   category: Utility
+  artifactName: ${name}-${version}-${arch}.${ext}
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
