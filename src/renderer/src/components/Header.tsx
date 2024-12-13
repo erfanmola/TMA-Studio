@@ -41,7 +41,7 @@ const Header = () => {
 					options={[
 						{
 							value: "none",
-							label: "None",
+							label: "Guest",
 						},
 						...users().map((user) => ({
 							value: user.id,
@@ -51,7 +51,7 @@ const Header = () => {
 					value={{
 						label:
 							users().find((item) => item.id === activeUserId())?.first_name ??
-							"none",
+							"Guest",
 						value: activeUserId(),
 					}}
 					onChange={(e) => setActiveUserId(e?.value ?? "none")}
