@@ -41,6 +41,7 @@ const DialogAddUser: Component<{
 			form.first_name.length > 0 &&
 				validator.isNumeric(form.id) &&
 				(form.photo_url.length === 0 ||
+					validator.isURL(form.photo_url) ||
 					validator.isURL(form.photo_url, { host_whitelist: ["localhost"] })),
 		);
 	});
