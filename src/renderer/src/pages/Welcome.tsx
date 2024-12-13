@@ -12,7 +12,7 @@ const WelcomePage = () => {
 
 	const onClickButtonStart = async () => {
 		settings.set("intro_done", true);
-		window.electron.ipcRenderer.sendSync("skip-intro");
+		window.electron.ipcRenderer.send("skip-intro");
 		// navigate("/main", { replace: true });
 	};
 

@@ -2,10 +2,11 @@ import { BrowserWindow, Tray, app, ipcMain, shell } from 'electron'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
-import icon from '../../resources/icon.png?asset'
 import { join } from 'node:path'
 
 Store.initRenderer();
+
+let ThemeMode: 'dark' | 'light' = 'light';
 
 let tray: Tray | undefined;
 let WindowMain: BrowserWindow | undefined;
@@ -24,7 +25,6 @@ const createMainWindow = (): void => {
     minHeight: 1024,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
@@ -35,6 +35,7 @@ const createMainWindow = (): void => {
       // nodeIntegration: true,
       // nodeIntegrationInSubFrames: true,
     },
+    darkTheme: ThemeMode === 'dark',
     resizable: true,
     titleBarStyle: 'hidden',
     titleBarOverlay: true,
@@ -99,13 +100,13 @@ const createWelcomeWindow = (): void => {
     height: 512,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       contextIsolation: true,
       devTools: is.dev,
     },
+    darkTheme: ThemeMode === 'dark',
     resizable: false,
     frame: false,
     center: true,
@@ -146,14 +147,15 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  const store = new Store();
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const store: any = new Store();
+
+  ThemeMode = store.get("preferences")?.theme_mode ?? 'light';
 
   ipcMain.on('electron-store-get', async (event, val) => {
-    // @ts-ignore
     event.returnValue = store.get(val);
   });
   ipcMain.on('electron-store-set', async (_, key, val) => {
-    // @ts-ignore
     store.set(key, val);
   });
   ipcMain.on('project-open', async (_, project, platform) => {
@@ -164,7 +166,6 @@ app.whenReady().then(() => {
       show: false,
       closable: false,
       autoHideMenuBar: true,
-      ...(process.platform === 'linux' ? { icon } : {}),
       webPreferences: {
         preload: join(__dirname, '../preload/index.js'),
         sandbox: false,
@@ -173,8 +174,9 @@ app.whenReady().then(() => {
         webviewTag: true,
         devTools: is.dev,
       },
+      darkTheme: ThemeMode === 'dark',
       resizable: false,
-      alwaysOnTop: true,
+      alwaysOnTop: store.get("preferences")?.project?.floating_window_on_top,
       frame: false,
       transparent: true,
     });
@@ -216,8 +218,13 @@ app.whenReady().then(() => {
       delete popupWindows[project];
     }
   });
+  ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
+    if (is.dev) {
+      // TODO: handle this later for window control widgets
+      console.log('Theme Mode Changed', theme_mode);
+    }
+  });
 
-  // @ts-ignore
   if (store.get('intro_done')) {
     createMainWindow();
   } else {
@@ -233,7 +240,6 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) {
-      // @ts-ignore
       if (store.get('intro_done')) {
         createMainWindow();
       } else {

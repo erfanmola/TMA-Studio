@@ -31,7 +31,7 @@ const DialogCreateProject: Component<{
 		setCreateButtonEnabled(
 			form.name.length > 0 &&
 				form.name.length <= 64 &&
-				validator.isURL(form.url),
+				validator.isURL(form.url, { host_whitelist: ["localhost"] }),
 		);
 	});
 

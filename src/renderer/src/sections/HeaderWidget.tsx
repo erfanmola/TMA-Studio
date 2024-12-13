@@ -3,7 +3,8 @@ import { useSettings } from "@renderer/contexts/SettingsContext";
 import type { Project } from "@renderer/types";
 import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
 import { CgArrowTopRightR, CgArrowBottomLeftR } from "solid-icons/cg";
-import { FaSolidCode, FaRegularMoon, FaRegularSun } from "solid-icons/fa";
+import { FaSolidCode } from "solid-icons/fa";
+import { FiMoon, FiSun } from "solid-icons/fi";
 import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
 import {
 	type Component,
@@ -130,8 +131,8 @@ export const HeaderWidget: Component<{
 							onChange={() => setMode(mode() === "dark" ? "light" : "dark")}
 						>
 							{(state) => (
-								<Show when={state.pressed()} fallback={<FaRegularSun />}>
-									<FaRegularMoon />
+								<Show when={state.pressed()} fallback={<FiSun />}>
+									<FiMoon />
 								</Show>
 							)}
 						</ToggleButton>
