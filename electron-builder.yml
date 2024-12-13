@@ -45,7 +45,7 @@ linux:
     - target: snap
       arch:
         - x64
-        # - arm64
+        - arm64
     - target: deb
       arch:
         - x64
@@ -56,8 +56,3 @@ linux:
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
-# publish:
-#   provider: github
-#   protocol: https
-#   overwrite: true
-#   onTag: true
