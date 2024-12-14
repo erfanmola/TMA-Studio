@@ -9,6 +9,9 @@ jobs:
   release:
     runs-on: ${{ matrix.os }}
 
+    env:
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
@@ -20,7 +23,7 @@ jobs:
       - name: Install Node.js, NPM
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: latest
 
       - name: Install Yarn
         run: npm install -g yarn
