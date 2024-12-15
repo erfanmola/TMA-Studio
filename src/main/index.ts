@@ -1,12 +1,14 @@
-import { BrowserWindow, Tray, app, ipcMain, shell } from 'electron'
+import { BrowserWindow, Menu, Tray, app, ipcMain, shell } from 'electron'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
 import { join } from 'node:path'
 
+Menu.setApplicationMenu(null);
 Store.initRenderer();
 
 let ThemeMode: 'dark' | 'light' = 'light';
+let ZoomLevel = 1;
 
 let tray: Tray | undefined;
 let WindowMain: BrowserWindow | undefined;
@@ -62,7 +64,8 @@ const createMainWindow = (): void => {
   // WindowMain = mainWindow;
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    mainWindow.webContents.setZoomFactor(ZoomLevel);
+    mainWindow.show();
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -151,18 +154,22 @@ app.whenReady().then(() => {
   const store: any = new Store();
 
   ThemeMode = store.get("preferences")?.theme_mode ?? 'light';
+  ZoomLevel = store.get("preferences")?.ui.scale ?? 1;
 
+  // Store
   ipcMain.on('electron-store-get', async (event, val) => {
     event.returnValue = store.get(val);
   });
   ipcMain.on('electron-store-set', async (_, key, val) => {
     store.set(key, val);
   });
+
+  // Project
   ipcMain.on('project-open', async (_, project, platform) => {
     const window = new BrowserWindow({
       title: "TMA Studio Project",
-      width: 420,
-      height: 1024,
+      width: store.get("preferences")?.project?.floating_window_size ?? 420,
+      height: (store.get("preferences")?.project?.floating_window_size ?? 420) * 2.4,
       show: false,
       closable: false,
       autoHideMenuBar: true,
@@ -218,11 +225,19 @@ app.whenReady().then(() => {
       delete popupWindows[project];
     }
   });
-  ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
-    if (is.dev) {
-      // TODO: handle this later for window control widgets
-      console.log('Theme Mode Changed', theme_mode);
+
+  // Settings
+  ipcMain.on('ui-scale-changed', async (_, ui_scale) => {
+    ZoomLevel = ui_scale;
+    if (WindowMain && !(WindowMain.isDestroyed())) {
+      WindowMain.webContents.setZoomFactor(ZoomLevel);
     }
+  });
+  ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
+    ThemeMode = theme_mode;
+  });
+  ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
+    ThemeMode = theme_mode;
   });
 
   if (store.get('intro_done')) {

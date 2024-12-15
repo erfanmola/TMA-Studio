@@ -1,0 +1,33 @@
+.horizontal-select {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-card);
+    border: 1px solid rgba(var(--opposite-rgb), 0.125);
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    > li {
+        &.active {
+            color: var(--accent-200);
+            border-bottom-color: var(--accent-200);
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        transition: color 0.15s;
+        font-size: inherit;
+
+        &:not(.active):hover {
+            color: var(--accent-200);
+        }
+
+        &:not(:last-child) {
+            border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.075);
+        }
+    }
+}
