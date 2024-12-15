@@ -2,7 +2,7 @@ import "./Home.scss";
 
 import Accordion from "../components/Accordion";
 import type { Component } from "solid-js";
-import DotPattern from "../../../src/renderer/src/components/DotPattern";
+import DotPattern from "../components/DotPattern";
 import { FaRegularUser } from "solid-icons/fa";
 import { FiBox } from "solid-icons/fi";
 import { FiTablet } from "solid-icons/fi";
@@ -10,7 +10,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import HorizontalRule from "../components/HorizontalRule";
 import IconTMAStudio from "../../../icons/icon.svg";
-import { LetterPullup } from "../../../src/renderer/src/components/LetterPullup";
+import { LetterPullup } from "../components/LetterPullup";
 import { OcDependabot2 } from "solid-icons/oc";
 import { TbLockCode } from "solid-icons/tb";
 import { TbPlugConnected } from "solid-icons/tb";
