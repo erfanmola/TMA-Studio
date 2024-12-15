@@ -9,7 +9,7 @@ import { FiTablet } from "solid-icons/fi";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import HorizontalRule from "../components/HorizontalRule";
-import IconTMAStudio from "../assets/icon.svg";
+import IconTMAStudio from "../assets/icons/icon.svg";
 import { LetterPullup } from "../components/LetterPullup";
 import { OcDependabot2 } from "solid-icons/oc";
 import { TbLockCode } from "solid-icons/tb";
