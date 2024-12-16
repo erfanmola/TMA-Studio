@@ -18,7 +18,8 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
             first_name: 'John',
             language_code: 'en',
         } as User),
-        hash: '',
+        hash: 'SomeFakeHash',
+        signature: 'SomeFakeSignature',
     };
 
     webAppData.hash = await tgWebAppDataHash(webAppData, token ?? 'Nothing!');
