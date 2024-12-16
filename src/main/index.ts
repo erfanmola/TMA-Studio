@@ -4,7 +4,21 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import Store from 'electron-store';
 import { join } from 'node:path'
 
-Menu.setApplicationMenu(null);
+Menu.setApplicationMenu(Menu.buildFromTemplate([
+  {
+    label: 'Edit',
+    submenu: [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      { role: 'selectAll' },
+    ],
+  },
+]));
+
 Store.initRenderer();
 
 let ThemeMode: 'dark' | 'light' = 'light';
