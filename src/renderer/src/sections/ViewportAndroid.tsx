@@ -50,6 +50,7 @@ import { IoArrowBackOutline } from "solid-icons/io";
 import { FiMoreVertical } from "solid-icons/fi";
 import { isColorDark } from "@renderer/utils/color";
 import { FaSolidAngleDown } from "solid-icons/fa";
+import { preferences } from "@renderer/utils/preferences";
 
 export const ViewportAndroid: Component<{
 	project: Project;
@@ -520,7 +521,10 @@ export const ViewportAndroid: Component<{
 
 	return (
 		<AndroidFrame
-			classList={{ shake: shake(), placeholder: props.placeholder }}
+			classList={{
+				shake: preferences.project.shake_on_haptic && shake(),
+				placeholder: props.placeholder,
+			}}
 		>
 			<Show when={!props.placeholder}>
 				<div

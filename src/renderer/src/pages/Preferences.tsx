@@ -103,6 +103,28 @@ const PreferencesPage: Component = () => {
 
 				<ul>
 					<li>
+						<span>Haptic Feedback</span>
+
+						<div>
+							<Switch
+								class="switch"
+								checked={preferences.project.shake_on_haptic}
+								onChange={(e) => {
+									setPreferences("project", "shake_on_haptic", e);
+								}}
+							>
+								<Switch.Label class="switch__label">
+									Shake On Haptic
+								</Switch.Label>
+								<Switch.Input class="switch__input" />
+								<Switch.Control class="switch__control">
+									<Switch.Thumb class="switch__thumb" />
+								</Switch.Control>
+							</Switch>
+						</div>
+					</li>
+
+					<li>
 						<span>Floating Window Mode</span>
 
 						<div>

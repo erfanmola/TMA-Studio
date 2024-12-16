@@ -46,6 +46,7 @@ import webviewStyle from "../scss/_webview.scss?inline";
 import { PopupStoryHandler } from "./PopupStory";
 import { createStore } from "solid-js/store";
 import { MenuMore } from "./MenuMore";
+import { preferences } from "@renderer/utils/preferences";
 
 export const ViewportIOS: Component<{
 	project: Project;
@@ -519,7 +520,12 @@ export const ViewportIOS: Component<{
 	);
 
 	return (
-		<IPhoneFrame classList={{ shake: shake(), placeholder: props.placeholder }}>
+		<IPhoneFrame
+			classList={{
+				shake: preferences.project.shake_on_haptic && shake(),
+				placeholder: props.placeholder,
+			}}
+		>
 			<Show when={!props.placeholder}>
 				<div
 					id="viewport-telegram-ios"
