@@ -1,7 +1,9 @@
 ![Telegram Mini App Studio](https://github.com/erfanmola/TMA-Studio/blob/master/resources/cover.png?raw=true)
 
 # Telegram Mini App Studio
-The ultimate development and testing environment for Telegram Mini Apps. Build, test, and debug your apps locally with full support for Telegram's features, including Mini Apps 2.0 compatibility. You can the watch the [full usage demo](https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo.mp4).
+The ultimate development and testing environment for Telegram Mini Apps. Build, test, and debug your apps locally with full support for Telegram's features, including Mini Apps 2.0 compatibility. You can the watch the [full usage demo](https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo-2-4k-60FPS.mp4).
+
+https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo-2-1080P-30FPS.mp4
 
 ## Features
 
@@ -24,6 +26,8 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
   Sign and verify `initData` using a bot token, just like Telegram’s backend.
 
 ![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-2.png?raw=true)
+
+![TMA Studio Sample Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-3.png?raw=true)
 
 ---
 
