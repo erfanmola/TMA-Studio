@@ -37,8 +37,8 @@ export type User = {
 };
 
 export type TelegramMethodEvent = {
-	eventData: string;
-	eventType: string;
+    eventData: string;
+    eventType: string;
 };
 
 export type TelegramPopupButton = {

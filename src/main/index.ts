@@ -233,8 +233,11 @@ app.whenReady().then(() => {
         popupWindows[project].splice(popupWindows[project].indexOf(windowItem), 1);
       }
     } else if (_.sender.id === WindowMain?.webContents.id && popup) {
-      for (const window of popupWindows[project]) {
-        window.close();
+      if (popupWindows[project]) {
+        for (const window of popupWindows[project]) {
+          window.close();
+          window.destroy();
+        }
       }
       delete popupWindows[project];
     }
