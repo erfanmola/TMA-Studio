@@ -1,6 +1,6 @@
 import "./Header.scss";
 
-import { Item, Menu, Separator, useContextMenu } from "solid-contextmenu";
+import { Item, Menu, useContextMenu } from "solid-contextmenu";
 import { Show, batch, createSignal } from "solid-js";
 import { activeUserId, setActiveUserId, users } from "../utils/user";
 
