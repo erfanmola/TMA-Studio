@@ -6,6 +6,12 @@ import { join } from 'node:path'
 
 Menu.setApplicationMenu(Menu.buildFromTemplate([
   {
+    label: 'File',
+    submenu: [
+      { role: 'quit' },
+    ],
+  },
+  {
     label: 'Edit',
     submenu: [
       { role: 'undo' },
@@ -64,7 +70,9 @@ const createMainWindow = (): void => {
       input.control ||  // Checks for Ctrl key on Windows/Linux
       input.meta        // Checks for Command key on macOS
     ) {
-      if (!['a', 'c', 'v', 'x'].includes(input.key)) {
+      const allowedKeys = ['a', 'c', 'v', 'x', 'q', 'f4'];
+
+      if (!allowedKeys.includes(input.key)) {
         event.preventDefault(); // Prevents default behavior of Ctrl/Command shortcuts
         mainWindow.webContents.send('shortcut-pressed', input);
       }
