@@ -27,6 +27,8 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
 
 ![TMA Studio Sample Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-3.png?raw=true)
 
+![Simplist Floating Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-4.png?raw=true)
+
 https://github.com/user-attachments/assets/c6f3f79c-d56d-4329-86f2-8a8d7acb68ae
 
 ---
