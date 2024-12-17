@@ -5,32 +5,23 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
 
 ## Features
 
-- **Local Testing**
-  Test your Mini Apps locally without the need for HTTPS or tunneling solutions like ngrok.
+- **Local Testing**: Test your Mini Apps locally without the need for HTTPS or tunneling solutions like ngrok.
 
-- **Simulated Telegram Environments**
-  Experience Telegram Android and iOS environments with support for popups, haptic feedback with virtual device shakes, QR scanners, buttons, and more.
+- **Simulated Telegram Environments**: Experience Telegram Android and iOS environments with support for popups, haptic feedback with virtual device shakes, QR scanners, buttons, and more.
 
-- **Feature-rich Developer Console**
-  Integrated Chrome DevTools console for debugging every simulated environment.
+- **Feature-rich Developer Console**: Integrated Chrome DevTools console for debugging every simulated environment.
 
-- **Mini Apps 2.0 Ready**
-  Fully compatible with the latest Mini Apps 2.0 features and updates. (WIP, Phase 2)
+- **Mini Apps 2.0 Ready**: Fully compatible with the latest Mini Apps 2.0 features and updates. (WIP, Phase 2)
 
-- **Mock User Data**
-  Simulate user interactions with customizable mock data for efficient debugging. Switch between user profiles with unique data for more robust app testing.
+- **Mock User Data**: Simulate user interactions with customizable mock data for efficient debugging. Switch between user profiles with unique data for more robust app testing.
 
-- **Event and Method Support**
-  Supports over 90% of Telegram Mini App events and methods, with ongoing development.
+- **Event and Method Support**: Supports over 90% of Telegram Mini App events and methods, with ongoing development.
 
-- **Token and InitData Simulation**
-  Sign and verify `initData` using a bot token, just like Telegram’s backend.
+- **Token and InitData Simulation**: Sign and verify `initData` using a bot token, just like Telegram’s backend.
 
-- **Native-looking Floating Windows**
-  Emulates the floating Mini App window experience, akin to mobile emulators.
+- **Native-looking Floating Windows**: Emulates the floating Mini App window experience, akin to mobile emulators.
 
-- **Familiar Developer UI**
-  Inspired by VSCode with multiple tabs and projects, enhancing productivity.
+- **Familiar Developer UI**: Inspired by VSCode with multiple tabs and projects, enhancing productivity.
 
 ![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/resources/demo-2.png?raw=true)
 
