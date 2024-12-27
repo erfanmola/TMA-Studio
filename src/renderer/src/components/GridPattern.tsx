@@ -47,7 +47,6 @@ export function GridPattern({
 			</defs>
 			<rect width="100%" height="100%" stroke-width={0} fill={`url(#${id})`} />
 			{squares && (
-				// biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
 				<svg x={x} y={y} class="overflow-visible">
 					{squares.map(([x, y]) => (
 						<rect

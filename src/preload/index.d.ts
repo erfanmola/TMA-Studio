@@ -6,13 +6,9 @@ declare global {
     electron: ElectronAPI
     api: unknown,
     store: {
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       get: (key: string) => any;
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       set: (key: string, val: any) => void;
-      // any other methods you've defined...
     },
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     onShortcutPressed: any,
     clipboard: {
       getText: () => string;

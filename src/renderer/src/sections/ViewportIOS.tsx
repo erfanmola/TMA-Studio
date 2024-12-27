@@ -110,7 +110,6 @@ export const ViewportIOS: Component<{
 			is_visible: false,
 		});
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let webview: any;
 
 	const [statusBarColor, setStatusBarColor] = createSignal<"black" | "white">(
@@ -534,7 +533,6 @@ export const ViewportIOS: Component<{
 						dark: mode() === "dark",
 					}}
 				>
-					{/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
 					<svg
 						width="428"
 						height="47"

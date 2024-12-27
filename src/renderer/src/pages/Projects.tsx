@@ -50,12 +50,10 @@ const ProjectsPage: Component<{
 		openProject(projectId, () => <ProjectPage id={projectId} />);
 	};
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const onClickMenuProjectOpen = (e: any) => {
 		openProjectInner(e.props);
 	};
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const onClickMenuProjectEdit = (e: any) => {
 		setContextMenuStore("edit", {
 			id: e.props,
@@ -63,7 +61,6 @@ const ProjectsPage: Component<{
 		});
 	};
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const onClickMenuProjectDelete = (e: any) => {
 		setContextMenuStore("delete", {
 			id: e.props,

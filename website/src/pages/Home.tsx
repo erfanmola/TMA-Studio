@@ -22,9 +22,7 @@ register();
 declare module "solid-js" {
 	namespace JSX {
 		interface IntrinsicElements {
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			"swiper-container": any;
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 			"swiper-slide": any;
 		}
 	}
@@ -59,7 +57,6 @@ const SectionFeatures: Component = () => {
 					<img src="/assets/images/Project-Simplist.png" alt="TMA Studio" />
 				</swiper-slide>
 				<swiper-slide>
-					{/* biome-ignore lint/a11y/useMediaCaption: <explanation> */}
 					<video
 						src="https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo-2-1080P-30FPS.mp4"
 						controls

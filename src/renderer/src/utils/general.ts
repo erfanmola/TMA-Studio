@@ -44,7 +44,6 @@ export const stringToColorDark = (str: string): string => {
     return color;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const deserializeObject = (object: any): any => {
     return JSON.parse(JSON.stringify(object));
 };
@@ -62,8 +61,8 @@ export const ksort = (obj) => {
 
 export const buffer2Hex = (buffer) => {
     return [...new Uint8Array(buffer)]
-    .map(x => x.toString(16).padStart(2, '0'))
-    .join('');
+        .map(x => x.toString(16).padStart(2, '0'))
+        .join('');
 };
 
 export const hex2Buffer = (hexString) => {

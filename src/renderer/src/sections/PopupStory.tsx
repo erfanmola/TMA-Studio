@@ -69,7 +69,6 @@ export const PopupStoryHandler: Component<{
 								</Match>
 
 								<Match when={mediaType() === "video"}>
-									{/* biome-ignore lint/a11y/useMediaCaption: <explanation> */}
 									<video src={popupStory()?.media_url ?? ""} autoplay loop />
 								</Match>
 

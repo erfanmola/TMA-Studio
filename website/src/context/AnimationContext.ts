@@ -1,7 +1,6 @@
 import { createContext, useContext } from 'solid-js';
 
 type AnimationContextType = {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     addAnimationTarget: (item: any) => void;
 };
 

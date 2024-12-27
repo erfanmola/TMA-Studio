@@ -39,9 +39,7 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
     })}`;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const tgWebAppDataHash = async (webAppData: any, token: string) => {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const initData: any = ksort(deserializeObject(webAppData));
     // biome-ignore lint/performance/noDelete: <explanation>
     delete initData.hash;
@@ -64,7 +62,6 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
     );
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const tgEmitEvent = async (eventType: string, eventData: any, webview: any, platform: TelegramPlatform) => {
     if (!webview) return;
     let code = '';
@@ -104,9 +101,7 @@ export type TGEventHandlerSignals = {
     storeButtonSecondary: [TelegramButtonSecondary, SetStoreFunction<TelegramButtonSecondary>],
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signals: TGEventHandlerSignals) => {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     let eventData: any = event.eventData;
 
     try {

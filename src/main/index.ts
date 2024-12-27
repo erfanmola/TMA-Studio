@@ -180,7 +180,6 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const store: any = new Store();
 
   ThemeMode = store.get("preferences")?.theme_mode ?? 'light';

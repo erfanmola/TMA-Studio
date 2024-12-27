@@ -19,7 +19,6 @@ export const BottomBar: Component<{
 	signalColorBottomBar: Signal<string | undefined>;
 	buttonMain: TelegramButtonMain;
 	buttonSecondary: TelegramButtonSecondary;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	webview: any;
 }> = (props) => {
 	const [colorBottomBar] = props.signalColorBottomBar;

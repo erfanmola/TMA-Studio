@@ -2,9 +2,7 @@ import { createContext, useContext } from 'solid-js';
 
 type SettingsContextType = {
     settings: {
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         get: (key: string) => any,
-        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         set: (key: string, value: any) => void,
     },
 };

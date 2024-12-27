@@ -37,7 +37,6 @@ const Header = () => {
 		undefined,
 	);
 
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const onClickMenuUserDelete = (e: any) => {
 		batch(() => {
 			setDeleteUserID(e.props);

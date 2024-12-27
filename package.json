@@ -9,9 +9,10 @@
 		"typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
 		"typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
+		"lint": "pnpm biome lint ./src",
 		"start": "electron-vite preview",
 		"dev": "electron-vite dev",
-		"build": "npm run typecheck && electron-vite build",
+		"build": "npm run typecheck && npm run lint && electron-vite build",
 		"postinstall": "electron-builder install-app-deps",
 		"build:unpack": "npm run build && electron-builder --dir",
 		"build:win": "npm run build && electron-builder --win",
@@ -34,6 +35,7 @@
 		"validator": "^13.12.0"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@electron-toolkit/eslint-config-ts": "^2.0.0",
 		"@electron-toolkit/tsconfig": "^1.0.1",
 		"@types/node": "^22.10.2",

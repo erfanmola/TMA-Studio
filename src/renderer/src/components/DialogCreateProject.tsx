@@ -1,6 +1,5 @@
 import {
 	createEffect,
-	createSignal,
 	type Accessor,
 	type Component,
 	type Setter,
