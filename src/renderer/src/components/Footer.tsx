@@ -46,7 +46,8 @@ const Footer = () => {
 			</ul>
 
 			<span>
-				Made with <FaSolidHeart /> by Erfan Mola
+				Made with <FaSolidHeart /> by Erfan Mola | Version:{" "}
+				{window.version.get()}
 			</span>
 		</footer>
 	);

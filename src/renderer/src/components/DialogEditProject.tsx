@@ -1,29 +1,48 @@
-import {
-	createEffect,
-	createSignal,
-	type Accessor,
-	type Component,
-	type Setter,
-} from "solid-js";
-
+import { createEffect, on, type Component } from "solid-js";
+import { projects, setProjects } from "../utils/project";
 import validator from "validator";
+
 import { Button } from "@kobalte/core/button";
 import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
+import { closeTab } from "./Tabbar";
+import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
+import { createStore, type SetStoreFunction } from "solid-js/store";
 import { TextField } from "@kobalte/core/text-field";
-import { createStore } from "solid-js/store";
-import { openProject, projects, setProjects } from "../utils/project";
-import ProjectPage from "../pages/Project";
-import type { Project } from "../types";
+import { deserializeObject } from "@renderer/utils/general";
 
-const DialogCreateProject: Component<{
-	isOpen: Accessor<boolean>;
-	setIsOpen: Setter<boolean>;
+const DialogEditProject: Component<{
+	ProjectContextMenuStore: [
+		get: ProjectContextMenuStore,
+		set: SetStoreFunction<ProjectContextMenuStore>,
+	];
 }> = (props) => {
+	const [contextMenuStore, setContextMenuStore] = props.ProjectContextMenuStore;
+
+	createEffect(
+		on(
+			() => contextMenuStore.edit.id,
+			() => {
+				if (!contextMenuStore.edit.open) {
+					setContextMenuStore("edit", "id", undefined);
+				}
+			},
+			{
+				defer: true,
+			},
+		),
+	);
+
+	const project = projects().find(
+		(item) => item.id === contextMenuStore.edit.id,
+	);
+
+	if (!project) return;
+
 	const [form, setForm] = createStore({
-		name: "",
-		url: "",
-		token: "",
+		name: project.name,
+		url: project.url,
+		token: project.token ?? "",
 		valid: false,
 	});
 
@@ -37,52 +56,35 @@ const DialogCreateProject: Component<{
 		);
 	});
 
-	const onClickCreate = async () => {
-		if (!form.valid) return;
+	const onClickEdit = async () => {
+		closeTab(`project-${contextMenuStore.edit.id}`);
 
-		const project = {
-			id: `${Math.random().toString(36)}00000000000000000`.slice(2, 10),
-			name: form.name,
-			url: form.url,
-			token: form.token,
-		};
+		const projectsList = deserializeObject(projects());
+		const project = projectsList.find(
+			(item) => item.id === contextMenuStore.edit.id,
+		);
 
-		const defaultSettings: Project["settings"]["android"] = {
-			expanded: false,
-			mode: "light",
-			open: true,
-			floating: false,
-		};
+		if (!project) return;
 
-		setProjects([
-			...projects(),
-			{
-				...project,
-				settings: {
-					android: defaultSettings,
-					ios: defaultSettings,
-					tdesktop: defaultSettings,
-					web: defaultSettings,
-					weba: defaultSettings,
-				},
-			},
-		]);
+		project.name = form.name;
+		project.url = form.url;
+		project.token = form.token;
 
-		props.setIsOpen(false);
-
-		openProject(project.id, () => <ProjectPage id={project.id} />);
+		setProjects(projectsList);
+		setContextMenuStore("edit", "open", false);
 	};
 
 	return (
-		<Dialog open={props.isOpen()} onOpenChange={() => props.setIsOpen(false)}>
+		<Dialog
+			open={contextMenuStore.edit.open}
+			onOpenChange={() => setContextMenuStore("edit", "open", false)}
+		>
 			<Dialog.Portal>
 				<Dialog.Overlay class="dialog__overlay" />
 				<div class="dialog__positioner">
 					<Dialog.Content class="dialog__content">
 						<div class="dialog__header">
-							<Dialog.Title class="dialog__title">
-								Create New Project
-							</Dialog.Title>
+							<Dialog.Title class="dialog__title">Edit Project</Dialog.Title>
 						</div>
 
 						<Separator />
@@ -142,9 +144,9 @@ const DialogCreateProject: Component<{
 							<Button
 								class="button"
 								disabled={!form.valid}
-								onClick={onClickCreate}
+								onClick={onClickEdit}
 							>
-								Create
+								Update
 							</Button>
 						</div>
 					</Dialog.Content>
@@ -154,4 +156,4 @@ const DialogCreateProject: Component<{
 	);
 };
 
-export default DialogCreateProject;
+export default DialogEditProject;

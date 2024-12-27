@@ -200,6 +200,7 @@
                 cursor: pointer;
 
                 > span.destructive {
+                    direction: ltr;
                     color: var(--tg-var-android-light-destructive_text_color);
                 }
 

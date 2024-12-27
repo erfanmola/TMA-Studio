@@ -4,6 +4,12 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import Store from 'electron-store';
 import { join } from 'node:path'
 
+declare module 'electron' {
+  interface BrowserWindow {
+    platform?: string;
+  }
+}
+
 Menu.setApplicationMenu(Menu.buildFromTemplate([
   {
     label: 'File',
@@ -99,7 +105,9 @@ const createMainWindow = (): void => {
     if (BrowserWindow.getAllWindows().length > 1) {
       e.preventDefault();
       mainWindow.minimize();
-
+      if (tray && !tray.isDestroyed()) {
+        tray.destroy();
+      }
       tray = new Tray(join(__dirname, '../../icons/tray.png'));
       tray.addListener('click', () => {
         tray?.destroy();
@@ -186,8 +194,18 @@ app.whenReady().then(() => {
     store.set(key, val);
   });
 
+  ipcMain.on('electron-version-get', async (event) => {
+    event.returnValue = app.getVersion();
+  });
+
   // Project
   ipcMain.on('project-open', async (_, project, platform) => {
+    if (!(project in popupWindows)) {
+      popupWindows[project] = [];
+    }
+
+    if (popupWindows[project].find(item => item.platform === platform)) return;
+
     const window = new BrowserWindow({
       title: "TMA Studio Project",
       width: store.get("preferences")?.project?.floating_window_size ?? 420,
@@ -210,13 +228,16 @@ app.whenReady().then(() => {
       transparent: true,
     });
 
-    if (!(project in popupWindows)) {
-      popupWindows[project] = [];
-    }
+    window.platform = platform;
     popupWindows[project].push(window);
 
     window.on('ready-to-show', () => {
       window.show()
+    });
+
+    window.on('closed', () => {
+      WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
+      popupWindows[project] = popupWindows[project].filter((win) => !win.isDestroyed());
     });
 
     window.webContents.on('will-attach-webview', (_, webPreferences) => {
@@ -231,10 +252,10 @@ app.whenReady().then(() => {
       })
     }
   });
-  ipcMain.on('project-close', async (_, project, platform, popup) => {
+  ipcMain.on('project-close', async (_, project, _platform, popup) => {
     if (_.sender.id !== WindowMain?.webContents.id) {
       _.sender.close();
-      WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
+      // WindowMain?.webContents.send(`sync-project-${project}-${platform}`);
 
       const windowItem = popupWindows[project].find(item => item.webContents.id === _.sender.id);
       if (windowItem) {

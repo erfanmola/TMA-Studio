@@ -1,29 +1,27 @@
-import {
-	createEffect,
-	on,
-	type Accessor,
-	type Component,
-	type Setter,
-} from "solid-js";
+import { createEffect, on, type Component } from "solid-js";
 import { projects, setProjects } from "../utils/project";
 
 import { Button } from "@kobalte/core/button";
 import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
 import { closeTab } from "./Tabbar";
+import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
+import type { SetStoreFunction } from "solid-js/store";
 
 const DialogRemoveProject: Component<{
-	isOpen: Accessor<boolean>;
-	setIsOpen: Setter<boolean>;
-	projectId: Accessor<string | undefined>;
-	setProjectId: Setter<string | undefined>;
+	ProjectContextMenuStore: [
+		get: ProjectContextMenuStore,
+		set: SetStoreFunction<ProjectContextMenuStore>,
+	];
 }> = (props) => {
+	const [contextMenuStore, setContextMenuStore] = props.ProjectContextMenuStore;
+
 	createEffect(
 		on(
-			props.isOpen,
+			() => contextMenuStore.delete.id,
 			() => {
-				if (!props.isOpen()) {
-					props.setProjectId(undefined);
+				if (!contextMenuStore.delete.open) {
+					setContextMenuStore("delete", "id", undefined);
 				}
 			},
 			{
@@ -33,13 +31,18 @@ const DialogRemoveProject: Component<{
 	);
 
 	const onClickDelete = async () => {
-		closeTab(`project-${props.projectId()}`);
-		setProjects(projects().filter((item) => item.id !== props.projectId()));
-		props.setIsOpen(false);
+		closeTab(`project-${contextMenuStore.delete.id}`);
+		setProjects(
+			projects().filter((item) => item.id !== contextMenuStore.delete.id),
+		);
+		setContextMenuStore("delete", "open", false);
 	};
 
 	return (
-		<Dialog open={props.isOpen()} onOpenChange={() => props.setIsOpen(false)}>
+		<Dialog
+			open={contextMenuStore.delete.open}
+			onOpenChange={() => setContextMenuStore("delete", "open", false)}
+		>
 			<Dialog.Portal>
 				<Dialog.Overlay class="dialog__overlay" />
 				<div class="dialog__positioner">
@@ -55,8 +58,9 @@ const DialogRemoveProject: Component<{
 								Are you sure of deleting the{" "}
 								<b>
 									{
-										projects().find((item) => item.id === props.projectId())
-											?.name
+										projects().find(
+											(item) => item.id === contextMenuStore.delete.id,
+										)?.name
 									}
 								</b>{" "}
 								project?

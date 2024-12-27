@@ -42,6 +42,7 @@
                 transition: opacity 0.15s;
                 text-align: center;
                 position: relative;
+                overflow: hidden;
 
                 &:hover {
                     opacity: 0.875;

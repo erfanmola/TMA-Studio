@@ -25,6 +25,7 @@ import PreferencesPage from "./Preferences";
 import ProjectPage from "./Project";
 import ProjectsPage from "./Projects";
 import type { TabbarTab } from "../types";
+import { deserializeObject } from "@renderer/utils/general";
 import { initStore } from "@renderer/utils/store";
 import { preferences } from "@renderer/utils/preferences";
 import { projects } from "../utils/project";
@@ -101,7 +102,7 @@ const MainPage = () => {
 		);
 
 		createEffect(() => {
-			settings.set("preferences", JSON.parse(JSON.stringify(preferences)));
+			settings.set("preferences", deserializeObject(preferences));
 		});
 
 		createEffect(() => {

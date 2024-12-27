@@ -31,6 +31,12 @@ contextBridge.exposeInMainWorld('store', {
   },
 });
 
+contextBridge.exposeInMainWorld('version', {
+  get() {
+    return ipcRenderer.sendSync('electron-version-get');
+  },
+});
+
 contextBridge.exposeInMainWorld('onShortcutPressed', (callback) => ipcRenderer.on('shortcut-pressed', callback));
 
 contextBridge.exposeInMainWorld('clipboard', {

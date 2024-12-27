@@ -4,9 +4,7 @@ import "solid-contextmenu/dist/style.css";
 
 import {
 	type Accessor,
-	batch,
 	type Component,
-	createSignal,
 	For,
 	type Setter,
 	Show,
@@ -18,16 +16,35 @@ import KeyboardCombo from "../components/KeyboardCombo";
 import { tabbarData } from "../components/Tabbar";
 import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
 import { preferences } from "@renderer/utils/preferences";
+import DialogEditProject from "@renderer/components/DialogEditProject";
+import { createStore } from "solid-js/store";
+
+export type ProjectContextMenuStore = {
+	delete: {
+		id: undefined | string;
+		open: boolean;
+	};
+	edit: {
+		id: undefined | string;
+		open: boolean;
+	};
+};
 
 const ProjectsPage: Component<{
 	showProjectDialog: Accessor<boolean>;
 	setShowProjectDialog: Setter<boolean>;
 }> = (props) => {
-	const [dialogDeleteProject, setDialogDeleteProject] =
-		createSignal<boolean>(false);
-	const [deleteProjectID, setDeleteProjectID] = createSignal<
-		string | undefined
-	>(undefined);
+	const [contextMenuStore, setContextMenuStore] =
+		createStore<ProjectContextMenuStore>({
+			delete: {
+				id: undefined,
+				open: false,
+			},
+			edit: {
+				id: undefined,
+				open: false,
+			},
+		});
 
 	const openProjectInner = (projectId: Project["id"]) => {
 		openProject(projectId, () => <ProjectPage id={projectId} />);
@@ -39,10 +56,18 @@ const ProjectsPage: Component<{
 	};
 
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	const onClickMenuProjectEdit = (e: any) => {
+		setContextMenuStore("edit", {
+			id: e.props,
+			open: true,
+		});
+	};
+
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const onClickMenuProjectDelete = (e: any) => {
-		batch(() => {
-			setDeleteProjectID(e.props);
-			setDialogDeleteProject(true);
+		setContextMenuStore("delete", {
+			id: e.props,
+			open: true,
 		});
 	};
 
@@ -129,15 +154,20 @@ const ProjectsPage: Component<{
 			>
 				<Item onClick={onClickMenuProjectOpen}>Open Project</Item>
 				<Separator />
+				<Item onClick={onClickMenuProjectEdit}>Edit Project</Item>
+				<Separator />
 				<Item onClick={onClickMenuProjectDelete}>Delete Project</Item>
 			</Menu>
 
-			<Show when={deleteProjectID()}>
+			<Show when={contextMenuStore.delete.open && contextMenuStore.delete.id}>
 				<DialogRemoveProject
-					isOpen={dialogDeleteProject}
-					setIsOpen={setDialogDeleteProject}
-					projectId={deleteProjectID}
-					setProjectId={setDeleteProjectID}
+					ProjectContextMenuStore={[contextMenuStore, setContextMenuStore]}
+				/>
+			</Show>
+
+			<Show when={contextMenuStore.edit.open && contextMenuStore.edit.id}>
+				<DialogEditProject
+					ProjectContextMenuStore={[contextMenuStore, setContextMenuStore]}
 				/>
 			</Show>
 		</section>
