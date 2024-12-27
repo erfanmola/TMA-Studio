@@ -32,6 +32,9 @@ importers:
       js-crypto-hmac:
         specifier: ^1.0.7
         version: 1.0.7
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       solid-contextmenu:
         specifier: ^0.0.2
         version: 0.0.2(solid-js@1.9.3)(solid-transition-group@0.0.10(solid-js@1.9.3))

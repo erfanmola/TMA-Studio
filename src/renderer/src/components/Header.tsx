@@ -14,7 +14,7 @@ import { onMount } from "solid-js";
 import { preferences } from "@renderer/utils/preferences";
 
 const [ghStars, setGHStars] = createSignal(0);
-const ghRepoURL = "https://github.com/erfanmola/TMA-Studio";
+export const ghRepoURL = "https://github.com/erfanmola/TMA-Studio";
 
 const Header = () => {
 	onMount(async () => {

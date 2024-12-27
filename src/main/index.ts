@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, Tray, app, ipcMain, shell } from 'electron'
+import { BrowserWindow, Menu, Tray, app, dialog, ipcMain, shell } from 'electron'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
@@ -195,6 +195,19 @@ app.whenReady().then(() => {
 
   ipcMain.on('electron-version-get', async (event) => {
     event.returnValue = app.getVersion();
+  });
+
+  ipcMain.on('update-available', async (_, version) => {
+    if (WindowMain) {
+      dialog.showMessageBox(WindowMain, {
+        title: "New Version Available",
+        message: `There is a newer version of TMA Studio available, please update the app to version ${version}.`,
+        buttons: ['Update']
+      }).then(() => {
+        shell.openExternal("https://tma-studio.pages.dev/");
+        app.quit();
+      });
+    }
   });
 
   // Project
