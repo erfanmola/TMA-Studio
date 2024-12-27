@@ -124,19 +124,96 @@ https://github.com/user-attachments/assets/c6f3f79c-d56d-4329-86f2-8a8d7acb68ae
 ---
 
 ## Roadmap
-### Phase 1
+### Phase 1 (Completed)
 This phase has started from October 2024 and ended until January 2025.
 - [x] Setup base project and essentials
 - [x] Add support for Telegram Android and iOS platforms.
-### Phase 2
+### Phase 2 (WIP)
 This phase is planned for early to mid 2025.
 - [ ] Full compatibility with Telegram Mini Apps 2.0.
 - [ ] Add support for Telegram Desktop, WebK, and WebA platforms.
 - [ ] Add support for auto-updates in app and streamline release process.
-### Phase 3
+### Phase 3 (Planned)
 This phase is planned for mid to late 2025.
 - [ ] Improve mock data customization and support real user account login.
 - [ ] Support `*` marked features that require real user account.
+
+## Contribution Guidelines
+
+We welcome contributions from the community! Whether you're fixing bugs, implementing features, or improving documentation, your help is greatly appreciated. Follow these steps and guidelines to contribute effectively:
+
+### Prerequisites
+1. **Node Package Manager**: We recommend using **pnpm** over npm for managing dependencies, as it ensures better performance and workspace handling.
+   - Install pnpm globally if you haven't already:
+     ```bash
+     npm install -g pnpm
+     ```
+2. **Code Formatting and Linting**:
+   We use **Biome.js** as the linter and formatter for the project.
+   - Install the **Biome.js** VSCode extension for consistent linting and formatting in your editor.
+   - Ensure that your code is formatted and linted before submitting a pull request (PR).
+
+3. **Tech Stack**:
+   - The project is built with **Electron**, **Vite**, and **SolidJS** for a modern, fast development workflow.
+
+---
+
+### Steps to Contribute
+
+1. **Clone the Repository**:
+   - Fork the repository to your account.
+   - Clone your forked repo:
+     ```bash
+     git clone https://github.com/erfanmola/TMA-Studio.git
+     cd TMA-Studio
+     ```
+
+2. **Install Dependencies**:
+   - Use pnpm to install all dependencies:
+     ```bash
+     pnpm install
+     ```
+
+3. **Development**:
+   - Start the development server:
+     ```bash
+     pnpm dev
+     ```
+
+4. **Building the Project**:
+   - Build the project for all major platforms:
+     - **Mac**:
+       ```bash
+       pnpm build:mac
+       ```
+     - **Windows**:
+       ```bash
+       pnpm build:win
+       ```
+     - **Linux**:
+       ```bash
+       pnpm build:linux
+       ```
+
+5. **Linting and Formatting**:
+   - Run the linter to ensure the code adheres to project standards:
+     ```bash
+     pnpm lint
+     ```
+   - Make sure your code passes all linting checks before submitting a PR.
+
+### Commands Overview
+| Command           | Description                                    |
+|-------------------|------------------------------------------------|
+| `pnpm install`    | Installs all dependencies.                    |
+| `pnpm dev`        | Starts the development environment.           |
+| `pnpm build`      | Builds the project for production.            |
+| `pnpm lint`       | Lints and formats the codebase using Biome.js.|
+| `pnpm build:mac`  | Builds the project for macOS.                 |
+| `pnpm build:win`  | Builds the project for Windows.               |
+| `pnpm build:linux`| Builds the project for Linux.                 |
+
+---
 
 ## License
 This project is licensed under the MIT License.
