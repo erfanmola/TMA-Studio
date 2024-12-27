@@ -30,7 +30,7 @@
 		"solid-contextmenu": "^0.0.2",
 		"solid-icons": "^1.1.0",
 		"solid-motionone": "^1.0.2",
-		"telegram": "^2.26.8",
+		"telegram": "^2.26.16",
 		"validator": "^13.12.0"
 	},
 	"devDependencies": {
@@ -49,7 +49,7 @@
 		"solid-js": "^1.9.3",
 		"tailwindcss": "^3.4.17",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.3",
+		"vite": "^6.0.6",
 		"vite-plugin-solid": "^2.11.0"
 	}
 }
