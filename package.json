@@ -9,7 +9,7 @@
 		"typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
 		"typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
 		"typecheck": "npm run typecheck:node && npm run typecheck:web",
-		"lint": "pnpm biome lint ./src",
+		"lint": "npm biome lint ./src",
 		"start": "electron-vite preview",
 		"dev": "electron-vite dev",
 		"build": "npm run typecheck && npm run lint && electron-vite build",
