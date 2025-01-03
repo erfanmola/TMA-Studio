@@ -15,8 +15,8 @@
     "animate.css": "^4.1.1",
     "solid-icons": "^1.1.0",
     "solid-js": "^1.9.3",
-    "solid-motionone": "^1.0.2",
-    "swiper": "^11.1.15",
+    "solid-motionone": "^1.0.3",
+    "swiper": "^11.2.0",
     "vite-plugin-solid-svg": "^0.8.1"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "sass": "^1.83.0",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.7.2",
-    "vite": "^6.0.6",
+    "vite": "^6.0.7",
     "vite-plugin-solid": "^2.11.0"
   }
 }
