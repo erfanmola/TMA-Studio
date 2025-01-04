@@ -1,70 +1,81 @@
-import { tgEmitEvent } from "@renderer/utils/telegram";
+import { tgEmitEvent, type TMAProjectInner } from "@renderer/utils/telegram";
 import "../scss/sections/_bottom-bar.scss";
 
-import type {
-	TelegramButtonMain,
-	TelegramButtonSecondary,
-} from "@renderer/types";
-import {
-	TelegramThemes,
-	type TelegramPlatform,
-	type ThemeMode,
-} from "@renderer/utils/themes";
+import { TelegramThemes } from "@renderer/utils/themes";
 import { TbLoader2 } from "solid-icons/tb";
-import { type Component, Show, type Signal } from "solid-js";
+import { type Component, Show } from "solid-js";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { SetStoreFunction } from "solid-js/store";
 
 export const BottomBar: Component<{
-	platform: TelegramPlatform;
-	mode: ThemeMode;
-	signalColorBottomBar: Signal<string | undefined>;
-	buttonMain: TelegramButtonMain;
-	buttonSecondary: TelegramButtonSecondary;
-	webview: any;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
+	projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>];
 }> = (props) => {
-	const [colorBottomBar] = props.signalColorBottomBar;
+	const [projectFrame] = props.projectFrameStore;
+	const [projectInner] = props.projectInnerStore;
 
 	const onClickButtonMain = () => {
-		tgEmitEvent("main_button_pressed", {}, props.webview, props.platform);
+		tgEmitEvent(
+			"main_button_pressed",
+			{},
+			projectInner.webview,
+			projectFrame.platform,
+		);
 	};
 	const onClickButtonSecondary = () => {
-		tgEmitEvent("secondary_button_pressed", {}, props.webview, props.platform);
+		tgEmitEvent(
+			"secondary_button_pressed",
+			{},
+			projectInner.webview,
+			projectFrame.platform,
+		);
 	};
 
 	return (
 		<div
 			id="section-telegram-bottombar"
-			class={`${props.platform} ${props.mode}`}
+			class={`${projectFrame.platform} ${projectFrame.state.mode}`}
 			style={{
 				"background-color":
-					colorBottomBar() ??
-					TelegramThemes[props.platform][props.mode].bottom_bar_bg_color,
+					projectInner.theme.color.bottomBar ??
+					TelegramThemes[projectFrame.platform][projectFrame.state.mode]
+						.bottom_bar_bg_color,
 			}}
 		>
 			<Show
-				when={props.buttonMain.is_visible || props.buttonSecondary.is_visible}
+				when={
+					projectInner.buttonMain.is_visible ||
+					projectInner.buttonSecondary.is_visible
+				}
 			>
 				<ul
 					classList={{
 						column:
-							["top", "bottom"].includes(props.buttonMain.position ?? "") ||
-							["top", "bottom"].includes(props.buttonSecondary.position ?? ""),
+							["top", "bottom"].includes(
+								projectInner.buttonMain.position ?? "",
+							) ||
+							["top", "bottom"].includes(
+								projectInner.buttonSecondary.position ?? "",
+							),
 					}}
 				>
-					<Show when={props.buttonSecondary.is_visible}>
-						<li class={`${props.buttonSecondary.position ?? ""}`}>
+					<Show when={projectInner.buttonSecondary.is_visible}>
+						<li class={`${projectInner.buttonSecondary.position ?? ""}`}>
 							<button
 								type="button"
 								style={{
-									"background-color": props.buttonSecondary.color,
-									color: props.buttonSecondary.text_color,
+									"background-color": projectInner.buttonSecondary.color,
+									color: projectInner.buttonSecondary.text_color,
 								}}
-								disabled={!props.buttonSecondary.is_active}
-								classList={{ shine: props.buttonSecondary.has_shine_effect }}
+								disabled={!projectInner.buttonSecondary.is_active}
+								classList={{
+									shine: projectInner.buttonSecondary.has_shine_effect,
+								}}
 								onClick={onClickButtonSecondary}
 							>
 								<Show
-									when={props.buttonSecondary.is_progress_visible}
-									fallback={<span>{props.buttonSecondary.text}</span>}
+									when={projectInner.buttonSecondary.is_progress_visible}
+									fallback={<span>{projectInner.buttonSecondary.text}</span>}
 								>
 									<TbLoader2 />
 								</Show>
@@ -72,21 +83,21 @@ export const BottomBar: Component<{
 						</li>
 					</Show>
 
-					<Show when={props.buttonMain.is_visible}>
-						<li class={`${props.buttonMain.position ?? ""}`}>
+					<Show when={projectInner.buttonMain.is_visible}>
+						<li class={`${projectInner.buttonMain.position ?? ""}`}>
 							<button
 								type="button"
 								style={{
-									"background-color": props.buttonMain.color,
-									color: props.buttonMain.text_color,
+									"background-color": projectInner.buttonMain.color,
+									color: projectInner.buttonMain.text_color,
 								}}
-								disabled={!props.buttonMain.is_active}
-								classList={{ shine: props.buttonMain.has_shine_effect }}
+								disabled={!projectInner.buttonMain.is_active}
+								classList={{ shine: projectInner.buttonMain.has_shine_effect }}
 								onClick={onClickButtonMain}
 							>
 								<Show
-									when={props.buttonMain.is_progress_visible}
-									fallback={<span>{props.buttonMain.text}</span>}
+									when={projectInner.buttonMain.is_progress_visible}
+									fallback={<span>{projectInner.buttonMain.text}</span>}
 								>
 									<TbLoader2 />
 								</Show>

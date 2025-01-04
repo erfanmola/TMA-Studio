@@ -1,60 +1,47 @@
 import "../scss/sections/_popup.scss";
 
-import type { TelegramPopup } from "@renderer/types";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
-import {
-	batch,
-	type Component,
-	For,
-	Match,
-	Show,
-	type Signal,
-	Switch,
-} from "solid-js";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { TMAProjectInner } from "@renderer/utils/telegram";
+import { type Component, For, Match, Show, Switch } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 
 export const PopupHandler: Component<{
-	platform: TelegramPlatform;
-	mode: ThemeMode;
-	signalPopup: Signal<TelegramPopup | undefined>;
-	signalPopupPressId: Signal<string | undefined>;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
+	projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>];
 }> = (props) => {
-	const [popup, setPopup] = props.signalPopup;
-	const [, setPopupPressID] = props.signalPopupPressId;
+	const [projectFrame] = props.projectFrameStore;
+	const [projectInner, setProjectInner] = props.projectInnerStore;
 
 	const onClickButton = (id: string) => {
-		batch(() => {
-			setPopup(undefined);
-			setPopupPressID(id ?? "");
+		setProjectInner("popup", "regular", {
+			popup: undefined,
+			press_id: id ?? "",
 		});
 	};
 
 	return (
-		<Show when={popup()}>
-			<div class={`popup-overlay ${props.platform} ${props.mode}`}>
-				<div
-					onClick={() => onClickButton("")}
-					onKeyUp={() => onClickButton("")}
-				/>
+		<Show when={projectInner.popup.regular.popup}>
+			<div
+				class={`popup-overlay ${projectFrame.platform} ${projectFrame.state.mode}`}
+			>
+				<div onClick={() => onClickButton("")} />
 
 				<section>
 					<div>
-						<Show when={popup()?.title}>
-							<b>{popup()?.title}</b>
+						<Show when={projectInner.popup.regular.popup?.title}>
+							<b>{projectInner.popup.regular.popup?.title}</b>
 						</Show>
 
-						<Show when={popup()?.message}>
-							<p>{popup()?.message}</p>
+						<Show when={projectInner.popup.regular.popup?.message}>
+							<p>{projectInner.popup.regular.popup?.message}</p>
 						</Show>
 					</div>
 
-					<Show when={popup()?.buttons}>
+					<Show when={projectInner.popup.regular.popup?.buttons}>
 						<ul>
-							<For each={popup()?.buttons}>
+							<For each={projectInner.popup.regular.popup?.buttons}>
 								{(button) => (
-									<li
-										onClick={() => onClickButton(button.id ?? "")}
-										onKeyUp={() => onClickButton(button.id ?? "")}
-									>
+									<li onClick={() => onClickButton(button.id ?? "")}>
 										<Switch>
 											<Match when={button.type === "cancel"}>
 												<span>Cancel</span>

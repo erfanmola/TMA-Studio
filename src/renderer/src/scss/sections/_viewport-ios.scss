@@ -124,7 +124,7 @@
         background-color: rgba(0, 0, 0, 0.25);
     }
 
-    &.expanded {
+    &.open.expanded {
         background-color: black;
 
         > header {

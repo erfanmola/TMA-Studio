@@ -128,9 +128,6 @@ const ProjectsPage: Component<{
 								onClick={() => {
 									openProjectInner(project.id);
 								}}
-								onKeyUp={() => {
-									openProjectInner(project.id);
-								}}
 								onContextMenu={(e) => {
 									useContextMenu({ id: "menu-project" }).show(e, {
 										props: project.id,

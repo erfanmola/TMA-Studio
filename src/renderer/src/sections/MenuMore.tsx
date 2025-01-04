@@ -1,57 +1,80 @@
 import "../scss/sections/_menu-more.scss";
 
-import { Match, Show, Switch, type Component, type Signal } from "solid-js";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import { Match, Show, Switch, type Component } from "solid-js";
 
 import { CgMoreO } from "solid-icons/cg";
 import { IoReload } from "solid-icons/io";
 import { FiMoreVertical, FiSettings } from "solid-icons/fi";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { SetStoreFunction } from "solid-js/store";
+import type { TMAProjectInner } from "@renderer/utils/telegram";
+
+export type MenuMoreStore = {
+	open: boolean;
+	settings: {
+		clicked: boolean;
+	};
+	reload: {
+		clicked: boolean;
+	};
+	closeOrBack: {
+		clicked: boolean;
+	};
+};
 
 export const MenuMore: Component<{
-	signalOpen: Signal<boolean>;
-	signalSettingsButtonEnabled: Signal<boolean>;
-	signalSettingsButtonClicked: Signal<boolean>;
-	signalReloadButtonClicked: Signal<boolean>;
-	platform: TelegramPlatform;
-	mode: ThemeMode;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
+	projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>];
+	menuMoreStore: [MenuMoreStore, SetStoreFunction<MenuMoreStore>];
 }> = (props) => {
-	const [openMore, setOpenMore] = props.signalOpen;
-	const [settingsButtonEnabled] = props.signalSettingsButtonEnabled;
-	const [, setSettingsButtonClicked] = props.signalSettingsButtonClicked;
-	const [, setReloadButtonClicked] = props.signalReloadButtonClicked;
+	const [projectFrame] = props.projectFrameStore;
+	const [projectInner] = props.projectInnerStore;
+
+	const [menuMore, setMenuMore] = props.menuMoreStore;
 
 	const onClickButtonReload = () => {
-		setOpenMore(false);
-		setReloadButtonClicked(true);
+		setMenuMore({
+			open: false,
+			reload: {
+				clicked: true,
+			},
+		});
 	};
 
 	const onClickButtonSettings = () => {
-		setOpenMore(false);
-		setSettingsButtonClicked(true);
+		setMenuMore({
+			open: false,
+			settings: {
+				clicked: true,
+			},
+		});
 	};
 
 	return (
-		<div id="section-button-more" class={`${props.platform} ${props.mode}`}>
+		<div
+			id="section-button-more"
+			class={`${projectFrame.platform} ${projectFrame.state.mode}`}
+		>
 			<Switch>
-				<Match when={props.platform === "ios"}>
-					<CgMoreO onClick={() => setOpenMore(!openMore())} />
+				<Match when={projectFrame.platform === "ios"}>
+					<CgMoreO onClick={() => setMenuMore("open", !menuMore.open)} />
 				</Match>
 
-				<Match when={props.platform === "android"}>
-					<FiMoreVertical onClick={() => setOpenMore(!openMore())} />
+				<Match when={projectFrame.platform === "android"}>
+					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
 				</Match>
 			</Switch>
 
-			<div classList={{ active: openMore() }}>
+			<div classList={{ active: menuMore.open }}>
 				<ul>
-					<Show when={settingsButtonEnabled()}>
-						<li onClick={onClickButtonSettings} onKeyUp={onClickButtonSettings}>
+					<Show when={projectInner.settingsButton.enabled}>
+						<li onClick={onClickButtonSettings}>
 							<FiSettings />
 							<span>Settings</span>
 						</li>
 					</Show>
 
-					<li onClick={onClickButtonReload} onKeyUp={onClickButtonReload}>
+					<li onClick={onClickButtonReload}>
 						<IoReload />
 						<span>Reload</span>
 					</li>

@@ -17,7 +17,6 @@ export const HorizontalSelect: Component<{
 					<li
 						classList={{ active: item.value === props.signal[0]() }}
 						onClick={() => (props.signal[1] as any)(item.value)}
-						onKeyUp={() => (props.signal[1] as any)(item.value)}
 					>
 						<span>{item.title}</span>
 					</li>

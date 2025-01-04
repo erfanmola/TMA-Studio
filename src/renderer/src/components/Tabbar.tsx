@@ -70,7 +70,6 @@ export const Tabbar = () => {
 								}
 							}}
 							onClick={() => setActiveTabId(item.id)}
-							onKeyUp={() => setActiveTabId(item.id)}
 							title={item.title}
 						>
 							<span>{item.title}</span>

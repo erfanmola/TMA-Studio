@@ -1,17 +1,17 @@
 import "../scss/sections/_popup-story.scss";
 
-import type { TelegramStory } from "@renderer/types";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { TMAProjectInner } from "@renderer/utils/telegram";
 import { CgClose } from "solid-icons/cg";
 import {
 	type Component,
-	type Signal,
 	createResource,
 	Match,
 	Show,
 	Suspense,
 	Switch,
 } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 
 const getMediaTypeFromURL = async (
 	url: string,
@@ -44,32 +44,46 @@ const getMediaTypeFromURL = async (
 };
 
 export const PopupStoryHandler: Component<{
-	platform: TelegramPlatform;
-	mode: ThemeMode;
-	signalPopupStory: Signal<TelegramStory | undefined>;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
+	projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>];
 }> = (props) => {
-	const [popupStory, setPopupStory] = props.signalPopupStory;
+	const [projectFrame] = props.projectFrameStore;
+	const [projectInner, setProjectInner] = props.projectInnerStore;
+
 	const [mediaType] = createResource(async () => {
-		return await getMediaTypeFromURL(popupStory()?.media_url ?? "");
+		return await getMediaTypeFromURL(
+			projectInner.popup.story.popup?.media_url ?? "",
+		);
 	});
 
 	return (
-		<Show when={popupStory()}>
-			<div class={`popup-story-overlay ${props.platform} ${props.mode}`}>
+		<Show when={projectInner.popup.story.popup}>
+			<div
+				class={`popup-story-overlay ${projectFrame.platform} ${projectFrame.state.mode}`}
+			>
 				<div />
 
-				<CgClose onClick={() => setPopupStory(undefined)} />
+				<CgClose
+					onClick={() => setProjectInner("popup", "story", "popup", undefined)}
+				/>
 
 				<section>
 					<div>
 						<Suspense fallback={<span>Loading...</span>}>
 							<Switch>
 								<Match when={mediaType() === "image"}>
-									<img alt="story" src={popupStory()?.media_url ?? ""} />
+									<img
+										alt="story"
+										src={projectInner.popup.story.popup?.media_url ?? ""}
+									/>
 								</Match>
 
 								<Match when={mediaType() === "video"}>
-									<video src={popupStory()?.media_url ?? ""} autoplay loop />
+									<video
+										src={projectInner.popup.story.popup?.media_url ?? ""}
+										autoplay
+										loop
+									/>
 								</Match>
 
 								<Match when={mediaType() === "unknown"}>
@@ -83,13 +97,13 @@ export const PopupStoryHandler: Component<{
 						</Suspense>
 					</div>
 
-					<Show when={popupStory()?.text}>
-						<span>{popupStory()?.text}</span>
+					<Show when={projectInner.popup.story.popup?.text}>
+						<span>{projectInner.popup.story.popup?.text}</span>
 					</Show>
 
-					<Show when={popupStory()?.widget_link}>
-						<a href={popupStory()?.widget_link?.url}>
-							{popupStory()?.widget_link?.name ?? "LINK"}
+					<Show when={projectInner.popup.story.popup?.widget_link}>
+						<a href={projectInner.popup.story.popup?.widget_link?.url}>
+							{projectInner.popup.story.popup?.widget_link?.name ?? "LINK"}
 						</a>
 					</Show>
 				</section>

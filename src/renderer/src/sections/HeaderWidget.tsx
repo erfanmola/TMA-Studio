@@ -1,37 +1,30 @@
 import { ToggleButton } from "@kobalte/core/toggle-button";
 import { useSettings } from "@renderer/contexts/SettingsContext";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import type { TelegramPlatform } from "@renderer/utils/themes";
 import { CgArrowTopRightR, CgArrowBottomLeftR } from "solid-icons/cg";
 import { FaSolidCode } from "solid-icons/fa";
 import { FiMoon, FiSun } from "solid-icons/fi";
 import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";
 import {
 	type Component,
-	type Signal,
 	createEffect,
 	on,
 	onCleanup,
 	onMount,
 	Show,
 } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 
 export const HeaderWidget: Component<{
 	project: Project;
 	platform: TelegramPlatform;
 	title: string;
-	signalMode: Signal<ThemeMode>;
-	signalExpanded: Signal<boolean>;
-	signalInspectElement: Signal<boolean>;
-	signalOpen: Signal<boolean>;
-	signalFloating: Signal<boolean>;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
 	placeholder: boolean;
 }> = (props) => {
-	const [mode, setMode] = props.signalMode;
-	const [inspectElement, setInspectElement] = props.signalInspectElement;
-	const [expanded, setExpanded] = props.signalExpanded;
-	const [open, setOpen] = props.signalOpen;
-	const [floating, setFloating] = props.signalFloating;
+	const [projectFrame, setProjectFrame] = props.projectFrameStore;
 
 	const { settings } = useSettings();
 
@@ -40,24 +33,30 @@ export const HeaderWidget: Component<{
 		const project = projectsList.find((item) => item.id === props.project.id);
 
 		if (project) {
-			setMode(project.settings[props.platform].mode);
-			setExpanded(project.settings[props.platform].expanded);
-			setOpen(project.settings[props.platform].open);
-			setFloating(project.settings[props.platform].floating);
+			setProjectFrame({
+				state: {
+					mode: project.settings[props.platform].mode,
+					expanded: project.settings[props.platform].expanded,
+					open: project.settings[props.platform].open,
+				},
+				window: {
+					floating: project.settings[props.platform].floating,
+				},
+			});
 		}
 	};
 
 	createEffect(
 		on(
-			floating,
+			() => projectFrame.window.floating,
 			() => {
-				if (floating()) {
-					setInspectElement(false);
+				if (projectFrame.window.floating) {
+					setProjectFrame("inspectElement", "open", false);
 					setTimeout(() => {
 						window.project.open(props.project.id, props.platform);
 					});
-				} else if (!floating() && !props.placeholder) {
-					setInspectElement(false);
+				} else if (!projectFrame.window.floating && !props.placeholder) {
+					setProjectFrame("inspectElement", "open", false);
 					setTimeout(() => {
 						window.project.close(props.project.id, props.platform, false);
 					});
@@ -71,7 +70,7 @@ export const HeaderWidget: Component<{
 		window.project.open(props.project.id, props.platform);
 	}
 
-	if (!floating() || props.placeholder) {
+	if (!projectFrame.window.floating || props.placeholder) {
 		onMount(() => {
 			window.electron.ipcRenderer.on(
 				`sync-project-${props.project.id}-${props.platform}`,
@@ -92,14 +91,20 @@ export const HeaderWidget: Component<{
 
 			<Show when={!props.placeholder}>
 				<ul>
-					<Show when={open()}>
+					<Show when={projectFrame.state.open}>
 						<li>
 							<ToggleButton
 								class="toggle-button"
 								style={{ "font-size": "1.325rem" }}
 								title="Inspect Element"
-								pressed={inspectElement()}
-								onChange={() => setInspectElement(!inspectElement())}
+								pressed={projectFrame.inspectElement.open}
+								onChange={() =>
+									setProjectFrame(
+										"inspectElement",
+										"open",
+										!projectFrame.inspectElement.open,
+									)
+								}
 							>
 								{() => <FaSolidCode />}
 							</ToggleButton>
@@ -110,8 +115,10 @@ export const HeaderWidget: Component<{
 								class="toggle-button"
 								style={{ "font-size": "1.325rem" }}
 								title="Expand / Collapse"
-								pressed={expanded()}
-								onChange={setExpanded}
+								pressed={projectFrame.state.expanded}
+								onChange={(checked) =>
+									setProjectFrame("state", "expanded", checked)
+								}
 							>
 								{(state) => (
 									<Show when={state.pressed()} fallback={<IoChevronCollapse />}>
@@ -127,8 +134,14 @@ export const HeaderWidget: Component<{
 							class="toggle-button"
 							style={{ "font-size": "1.325rem" }}
 							title="Dark / Light"
-							pressed={mode() === "dark"}
-							onChange={() => setMode(mode() === "dark" ? "light" : "dark")}
+							pressed={projectFrame.state.mode === "dark"}
+							onChange={() =>
+								setProjectFrame(
+									"state",
+									"mode",
+									projectFrame.state.mode === "dark" ? "light" : "dark",
+								)
+							}
 						>
 							{(state) => (
 								<Show when={state.pressed()} fallback={<FiSun />}>
@@ -143,8 +156,14 @@ export const HeaderWidget: Component<{
 							class="toggle-button"
 							style={{ "font-size": "1.425rem" }}
 							title="Floating Window"
-							pressed={floating()}
-							onChange={() => setFloating(!floating())}
+							pressed={projectFrame.window.floating}
+							onChange={() =>
+								setProjectFrame(
+									"window",
+									"floating",
+									!projectFrame.window.floating,
+								)
+							}
 						>
 							{(state) => (
 								<Show when={state.pressed()} fallback={<CgArrowTopRightR />}>

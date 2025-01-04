@@ -26,10 +26,7 @@ const Sidebar: ParentComponent = (props) => {
 		<aside id="sidebar-main" classList={{ open: sidebarVisiblity() }}>
 			{props.children}
 			<ul>
-				<li
-					onClick={() => setSidebarVisibility(false)}
-					onKeyUp={() => setSidebarVisibility(false)}
-				>
+				<li onClick={() => setSidebarVisibility(false)}>
 					<OcSidebarexpand2 />
 				</li>
 			</ul>

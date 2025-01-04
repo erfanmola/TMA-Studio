@@ -1,26 +1,30 @@
 import "../scss/sections/_popup-qr.scss";
 
-import type { TelegramScanQRPopup } from "@renderer/types";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { TMAProjectInner } from "@renderer/utils/telegram";
 import { CgClose } from "solid-icons/cg";
-import { type Component, type Signal, createSignal, Show } from "solid-js";
+import { type Component, createSignal, Show } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 
 export const PopupQRHandler: Component<{
-	platform: TelegramPlatform;
-	mode: ThemeMode;
-	signalPopupQR: Signal<TelegramScanQRPopup | undefined>;
-	signalPopupQRData: Signal<string | undefined>;
+	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
+	projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>];
 }> = (props) => {
-	const [popupQR, setPopupQR] = props.signalPopupQR;
-	const [, setPopupQRData] = props.signalPopupQRData;
+	const [projectFrame] = props.projectFrameStore;
+	const [projectInner, setProjectInner] = props.projectInnerStore;
+
 	const [text, setText] = createSignal("");
 
 	return (
-		<Show when={popupQR()}>
-			<div class={`popup-qr-overlay ${props.platform} ${props.mode}`}>
+		<Show when={projectInner.popup.qr.popup}>
+			<div
+				class={`popup-qr-overlay ${projectFrame.platform} ${projectFrame.state.mode}`}
+			>
 				<div />
 
-				<CgClose onClick={() => setPopupQR(undefined)} />
+				<CgClose
+					onClick={() => setProjectInner("popup", "qr", "popup", undefined)}
+				/>
 
 				<section>
 					<textarea
@@ -31,11 +35,11 @@ export const PopupQRHandler: Component<{
 					<button
 						type="button"
 						disabled={text().length < 1}
-						onClick={() => setPopupQRData(text())}
+						onClick={() => setProjectInner("popup", "qr", "data", text())}
 					>
 						Send Data
 					</button>
-					<span>{popupQR()?.text ?? "Scan QR Code"}</span>
+					<span>{projectInner.popup.qr.popup?.text ?? "Scan QR Code"}</span>
 				</section>
 			</div>
 		</Show>

@@ -1,22 +1,19 @@
 import "./FloatingProject.scss";
 
-import {
-	createEffect,
-	createSignal,
-	Match,
-	Switch,
-	type Component,
-} from "solid-js";
+import { createEffect, Match, Switch, type Component } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { HeaderWidget } from "@renderer/sections/HeaderWidget";
 import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
 import { useSettings } from "@renderer/contexts/SettingsContext";
-import type { TelegramPlatform, ThemeMode } from "@renderer/utils/themes";
+import type { TelegramPlatform } from "@renderer/utils/themes";
 import { projects } from "@renderer/utils/project";
 import type { Project } from "@renderer/types";
 import { ViewportIOS } from "@renderer/sections/ViewportIOS";
 import { initStore } from "@renderer/utils/store";
 import { preferences } from "@renderer/utils/preferences";
+import { createStore } from "solid-js/store";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import { generateProjectFrame } from "@renderer/utils/telegram";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
@@ -30,23 +27,16 @@ const FloatingProject: Component = () => {
 		(item) => item.id === params.project,
 	) as Project;
 
-	const [mode, setMode] = createSignal<ThemeMode>(
-		project.settings[platform].mode,
-	);
-	const [expanded, setExpanded] = createSignal(
-		project.settings[platform].expanded,
-	);
-	const [inspectElement, setInspectElement] = createSignal(false);
-	const [open, setOpen] = createSignal(project.settings[platform].open);
-	const [floating, setFloating] = createSignal(
-		project.settings[platform].floating,
+	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
+		generateProjectFrame(platform, project),
 	);
 
 	createEffect(async () => {
-		project.settings[platform].mode = mode();
-		project.settings[platform].expanded = expanded();
-		project.settings[platform].open = open();
-		project.settings[platform].floating = floating();
+		// TODO: handle this in a better place
+		project.settings[platform].mode = projectFrame.state.mode;
+		project.settings[platform].expanded = projectFrame.state.expanded;
+		project.settings[platform].open = projectFrame.state.open;
+		project.settings[platform].floating = projectFrame.window.floating;
 		settings.set("projects", projects());
 	});
 
@@ -64,21 +54,13 @@ const FloatingProject: Component = () => {
 							project={project}
 							platform="android"
 							title="Telegram Android"
-							signalMode={[mode, setMode]}
-							signalExpanded={[expanded, setExpanded]}
-							signalInspectElement={[inspectElement, setInspectElement]}
-							signalOpen={[open, setOpen]}
-							signalFloating={[floating, setFloating]}
+							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
 
 						<ViewportAndroid
 							project={project}
-							platform={platform}
-							signalMode={[mode, setMode]}
-							signalExpanded={[expanded, setExpanded]}
-							signalInspectElement={[inspectElement, setInspectElement]}
-							signalOpen={[open, setOpen]}
+							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
 					</div>
@@ -92,21 +74,13 @@ const FloatingProject: Component = () => {
 							project={project}
 							platform="ios"
 							title="Telegram iOS"
-							signalMode={[mode, setMode]}
-							signalExpanded={[expanded, setExpanded]}
-							signalInspectElement={[inspectElement, setInspectElement]}
-							signalOpen={[open, setOpen]}
-							signalFloating={[floating, setFloating]}
+							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
 
 						<ViewportIOS
 							project={project}
-							platform={platform}
-							signalMode={[mode, setMode]}
-							signalExpanded={[expanded, setExpanded]}
-							signalInspectElement={[inspectElement, setInspectElement]}
-							signalOpen={[open, setOpen]}
+							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
 					</div>

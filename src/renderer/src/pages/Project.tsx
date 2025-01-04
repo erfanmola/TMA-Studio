@@ -1,6 +1,6 @@
 import "./Project.scss";
 
-import { createEffect, createSignal, type Component } from "solid-js";
+import { createEffect, type Component } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 import { projects } from "../utils/project";
@@ -11,28 +11,38 @@ import { useSettings } from "../contexts/SettingsContext";
 import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
 import { HeaderWidget } from "@renderer/sections/HeaderWidget";
 import { ViewportIOS } from "@renderer/sections/ViewportIOS";
+import { createStore } from "solid-js/store";
+import { generateProjectFrame } from "@renderer/utils/telegram";
+
+export type TMAProjectFrame = {
+	platform: TelegramPlatform;
+	inspectElement: {
+		open: boolean;
+	};
+	state: {
+		open: boolean;
+		expanded: boolean;
+		mode: ThemeMode;
+	};
+	window: {
+		floating: boolean;
+	};
+};
 
 const SectionAndroid: Component<{ project: Project }> = (props) => {
 	const platform: TelegramPlatform = "android";
 	const { settings } = useSettings();
 
-	const [mode, setMode] = createSignal<ThemeMode>(
-		props.project.settings.android.mode,
-	);
-	const [expanded, setExpanded] = createSignal(
-		props.project.settings.android.expanded,
-	);
-	const [inspectElement, setInspectElement] = createSignal(false);
-	const [open, setOpen] = createSignal(props.project.settings.android.open);
-	const [floating, setFloating] = createSignal(
-		props.project.settings.android.floating,
+	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
+		generateProjectFrame(platform, props.project),
 	);
 
 	createEffect(async () => {
-		props.project.settings.android.mode = mode();
-		props.project.settings.android.expanded = expanded();
-		props.project.settings.android.open = open();
-		props.project.settings.android.floating = floating();
+		// TODO: handle this in a better place
+		props.project.settings[platform].mode = projectFrame.state.mode;
+		props.project.settings[platform].expanded = projectFrame.state.expanded;
+		props.project.settings[platform].open = projectFrame.state.open;
+		props.project.settings[platform].floating = projectFrame.window.floating;
 		settings.set("projects", projects());
 	});
 
@@ -43,22 +53,14 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 					project={props.project}
 					platform="android"
 					title="Telegram Android"
-					signalMode={[mode, setMode]}
-					signalExpanded={[expanded, setExpanded]}
-					signalInspectElement={[inspectElement, setInspectElement]}
-					signalOpen={[open, setOpen]}
-					signalFloating={[floating, setFloating]}
-					placeholder={floating()}
+					projectFrameStore={[projectFrame, setProjectFrame]}
+					placeholder={projectFrame.window.floating}
 				/>
 
 				<ViewportAndroid
 					project={props.project}
-					platform={platform}
-					signalMode={[mode, setMode]}
-					signalExpanded={[expanded, setExpanded]}
-					signalInspectElement={[inspectElement, setInspectElement]}
-					signalOpen={[open, setOpen]}
-					placeholder={floating()}
+					projectFrameStore={[projectFrame, setProjectFrame]}
+					placeholder={projectFrame.window.floating}
 				/>
 			</div>
 		</div>
@@ -69,23 +71,16 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 	const platform: TelegramPlatform = "ios";
 	const { settings } = useSettings();
 
-	const [mode, setMode] = createSignal<ThemeMode>(
-		props.project.settings.ios.mode,
-	);
-	const [expanded, setExpanded] = createSignal(
-		props.project.settings.ios.expanded,
-	);
-	const [inspectElement, setInspectElement] = createSignal(false);
-	const [open, setOpen] = createSignal(props.project.settings.ios.open);
-	const [floating, setFloating] = createSignal(
-		props.project.settings.ios.floating,
+	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
+		generateProjectFrame(platform, props.project),
 	);
 
 	createEffect(async () => {
-		props.project.settings.ios.mode = mode();
-		props.project.settings.ios.expanded = expanded();
-		props.project.settings.ios.open = open();
-		props.project.settings.ios.floating = floating();
+		// TODO: handle this in a better place
+		props.project.settings[platform].mode = projectFrame.state.mode;
+		props.project.settings[platform].expanded = projectFrame.state.expanded;
+		props.project.settings[platform].open = projectFrame.state.open;
+		props.project.settings[platform].floating = projectFrame.window.floating;
 		settings.set("projects", projects());
 	});
 
@@ -96,22 +91,14 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 					project={props.project}
 					platform="ios"
 					title="Telegram iOS"
-					signalMode={[mode, setMode]}
-					signalExpanded={[expanded, setExpanded]}
-					signalInspectElement={[inspectElement, setInspectElement]}
-					signalOpen={[open, setOpen]}
-					signalFloating={[floating, setFloating]}
-					placeholder={floating()}
+					projectFrameStore={[projectFrame, setProjectFrame]}
+					placeholder={projectFrame.window.floating}
 				/>
 
 				<ViewportIOS
 					project={props.project}
-					platform={platform}
-					signalMode={[mode, setMode]}
-					signalExpanded={[expanded, setExpanded]}
-					signalInspectElement={[inspectElement, setInspectElement]}
-					signalOpen={[open, setOpen]}
-					placeholder={floating()}
+					projectFrameStore={[projectFrame, setProjectFrame]}
+					placeholder={projectFrame.window.floating}
 				/>
 			</div>
 		</div>

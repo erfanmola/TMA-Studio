@@ -186,17 +186,11 @@ const MainPage = () => {
 				<div id="container-page-content">
 					<Sidebar>
 						<ul>
-							<li
-								onClick={() => setShowProjectDialog(true)}
-								onKeyUp={() => setShowProjectDialog(true)}
-							>
+							<li onClick={() => setShowProjectDialog(true)}>
 								<FaSolidPlus />
 							</li>
 
-							<li
-								onClick={() => setShowUserDialog(true)}
-								onKeyUp={() => setShowUserDialog(true)}
-							>
+							<li onClick={() => setShowUserDialog(true)}>
 								<FiUserPlus style={{ "font-size": "1.625rem" }} />
 							</li>
 						</ul>

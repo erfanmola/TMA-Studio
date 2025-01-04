@@ -1,11 +1,14 @@
 import { TelegramThemes, type TelegramPlatform, type ThemeMode } from "./themes";
 import hmac from 'js-crypto-hmac';
 
-import type { TelegramButtonMain, TelegramButtonSecondary, TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, TelegramStory, User } from "@renderer/types";
+import type { Project, TelegramButtonMain, TelegramButtonSecondary, TelegramMethodEvent, TelegramPopup, TelegramScanQRPopup, TelegramStory, User } from "@renderer/types";
 import { buffer2Hex, deserializeObject, ksort } from "./general";
-import { batch, type Signal } from "solid-js";
+import { batch } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
 import type { SetStoreFunction } from "solid-js/store";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { WebviewTag } from "electron";
+import type { MenuMoreStore } from "@renderer/sections/MenuMore";
 
 export const TGWebAppVersion = '7.10';
 
@@ -41,7 +44,6 @@ export const tgWebAppData = async (platform: TelegramPlatform, mode: ThemeMode, 
 
 export const tgWebAppDataHash = async (webAppData: any, token: string) => {
     const initData: any = ksort(deserializeObject(webAppData));
-    // biome-ignore lint/performance/noDelete: <explanation>
     delete initData.hash;
 
     const initDataString = Object.entries(initData)
@@ -62,7 +64,7 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
     );
 }
 
-export const tgEmitEvent = async (eventType: string, eventData: any, webview: any, platform: TelegramPlatform) => {
+export const tgEmitEvent = async (eventType: string, eventData: any, webview: WebviewTag | undefined, platform: TelegramPlatform) => {
     if (!webview) return;
     let code = '';
 
@@ -81,74 +83,81 @@ export const tgEmitEvent = async (eventType: string, eventData: any, webview: an
     } catch (e) { }
 };
 
-export type TGEventHandlerSignals = {
-    signalReady: Signal<boolean>;
-    signalMode: Signal<ThemeMode>;
-    signalExpanded: Signal<boolean>; signalOpen: Signal<boolean>;
-    signalBackButtonEnabled: Signal<boolean>;
-    signalSettingsButtonEnabled: Signal<boolean>;
-    signalShake: Signal<boolean>;
-    signalPopup: Signal<TelegramPopup | undefined>;
-    signalPopupQR: Signal<TelegramScanQRPopup | undefined>;
-    signalPopupStory: Signal<TelegramStory | undefined>;
-    signalColorHeader: Signal<string | undefined>;
-    signalColorHeaderText: Signal<string | undefined>;
-    signalColorBackground: Signal<string | undefined>;
-    signalColorBottomBar: Signal<string | undefined>;
-    signalCloseConfirmationEnabled: Signal<boolean>;
-    signalVerticalSwipeEnabled: Signal<boolean>;
-    storeButtonMain: [TelegramButtonMain, SetStoreFunction<TelegramButtonMain>],
-    storeButtonSecondary: [TelegramButtonSecondary, SetStoreFunction<TelegramButtonSecondary>],
+export type TMAProjectInner = {
+    webview: WebviewTag | undefined,
+    ready: boolean;
+    backButton: {
+        enabled: boolean,
+    },
+    settingsButton: {
+        enabled: boolean,
+    },
+    shake: boolean,
+    popup: {
+        regular: {
+            popup: TelegramPopup | undefined,
+            press_id: string | undefined,
+        },
+        qr: {
+            popup: TelegramScanQRPopup | undefined,
+            data: string | undefined,
+        },
+        story: {
+            popup: TelegramStory | undefined,
+        },
+    },
+    theme: {
+        color: {
+            header: string | undefined,
+            headerText: string | undefined,
+            background: string | undefined,
+            bottomBar: string | undefined,
+        }
+    },
+    closeConfirmation: {
+        enabled: boolean,
+    },
+    verticalSwipe: {
+        enabled: boolean,
+    },
+    buttonMain: TelegramButtonMain,
+    buttonSecondary: TelegramButtonSecondary,
 };
 
-export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, signals: TGEventHandlerSignals) => {
+export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platform: TelegramPlatform, projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>], projectInnerStore: [TMAProjectInner, SetStoreFunction<TMAProjectInner>]) => {
     let eventData: any = event.eventData;
 
     try {
         eventData = JSON.parse(eventData);
     } catch (e) { }
 
-    const [, setReady] = signals.signalReady;
-    const [mode] = signals.signalMode;
-    const [expanded, setExpanded] = signals.signalExpanded;
-    const [, setColorHeader] = signals.signalColorHeader;
-    const [, setColorHeaderText] = signals.signalColorHeaderText;
-    const [, setColorBackground] = signals.signalColorBackground;
-    const [, setColorBottomBar] = signals.signalColorBottomBar
-    const [, setShake] = signals.signalShake;
-    const [, setPopup] = signals.signalPopup;
-    const [, setPopupQR] = signals.signalPopupQR;
-    const [, setPopupStory] = signals.signalPopupStory;
-    const [, setBackButtonEnabled] = signals.signalBackButtonEnabled;
-    const [, setSettingsButtonEnabled] = signals.signalSettingsButtonEnabled;
-    const [, setOpen] = signals.signalOpen;
-    const [, setCloseConfirmationEnabled] = signals.signalCloseConfirmationEnabled;
-    const [, setVerticalSwipeEnabled] = signals.signalVerticalSwipeEnabled;
-    const [, setButtonMain] = signals.storeButtonMain;
-    const [, setButtonSecondary] = signals.storeButtonSecondary;
+    const [projectFrame, setProjectFrame] = projectFrameStore;
+    const [, setProjectInner] = projectInnerStore;
+
 
     switch (event.eventType) {
         case "iframe_ready":
-            setReady(true);
+            setProjectInner("ready", true);
             break;
 
         case "iframe_will_reload":
             break;
 
         case "web_app_ready":
-            setReady(true);
+            setProjectInner("ready", true);
             break;
 
         case "web_app_close":
+            // TODO: check if this method respects the enableCloseConfirmation on different clients
             if (webview?.isDevToolsOpened) {
                 webview?.closeDevTools();
             }
             webview = undefined;
-            setOpen(false);
+            setProjectFrame("state", "open", false);
             break;
 
         case "web_app_expand":
-            setExpanded(true);
+            setProjectFrame("state", "expanded", false);
             break;
 
         case "web_app_set_header_color": {
@@ -157,19 +166,19 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             if (!isHexColor(eventData.color) && "color_key" in eventData) {
                 switch (eventData.color_key) {
                     case "bg_color":
-                        color = TelegramThemes[platform][mode()].bg_color;
+                        color = TelegramThemes[platform][projectFrame.state.mode].bg_color;
                         break;
                     case "secondary_bg_color":
                         color =
-                            TelegramThemes[platform][mode()].secondary_bg_color;
+                            TelegramThemes[platform][projectFrame.state.mode].secondary_bg_color;
                         break;
                 }
             }
 
             if (color) {
                 batch(() => {
-                    setColorHeader(color);
-                    setColorHeaderText(isColorDark(color) ? "#ffffff" : "#000000");
+                    setProjectInner("theme", 'color', 'header', color);
+                    setProjectInner("theme", 'color', 'headerText', isColorDark(color) ? "#ffffff" : "#000000");
                 });
             }
             break;
@@ -181,17 +190,17 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             if (!isHexColor(eventData.color) && "color_key" in eventData) {
                 switch (eventData.color_key) {
                     case "bg_color":
-                        color = TelegramThemes[platform][mode()].bg_color;
+                        color = TelegramThemes[platform][projectFrame.state.mode].bg_color;
                         break;
                     case "secondary_bg_color":
                         color =
-                            TelegramThemes[platform][mode()].secondary_bg_color;
+                            TelegramThemes[platform][projectFrame.state.mode].secondary_bg_color;
                         break;
                 }
             }
 
             if (color) {
-                setColorBackground(color);
+                setProjectInner("theme", 'color', 'background', color);
             }
             break;
         }
@@ -202,27 +211,27 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             if (!isHexColor(eventData.color) && "color_key" in eventData) {
                 switch (eventData.color_key) {
                     case "bg_color":
-                        color = TelegramThemes[platform][mode()].bg_color;
+                        color = TelegramThemes[platform][projectFrame.state.mode].bg_color;
                         break;
                     case "secondary_bg_color":
                         color =
-                            TelegramThemes[platform][mode()].secondary_bg_color;
+                            TelegramThemes[platform][projectFrame.state.mode].secondary_bg_color;
                         break;
                     case "bottom_bar_bg_color":
                         color =
-                            TelegramThemes[platform][mode()].bottom_bar_bg_color;
+                            TelegramThemes[platform][projectFrame.state.mode].bottom_bar_bg_color;
                         break;
                 }
             }
 
             if (color) {
-                setColorBottomBar(color);
+                setProjectInner("theme", 'color', 'bottomBar', color);
             }
             break;
         }
 
         case "web_app_trigger_haptic_feedback": {
-            setShake(true);
+            setProjectInner('shake', true);
             let shakeTimeout = 2e2;
 
             switch (eventData.type) {
@@ -265,13 +274,13 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
                     break;
             }
 
-            setTimeout(() => setShake(false), shakeTimeout);
+            setTimeout(() => setProjectInner('shake', false), shakeTimeout);
             break;
         }
 
         case "web_app_request_theme":
             tgEmitEvent('theme_changed', {
-                theme_params: TelegramThemes[platform][mode()],
+                theme_params: TelegramThemes[platform][projectFrame.state.mode],
             }, webview, platform);
             break;
 
@@ -283,7 +292,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
                 {
                     height: Math.round(height),
                     width: Math.round(width),
-                    is_expanded: expanded(),
+                    is_expanded: projectFrame.state.expanded,
                     is_state_stable: true,
                 },
                 webview,
@@ -293,27 +302,27 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         }
 
         case "web_app_setup_swipe_behavior":
-            setVerticalSwipeEnabled(eventData.allow_vertical_swipe);
+            setProjectInner('verticalSwipe', 'enabled', eventData.allow_vertical_swipe);
             break;
 
         case "web_app_setup_closing_behavior":
-            setCloseConfirmationEnabled(eventData.need_confirmation);
+            setProjectInner('closeConfirmation', 'enabled', eventData.need_confirmation);
             break;
 
         case "web_app_setup_back_button":
-            setBackButtonEnabled(eventData.is_visible);
+            setProjectInner('backButton', 'enabled', eventData.is_visible);
             break;
 
         case "web_app_setup_main_button":
-            setButtonMain(eventData);
+            setProjectInner('buttonMain', eventData);
             break;
 
         case "web_app_setup_secondary_button":
-            setButtonSecondary(eventData);
+            setProjectInner('buttonSecondary', eventData);
             break;
 
         case "web_app_setup_settings_button":
-            setSettingsButtonEnabled(eventData.is_visible);
+            setProjectInner('settingsButton', 'enabled', eventData.is_visible);
             break;
 
         case "web_app_biometry_get_info":
@@ -332,11 +341,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_open_scan_qr_popup":
-            setPopupQR(eventData);
+            setProjectInner("popup", "qr", "popup", eventData);
             break;
 
         case "web_app_close_scan_qr_popup":
-            setPopupQR(undefined);
+            setProjectInner("popup", "qr", "popup", undefined);
             break;
 
         case "web_app_invoke_custom_method":
@@ -358,11 +367,11 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_open_popup":
-            setPopup(eventData);
+            setProjectInner("popup", "regular", "popup", eventData);
             break;
 
         case "web_app_read_text_from_clipboard":
-            setPopup({
+            setProjectInner("popup", "regular", "popup", {
                 title: "Mock Clipboard Request",
                 message: "Allow pasting into the app?",
                 buttons: [
@@ -381,7 +390,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_request_write_access":
-            setPopup({
+            setProjectInner("popup", "regular", "popup", {
                 title: "Mock Write Request",
                 message: "Allow write access to user?",
                 buttons: [
@@ -400,7 +409,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_request_phone":
-            setPopup({
+            setProjectInner("popup", "regular", "popup", {
                 title: "Mock Contact Request",
                 message: "Allow sharing your contact info with bot?",
                 buttons: [
@@ -419,7 +428,104 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
             break;
 
         case "web_app_share_to_story":
-            setPopupStory(eventData);
+            setProjectInner("popup", "story", "popup", eventData);
             break;
     }
 }
+
+export const generateProjectFrame = (platform: TelegramPlatform, project: Project): TMAProjectFrame => {
+    return {
+        platform: platform,
+        inspectElement: {
+            open: false,
+        },
+        state: {
+            open: project.settings[platform].open,
+            expanded: project.settings[platform].expanded,
+            mode: project.settings[platform].mode,
+        },
+        window: {
+            floating: project.settings[platform].floating,
+        },
+    };
+};
+
+export const generateProjectInner = (projectFrame: TMAProjectFrame): TMAProjectInner => {
+    return {
+        webview: undefined,
+        backButton: {
+            enabled: false,
+        },
+        buttonMain: {
+            text: "Button",
+            color:
+                TelegramThemes[projectFrame.platform][projectFrame.state.mode].button_color,
+            text_color:
+                TelegramThemes[projectFrame.platform][projectFrame.state.mode]
+                    .button_text_color,
+            is_active: true,
+            is_progress_visible: false,
+            has_shine_effect: false,
+            is_visible: false,
+        },
+        buttonSecondary: {
+            text: "Button",
+            color:
+                TelegramThemes[projectFrame.platform][projectFrame.state.mode].button_color,
+            text_color:
+                TelegramThemes[projectFrame.platform][projectFrame.state.mode]
+                    .button_text_color,
+            is_active: true,
+            is_progress_visible: false,
+            has_shine_effect: false,
+            is_visible: false,
+        },
+        closeConfirmation: {
+            enabled: false,
+        },
+        popup: {
+            regular: {
+                popup: undefined,
+                press_id: undefined,
+            },
+            qr: {
+                popup: undefined,
+                data: undefined,
+            },
+            story: {
+                popup: undefined,
+            },
+        },
+        ready: false,
+        settingsButton: {
+            enabled: false,
+        },
+        shake: false,
+        theme: {
+            color: {
+                background: undefined,
+                bottomBar: undefined,
+                header: undefined,
+                headerText: undefined,
+            },
+        },
+        verticalSwipe: {
+            enabled: false,
+        },
+    };
+};
+
+export const generateProjectMenuMore = (): MenuMoreStore => {
+    return {
+        open: false,
+        reload: {
+            clicked: false,
+        },
+        settings: {
+            clicked: false,
+        },
+        closeOrBack: {
+            clicked: false,
+        }
+    };
+};

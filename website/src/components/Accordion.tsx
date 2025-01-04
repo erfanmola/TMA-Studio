@@ -15,7 +15,7 @@ const Accordion: ParentComponent<{
 
 	return (
 		<div class="accordion" classList={{ open: open() }}>
-			<header onClick={() => setOpen(!open())} onKeyUp={() => setOpen(!open())}>
+			<header onClick={() => setOpen(!open())}>
 				<Show when={open()} fallback={<FaSolidPlus />}>
 					<FaSolidMinus />
 				</Show>
