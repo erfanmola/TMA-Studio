@@ -1,12 +1,13 @@
+@use "sass:meta";
 @charset "UTF-8";
 
 @import "animate.css";
 
-@import "scss/components";
+@include meta.load-css("scss/components");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "scss/variables";
-@import "scss/fonts";
+@include meta.load-css("scss/variables");
+@include meta.load-css("scss/fonts");
