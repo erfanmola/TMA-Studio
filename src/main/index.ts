@@ -2,7 +2,10 @@ import { BrowserWindow, Menu, Tray, app, dialog, ipcMain, shell } from 'electron
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
+import { execFile } from 'node:child_process';
 import { join } from 'node:path'
+import os from 'node:os';
+import path from 'node:path';
 
 declare module 'electron' {
   interface BrowserWindow {
@@ -296,6 +299,13 @@ app.whenReady().then(() => {
   });
   ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
     ThemeMode = theme_mode;
+  });
+
+  // Haptic Feedback
+  ipcMain.on('haptic-feedback', async (_) => {
+    if (os.platform() === 'darwin') {
+      execFile(path.resolve(app.getAppPath(), 'bin', 'macos-haptic'));
+    }
   });
 
   if (store.get('intro_done')) {

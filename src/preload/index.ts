@@ -37,6 +37,12 @@ contextBridge.exposeInMainWorld('version', {
   },
 });
 
+contextBridge.exposeInMainWorld('haptic', {
+  vibrate() {
+    return ipcRenderer.send('haptic-feedback');
+  },
+});
+
 contextBridge.exposeInMainWorld('onShortcutPressed', (callback) => ipcRenderer.on('shortcut-pressed', callback));
 
 contextBridge.exposeInMainWorld('clipboard', {

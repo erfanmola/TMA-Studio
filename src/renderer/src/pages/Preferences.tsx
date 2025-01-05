@@ -2,7 +2,7 @@ import "./Preferences.scss";
 
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 
-import { createEffect, createSignal, on, type Component } from "solid-js";
+import { createEffect, createSignal, on, Show, type Component } from "solid-js";
 import { Switch } from "@kobalte/core/switch";
 import { HorizontalSelect } from "@renderer/components/HorizontalSelect";
 
@@ -123,6 +123,30 @@ const PreferencesPage: Component = () => {
 							</Switch>
 						</div>
 					</li>
+
+					<Show when={window.electron.process.platform === "darwin"}>
+						<li>
+							<span />
+
+							<div>
+								<Switch
+									class="switch"
+									checked={preferences.project.macos_vibrate_on_haptic}
+									onChange={(e) => {
+										setPreferences("project", "macos_vibrate_on_haptic", e);
+									}}
+								>
+									<Switch.Label class="switch__label">
+										Vibrate On Haptic
+									</Switch.Label>
+									<Switch.Input class="switch__input" />
+									<Switch.Control class="switch__control">
+										<Switch.Thumb class="switch__thumb" />
+									</Switch.Control>
+								</Switch>
+							</div>
+						</li>
+					</Show>
 
 					<li>
 						<span>Floating Window Mode</span>

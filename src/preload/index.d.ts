@@ -22,5 +22,8 @@ declare global {
     version: {
       get: () => string,
     },
+    haptic: {
+      vibrate: () => void,
+    },
   }
 }

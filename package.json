@@ -1,6 +1,6 @@
 {
 	"name": "tma-studio",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A unified solution for developing Telegram Mini Apps.",
 	"main": "./out/main/index.js",
 	"author": "Erfan Mola",

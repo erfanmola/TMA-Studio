@@ -9,6 +9,7 @@ import type { SetStoreFunction } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { WebviewTag } from "electron";
 import type { MenuMoreStore } from "@renderer/sections/MenuMore";
+import { preferences } from "./preferences";
 
 export const TGWebAppVersion = '7.10';
 
@@ -232,6 +233,9 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
 
         case "web_app_trigger_haptic_feedback": {
             setProjectInner('shake', true);
+            if (preferences.project.macos_vibrate_on_haptic) {
+                window.haptic.vibrate();
+            }
             let shakeTimeout = 2e2;
 
             switch (eventData.type) {
