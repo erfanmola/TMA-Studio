@@ -304,7 +304,7 @@ app.whenReady().then(() => {
   // Haptic Feedback
   ipcMain.on('haptic-feedback', async (_) => {
     if (os.platform() === 'darwin') {
-      execFile(path.resolve(app.getAppPath(), 'bin', 'macos-haptic'));
+      execFile(path.resolve(app.getAppPath(), 'resources', 'bin', 'macos-haptic'));
     }
   });
 

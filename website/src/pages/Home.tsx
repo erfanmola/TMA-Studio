@@ -58,7 +58,7 @@ const SectionFeatures: Component = () => {
 				</swiper-slide>
 				<swiper-slide>
 					<video
-						src="https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/resources/demo-2-1080P-30FPS.mp4"
+						src="https://github.com/erfanmola/TMA-Studio/raw/refs/heads/master/demo/demo-2-1080P-30FPS.mp4"
 						controls
 						autoplay
 					/>
