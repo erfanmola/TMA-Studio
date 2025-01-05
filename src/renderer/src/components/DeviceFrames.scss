@@ -1,77 +1,66 @@
 #frame-iphone {
-    --iphone-frame-radius: 4.5rem;
-    --iphone-frame-width: 0.625rem;
-    --iphone-frame-border: 0.225rem;
-
     display: flex;
-    background-color: var(--device-frame-color);
-    padding: var(--iphone-frame-width);
-    aspect-ratio: 0.475;
+    aspect-ratio: 0.485;
     max-width: 100%;
     height: 100%;
-    // width: calc(390px + (2 * var(--iphone-frame-border)) + (2 * var(--iphone-frame-width)));
-    border-radius: calc(var(--iphone-frame-radius) - var(--iphone-frame-border));
     position: relative;
     overflow: hidden;
-    border: var(--iphone-frame-border) solid var(--device-frame-border);
+    background: url("/assets/devices/iPhone-16-Pro.svg") no-repeat;
+    background-size: contain;
+    padding: 3.5% 3.75% 4.5% 3.75%;
 
     &::before {
         content: "";
-        background-color: var(--device-frame-color);
-        top: calc(var(--iphone-frame-width) + 0.625rem);
-        width: 7rem;
-        height: 2rem;
+        background-color: #000;
+        top: 2.625%;
+        width: 25%;
+        height: 3.75%;
         position: absolute;
         border-radius: 100rem;
         left: 50%;
         transform: translateX(-50%);
         z-index: 9999;
+        border: 1px solid rgba(255, 255, 255, 0.125);
     }
 
     > div {
-        background-color: var(--device-frame-bg);
         display: flex;
         flex-grow: 1;
-        border-radius: calc(var(--iphone-frame-radius) - var(--iphone-frame-width) - var(--iphone-frame-border));
+        border-radius: 14% / 7%;
         overflow: hidden;
     }
 }
 
 #frame-android {
-    --android-frame-radius: 3.5rem;
-    --android-frame-width: 0.625rem;
-    --android-frame-border: 0.225rem;
-
     display: flex;
-    background-color: var(--device-frame-color);
-    padding: var(--android-frame-width);
-    aspect-ratio: 0.475;
+    aspect-ratio: 0.485;
     max-width: 100%;
     height: 100%;
-    // width: calc(390px + (2 * var(--android-frame-border)) + (2 * var(--android-frame-width)));
     border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
     position: relative;
     overflow: hidden;
-    border: var(--android-frame-border) solid var(--device-frame-border);
+    background: url("/assets/devices/Samsung-S22.svg") no-repeat;
+    background-size: contain;
+    padding: 4.5% 4.925% 5.25% 4.325%;
 
     &::before {
         content: "";
-        background-color: var(--device-frame-color);
-        top: calc(var(--android-frame-width) + 0.625rem);
-        width: 1.5rem;
-        height: 1.5rem;
+        background-color: #000;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        top: 4%;
+        width: 5%;
+        aspect-ratio: 1/1;
         position: absolute;
-        border-radius: 100rem;
+        border-radius: 50%;
         left: 50%;
         transform: translateX(-50%);
         z-index: 9999;
     }
 
     > div {
-        background-color: var(--device-frame-bg);
         display: flex;
         flex-grow: 1;
-        border-radius: calc(var(--android-frame-radius) - var(--android-frame-width) - var(--android-frame-border));
+        border-radius: 9% / 4.5%;
         overflow: hidden;
     }
 }
@@ -81,6 +70,8 @@
     &.placeholder {
         background-color: var(--device-frame-color-placeholder);
         border-color: var(--device-frame-border-placeholder);
+        padding: 0;
+        background-image: none;
 
         &::before {
             background-color: var(--device-frame-color-placeholder);
@@ -90,4 +81,12 @@
             background-color: var(--device-frame-bg-placeholder);
         }
     }
+}
+
+#frame-iphone.placeholder {
+    border-radius: 16% / 8%;
+}
+
+#frame-android.placeholder {
+    border-radius: 12% / 6%;
 }
