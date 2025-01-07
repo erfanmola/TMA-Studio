@@ -11,6 +11,7 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
   - '!demo/*'
   - '!website/*'
+  - '!icons/Icon.psd'
 asarUnpack:
   - resources/**
 win:
