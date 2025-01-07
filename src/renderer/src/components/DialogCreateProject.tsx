@@ -11,9 +11,10 @@ import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
 import { TextField } from "@kobalte/core/text-field";
 import { createStore } from "solid-js/store";
-import { openProject, projects, setProjects } from "../utils/project";
+import { openProject } from "../utils/project";
 import ProjectPage from "../pages/Project";
 import type { Project } from "../types";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 const DialogCreateProject: Component<{
 	isOpen: Accessor<boolean>;
@@ -53,8 +54,8 @@ const DialogCreateProject: Component<{
 			floating: false,
 		};
 
-		setProjects([
-			...projects(),
+		setPreferences("projects", [
+			...preferences.projects,
 			{
 				...project,
 				settings: {

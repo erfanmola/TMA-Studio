@@ -1,7 +1,6 @@
 import "./Footer.scss";
 
-import { setActiveTabId, setTabbarData, tabbarData } from "./Tabbar";
-import { setSidebarVisibility, sidebarVisiblity } from "./Sidebar";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 import { FaSolidHeart } from "solid-icons/fa";
 import { IoSettingsSharp } from "solid-icons/io";
@@ -11,9 +10,9 @@ import { Show } from "solid-js";
 
 const Footer = () => {
 	const onClickPreferences = () => {
-		if (!tabbarData().find((item) => item.id === "preferences")) {
-			setTabbarData([
-				...tabbarData(),
+		if (!preferences.tabbar.tabs.find((item) => item.id === "preferences")) {
+			setPreferences("tabbar", "tabs", [
+				...preferences.tabbar.tabs,
 				{
 					id: "preferences",
 					title: "Preferences",
@@ -23,15 +22,18 @@ const Footer = () => {
 				},
 			]);
 		}
-		setActiveTabId("preferences");
+		setPreferences("tabbar", "active", "preferences");
 	};
 
 	return (
 		<footer id="footer-main">
 			<ul>
-				<Show when={!sidebarVisiblity()}>
+				<Show when={!preferences.ui.sidebar.visible}>
 					<li>
-						<button type="button" onClick={() => setSidebarVisibility(true)}>
+						<button
+							type="button"
+							onClick={() => setPreferences("ui", "sidebar", "visible", true)}
+						>
 							<OcSidebarcollapse2 style={{ "font-size": "1.325rem" }} />
 						</button>
 					</li>

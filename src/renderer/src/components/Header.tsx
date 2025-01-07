@@ -3,7 +3,6 @@ import "./Header.scss";
 import { FiMoon, FiSun } from "solid-icons/fi";
 import { Item, Menu, useContextMenu } from "solid-contextmenu";
 import { Show, batch, createSignal } from "solid-js";
-import { activeUserId, setActiveUserId, users } from "../utils/user";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 import { AiOutlineUser } from "solid-icons/ai";
@@ -93,18 +92,21 @@ const Header = () => {
 								value: "none",
 								label: "Guest",
 							},
-							...users().map((user) => ({
+							...preferences.users.users.map((user) => ({
 								value: user.id,
 								label: user.first_name,
 							})),
 						]}
 						value={{
 							label:
-								users().find((item) => item.id === activeUserId())
-									?.first_name ?? "Guest",
-							value: activeUserId(),
+								preferences.users.users.find(
+									(item) => item.id === preferences.users.active,
+								)?.first_name ?? "Guest",
+							value: preferences.users.active,
 						}}
-						onChange={(e) => setActiveUserId(e?.value ?? "none")}
+						onChange={(e) =>
+							setPreferences("users", "active", e?.value ?? "none")
+						}
 						placeholder="Select User"
 						optionValue="value"
 						itemComponent={(props) => (

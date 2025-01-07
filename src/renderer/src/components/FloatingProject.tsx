@@ -4,26 +4,26 @@ import { createEffect, Match, Switch, type Component } from "solid-js";
 import { useParams } from "@solidjs/router";
 import { HeaderWidget } from "@renderer/sections/HeaderWidget";
 import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
-import { useSettings } from "@renderer/contexts/SettingsContext";
 import type { TelegramPlatform } from "@renderer/utils/themes";
-import { projects } from "@renderer/utils/project";
 import type { Project } from "@renderer/types";
 import { ViewportIOS } from "@renderer/sections/ViewportIOS";
 import { initStore } from "@renderer/utils/store";
-import { preferences } from "@renderer/utils/preferences";
-import { createStore } from "solid-js/store";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
+import { createStore, produce } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import { generateProjectFrame } from "@renderer/utils/telegram";
+import { deserializeObject } from "@renderer/utils/general";
+import { useSettings } from "@renderer/contexts/SettingsContext";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
 	const platform = params.platform as TelegramPlatform;
 
-	initStore();
-
 	const { settings } = useSettings();
 
-	const project = projects().find(
+	initStore();
+
+	const project = preferences.projects.find(
 		(item) => item.id === params.project,
 	) as Project;
 
@@ -33,11 +33,24 @@ const FloatingProject: Component = () => {
 
 	createEffect(async () => {
 		// TODO: handle this in a better place
-		project.settings[platform].mode = projectFrame.state.mode;
-		project.settings[platform].expanded = projectFrame.state.expanded;
-		project.settings[platform].open = projectFrame.state.open;
-		project.settings[platform].floating = projectFrame.window.floating;
-		settings.set("projects", projects());
+		setPreferences(
+			produce((store) => {
+				const projectItem = store.projects.find(
+					(item) => item.id === project.id,
+				);
+				if (projectItem) {
+					projectItem.settings[platform].mode = projectFrame.state.mode;
+					projectItem.settings[platform].expanded = projectFrame.state.expanded;
+					projectItem.settings[platform].open = projectFrame.state.open;
+					projectItem.settings[platform].floating =
+						projectFrame.window.floating;
+				}
+			}),
+		);
+	});
+
+	createEffect(() => {
+		settings.set("preferences", deserializeObject(preferences));
 	});
 
 	createEffect(() => {

@@ -29,7 +29,7 @@ export const HeaderWidget: Component<{
 	const { settings } = useSettings();
 
 	const handleProjectSync = (_) => {
-		const projectsList = settings.get("projects") as Project[];
+		const projectsList = settings.get("preferences.projects") as Project[];
 		const project = projectsList.find((item) => item.id === props.project.id);
 
 		if (project) {

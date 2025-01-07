@@ -10,7 +10,7 @@ import {
 import { Button } from "@kobalte/core/button";
 import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
-import { users, setUsers, setActiveUserId } from "@renderer/utils/user";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 const DialogRemoveUser: Component<{
 	isOpen: Accessor<boolean>;
@@ -34,8 +34,12 @@ const DialogRemoveUser: Component<{
 
 	const onClickDelete = async () => {
 		batch(() => {
-			setActiveUserId("none");
-			setUsers(users().filter((item) => item.id !== props.userId()));
+			setPreferences("users", {
+				active: "none",
+				users: preferences.users.users.filter(
+					(item) => item.id !== props.userId(),
+				),
+			});
 			props.setIsOpen(false);
 		});
 	};
@@ -57,8 +61,9 @@ const DialogRemoveUser: Component<{
 								Are you sure of deleting the{" "}
 								<b>
 									{
-										users().find((item) => item.id === props.userId())
-											?.first_name
+										preferences.users.users.find(
+											(item) => item.id === props.userId(),
+										)?.first_name
 									}
 								</b>{" "}
 								user?

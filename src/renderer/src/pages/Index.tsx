@@ -5,7 +5,7 @@ const IndexPage = () => {
 	const { settings } = useSettings();
 	const navigate = useNavigate();
 
-	if (settings.get("intro_done")) {
+	if (settings.get("preferences.intro.skip")) {
 		navigate("/main", { replace: true });
 	} else {
 		navigate("/welcome", { replace: true });

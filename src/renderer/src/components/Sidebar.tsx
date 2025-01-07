@@ -1,32 +1,19 @@
 import "./Sidebar.scss";
 
-import { OcSidebarexpand2 } from "solid-icons/oc";
-import {
-	createEffect,
-	createSignal,
-	onMount,
-	type ParentComponent,
-} from "solid-js";
-import { useSettings } from "../contexts/SettingsContext";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
-export const [sidebarVisiblity, setSidebarVisibility] = createSignal(false);
+import { OcSidebarexpand2 } from "solid-icons/oc";
+import type { ParentComponent } from "solid-js";
 
 const Sidebar: ParentComponent = (props) => {
-	const { settings } = useSettings();
-
-	onMount(async () => {
-		setSidebarVisibility(settings.get("sidebar_visible") ?? true);
-	});
-
-	createEffect(async () => {
-		settings.set("sidebar_visible", sidebarVisiblity());
-	});
-
 	return (
-		<aside id="sidebar-main" classList={{ open: sidebarVisiblity() }}>
+		<aside
+			id="sidebar-main"
+			classList={{ open: preferences.ui.sidebar.visible }}
+		>
 			{props.children}
 			<ul>
-				<li onClick={() => setSidebarVisibility(false)}>
+				<li onClick={() => setPreferences("ui", "sidebar", "visible", false)}>
 					<OcSidebarexpand2 />
 				</li>
 			</ul>

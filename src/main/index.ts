@@ -6,6 +6,7 @@ import {
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
+import { defaultPreferences } from './preferences';
 import { execFile } from 'node:child_process';
 import { join } from 'node:path'
 import os from 'node:os';
@@ -212,10 +213,12 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  const store: any = new Store();
+  const store: any = new Store({
+    defaults: defaultPreferences,
+  });
 
-  UIPreferences.theme.mode = store.get("preferences")?.theme_mode ?? 'light';
-  UIPreferences.zoom.level = store.get("preferences")?.ui.scale ?? 1;
+  UIPreferences.theme.mode = store.get("preferences.theme_mode");
+  UIPreferences.zoom.level = store.get("preferences.ui.scale");
 
   // Store
   ipcMain.on('electron-store-get', async (event, val) => {
@@ -252,8 +255,8 @@ app.whenReady().then(() => {
 
     const window = new BrowserWindow({
       title: "TMA Studio Project",
-      width: store.get("preferences")?.project?.floating_window_size ?? 420,
-      height: (store.get("preferences")?.project?.floating_window_size ?? 420) * 2.4,
+      width: store.get("preferences.project.floating_window_size"),
+      height: store.get("preferences.project.floating_window_size") * 2.4,
       show: false,
       closable: false,
       autoHideMenuBar: true,
@@ -267,7 +270,7 @@ app.whenReady().then(() => {
       },
       darkTheme: UIPreferences.theme.mode === 'dark',
       resizable: false,
-      alwaysOnTop: store.get("preferences")?.project?.floating_window_on_top,
+      alwaysOnTop: store.get("preferences.project.floating_window_on_top"),
       frame: false,
       transparent: true,
     });
@@ -343,7 +346,7 @@ app.whenReady().then(() => {
     }
   });
 
-  if (store.get('intro_done')) {
+  if (store.get("preferences.intro.skip")) {
     createMainWindow();
   } else {
     createWelcomeWindow();
@@ -358,7 +361,7 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) {
-      if (store.get('intro_done')) {
+      if (store.get("preferences.intro.skip")) {
         createMainWindow();
       } else {
         createWelcomeWindow();

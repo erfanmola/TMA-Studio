@@ -3,16 +3,15 @@ import "./Project.scss";
 import { createEffect, type Component } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
-import { projects } from "../utils/project";
 
 import type { TelegramPlatform, ThemeMode } from "../utils/themes";
 
-import { useSettings } from "../contexts/SettingsContext";
 import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
 import { HeaderWidget } from "@renderer/sections/HeaderWidget";
 import { ViewportIOS } from "@renderer/sections/ViewportIOS";
-import { createStore } from "solid-js/store";
+import { createStore, produce } from "solid-js/store";
 import { generateProjectFrame } from "@renderer/utils/telegram";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;
@@ -31,7 +30,6 @@ export type TMAProjectFrame = {
 
 const SectionAndroid: Component<{ project: Project }> = (props) => {
 	const platform: TelegramPlatform = "android";
-	const { settings } = useSettings();
 
 	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
 		generateProjectFrame(platform, props.project),
@@ -39,11 +37,20 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 
 	createEffect(async () => {
 		// TODO: handle this in a better place
-		props.project.settings[platform].mode = projectFrame.state.mode;
-		props.project.settings[platform].expanded = projectFrame.state.expanded;
-		props.project.settings[platform].open = projectFrame.state.open;
-		props.project.settings[platform].floating = projectFrame.window.floating;
-		settings.set("projects", projects());
+		setPreferences(
+			produce((store) => {
+				const projectItem = store.projects.find(
+					(item) => item.id === props.project.id,
+				);
+				if (projectItem) {
+					projectItem.settings[platform].mode = projectFrame.state.mode;
+					projectItem.settings[platform].expanded = projectFrame.state.expanded;
+					projectItem.settings[platform].open = projectFrame.state.open;
+					projectItem.settings[platform].floating =
+						projectFrame.window.floating;
+				}
+			}),
+		);
 	});
 
 	return (
@@ -69,7 +76,6 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 
 const SectionIOS: Component<{ project: Project }> = (props) => {
 	const platform: TelegramPlatform = "ios";
-	const { settings } = useSettings();
 
 	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
 		generateProjectFrame(platform, props.project),
@@ -77,11 +83,20 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 
 	createEffect(async () => {
 		// TODO: handle this in a better place
-		props.project.settings[platform].mode = projectFrame.state.mode;
-		props.project.settings[platform].expanded = projectFrame.state.expanded;
-		props.project.settings[platform].open = projectFrame.state.open;
-		props.project.settings[platform].floating = projectFrame.window.floating;
-		settings.set("projects", projects());
+		setPreferences(
+			produce((store) => {
+				const projectItem = store.projects.find(
+					(item) => item.id === props.project.id,
+				);
+				if (projectItem) {
+					projectItem.settings[platform].mode = projectFrame.state.mode;
+					projectItem.settings[platform].expanded = projectFrame.state.expanded;
+					projectItem.settings[platform].open = projectFrame.state.open;
+					projectItem.settings[platform].floating =
+						projectFrame.window.floating;
+				}
+			}),
+		);
 	});
 
 	return (
@@ -106,7 +121,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 };
 
 const ProjectPage: Component<{ id: Project["id"] }> = (props) => {
-	const project = projects().find((item) => item.id === props.id);
+	const project = preferences.projects.find((item) => item.id === props.id);
 
 	return (
 		<div id="container-page-project">

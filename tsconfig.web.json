@@ -5,7 +5,8 @@
 		"src/renderer/src/**/*",
 		"src/renderer/src/**/*.tsx",
 		"src/preload/*.d.ts",
-		"src/preload/webview.ts"
+		"src/preload/webview.ts",
+		"src/main/preferences.ts"
 	],
 	"compilerOptions": {
 		"composite": true,

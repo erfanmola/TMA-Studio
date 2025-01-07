@@ -1,17 +1,13 @@
 import type { Project, TabbarTab } from "../types";
-import { setActiveTabId, setTabbarData, tabbarData } from "../components/Tabbar";
-
-import { createSignal } from "solid-js";
-
-export const [projects, setProjects] = createSignal<Project[]>([]);
+import { preferences, setPreferences } from "./preferences";
 
 export const openProject = (projectId: Project["id"], component: TabbarTab['component']) => {
-    const project = projects().find((item) => item.id === projectId);
+    const project = preferences.projects.find((item) => item.id === projectId);
     if (!project) return;
 
-    if (!tabbarData().find((item) => item.id === `project-${projectId}`)) {
-        setTabbarData([
-            ...tabbarData(),
+    if (!preferences.tabbar.tabs.find((item) => item.id === `project-${projectId}`)) {
+        setPreferences("tabbar", "tabs", [
+            ...preferences.tabbar.tabs,
             {
                 id: `project-${projectId}`,
                 title: project.name,
@@ -22,5 +18,5 @@ export const openProject = (projectId: Project["id"], component: TabbarTab['comp
         ]);
     }
 
-    setActiveTabId(`project-${projectId}`);
+    setPreferences("tabbar", "active", `project-${projectId}`);
 };

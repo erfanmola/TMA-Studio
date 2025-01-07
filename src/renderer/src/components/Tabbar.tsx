@@ -1,27 +1,27 @@
 import "./Tabbar.scss";
 
-import { For, Show, createEffect, createMemo, createSignal } from "solid-js";
+import { For, Show, createMemo } from "solid-js";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 import { IoClose } from "solid-icons/io";
 import type { TabbarTab } from "../types";
 import type { TelegramPlatform } from "@renderer/utils/themes";
-import { deserializeObject } from "@renderer/utils/general";
-import { useSettings } from "../contexts/SettingsContext";
-
-export const [tabbarData, setTabbarData] = createSignal<TabbarTab[]>([]);
-export const [activeTabId, setActiveTabId] = createSignal("");
 
 export const closeTab = (id: TabbarTab["id"]) => {
-	const tab = tabbarData().find((item) => item.id === id);
+	const tab = preferences.tabbar.tabs.find((item) => item.id === id);
 	if (!tab) return;
 	if (!tab.closable) return;
-	const index = tabbarData().indexOf(tab);
+	const index = preferences.tabbar.tabs.indexOf(tab);
 	if (index > 0) {
-		setActiveTabId(tabbarData()[index - 1].id);
+		setPreferences("tabbar", "active", preferences.tabbar.tabs[index - 1].id);
 	} else {
-		setActiveTabId("");
+		setPreferences("tabbar", "active", "");
 	}
-	setTabbarData(tabbarData().filter((item) => item.id !== id));
+	setPreferences(
+		"tabbar",
+		"tabs",
+		preferences.tabbar.tabs.filter((item) => item.id !== id),
+	);
 
 	if (id.startsWith("project-")) {
 		window.project.close(
@@ -33,34 +33,23 @@ export const closeTab = (id: TabbarTab["id"]) => {
 };
 
 export const Tabbar = () => {
-	const { settings } = useSettings();
-
 	const activeTab = createMemo(() =>
-		tabbarData().find((item) => item.id === activeTabId()),
+		preferences.tabbar.tabs.find(
+			(item) => item.id === preferences.tabbar.active,
+		),
 	);
 
 	const onClickClose = (id: TabbarTab["id"]) => {
 		closeTab(id);
 	};
 
-	createEffect(async () => {
-		const tabs = tabbarData().filter((item) => !["projects"].includes(item.id));
-		settings.set("tabs", deserializeObject(tabs));
-	});
-
-	createEffect(async () => {
-		if (activeTabId().length > 0) {
-			settings.set("active_tab", activeTabId());
-		}
-	});
-
 	return (
 		<div id="tabbar-main">
 			<ul>
-				<For each={tabbarData()}>
+				<For each={preferences.tabbar.tabs}>
 					{(item) => (
 						<li
-							classList={{ active: item.id === activeTabId() }}
+							classList={{ active: item.id === preferences.tabbar.active }}
 							onMouseUp={(e) => {
 								if (e.button === 1) {
 									e.preventDefault();
@@ -69,7 +58,7 @@ export const Tabbar = () => {
 									}
 								}
 							}}
-							onClick={() => setActiveTabId(item.id)}
+							onClick={() => setPreferences("tabbar", "active", item.id)}
 							title={item.title}
 						>
 							<span>{item.title}</span>

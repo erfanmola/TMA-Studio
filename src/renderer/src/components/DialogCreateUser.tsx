@@ -11,14 +11,14 @@ import { Button } from "@kobalte/core/button";
 import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
 import { TextField } from "@kobalte/core/text-field";
-import { createStore } from "solid-js/store";
+import { createStore, produce } from "solid-js/store";
 import { Checkbox } from "@kobalte/core/checkbox";
 import { BsCheckLg } from "solid-icons/bs";
 import { Combobox } from "@kobalte/core/combobox";
 import { ietfLanguages } from "../utils/ietf";
 import { FiGlobe } from "solid-icons/fi";
-import { setUsers, users } from "../utils/user";
 import type { User } from "../types";
+import { setPreferences } from "@renderer/utils/preferences";
 
 const DialogAddUser: Component<{
 	isOpen: Accessor<boolean>;
@@ -72,7 +72,11 @@ const DialogAddUser: Component<{
 
 		user.id = Number.parseInt(user.id.toString());
 
-		setUsers([...users(), user]);
+		setPreferences(
+			produce((store) => {
+				store.users.users.push(user);
+			}),
+		);
 
 		props.setIsOpen(false);
 	};

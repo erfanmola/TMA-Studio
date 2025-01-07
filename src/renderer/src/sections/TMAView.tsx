@@ -23,7 +23,7 @@ import { PopupHandler } from "./PopupHandler";
 import { PopupQRHandler } from "./PopupQRHandler";
 import { PopupStoryHandler } from "./PopupStory";
 import { type TelegramPlatform, TelegramThemes } from "@renderer/utils/themes";
-import { users, activeUserId } from "@renderer/utils/user";
+
 import type {
 	Project,
 	TelegramMethodEvent,
@@ -31,6 +31,7 @@ import type {
 } from "@renderer/types";
 import type { WebviewTag } from "electron";
 import type { MenuMoreStore } from "./MenuMore";
+import { preferences } from "@renderer/utils/preferences";
 
 declare module "solid-js" {
 	namespace JSX {
@@ -55,7 +56,9 @@ export const TMAView: Component<{
 		return `${props.project.url}${await tgWebAppData(
 			projectFrame.platform,
 			projectFrame.state.mode,
-			users().find((item) => item.id === activeUserId()),
+			preferences.users.users.find(
+				(item) => item.id === preferences.users.active,
+			),
 			props.project.token,
 		)}`;
 	});

@@ -1,19 +1,8 @@
 import "./Main.scss";
 
-import { Show, createEffect, createSignal, on, onMount } from "solid-js";
-import Sidebar, {
-	setSidebarVisibility,
-	sidebarVisiblity,
-} from "../components/Sidebar";
-import {
-	Tabbar,
-	activeTabId,
-	closeTab,
-	setActiveTabId,
-	setTabbarData,
-	tabbarData,
-} from "../components/Tabbar";
-import { activeUserId, users } from "../utils/user";
+import { Show, createEffect, createSignal, onMount } from "solid-js";
+import { Tabbar, closeTab } from "../components/Tabbar";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 import DialogAddUser from "../components/DialogCreateUser";
 import DialogCreateProject from "../components/DialogCreateProject";
@@ -24,11 +13,10 @@ import Header from "../components/Header";
 import PreferencesPage from "./Preferences";
 import ProjectPage from "./Project";
 import ProjectsPage from "./Projects";
-import type { TabbarTab } from "../types";
+import Sidebar from "../components/Sidebar";
+import type { TabbarTab } from "@renderer/types";
 import { deserializeObject } from "@renderer/utils/general";
 import { initStore } from "@renderer/utils/store";
-import { preferences } from "@renderer/utils/preferences";
-import { projects } from "../utils/project";
 import { useSettings } from "../contexts/SettingsContext";
 
 const MainPage = () => {
@@ -42,27 +30,38 @@ const MainPage = () => {
 		initStore();
 		initStoreEffects();
 
-		const tabs = (settings.get("tabs") as TabbarTab[]) ?? [];
-		const activeTab = (settings.get("active_tab") as string) ?? "projects";
+		if (!preferences.tabbar.tabs.find((item) => item.id === "projects")) {
+			setPreferences("tabbar", "tabs", [
+				{
+					id: "projects",
+					title: "Projects",
+					dynamic: true,
+					closable: false,
+					component: () => (
+						<ProjectsPage
+							setShowProjectDialog={setShowProjectDialog}
+							showProjectDialog={showProjectDialog}
+						/>
+					),
+				},
+			]);
+		}
 
-		setTabbarData([
-			{
-				id: "projects",
-				title: "Projects",
-				dynamic: true,
-				closable: false,
-				component: () => (
-					<ProjectsPage
-						setShowProjectDialog={setShowProjectDialog}
-						showProjectDialog={showProjectDialog}
-					/>
-				),
-			},
-			...tabs.map((tab) => {
+		setPreferences(
+			"tabbar",
+			"tabs",
+			preferences.tabbar.tabs.map((tab) => {
 				let component: TabbarTab["component"];
 
 				if (tab.id.startsWith("project-")) {
 					component = () => <ProjectPage id={tab.id.replace("project-", "")} />;
+				} else if (tab.id === "projects") {
+					component = () => (
+						<ProjectsPage
+							setShowProjectDialog={setShowProjectDialog}
+							showProjectDialog={showProjectDialog}
+						/>
+					);
 				} else if (tab.id === "preferences") {
 					component = () => <PreferencesPage />;
 				} else {
@@ -74,33 +73,12 @@ const MainPage = () => {
 					component,
 				};
 			}),
-		]);
-		setActiveTabId(activeTab);
+		);
 
 		setInitialized(true);
 	});
 
 	const initStoreEffects = () => {
-		createEffect(
-			on(
-				projects,
-				async () => {
-					settings.set("projects", projects());
-				},
-				{ defer: true },
-			),
-		);
-
-		createEffect(
-			on(
-				users,
-				async () => {
-					settings.set("users", users());
-				},
-				{ defer: true },
-			),
-		);
-
 		createEffect(() => {
 			settings.set("preferences", deserializeObject(preferences));
 		});
@@ -122,15 +100,22 @@ const MainPage = () => {
 						setShowUserDialog(true);
 						break;
 					case "w":
-						closeTab(activeTabId());
+						closeTab(preferences.tabbar.active);
 						break;
 					case "b":
-						setSidebarVisibility(!sidebarVisiblity());
+						setPreferences(
+							"ui",
+							"sidebar",
+							"visible",
+							!preferences.ui.sidebar.visible,
+						);
 						break;
 					case ",":
-						if (!tabbarData().find((item) => item.id === "preferences")) {
-							setTabbarData([
-								...tabbarData(),
+						if (
+							!preferences.tabbar.tabs.find((item) => item.id === "preferences")
+						) {
+							setPreferences("tabbar", "tabs", [
+								...preferences.tabbar.tabs,
 								{
 									id: "preferences",
 									title: "Preferences",
@@ -140,25 +125,42 @@ const MainPage = () => {
 								},
 							]);
 						}
-						setActiveTabId("preferences");
+						setPreferences("tabbar", "active", "preferences");
 						break;
 					case "Tab": {
-						const activeTab = tabbarData().find(
-							(item) => item.id === activeTabId(),
+						const activeTab = preferences.tabbar.tabs.find(
+							(item) => item.id === preferences.tabbar.active,
 						);
 						if (!activeTab) return;
-						const tabIndex = tabbarData().indexOf(activeTab);
+						const tabIndex = preferences.tabbar.tabs.indexOf(activeTab);
 						if (input.modifiers.includes("shift")) {
 							if (tabIndex > 0) {
-								setActiveTabId(tabbarData()[tabIndex - 1].id);
+								setPreferences(
+									"tabbar",
+									"active",
+									preferences.tabbar.tabs[tabIndex - 1].id,
+								);
 							} else {
-								setActiveTabId(tabbarData()[tabbarData().length - 1].id);
+								setPreferences(
+									"tabbar",
+									"active",
+									preferences.tabbar.tabs[preferences.tabbar.tabs.length - 1]
+										.id,
+								);
 							}
 						} else {
-							if (tabIndex < tabbarData().length - 1) {
-								setActiveTabId(tabbarData()[tabIndex + 1].id);
+							if (tabIndex < preferences.tabbar.tabs.length - 1) {
+								setPreferences(
+									"tabbar",
+									"active",
+									preferences.tabbar.tabs[tabIndex + 1].id,
+								);
 							} else {
-								setActiveTabId(tabbarData()[0].id);
+								setPreferences(
+									"tabbar",
+									"active",
+									preferences.tabbar.tabs[0].id,
+								);
 							}
 						}
 						break;
@@ -167,16 +169,6 @@ const MainPage = () => {
 			}
 		});
 	});
-
-	createEffect(
-		on(
-			activeUserId,
-			async () => {
-				settings.set("active_user", activeUserId());
-			},
-			{ defer: true },
-		),
-	);
 
 	return (
 		<Show when={initialized()}>

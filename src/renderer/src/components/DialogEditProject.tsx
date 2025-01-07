@@ -1,5 +1,4 @@
 import { createEffect, on, type Component } from "solid-js";
-import { projects, setProjects } from "../utils/project";
 import validator from "validator";
 
 import { Button } from "@kobalte/core/button";
@@ -10,6 +9,7 @@ import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
 import { createStore, type SetStoreFunction } from "solid-js/store";
 import { TextField } from "@kobalte/core/text-field";
 import { deserializeObject } from "@renderer/utils/general";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 const DialogEditProject: Component<{
 	ProjectContextMenuStore: [
@@ -33,7 +33,7 @@ const DialogEditProject: Component<{
 		),
 	);
 
-	const project = projects().find(
+	const project = preferences.projects.find(
 		(item) => item.id === contextMenuStore.edit.id,
 	);
 
@@ -59,7 +59,7 @@ const DialogEditProject: Component<{
 	const onClickEdit = async () => {
 		closeTab(`project-${contextMenuStore.edit.id}`);
 
-		const projectsList = deserializeObject(projects());
+		const projectsList = deserializeObject(preferences.projects);
 		const project = projectsList.find(
 			(item) => item.id === contextMenuStore.edit.id,
 		);
@@ -70,7 +70,7 @@ const DialogEditProject: Component<{
 		project.url = form.url;
 		project.token = form.token;
 
-		setProjects(projectsList);
+		setPreferences("projects", projectsList);
 		setContextMenuStore("edit", "open", false);
 	};
 

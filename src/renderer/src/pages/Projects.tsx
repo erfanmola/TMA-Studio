@@ -10,10 +10,9 @@ import {
 	Show,
 } from "solid-js";
 import type { Project } from "../types";
-import { openProject, projects } from "../utils/project";
+import { openProject } from "../utils/project";
 import ProjectPage from "./Project";
 import KeyboardCombo from "../components/KeyboardCombo";
-import { tabbarData } from "../components/Tabbar";
 import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
 import { preferences } from "@renderer/utils/preferences";
 import DialogEditProject from "@renderer/components/DialogEditProject";
@@ -71,7 +70,7 @@ const ProjectsPage: Component<{
 	return (
 		<section id="container-section-projects">
 			<Show
-				when={(projects().length ?? 0) > 0}
+				when={(preferences.projects.length ?? 0) > 0}
 				fallback={
 					<div>
 						<ul>
@@ -116,12 +115,12 @@ const ProjectsPage: Component<{
 				}
 			>
 				<ul>
-					<For each={projects()}>
+					<For each={preferences.projects}>
 						{(project) => (
 							<li
 								classList={{
 									active:
-										tabbarData().find(
+										preferences.tabbar.tabs.find(
 											(item) => item.id === `project-${project.id}`,
 										) !== undefined,
 								}}

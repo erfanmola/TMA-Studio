@@ -6,14 +6,10 @@ import { useSettings } from "../contexts/SettingsContext";
 
 const WelcomePage = () => {
 	const { settings } = useSettings();
-	// const navigate = useNavigate();
-
-	// window.electron.ipcRenderer.
 
 	const onClickButtonStart = async () => {
-		settings.set("intro_done", true);
+		settings.set("preferences.intro.skip", true);
 		window.electron.ipcRenderer.send("skip-intro");
-		// navigate("/main", { replace: true });
 	};
 
 	return (
