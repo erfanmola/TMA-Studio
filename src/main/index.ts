@@ -1,4 +1,8 @@
 import { BrowserWindow, Menu, Tray, app, dialog, ipcMain, shell } from 'electron'
+import {
+  attachTitleBarToWindow,
+  registerTitleBarListener
+} from '@electron-uikit/titlebar'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 
 import Store from 'electron-store';
@@ -6,6 +10,7 @@ import { execFile } from 'node:child_process';
 import { join } from 'node:path'
 import os from 'node:os';
 import path from 'node:path';
+import { useUIKit } from '@electron-uikit/core/main'
 
 declare module 'electron' {
   interface BrowserWindow {
@@ -36,8 +41,24 @@ Menu.setApplicationMenu(Menu.buildFromTemplate([
 
 Store.initRenderer();
 
-let ThemeMode: 'dark' | 'light' = 'light';
-let ZoomLevel = 1;
+const UIPreferences = {
+  theme: {
+    mode: 'light',
+    window_widgets: {
+      light: {
+        bg: '#f5f5f5',
+        color: '#252525',
+      },
+      dark: {
+        bg: '#212529',
+        color: '#f5f5f5',
+      },
+    }
+  },
+  zoom: {
+    level: 1,
+  },
+};
 
 let tray: Tray | undefined;
 let WindowMain: BrowserWindow | undefined;
@@ -46,7 +67,6 @@ let WindowWelcome: BrowserWindow | undefined;
 const popupWindows: { [key: string]: BrowserWindow[] } = {};
 
 const createMainWindow = (): void => {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: "TMA Studio",
     enableLargerThanScreen: true,
@@ -66,11 +86,18 @@ const createMainWindow = (): void => {
       // nodeIntegration: true,
       // nodeIntegrationInSubFrames: true,
     },
-    darkTheme: ThemeMode === 'dark',
+    darkTheme: UIPreferences.theme.mode === 'dark',
     resizable: true,
+    frame: false,
     titleBarStyle: 'hidden',
-    titleBarOverlay: true,
+    titleBarOverlay: {
+      color: UIPreferences.theme.window_widgets[UIPreferences.theme.mode].bg,
+      symbolColor: UIPreferences.theme.window_widgets[UIPreferences.theme.mode].color,
+      height: 32
+    }
   });
+
+  attachTitleBarToWindow(mainWindow);
 
   WindowMain = mainWindow;
 
@@ -95,7 +122,7 @@ const createMainWindow = (): void => {
   // WindowMain = mainWindow;
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.webContents.setZoomFactor(ZoomLevel);
+    mainWindow.webContents.setZoomFactor(UIPreferences.zoom.level);
     mainWindow.show();
   })
 
@@ -129,7 +156,6 @@ const createMainWindow = (): void => {
 }
 
 const createWelcomeWindow = (): void => {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     title: "TMA Studio Welcome",
     width: 720,
@@ -142,7 +168,7 @@ const createWelcomeWindow = (): void => {
       contextIsolation: true,
       devTools: is.dev,
     },
-    darkTheme: ThemeMode === 'dark',
+    darkTheme: UIPreferences.theme.mode === 'dark',
     resizable: false,
     frame: false,
     center: true,
@@ -174,7 +200,10 @@ const createWelcomeWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('studio.tma')
+  electronApp.setAppUserModelId('studio.tma');
+
+  useUIKit();
+  registerTitleBarListener();
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -185,8 +214,8 @@ app.whenReady().then(() => {
 
   const store: any = new Store();
 
-  ThemeMode = store.get("preferences")?.theme_mode ?? 'light';
-  ZoomLevel = store.get("preferences")?.ui.scale ?? 1;
+  UIPreferences.theme.mode = store.get("preferences")?.theme_mode ?? 'light';
+  UIPreferences.zoom.level = store.get("preferences")?.ui.scale ?? 1;
 
   // Store
   ipcMain.on('electron-store-get', async (event, val) => {
@@ -236,7 +265,7 @@ app.whenReady().then(() => {
         webviewTag: true,
         devTools: is.dev,
       },
-      darkTheme: ThemeMode === 'dark',
+      darkTheme: UIPreferences.theme.mode === 'dark',
       resizable: false,
       alwaysOnTop: store.get("preferences")?.project?.floating_window_on_top,
       frame: false,
@@ -289,16 +318,22 @@ app.whenReady().then(() => {
 
   // Settings
   ipcMain.on('ui-scale-changed', async (_, ui_scale) => {
-    ZoomLevel = ui_scale;
+    UIPreferences.zoom.level = ui_scale;
     if (WindowMain && !(WindowMain.isDestroyed())) {
-      WindowMain.webContents.setZoomFactor(ZoomLevel);
+      WindowMain.webContents.setZoomFactor(UIPreferences.zoom.level);
     }
   });
   ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
-    ThemeMode = theme_mode;
-  });
-  ipcMain.on('theme-mode-changed', async (_, theme_mode) => {
-    ThemeMode = theme_mode;
+    UIPreferences.theme.mode = theme_mode;
+    if (WindowMain && !WindowMain.isDestroyed()) {
+      try {
+        WindowMain.setTitleBarOverlay({
+          color: UIPreferences.theme.window_widgets[UIPreferences.theme.mode].bg,
+          symbolColor: UIPreferences.theme.window_widgets[UIPreferences.theme.mode].color,
+          height: 32
+        });
+      } catch (e) { }
+    }
   });
 
   // Haptic Feedback

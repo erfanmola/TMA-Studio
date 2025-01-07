@@ -14,6 +14,12 @@ importers:
       '@electron-toolkit/utils':
         specifier: ^3.0.0
         version: 3.0.0(electron@33.3.1)
+      '@electron-uikit/core':
+        specifier: ^1.0.0
+        version: 1.0.0(electron@33.3.1)
+      '@electron-uikit/titlebar':
+        specifier: ^1.2.0
+        version: 1.2.0(@electron-uikit/core@1.0.0(electron@33.3.1))(electron@33.3.1)
       '@kobalte/core':
         specifier: ^0.13.7
         version: 0.13.7(solid-js@1.9.3)
@@ -293,6 +299,20 @@ packages:
     resolution: {integrity: sha512-GaXHDhiT7KCvMJjXdp/QqpYinq69T/Pdl49Z1XLf8mKGf63dnsODMWyrmIjEQ0z/vG7dO8qF3fvmI6Eb2lUNZA==}
     peerDependencies:
       electron: '>=13.0.0'
+
+  '@electron-uikit/core@1.0.0':
+    resolution: {integrity: sha512-c/HznSxNHGAvVv8DTByqPZxCEvCjdFOpyjnwVm/NAuQnuL1urvd3tFkQcOY1V63XDFqpxJ58T+YjjW0ebYa46A==}
+    peerDependencies:
+      electron: '>=15.0.0'
+
+  '@electron-uikit/titlebar@1.2.0':
+    resolution: {integrity: sha512-qxPD+UydsSN9eZCasLLW6LCdf5E/mLMHpqjZiVSbjYIFZDD1UDBdoknnu/J4La5a7LhccjkihPRZdUhA0Le2cw==}
+    peerDependencies:
+      '@electron-uikit/core': '*'
+      electron: '>=15.0.0'
+    peerDependenciesMeta:
+      '@electron-uikit/core':
+        optional: true
 
   '@electron/asar@3.2.14':
     resolution: {integrity: sha512-hc52QkesULqbxTRC1vOmSBN1YndUkieoNMfvpe988h0MEoGGqbijkOqv4/2M9PufBJxiTVoDdBmBFfXPowZDQg==}
@@ -3621,6 +3641,16 @@ snapshots:
   '@electron-toolkit/utils@3.0.0(electron@33.3.1)':
     dependencies:
       electron: 33.3.1
+
+  '@electron-uikit/core@1.0.0(electron@33.3.1)':
+    dependencies:
+      electron: 33.3.1
+
+  '@electron-uikit/titlebar@1.2.0(@electron-uikit/core@1.0.0(electron@33.3.1))(electron@33.3.1)':
+    dependencies:
+      electron: 33.3.1
+    optionalDependencies:
+      '@electron-uikit/core': 1.0.0(electron@33.3.1)
 
   '@electron/asar@3.2.14':
     dependencies:
