@@ -14,7 +14,7 @@
     "@solidjs/router": "^0.15.2",
     "animate.css": "^4.1.1",
     "solid-icons": "^1.1.0",
-    "solid-js": "^1.9.3",
+    "solid-js": "^1.9.4",
     "solid-motionone": "^1.0.3",
     "swiper": "^11.2.0",
     "vite-plugin-solid-svg": "^0.8.1"
