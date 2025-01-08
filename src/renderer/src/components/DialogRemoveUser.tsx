@@ -1,29 +1,26 @@
-import {
-	batch,
-	createEffect,
-	on,
-	type Accessor,
-	type Component,
-	type Setter,
-} from "solid-js";
+import { batch, createEffect, on, type Component } from "solid-js";
 
 import { Button } from "@kobalte/core/button";
 import { Dialog } from "@kobalte/core/dialog";
 import { Separator } from "@kobalte/core/separator";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
+import type { UserContextMenuStore } from "./Header";
+import type { SetStoreFunction } from "solid-js/store";
 
 const DialogRemoveUser: Component<{
-	isOpen: Accessor<boolean>;
-	setIsOpen: Setter<boolean>;
-	userId: Accessor<number | undefined>;
-	setUserId: Setter<number | undefined>;
+	UserContextMenuStore: [
+		get: UserContextMenuStore,
+		set: SetStoreFunction<UserContextMenuStore>,
+	];
 }> = (props) => {
+	const [contextMenuStore, setContextMenuStore] = props.UserContextMenuStore;
+
 	createEffect(
 		on(
-			props.isOpen,
+			() => contextMenuStore.delete.open,
 			() => {
-				if (!props.isOpen()) {
-					props.setUserId(undefined);
+				if (!contextMenuStore.delete.open) {
+					setContextMenuStore("delete", "id", undefined);
 				}
 			},
 			{
@@ -37,15 +34,19 @@ const DialogRemoveUser: Component<{
 			setPreferences("users", {
 				active: "none",
 				users: preferences.users.users.filter(
-					(item) => item.id !== props.userId(),
+					(item) =>
+						item.id !== Number.parseInt(contextMenuStore.delete.id ?? ""),
 				),
 			});
-			props.setIsOpen(false);
+			setContextMenuStore("delete", "open", false);
 		});
 	};
 
 	return (
-		<Dialog open={props.isOpen()} onOpenChange={() => props.setIsOpen(false)}>
+		<Dialog
+			open={contextMenuStore.delete.open}
+			onOpenChange={() => setContextMenuStore("delete", "open", false)}
+		>
 			<Dialog.Portal>
 				<Dialog.Overlay class="dialog__overlay" />
 				<div class="dialog__positioner">
@@ -62,7 +63,9 @@ const DialogRemoveUser: Component<{
 								<b>
 									{
 										preferences.users.users.find(
-											(item) => item.id === props.userId(),
+											(item) =>
+												item.id ===
+												Number.parseInt(contextMenuStore.delete.id ?? ""),
 										)?.first_name
 									}
 								</b>{" "}

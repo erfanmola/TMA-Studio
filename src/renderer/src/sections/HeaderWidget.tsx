@@ -53,12 +53,12 @@ export const HeaderWidget: Component<{
 				if (projectFrame.window.floating) {
 					setProjectFrame("inspectElement", "open", false);
 					setTimeout(() => {
-						window.project.open(props.project.id, props.platform);
+						window.api.project.open(props.project.id, props.platform);
 					});
 				} else if (!projectFrame.window.floating && !props.placeholder) {
 					setProjectFrame("inspectElement", "open", false);
 					setTimeout(() => {
-						window.project.close(props.project.id, props.platform, false);
+						window.api.project.close(props.project.id, props.platform, false);
 					});
 				}
 			},
@@ -67,7 +67,7 @@ export const HeaderWidget: Component<{
 	);
 
 	if (props.placeholder) {
-		window.project.open(props.project.id, props.platform);
+		window.api.project.open(props.project.id, props.platform);
 	}
 
 	if (!projectFrame.window.floating || props.placeholder) {

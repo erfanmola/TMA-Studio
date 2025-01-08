@@ -15,14 +15,14 @@ const App = () => {
 				`${ghRepoURL.replace("github.com/", "raw.githubusercontent.com/")}/refs/heads/master/package.json`,
 			);
 			const result = await request.json();
-			if (semver.gt(result.version, window.version.get())) {
+			if (semver.gt(result.version, window.api.version.get())) {
 				window.electron.ipcRenderer.send("update-available", result.version);
 			}
 		} catch (e) {}
 	});
 
 	return (
-		<SettingsProvider value={{ settings: window.store }}>
+		<SettingsProvider value={{ settings: window.api.store }}>
 			<HashRouter>
 				<Route path="/" component={IndexPage} />
 				<Route path="/welcome" component={WelcomePage} />

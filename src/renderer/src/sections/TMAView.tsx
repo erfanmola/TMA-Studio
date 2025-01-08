@@ -173,7 +173,7 @@ export const TMAView: Component<{
 									"tg_webapp_clipboard_confirm_",
 									"",
 								),
-								data: window.clipboard.getText(),
+								data: window.api.clipboard.getText(),
 							},
 							projectInner.webview,
 							projectFrame.platform,

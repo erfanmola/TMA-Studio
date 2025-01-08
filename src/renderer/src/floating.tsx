@@ -9,7 +9,7 @@ import { render } from "solid-js/web";
 
 render(
 	() => (
-		<SettingsProvider value={{ settings: window.store }}>
+		<SettingsProvider value={{ settings: window.api.store }}>
 			<HashRouter>
 				<Route path="/:project/:platform" component={FloatingProject} />
 			</HashRouter>

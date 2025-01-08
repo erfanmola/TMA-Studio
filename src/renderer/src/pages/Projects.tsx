@@ -1,6 +1,5 @@
 import "./Projects.scss";
-import { Menu, useContextMenu, Item, Separator } from "solid-contextmenu";
-import "solid-contextmenu/dist/style.css";
+import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
 
 import {
 	type Accessor,
@@ -49,22 +48,46 @@ const ProjectsPage: Component<{
 		openProject(projectId, () => <ProjectPage id={projectId} />);
 	};
 
-	const onClickMenuProjectOpen = (e: any) => {
-		openProjectInner(e.props);
-	};
+	const onContextMenu = (projectId) => {
+		const menu = new Menu();
 
-	const onClickMenuProjectEdit = (e: any) => {
-		setContextMenuStore("edit", {
-			id: e.props,
-			open: true,
-		});
-	};
+		menu.append(
+			new MenuItem({
+				type: "normal",
+				label: "Open Project",
+				click: () => {
+					openProjectInner(projectId);
+				},
+			}),
+		);
+		menu.append(new MenuItem({ type: "separator" }));
+		menu.append(
+			new MenuItem({
+				type: "normal",
+				label: "Edit Project",
+				click: () => {
+					setContextMenuStore("edit", {
+						id: projectId,
+						open: true,
+					});
+				},
+			}),
+		);
+		menu.append(new MenuItem({ type: "separator" }));
+		menu.append(
+			new MenuItem({
+				type: "normal",
+				label: "Delete Project",
+				click: () => {
+					setContextMenuStore("delete", {
+						id: projectId,
+						open: true,
+					});
+				},
+			}),
+		);
 
-	const onClickMenuProjectDelete = (e: any) => {
-		setContextMenuStore("delete", {
-			id: e.props,
-			open: true,
-		});
+		menu.popup();
 	};
 
 	return (
@@ -128,9 +151,8 @@ const ProjectsPage: Component<{
 									openProjectInner(project.id);
 								}}
 								onContextMenu={(e) => {
-									useContextMenu({ id: "menu-project" }).show(e, {
-										props: project.id,
-									});
+									e.preventDefault();
+									onContextMenu(project.id);
 								}}
 							>
 								<h2>{project.name}</h2>
@@ -139,18 +161,6 @@ const ProjectsPage: Component<{
 					</For>
 				</ul>
 			</Show>
-
-			<Menu
-				id={"menu-project"}
-				animation="scale"
-				theme={preferences.theme_mode}
-			>
-				<Item onClick={onClickMenuProjectOpen}>Open Project</Item>
-				<Separator />
-				<Item onClick={onClickMenuProjectEdit}>Edit Project</Item>
-				<Separator />
-				<Item onClick={onClickMenuProjectDelete}>Delete Project</Item>
-			</Menu>
 
 			<Show when={contextMenuStore.delete.open && contextMenuStore.delete.id}>
 				<DialogRemoveProject

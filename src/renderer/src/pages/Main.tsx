@@ -90,7 +90,7 @@ const MainPage = () => {
 	};
 
 	onMount(() => {
-		window.onShortcutPressed((_, input) => {
+		window.api.onShortcutPressed((_, input) => {
 			if (input.control || input.meta) {
 				switch (input.key) {
 					case "n":

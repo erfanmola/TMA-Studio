@@ -234,7 +234,7 @@ export const tgEventHandler = (event: TelegramMethodEvent, webview: any, platfor
         case "web_app_trigger_haptic_feedback": {
             setProjectInner('shake', true);
             if (preferences.project.macos_vibrate_on_haptic) {
-                window.haptic.vibrate();
+                window.api.haptic.vibrate();
             }
             let shakeTimeout = 2e2;
 

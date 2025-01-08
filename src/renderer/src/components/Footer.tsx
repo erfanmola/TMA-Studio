@@ -49,7 +49,7 @@ const Footer = () => {
 
 			<span>
 				Made with <FaSolidHeart /> by Erfan Mola | Version:{" "}
-				{window.version.get()}
+				{window.api.version.get()}
 			</span>
 		</footer>
 	);

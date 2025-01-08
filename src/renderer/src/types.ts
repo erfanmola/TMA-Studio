@@ -1,3 +1,4 @@
+import type { BrowserWindow, Tray } from "electron";
 import type { TelegramPlatform, ThemeMode } from "./utils/themes";
 
 import type { JSX } from "solid-js";
@@ -78,3 +79,24 @@ export type TelegramButtonMain = {
 };
 
 export type TelegramButtonSecondary = TelegramButtonMain;
+
+export type IPCMainPreferences = {
+    theme: {
+        mode: ThemeMode,
+        window_widgets: {
+            [key in ThemeMode]: {
+                bg: string,
+                color: string,
+            }
+        }
+    },
+    zoom: {
+        level: number,
+    },
+    windows: {
+        popups: { [key: string]: BrowserWindow[] },
+        main: BrowserWindow | undefined,
+        welcome: BrowserWindow | undefined,
+    },
+    tray: Tray | undefined,
+};
