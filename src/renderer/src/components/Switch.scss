@@ -1,0 +1,47 @@
+.switch {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    > span {
+        padding-inline-end: 0.75rem;
+        font-size: 0.925rem;
+    }
+
+    input[type="checkbox"] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+
+    div {
+        cursor: pointer;
+        width: 2.75rem;
+        height: 1.575rem;
+        background: var(--material-color-blue-100);
+        display: block;
+        border-radius: 100rem;
+        position: relative;
+    }
+
+    div:after {
+        content: "";
+        position: absolute;
+        top: 0.175rem;
+        left: 0.175rem;
+        aspect-ratio: 1/1;
+        height: calc(100% - 0.35rem);
+        background: var(--bg-card);
+        border-radius: 100rem;
+        transition: 0.25s;
+    }
+
+    input:checked + div {
+        background: var(--material-color-blue-a200);
+    }
+
+    input:checked + div:after {
+        left: calc(100% - 0.175rem);
+        transform: translateX(-100%);
+    }
+}

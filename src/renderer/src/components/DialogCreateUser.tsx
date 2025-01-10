@@ -1,30 +1,18 @@
-import {
-	createEffect,
-	createSignal,
-	type Accessor,
-	type Component,
-	type Setter,
-} from "solid-js";
+import { createMemo, type Component } from "solid-js";
 
-import validator from "validator";
-import { Button } from "@kobalte/core/button";
-import { Dialog } from "@kobalte/core/dialog";
-import { Separator } from "@kobalte/core/separator";
-import { TextField } from "@kobalte/core/text-field";
 import { createStore, produce } from "solid-js/store";
-import { Checkbox } from "@kobalte/core/checkbox";
-import { BsCheckLg } from "solid-icons/bs";
-import { Combobox } from "@kobalte/core/combobox";
 import { ietfLanguages } from "../utils/ietf";
-import { FiGlobe } from "solid-icons/fi";
 import type { User } from "../types";
-import { setPreferences } from "@renderer/utils/preferences";
+import { setModals, setPreferences } from "@renderer/utils/preferences";
+import Modal from "./Modal";
+import Input from "./Input";
+import Select from "./Select";
+import Checkbox from "./Checkbox";
+import { isValidURL } from "@renderer/utils/general";
+import validator from "validator";
+import { FiGlobe } from "solid-icons/fi";
 
-const DialogAddUser: Component<{
-	isOpen: Accessor<boolean>;
-	setIsOpen: Setter<boolean>;
-}> = (props) => {
-	const [addButtonEnabled, setAddButtonEnabled] = createSignal(false);
+const DialogAddUser: Component = () => {
 	const [form, setForm] = createStore({
 		id: "",
 		first_name: "",
@@ -33,21 +21,37 @@ const DialogAddUser: Component<{
 		photo_url: "",
 		language_code: "en",
 		is_premium: false,
-		allows_write_to_pm: false,
+		allows_write_to_pm: true,
 	});
 
-	createEffect(() => {
-		setAddButtonEnabled(
-			form.first_name.length > 0 &&
-				validator.isNumeric(form.id) &&
-				(form.photo_url.length === 0 ||
-					validator.isURL(form.photo_url) ||
-					validator.isURL(form.photo_url, { host_whitelist: ["localhost"] })),
-		);
+	const validation = createMemo(() => ({
+		id: validator.isNumeric(form.id),
+		first_name: form.first_name.length > 0 && form.first_name.length < 64,
+		last_name: form.last_name.length > 0 && form.last_name.length < 64,
+		username: /^[a-zA-Z](?:[a-zA-Z0-9_]{3,31})$/.test(form.username),
+		photo_url: isValidURL(form.photo_url),
+		language_code: ietfLanguages.includes(form.language_code),
+	}));
+
+	const valid = createMemo(() => {
+		if (validation().id && validation().first_name) {
+			for (const key in form) {
+				if (
+					form[key].toString().length > 0 &&
+					key in validation() &&
+					!validation()[key]
+				) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		return false;
 	});
 
-	const onClickAdd = async () => {
-		if (!addButtonEnabled()) return;
+	const onClickCreate = async () => {
+		if (!valid()) return;
 
 		const user: User = {
 			id: Number.parseInt(form.id),
@@ -75,183 +79,114 @@ const DialogAddUser: Component<{
 		setPreferences(
 			produce((store) => {
 				store.users.users.push(user);
+				store.users.active = user.id;
 			}),
 		);
 
-		props.setIsOpen(false);
+		setModals("user", "new", "open", false);
 	};
 
 	return (
-		<Dialog open={props.isOpen()} onOpenChange={() => props.setIsOpen(false)}>
-			<Dialog.Portal>
-				<Dialog.Overlay class="dialog__overlay" />
-				<div class="dialog__positioner">
-					<Dialog.Content class="dialog__content">
-						<div class="dialog__header">
-							<Dialog.Title class="dialog__title">Add User</Dialog.Title>
-						</div>
+		<Modal
+			title="New User"
+			closer={() => setModals("user", "new", "open", false)}
+			footer={
+				<button
+					type="button"
+					class="button-primary flex-grow"
+					style={{ padding: "0.625rem" }}
+					disabled={!valid()}
+					onClick={onClickCreate}
+				>
+					Create User
+				</button>
+			}
+		>
+			<div class="grid gap-5 py-1">
+				<div class="grid gap-5 grid-cols-2">
+					<Input
+						label="First Name"
+						placeholder="John"
+						value={form.first_name}
+						required
+						onInput={(e) => setForm("first_name", e.currentTarget.value)}
+						valid={validation().first_name}
+					/>
 
-						<Separator />
-
-						<div class="grid gap-4 py-4">
-							<div class="grid gap-4 grid-cols-2">
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										First Name
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="John"
-										value={form.first_name}
-										onInput={(e) =>
-											setForm("first_name", e.currentTarget.value)
-										}
-									/>
-								</TextField>
-
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
-										Last Name
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="Doe"
-										value={form.last_name}
-										onInput={(e) => setForm("last_name", e.currentTarget.value)}
-									/>
-								</TextField>
-							</div>
-
-							<div class="grid gap-4 grid-cols-2">
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										User ID
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="1234567890"
-										value={form.id}
-										onInput={(e) => setForm("id", e.currentTarget.value)}
-									/>
-								</TextField>
-
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
-										Username
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="John_Doe"
-										value={form.username}
-										onInput={(e) => setForm("username", e.currentTarget.value)}
-									/>
-								</TextField>
-							</div>
-
-							<div class="grid gap-4 grid-cols-2">
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
-										Photo URL
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="https://placehold.co/600x400"
-										value={form.photo_url}
-										onInput={(e) => setForm("photo_url", e.currentTarget.value)}
-									/>
-								</TextField>
-
-								<Combobox
-									options={ietfLanguages}
-									defaultValue={form.language_code}
-									onChange={(value) =>
-										setForm("language_code", value as string)
-									}
-									placeholder="Language"
-									itemComponent={(props) => (
-										<Combobox.Item item={props.item} class="combobox__item">
-											<Combobox.ItemLabel>
-												{props.item.rawValue}
-											</Combobox.ItemLabel>
-											<Combobox.ItemIndicator class="combobox__item-indicator">
-												<BsCheckLg />
-											</Combobox.ItemIndicator>
-										</Combobox.Item>
-									)}
-								>
-									<Combobox.Label class="text-field__label block">
-										Language Code
-									</Combobox.Label>
-									<Combobox.Control class="combobox__control">
-										<Combobox.Input class="combobox__input" />
-										<Combobox.Trigger class="combobox__trigger">
-											<Combobox.Icon class="combobox__icon">
-												<FiGlobe />
-											</Combobox.Icon>
-										</Combobox.Trigger>
-									</Combobox.Control>
-									<Combobox.Portal>
-										<Combobox.Content class="combobox__content z-50">
-											<Combobox.Listbox class="combobox__listbox" />
-										</Combobox.Content>
-									</Combobox.Portal>
-								</Combobox>
-							</div>
-
-							<div class="grid gap-4 grid-cols-2">
-								<Checkbox
-									class="checkbox"
-									checked={form.is_premium}
-									onChange={(checked) => setForm("is_premium", checked)}
-								>
-									<Checkbox.Input class="checkbox__input" />
-									<Checkbox.Control class="checkbox__control">
-										<Checkbox.Indicator>
-											<BsCheckLg />
-										</Checkbox.Indicator>
-									</Checkbox.Control>
-									<Checkbox.Label class="checkbox__label">
-										Premium
-									</Checkbox.Label>
-								</Checkbox>
-
-								<Checkbox
-									class="checkbox"
-									checked={form.allows_write_to_pm}
-									onChange={(checked) => setForm("allows_write_to_pm", checked)}
-								>
-									<Checkbox.Input class="checkbox__input" />
-									<Checkbox.Control class="checkbox__control">
-										<Checkbox.Indicator>
-											<BsCheckLg />
-										</Checkbox.Indicator>
-									</Checkbox.Control>
-									<Checkbox.Label class="checkbox__label">
-										Allows write to pm
-									</Checkbox.Label>
-								</Checkbox>
-							</div>
-						</div>
-
-						<Separator />
-
-						<div class="pt-3 flex justify-end gap-4">
-							<Dialog.CloseButton>
-								<Button>Cancel</Button>
-							</Dialog.CloseButton>
-
-							<Button
-								class="button"
-								disabled={!addButtonEnabled()}
-								onClick={onClickAdd}
-							>
-								Add
-							</Button>
-						</div>
-					</Dialog.Content>
+					<Input
+						label="Last Name"
+						placeholder="Doe"
+						value={form.last_name}
+						onInput={(e) => setForm("last_name", e.currentTarget.value)}
+						valid={validation().last_name}
+					/>
 				</div>
-			</Dialog.Portal>
-		</Dialog>
+
+				<div class="grid gap-5 grid-cols-2">
+					<Input
+						label="User ID"
+						placeholder="1234567890"
+						value={form.id}
+						required
+						onInput={(e) => setForm("id", e.currentTarget.value)}
+						valid={validation().id}
+					/>
+
+					<Input
+						label="Username"
+						placeholder="John_Doe"
+						value={form.username}
+						onInput={(e) => setForm("username", e.currentTarget.value)}
+						valid={validation().username}
+					/>
+				</div>
+
+				<div class="grid gap-5 grid-cols-2">
+					<Input
+						label="Photo URL"
+						placeholder="https://picsum.photos/256/256"
+						value={form.photo_url}
+						onInput={(e) => setForm("photo_url", e.currentTarget.value)}
+						valid={validation().photo_url}
+					/>
+
+					<Select
+						label="Language Code"
+						placeholder="en"
+						value={form.language_code}
+						options={ietfLanguages}
+						valid={validation().language_code}
+						onChange={(value) => {
+							setForm("language_code", value);
+						}}
+						format={(item, type) =>
+							type === "value" ? (
+								<div class="flex items-center">
+									<span class="flex-grow">{item}</span>
+									<FiGlobe />
+								</div>
+							) : (
+								item
+							)
+						}
+					/>
+				</div>
+
+				<div class="grid gap-5 grid-cols-2">
+					<Checkbox
+						label="Premium"
+						checked={form.is_premium}
+						onChange={(checked) => setForm("is_premium", checked)}
+					/>
+
+					<Checkbox
+						label="Allow write to pm"
+						checked={form.allows_write_to_pm}
+						onChange={(checked) => setForm("allows_write_to_pm", checked)}
+					/>
+				</div>
+			</div>
+		</Modal>
 	);
 };
 

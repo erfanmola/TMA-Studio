@@ -1,19 +1,13 @@
 import "./Projects.scss";
 import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
 
-import {
-	type Accessor,
-	type Component,
-	For,
-	type Setter,
-	Show,
-} from "solid-js";
+import { type Component, For, Show } from "solid-js";
 import type { Project } from "../types";
 import { openProject } from "../utils/project";
 import ProjectPage from "./Project";
 import KeyboardCombo from "../components/KeyboardCombo";
 import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
-import { preferences } from "@renderer/utils/preferences";
+import { preferences, setModals } from "@renderer/utils/preferences";
 import DialogEditProject from "@renderer/components/DialogEditProject";
 import { createStore } from "solid-js/store";
 
@@ -28,10 +22,7 @@ export type ProjectContextMenuStore = {
 	};
 };
 
-const ProjectsPage: Component<{
-	showProjectDialog: Accessor<boolean>;
-	setShowProjectDialog: Setter<boolean>;
-}> = (props) => {
+const ProjectsPage: Component = () => {
 	const [contextMenuStore, setContextMenuStore] =
 		createStore<ProjectContextMenuStore>({
 			delete: {
@@ -130,7 +121,7 @@ const ProjectsPage: Component<{
 
 						<button
 							type="button"
-							onClick={() => props.setShowProjectDialog(true)}
+							onClick={() => setModals("project", "new", "open", true)}
 						>
 							Create New Project
 						</button>

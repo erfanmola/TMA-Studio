@@ -1,15 +1,12 @@
-import { createEffect, on, type Component } from "solid-js";
-import validator from "validator";
+import { createEffect, createMemo, on, type Component } from "solid-js";
 
-import { Button } from "@kobalte/core/button";
-import { Dialog } from "@kobalte/core/dialog";
-import { Separator } from "@kobalte/core/separator";
 import { closeTab } from "./Tabbar";
 import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
 import { createStore, type SetStoreFunction } from "solid-js/store";
-import { TextField } from "@kobalte/core/text-field";
-import { deserializeObject } from "@renderer/utils/general";
+import { deserializeObject, isValidURL } from "@renderer/utils/general";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
+import Modal from "./Modal";
+import Input from "./Input";
 
 const DialogEditProject: Component<{
 	ProjectContextMenuStore: [
@@ -46,17 +43,27 @@ const DialogEditProject: Component<{
 		valid: false,
 	});
 
-	createEffect(() => {
-		setForm(
-			"valid",
-			form.name.length > 0 &&
-				form.name.length <= 64 &&
-				(validator.isURL(form.url) ||
-					validator.isURL(form.url, { host_whitelist: ["localhost"] })),
-		);
+	const validation = createMemo(() => ({
+		name: form.name.length > 0 && form.name.length < 64,
+		url: isValidURL(form.url),
+		token: /^\d{9,16}:[A-Za-z0-9_-]{32,}$/.test(form.token),
+	}));
+
+	const valid = createMemo(() => {
+		if (validation().name && validation().url) {
+			if (form.token.length === 0) {
+				return true;
+			}
+
+			return validation().token;
+		}
+
+		return false;
 	});
 
 	const onClickEdit = async () => {
+		if (!valid()) return;
+
 		closeTab(`project-${contextMenuStore.edit.id}`);
 
 		const projectsList = deserializeObject(preferences.projects);
@@ -75,84 +82,54 @@ const DialogEditProject: Component<{
 	};
 
 	return (
-		<Dialog
-			open={contextMenuStore.edit.open}
-			onOpenChange={() => setContextMenuStore("edit", "open", false)}
+		<Modal
+			title="Edit Project"
+			closer={() => setContextMenuStore("edit", "open", false)}
+			footer={
+				<button
+					type="button"
+					class="button-primary flex-grow"
+					style={{ padding: "0.625rem" }}
+					disabled={!valid()}
+					onClick={onClickEdit}
+				>
+					Update Project
+				</button>
+			}
 		>
-			<Dialog.Portal>
-				<Dialog.Overlay class="dialog__overlay" />
-				<div class="dialog__positioner">
-					<Dialog.Content class="dialog__content">
-						<div class="dialog__header">
-							<Dialog.Title class="dialog__title">Edit Project</Dialog.Title>
-						</div>
+			<div class="grid gap-5 py-1">
+				<div class="grid gap-5 grid-cols-2">
+					<Input
+						label="Name"
+						placeholder="My Mini App"
+						value={form.name}
+						required
+						onInput={(e) => setForm("name", e.currentTarget.value)}
+						valid={validation().name}
+					/>
 
-						<Separator />
-
-						<div class="grid gap-4 py-4">
-							<div class="grid gap-4 grid-cols-2">
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										Name
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="My Mini App"
-										value={form.name}
-										onInput={(e) => setForm("name", e.currentTarget.value)}
-									/>
-								</TextField>
-
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										URL
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="http://127.0.0.1:8080"
-										value={form.url}
-										onInput={(e) => setForm("url", e.currentTarget.value)}
-									/>
-								</TextField>
-							</div>
-
-							<div>
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
-										Bot Token (Optional)
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input w-full"
-										placeholder="123456:ABC-DEF1234"
-										value={form.token}
-										onInput={(e) => setForm("token", e.currentTarget.value)}
-									/>
-									<TextField.Description class="text-sm">
-										Bot token is used to sign the auth data passed to the bot.
-									</TextField.Description>
-								</TextField>
-							</div>
-						</div>
-
-						<Separator />
-
-						<div class="pt-3 flex justify-end gap-4">
-							<Dialog.CloseButton>
-								<Button>Cancel</Button>
-							</Dialog.CloseButton>
-
-							<Button
-								class="button"
-								disabled={!form.valid}
-								onClick={onClickEdit}
-							>
-								Update
-							</Button>
-						</div>
-					</Dialog.Content>
+					<Input
+						label="URL"
+						placeholder="http://localhost:8080"
+						value={form.url}
+						required
+						onInput={(e) => setForm("url", e.currentTarget.value)}
+						valid={validation().url}
+					/>
 				</div>
-			</Dialog.Portal>
-		</Dialog>
+
+				<div>
+					<Input
+						label="Bot Token (optional)"
+						placeholder="123456:ABC-DEF1234"
+						value={form.token}
+						onInput={(e) => setForm("token", e.currentTarget.value)}
+						description="Bot token is used to sign the auth data passed to the bot."
+						valid={validation().token}
+					/>
+				</div>
+			</div>
+		</Modal>
 	);
 };
 

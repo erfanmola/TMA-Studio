@@ -3,8 +3,8 @@ import "./Preferences.scss";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 
 import { createEffect, createSignal, on, Show, type Component } from "solid-js";
-import { Switch } from "@kobalte/core/switch";
 import { HorizontalSelect } from "@renderer/components/HorizontalSelect";
+import Switch from "@renderer/components/Switch";
 
 const PreferencesPage: Component = () => {
 	const [hsUIScale, setHSUIScale] = createSignal(preferences.ui.scale);
@@ -45,7 +45,6 @@ const PreferencesPage: Component = () => {
 
 						<div>
 							<Switch
-								class="switch"
 								checked={preferences.theme_mode === "dark"}
 								onChange={(e) => {
 									setPreferences("theme_mode", e ? "dark" : "light");
@@ -54,13 +53,8 @@ const PreferencesPage: Component = () => {
 										preferences.theme_mode,
 									);
 								}}
-							>
-								<Switch.Label class="switch__label">Dark mode</Switch.Label>
-								<Switch.Input class="switch__input" />
-								<Switch.Control class="switch__control">
-									<Switch.Thumb class="switch__thumb" />
-								</Switch.Control>
-							</Switch>
+								label="Dark mode"
+							/>
 						</div>
 					</li>
 
@@ -107,20 +101,12 @@ const PreferencesPage: Component = () => {
 
 						<div>
 							<Switch
-								class="switch"
 								checked={preferences.project.shake_on_haptic}
 								onChange={(e) => {
 									setPreferences("project", "shake_on_haptic", e);
 								}}
-							>
-								<Switch.Label class="switch__label">
-									Shake On Haptic
-								</Switch.Label>
-								<Switch.Input class="switch__input" />
-								<Switch.Control class="switch__control">
-									<Switch.Thumb class="switch__thumb" />
-								</Switch.Control>
-							</Switch>
+								label="Shake On Haptic"
+							/>
 						</div>
 					</li>
 
@@ -130,20 +116,12 @@ const PreferencesPage: Component = () => {
 
 							<div>
 								<Switch
-									class="switch"
 									checked={preferences.project.macos_vibrate_on_haptic}
 									onChange={(e) => {
 										setPreferences("project", "macos_vibrate_on_haptic", e);
 									}}
-								>
-									<Switch.Label class="switch__label">
-										Vibrate On Haptic
-									</Switch.Label>
-									<Switch.Input class="switch__input" />
-									<Switch.Control class="switch__control">
-										<Switch.Thumb class="switch__thumb" />
-									</Switch.Control>
-								</Switch>
+									label="Vibrate On Haptic"
+								/>
 							</div>
 						</li>
 					</Show>
@@ -153,18 +131,12 @@ const PreferencesPage: Component = () => {
 
 						<div>
 							<Switch
-								class="switch"
 								checked={preferences.project.floating_window_on_top}
 								onChange={(e) => {
 									setPreferences("project", "floating_window_on_top", e);
 								}}
-							>
-								<Switch.Label class="switch__label">Always On Top</Switch.Label>
-								<Switch.Input class="switch__input" />
-								<Switch.Control class="switch__control">
-									<Switch.Thumb class="switch__thumb" />
-								</Switch.Control>
-							</Switch>
+								label="Always On Top"
+							/>
 						</div>
 					</li>
 

@@ -1,44 +1,46 @@
-import {
-	createEffect,
-	type Accessor,
-	type Component,
-	type Setter,
-} from "solid-js";
+import { createMemo, type Component } from "solid-js";
 
-import validator from "validator";
-import { Button } from "@kobalte/core/button";
-import { Dialog } from "@kobalte/core/dialog";
-import { Separator } from "@kobalte/core/separator";
-import { TextField } from "@kobalte/core/text-field";
 import { createStore } from "solid-js/store";
 import { openProject } from "../utils/project";
 import ProjectPage from "../pages/Project";
 import type { Project } from "../types";
-import { preferences, setPreferences } from "@renderer/utils/preferences";
+import {
+	preferences,
+	setModals,
+	setPreferences,
+} from "@renderer/utils/preferences";
+import Modal from "./Modal";
+import Input from "./Input";
+import { isValidURL } from "@renderer/utils/general";
+import type { TelegramPlatform } from "@renderer/utils/themes";
 
-const DialogCreateProject: Component<{
-	isOpen: Accessor<boolean>;
-	setIsOpen: Setter<boolean>;
-}> = (props) => {
+const DialogCreateProject: Component = () => {
 	const [form, setForm] = createStore({
 		name: "",
 		url: "",
 		token: "",
-		valid: false,
 	});
 
-	createEffect(() => {
-		setForm(
-			"valid",
-			form.name.length > 0 &&
-				form.name.length <= 64 &&
-				(validator.isURL(form.url) ||
-					validator.isURL(form.url, { host_whitelist: ["localhost"] })),
-		);
+	const validation = createMemo(() => ({
+		name: form.name.length > 0 && form.name.length < 64,
+		url: isValidURL(form.url),
+		token: /^\d{9,16}:[A-Za-z0-9_-]{32,}$/.test(form.token),
+	}));
+
+	const valid = createMemo(() => {
+		if (validation().name && validation().url) {
+			if (form.token.length === 0) {
+				return true;
+			}
+
+			return validation().token;
+		}
+
+		return false;
 	});
 
 	const onClickCreate = async () => {
-		if (!form.valid) return;
+		if (!valid()) return;
 
 		const project = {
 			id: `${Math.random().toString(36)}00000000000000000`.slice(2, 10),
@@ -47,7 +49,7 @@ const DialogCreateProject: Component<{
 			token: form.token,
 		};
 
-		const defaultSettings: Project["settings"]["android"] = {
+		const defaultSettings: Project["settings"][TelegramPlatform] = {
 			expanded: false,
 			mode: "light",
 			open: true,
@@ -68,89 +70,60 @@ const DialogCreateProject: Component<{
 			},
 		]);
 
-		props.setIsOpen(false);
+		setModals("project", "new", "open", false);
 
 		openProject(project.id, () => <ProjectPage id={project.id} />);
 	};
 
 	return (
-		<Dialog open={props.isOpen()} onOpenChange={() => props.setIsOpen(false)}>
-			<Dialog.Portal>
-				<Dialog.Overlay class="dialog__overlay" />
-				<div class="dialog__positioner">
-					<Dialog.Content class="dialog__content">
-						<div class="dialog__header">
-							<Dialog.Title class="dialog__title">
-								Create New Project
-							</Dialog.Title>
-						</div>
+		<Modal
+			title="New Project"
+			closer={() => setModals("project", "new", "open", false)}
+			footer={
+				<button
+					type="button"
+					class="button-primary flex-grow"
+					style={{ padding: "0.625rem" }}
+					disabled={!valid()}
+					onClick={onClickCreate}
+				>
+					Create Project
+				</button>
+			}
+		>
+			<div class="grid gap-5 py-1">
+				<div class="grid gap-5 grid-cols-2">
+					<Input
+						label="Name"
+						placeholder="My Mini App"
+						value={form.name}
+						required
+						onInput={(e) => setForm("name", e.currentTarget.value)}
+						valid={validation().name}
+					/>
 
-						<Separator />
-
-						<div class="grid gap-4 py-4">
-							<div class="grid gap-4 grid-cols-2">
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										Name
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="My Mini App"
-										value={form.name}
-										onInput={(e) => setForm("name", e.currentTarget.value)}
-									/>
-								</TextField>
-
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label required">
-										URL
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input"
-										placeholder="http://127.0.0.1:8080"
-										value={form.url}
-										onInput={(e) => setForm("url", e.currentTarget.value)}
-									/>
-								</TextField>
-							</div>
-
-							<div>
-								<TextField class="text-field">
-									<TextField.Label class="text-field__label">
-										Bot Token (Optional)
-									</TextField.Label>
-									<TextField.Input
-										class="text-field__input w-full"
-										placeholder="123456:ABC-DEF1234"
-										value={form.token}
-										onInput={(e) => setForm("token", e.currentTarget.value)}
-									/>
-									<TextField.Description class="text-sm">
-										Bot token is used to sign the auth data passed to the bot.
-									</TextField.Description>
-								</TextField>
-							</div>
-						</div>
-
-						<Separator />
-
-						<div class="pt-3 flex justify-end gap-4">
-							<Dialog.CloseButton>
-								<Button>Cancel</Button>
-							</Dialog.CloseButton>
-
-							<Button
-								class="button"
-								disabled={!form.valid}
-								onClick={onClickCreate}
-							>
-								Create
-							</Button>
-						</div>
-					</Dialog.Content>
+					<Input
+						label="URL"
+						placeholder="http://localhost:8080"
+						value={form.url}
+						required
+						onInput={(e) => setForm("url", e.currentTarget.value)}
+						valid={validation().url}
+					/>
 				</div>
-			</Dialog.Portal>
-		</Dialog>
+
+				<div>
+					<Input
+						label="Bot Token (optional)"
+						placeholder="123456:ABC-DEF1234"
+						value={form.token}
+						onInput={(e) => setForm("token", e.currentTarget.value)}
+						description="Bot token is used to sign the auth data passed to the bot."
+						valid={validation().token}
+					/>
+				</div>
+			</div>
+		</Modal>
 	);
 };
 

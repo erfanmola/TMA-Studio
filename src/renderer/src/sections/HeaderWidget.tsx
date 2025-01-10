@@ -1,4 +1,4 @@
-import { ToggleButton } from "@kobalte/core/toggle-button";
+import Toggle from "@renderer/components/Toggle";
 import { useSettings } from "@renderer/contexts/SettingsContext";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
@@ -93,11 +93,10 @@ export const HeaderWidget: Component<{
 				<ul>
 					<Show when={projectFrame.state.open}>
 						<li>
-							<ToggleButton
-								class="toggle-button"
+							<Toggle
 								style={{ "font-size": "1.325rem" }}
 								title="Inspect Element"
-								pressed={projectFrame.inspectElement.open}
+								checked={projectFrame.inspectElement.open}
 								onChange={() =>
 									setProjectFrame(
 										"inspectElement",
@@ -107,34 +106,32 @@ export const HeaderWidget: Component<{
 								}
 							>
 								{() => <FaSolidCode />}
-							</ToggleButton>
+							</Toggle>
 						</li>
 
 						<li>
-							<ToggleButton
-								class="toggle-button"
+							<Toggle
 								style={{ "font-size": "1.325rem" }}
 								title="Expand / Collapse"
-								pressed={projectFrame.state.expanded}
+								checked={projectFrame.state.expanded}
 								onChange={(checked) =>
 									setProjectFrame("state", "expanded", checked)
 								}
 							>
-								{(state) => (
-									<Show when={state.pressed()} fallback={<IoChevronCollapse />}>
+								{(checked) => (
+									<Show when={checked} fallback={<IoChevronCollapse />}>
 										<IoChevronExpand />
 									</Show>
 								)}
-							</ToggleButton>
+							</Toggle>
 						</li>
 					</Show>
 
 					<li>
-						<ToggleButton
-							class="toggle-button"
+						<Toggle
 							style={{ "font-size": "1.325rem" }}
 							title="Dark / Light"
-							pressed={projectFrame.state.mode === "dark"}
+							checked={projectFrame.state.mode === "dark"}
 							onChange={() =>
 								setProjectFrame(
 									"state",
@@ -143,20 +140,19 @@ export const HeaderWidget: Component<{
 								)
 							}
 						>
-							{(state) => (
-								<Show when={state.pressed()} fallback={<FiSun />}>
+							{(checked) => (
+								<Show when={checked} fallback={<FiSun />}>
 									<FiMoon />
 								</Show>
 							)}
-						</ToggleButton>
+						</Toggle>
 					</li>
 
 					<li>
-						<ToggleButton
-							class="toggle-button"
+						<Toggle
 							style={{ "font-size": "1.425rem" }}
 							title="Floating Window"
-							pressed={projectFrame.window.floating}
+							checked={projectFrame.window.floating}
 							onChange={() =>
 								setProjectFrame(
 									"window",
@@ -165,12 +161,12 @@ export const HeaderWidget: Component<{
 								)
 							}
 						>
-							{(state) => (
-								<Show when={state.pressed()} fallback={<CgArrowTopRightR />}>
+							{(checked) => (
+								<Show when={checked} fallback={<CgArrowTopRightR />}>
 									<CgArrowBottomLeftR />
 								</Show>
 							)}
-						</ToggleButton>
+						</Toggle>
 					</li>
 				</ul>
 			</Show>

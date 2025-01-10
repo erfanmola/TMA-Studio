@@ -1,11 +1,9 @@
 import { batch, createEffect, on, type Component } from "solid-js";
 
-import { Button } from "@kobalte/core/button";
-import { Dialog } from "@kobalte/core/dialog";
-import { Separator } from "@kobalte/core/separator";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import type { UserContextMenuStore } from "./Header";
 import type { SetStoreFunction } from "solid-js/store";
+import Modal from "./Modal";
 
 const DialogRemoveUser: Component<{
 	UserContextMenuStore: [
@@ -43,51 +41,46 @@ const DialogRemoveUser: Component<{
 	};
 
 	return (
-		<Dialog
-			open={contextMenuStore.delete.open}
-			onOpenChange={() => setContextMenuStore("delete", "open", false)}
-		>
-			<Dialog.Portal>
-				<Dialog.Overlay class="dialog__overlay" />
-				<div class="dialog__positioner">
-					<Dialog.Content class="dialog__content">
-						<div class="dialog__header">
-							<Dialog.Title class="dialog__title">Delete User</Dialog.Title>
-						</div>
+		<Modal
+			title="Delete User"
+			closer={() => setContextMenuStore("delete", "open", false)}
+			footer={
+				<div class="grid grid-cols-2 flex-grow gap-2">
+					<button
+						type="button"
+						class="button-secondary"
+						style={{ padding: "0.625rem" }}
+						onClick={() => setContextMenuStore("delete", "open", false)}
+					>
+						Cancel
+					</button>
 
-						<Separator />
-
-						<div class="grid gap-4 py-4">
-							<p>
-								Are you sure of deleting the{" "}
-								<b>
-									{
-										preferences.users.users.find(
-											(item) =>
-												item.id ===
-												Number.parseInt(contextMenuStore.delete.id ?? ""),
-										)?.first_name
-									}
-								</b>{" "}
-								user?
-							</p>
-						</div>
-
-						<Separator />
-
-						<div class="pt-3 flex justify-end gap-4">
-							<Dialog.CloseButton>
-								<Button>Cancel</Button>
-							</Dialog.CloseButton>
-
-							<Button class="button" onClick={onClickDelete}>
-								Delete
-							</Button>
-						</div>
-					</Dialog.Content>
+					<button
+						type="button"
+						class="button-danger"
+						style={{ padding: "0.625rem" }}
+						onClick={onClickDelete}
+					>
+						Delete User
+					</button>
 				</div>
-			</Dialog.Portal>
-		</Dialog>
+			}
+		>
+			<div class="grid gap-5 py-1">
+				<p style={{ "text-align": "initial" }}>
+					Are you sure of deleting the{" "}
+					<b>
+						{
+							preferences.users.users.find(
+								(item) =>
+									item.id === Number.parseInt(contextMenuStore.delete.id ?? ""),
+							)?.first_name
+						}
+					</b>{" "}
+					user?
+				</p>
+			</div>
+		</Modal>
 	);
 };
 

@@ -1,3 +1,4 @@
+import validator from "validator";
 
 export const stringToColor = (str: string): string => {
     let hash = 0;
@@ -71,4 +72,9 @@ export const hex2Buffer = (hexString) => {
         bytes.push(Number.parseInt(hexString.substr(i, 2), 16));
     }
     return new Uint8Array(bytes);
+};
+
+export const isValidURL = (url) => {
+    return validator.isURL(url) ||
+        validator.isURL(url, { host_whitelist: ["localhost"] });
 };

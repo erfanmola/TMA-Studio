@@ -2,7 +2,12 @@ import "./Main.scss";
 
 import { Show, createEffect, createSignal, onMount } from "solid-js";
 import { Tabbar, closeTab } from "../components/Tabbar";
-import { preferences, setPreferences } from "@renderer/utils/preferences";
+import {
+	modals,
+	preferences,
+	setModals,
+	setPreferences,
+} from "@renderer/utils/preferences";
 
 import DialogAddUser from "../components/DialogCreateUser";
 import DialogCreateProject from "../components/DialogCreateProject";
@@ -23,9 +28,6 @@ const MainPage = () => {
 	const { settings } = useSettings();
 	const [initialized, setInitialized] = createSignal(false);
 
-	const [showProjectDialog, setShowProjectDialog] = createSignal(false);
-	const [showUserDialog, setShowUserDialog] = createSignal(false);
-
 	onMount(async () => {
 		initStore();
 		initStoreEffects();
@@ -37,12 +39,7 @@ const MainPage = () => {
 					title: "Projects",
 					dynamic: true,
 					closable: false,
-					component: () => (
-						<ProjectsPage
-							setShowProjectDialog={setShowProjectDialog}
-							showProjectDialog={showProjectDialog}
-						/>
-					),
+					component: () => <ProjectsPage />,
 				},
 			]);
 		}
@@ -56,12 +53,7 @@ const MainPage = () => {
 				if (tab.id.startsWith("project-")) {
 					component = () => <ProjectPage id={tab.id.replace("project-", "")} />;
 				} else if (tab.id === "projects") {
-					component = () => (
-						<ProjectsPage
-							setShowProjectDialog={setShowProjectDialog}
-							showProjectDialog={showProjectDialog}
-						/>
-					);
+					component = () => <ProjectsPage />;
 				} else if (tab.id === "preferences") {
 					component = () => <PreferencesPage />;
 				} else {
@@ -94,10 +86,10 @@ const MainPage = () => {
 			if (input.control || input.meta) {
 				switch (input.key) {
 					case "n":
-						setShowProjectDialog(true);
+						setModals("project", "new", "open", true);
 						break;
 					case "u":
-						setShowUserDialog(true);
+						setModals("user", "new", "open", true);
 						break;
 					case "w":
 						closeTab(preferences.tabbar.active);
@@ -178,11 +170,11 @@ const MainPage = () => {
 				<div id="container-page-content">
 					<Sidebar>
 						<ul>
-							<li onClick={() => setShowProjectDialog(true)}>
+							<li onClick={() => setModals("project", "new", "open", true)}>
 								<FaSolidPlus />
 							</li>
 
-							<li onClick={() => setShowUserDialog(true)}>
+							<li onClick={() => setModals("user", "new", "open", true)}>
 								<FiUserPlus style={{ "font-size": "1.625rem" }} />
 							</li>
 						</ul>
@@ -196,15 +188,12 @@ const MainPage = () => {
 				</div>
 			</main>
 
-			<Show when={showProjectDialog()}>
-				<DialogCreateProject
-					isOpen={showProjectDialog}
-					setIsOpen={setShowProjectDialog}
-				/>
+			<Show when={modals.project.new.open}>
+				<DialogCreateProject />
 			</Show>
 
-			<Show when={showUserDialog()}>
-				<DialogAddUser isOpen={showUserDialog} setIsOpen={setShowUserDialog} />
+			<Show when={modals.user.new.open}>
+				<DialogAddUser />
 			</Show>
 		</Show>
 	);

@@ -17,6 +17,18 @@
             margin-right: 1rem;
         }
     }
+
+    > div:last-child {
+        flex-shrink: 0;
+
+        .selectbox {
+            min-width: 12rem;
+
+            .solid-select-control {
+                border-width: 1px;
+            }
+        }
+    }
 }
 
 title-bar {

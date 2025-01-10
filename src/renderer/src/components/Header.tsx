@@ -1,16 +1,15 @@
 import "./Header.scss";
 
+import { FaRegularUser, FaSolidCheck } from "solid-icons/fa";
 import { FiMoon, FiSun } from "solid-icons/fi";
 import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
+import { Select, createOptions } from "@thisbeyond/solid-select";
 import { Show, createSignal } from "solid-js";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 
-import { AiOutlineUser } from "solid-icons/ai";
-import { BsCheckLg } from "solid-icons/bs";
 import DialogRemoveUser from "./DialogRemoveUser";
 import GHButton from "./GHButton";
 import type { HTMLTitleBarElementAttributes } from "@electron-uikit/titlebar/renderer";
-import { Select } from "@kobalte/core/select";
 import { TbDeviceMobileCode } from "solid-icons/tb";
 import { createStore } from "solid-js/store";
 import { onMount } from "solid-js";
@@ -117,60 +116,61 @@ const Header = () => {
 
 				<div>
 					<Select
-						options={[
+						class="selectbox"
+						{...createOptions(
+							[
+								{
+									value: "none",
+									label: "Guest",
+								},
+								...preferences.users.users.map((user) => ({
+									value: user.id,
+									label: `${user.first_name} ${user.last_name}`,
+								})),
+							],
 							{
-								value: "none",
-								label: "Guest",
+								format: (item) => (
+									<div
+										class="flex items-center selectbox-item"
+										classList={{
+											active: item.value === preferences.users.active,
+										}}
+										onContextMenu={(e) => {
+											e.preventDefault();
+											if (item.value === "none") return;
+											onContextMenu(item.value);
+										}}
+									>
+										<span style={{ "flex-grow": "1" }}>{item.label}</span>
+										<Show when={item.value === preferences.users.active}>
+											<FaSolidCheck />
+										</Show>
+									</div>
+								),
+								filterable: false,
+								disable: (item) => item.value === preferences.users.active,
 							},
-							...preferences.users.users.map((user) => ({
-								value: user.id,
-								label: user.first_name,
-							})),
-						]}
-						value={{
+						)}
+						initialValue={{
+							value: preferences.users.active,
 							label:
 								preferences.users.users.find(
 									(item) => item.id === preferences.users.active,
 								)?.first_name ?? "Guest",
-							value: preferences.users.active,
 						}}
-						onChange={(e) =>
-							setPreferences("users", "active", e?.value ?? "none")
+						format={(item, type) =>
+							type === "value" ? (
+								<div class="flex items-center">
+									<span class="flex-grow">{item.label}</span>
+									<FaRegularUser />
+								</div>
+							) : (
+								item.label
+							)
 						}
-						placeholder="Select User"
-						optionValue="value"
-						itemComponent={(props) => (
-							<Select.Item
-								item={props.item}
-								class="select__item"
-								onContextMenu={(e) => {
-									e.preventDefault();
-									if (props.item.rawValue.value === "none") return;
-									onContextMenu(props.item.rawValue.value);
-								}}
-							>
-								<Select.ItemLabel>{props.item.rawValue.label}</Select.ItemLabel>
-								<Select.ItemIndicator class="select__item-indicator">
-									<BsCheckLg />
-								</Select.ItemIndicator>
-							</Select.Item>
-						)}
-					>
-						<Select.Trigger class="select__trigger">
-							<Select.Value class="select__value">
-								{/* @ts-ignore */}
-								{(state) => state.selectedOption().label}
-							</Select.Value>
-							<Select.Icon class="select__icon">
-								<AiOutlineUser />
-							</Select.Icon>
-						</Select.Trigger>
-						<Select.Portal>
-							<Select.Content class="select__content">
-								<Select.Listbox class="select__listbox" />
-							</Select.Content>
-						</Select.Portal>
-					</Select>
+						onChange={(item) => setPreferences("users", "active", item.value)}
+						readonly={true}
+					/>
 				</div>
 
 				<Show when={contextMenuStore.delete.open && contextMenuStore.delete.id}>
