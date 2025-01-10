@@ -1,6 +1,6 @@
 {
 	"name": "tma-studio",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "A unified solution for developing Telegram Mini Apps.",
 	"main": "./out/main/index.js",
 	"author": "Erfan Mola",
@@ -26,8 +26,8 @@
 		"@electron-uikit/core": "^1.0.0",
 		"@electron-uikit/titlebar": "^1.2.0",
 		"@electron-uikit/toast": "^1.0.0",
-		"@kobalte/core": "^0.13.7",
 		"@solidjs/router": "^0.15.2",
+		"@thisbeyond/solid-select": "^0.15.0",
 		"animate.css": "^4.1.1",
 		"electron-store": "^10.0.0",
 		"electron-updater": "^6.3.9",
@@ -54,7 +54,7 @@
 		"sass-embedded": "^1.83.1",
 		"solid-js": "^1.9.4",
 		"tailwindcss": "^3.4.17",
-		"typescript": "^5.7.2",
+		"typescript": "^5.7.3",
 		"vite": "^6.0.7",
 		"vite-plugin-solid": "^2.11.0"
 	}
