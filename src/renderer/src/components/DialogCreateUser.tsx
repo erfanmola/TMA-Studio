@@ -3,7 +3,11 @@ import { createMemo, type Component } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 import { ietfLanguages } from "../utils/ietf";
 import type { User } from "../types";
-import { setModals, setPreferences } from "@renderer/utils/preferences";
+import {
+	preferences,
+	setModals,
+	setPreferences,
+} from "@renderer/utils/preferences";
 import Modal from "./Modal";
 import Input from "./Input";
 import Select from "./Select";
@@ -11,6 +15,7 @@ import Checkbox from "./Checkbox";
 import { isValidURL } from "@renderer/utils/general";
 import validator from "validator";
 import { FiGlobe } from "solid-icons/fi";
+import { toast } from "@electron-uikit/toast/renderer";
 
 const DialogAddUser: Component = () => {
 	const [form, setForm] = createStore({
@@ -52,6 +57,13 @@ const DialogAddUser: Component = () => {
 
 	const onClickCreate = async () => {
 		if (!valid()) return;
+
+		if (
+			preferences.users.users.find(
+				(item) => item.id === Number.parseInt(form.id),
+			)
+		)
+			return toast.text("User with given id already exists.");
 
 		const user: User = {
 			id: Number.parseInt(form.id),
@@ -109,7 +121,7 @@ const DialogAddUser: Component = () => {
 						placeholder="John"
 						value={form.first_name}
 						required
-						onInput={(e) => setForm("first_name", e.currentTarget.value)}
+						onInput={(e) => setForm("first_name", e.currentTarget.value.trim())}
 						valid={validation().first_name}
 					/>
 
@@ -117,7 +129,7 @@ const DialogAddUser: Component = () => {
 						label="Last Name"
 						placeholder="Doe"
 						value={form.last_name}
-						onInput={(e) => setForm("last_name", e.currentTarget.value)}
+						onInput={(e) => setForm("last_name", e.currentTarget.value.trim())}
 						valid={validation().last_name}
 					/>
 				</div>
@@ -128,7 +140,7 @@ const DialogAddUser: Component = () => {
 						placeholder="1234567890"
 						value={form.id}
 						required
-						onInput={(e) => setForm("id", e.currentTarget.value)}
+						onInput={(e) => setForm("id", e.currentTarget.value.trim())}
 						valid={validation().id}
 					/>
 
@@ -136,7 +148,7 @@ const DialogAddUser: Component = () => {
 						label="Username"
 						placeholder="John_Doe"
 						value={form.username}
-						onInput={(e) => setForm("username", e.currentTarget.value)}
+						onInput={(e) => setForm("username", e.currentTarget.value.trim())}
 						valid={validation().username}
 					/>
 				</div>
@@ -146,7 +158,7 @@ const DialogAddUser: Component = () => {
 						label="Photo URL"
 						placeholder="https://picsum.photos/256/256"
 						value={form.photo_url}
-						onInput={(e) => setForm("photo_url", e.currentTarget.value)}
+						onInput={(e) => setForm("photo_url", e.currentTarget.value.trim())}
 						valid={validation().photo_url}
 					/>
 

@@ -49,7 +49,8 @@
 
     > ul {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-auto-columns: 16rem;
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 0.2fr));
         gap: 1rem;
 
         > li {

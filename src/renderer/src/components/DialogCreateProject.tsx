@@ -98,7 +98,7 @@ const DialogCreateProject: Component = () => {
 						placeholder="My Mini App"
 						value={form.name}
 						required
-						onInput={(e) => setForm("name", e.currentTarget.value)}
+						onInput={(e) => setForm("name", e.currentTarget.value.trim())}
 						valid={validation().name}
 					/>
 
@@ -107,7 +107,7 @@ const DialogCreateProject: Component = () => {
 						placeholder="http://localhost:8080"
 						value={form.url}
 						required
-						onInput={(e) => setForm("url", e.currentTarget.value)}
+						onInput={(e) => setForm("url", e.currentTarget.value.trim())}
 						valid={validation().url}
 					/>
 				</div>
@@ -117,7 +117,7 @@ const DialogCreateProject: Component = () => {
 						label="Bot Token (optional)"
 						placeholder="123456:ABC-DEF1234"
 						value={form.token}
-						onInput={(e) => setForm("token", e.currentTarget.value)}
+						onInput={(e) => setForm("token", e.currentTarget.value.trim())}
 						description="Bot token is used to sign the auth data passed to the bot."
 						valid={validation().token}
 					/>

@@ -69,6 +69,14 @@ body {
     &:active {
         background-color: var(--accent-700);
     }
+
+    &:disabled {
+        cursor: not-allowed !important;
+
+        * {
+            cursor: not-allowed !important;
+        }
+    }
 }
 
 .button-secondary {
@@ -117,4 +125,15 @@ main {
     flex-direction: column;
     flex-grow: 1;
     max-height: 100%;
+}
+
+.toast {
+    --toast-bottom: 6rem;
+    --toast-z-index: 1000000001;
+    --toast-color: var(--bg-card);
+    --toast-text-color: var(--text-color);
+    --toast-font-size: 1rem;
+    --toast-font-family: "Inter", Avenir, Helvetica, Arial, sans-serif;
+    --toast-icon-size: 1.25rem;
+    --toast-max-width: 20rem;
 }

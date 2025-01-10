@@ -22,11 +22,16 @@ import Sidebar from "../components/Sidebar";
 import type { TabbarTab } from "@renderer/types";
 import { deserializeObject } from "@renderer/utils/general";
 import { initStore } from "@renderer/utils/store";
+import { toast } from "@electron-uikit/toast/renderer";
 import { useSettings } from "../contexts/SettingsContext";
 
 const MainPage = () => {
 	const { settings } = useSettings();
 	const [initialized, setInitialized] = createSignal(false);
+
+	toast.config({
+		customClass: "toast",
+	});
 
 	onMount(async () => {
 		initStore();
