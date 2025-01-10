@@ -14,6 +14,7 @@ import type { TMAProjectFrame } from "@renderer/pages/Project";
 import { generateProjectFrame } from "@renderer/utils/telegram";
 import { deserializeObject } from "@renderer/utils/general";
 import { useSettings } from "@renderer/contexts/SettingsContext";
+import { PlatformNames } from "@renderer/utils/platforms";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
@@ -66,7 +67,7 @@ const FloatingProject: Component = () => {
 						<HeaderWidget
 							project={project}
 							platform="android"
-							title="Telegram Android"
+							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
@@ -86,7 +87,7 @@ const FloatingProject: Component = () => {
 						<HeaderWidget
 							project={project}
 							platform="ios"
-							title="Telegram iOS"
+							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>

@@ -2,9 +2,22 @@ import "./Preferences.scss";
 
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 
-import { createEffect, createSignal, on, Show, type Component } from "solid-js";
+import {
+	createEffect,
+	createSignal,
+	For,
+	on,
+	Show,
+	type Component,
+} from "solid-js";
 import { HorizontalSelect } from "@renderer/components/HorizontalSelect";
 import Switch from "@renderer/components/Switch";
+import { createOptions, Select } from "@thisbeyond/solid-select";
+import { Viewport } from "@renderer/utils/viewport";
+import { FaSolidCheck } from "solid-icons/fa";
+import { AiOutlineMobile } from "solid-icons/ai";
+import type { TelegramPlatform } from "@renderer/utils/themes";
+import { PlatformNames } from "@renderer/utils/platforms";
 
 const PreferencesPage: Component = () => {
 	const [hsUIScale, setHSUIScale] = createSignal(preferences.ui.scale);
@@ -167,6 +180,77 @@ const PreferencesPage: Component = () => {
 							/>
 						</div>
 					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h2>Viewport Settings</h2>
+
+				<ul>
+					<For each={["android", "ios"] as TelegramPlatform[]}>
+						{(platform) => (
+							<li>
+								<span>{PlatformNames[platform]} Viewport</span>
+
+								<div>
+									<Select
+										class="selectbox"
+										{...createOptions(
+											Viewport[platform].map((item) => ({
+												label: item.name,
+												value: item.size,
+											})),
+											{
+												format: (item) => (
+													<div
+														class="flex items-center selectbox-item"
+														classList={{
+															active:
+																item.value === preferences.viewport[platform],
+														}}
+													>
+														<span style={{ "flex-grow": "1" }}>
+															{item.label}
+														</span>
+														<Show
+															when={
+																item.value === preferences.viewport[platform]
+															}
+														>
+															<FaSolidCheck />
+														</Show>
+													</div>
+												),
+												filterable: false,
+												disable: (item) =>
+													item.value === preferences.viewport[platform],
+											},
+										)}
+										initialValue={{
+											value: preferences.viewport[platform],
+											label: Viewport[platform].find(
+												(item) => item.size === preferences.viewport[platform],
+											),
+										}}
+										format={(item, type) =>
+											type === "value" ? (
+												<div class="flex items-center">
+													<span class="flex-grow">{item.label.name}</span>
+													<AiOutlineMobile />
+												</div>
+											) : (
+												item.label
+											)
+										}
+										onChange={(item) =>
+											setPreferences("viewport", platform, item.value)
+										}
+										readonly={true}
+									/>
+								</div>
+							</li>
+						)}
+					</For>
 				</ul>
 			</section>
 		</section>

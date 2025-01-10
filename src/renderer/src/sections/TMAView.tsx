@@ -413,6 +413,13 @@ export const TMAView: Component<{
 			setProjectInner("ready", true);
 		});
 
+		projectInner.webview.addEventListener("did-stop-loading", () => {
+			projectInner.webview?.setZoomFactor(
+				projectInner.webview?.clientWidth /
+					preferences.viewport[projectFrame.platform],
+			);
+		});
+
 		onCleanup(() => {
 			if (projectFrame.state.open && projectInner.webview?.isDevToolsOpened()) {
 				try {
@@ -484,6 +491,7 @@ export const TMAView: Component<{
 				ref={(el) => setProjectInner("webview", el)}
 				id={`webview-${props.project.id}-${projectFrame.platform}`}
 				src={webAppUrl() ?? ""}
+				partition={`persist:${props.project.id}-${projectFrame.platform}`}
 			/>
 		</>
 	);

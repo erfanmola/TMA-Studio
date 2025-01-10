@@ -1,5 +1,7 @@
 import type { Project, TabbarTab, User } from "../renderer/src/types";
 
+import type { TelegramPlatform } from "../renderer/src/utils/themes";
+
 export type Preferences = {
     theme_mode: 'light' | 'dark';
     ui: {
@@ -25,6 +27,9 @@ export type Preferences = {
     users: {
         users: User[],
         active: string | number,
+    },
+    viewport: {
+        [key in TelegramPlatform]: number
     },
 };
 
@@ -53,5 +58,12 @@ export const defaultPreferences: Preferences = {
     users: {
         active: 'none',
         users: [],
+    },
+    viewport: {
+        android: 411,
+        ios: 414,
+        tdesktop: 384,
+        web: 480,
+        weba: 420,
     }
 };

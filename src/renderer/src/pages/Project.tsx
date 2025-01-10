@@ -12,6 +12,7 @@ import { ViewportIOS } from "@renderer/sections/ViewportIOS";
 import { createStore, produce } from "solid-js/store";
 import { generateProjectFrame } from "@renderer/utils/telegram";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
+import { PlatformNames } from "@renderer/utils/platforms";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;
@@ -59,7 +60,7 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				<HeaderWidget
 					project={props.project}
 					platform="android"
-					title="Telegram Android"
+					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 					projectFrameStore={[projectFrame, setProjectFrame]}
 					placeholder={projectFrame.window.floating}
 				/>
@@ -105,7 +106,7 @@ const SectionIOS: Component<{ project: Project }> = (props) => {
 				<HeaderWidget
 					project={props.project}
 					platform="ios"
-					title="Telegram iOS"
+					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 					projectFrameStore={[projectFrame, setProjectFrame]}
 					placeholder={projectFrame.window.floating}
 				/>
