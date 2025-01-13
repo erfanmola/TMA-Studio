@@ -69,7 +69,7 @@ const Header = () => {
 		menu.append(
 			new MenuItem({
 				type: "normal",
-				label: "Delete Project",
+				label: "Delete User",
 				click: () => {
 					setContextMenuStore("delete", {
 						id: userId,
@@ -125,7 +125,7 @@ const Header = () => {
 								},
 								...preferences.users.users.map((user) => ({
 									value: user.id,
-									label: `${user.first_name} ${user.last_name}`,
+									label: `${user.first_name} ${user.last_name ?? ""}`,
 								})),
 							],
 							{

@@ -109,22 +109,24 @@ export const HeaderWidget: Component<{
 							</Toggle>
 						</li>
 
-						<li>
-							<Toggle
-								style={{ "font-size": "1.325rem" }}
-								title="Expand / Collapse"
-								checked={projectFrame.state.expanded}
-								onChange={(checked) =>
-									setProjectFrame("state", "expanded", checked)
-								}
-							>
-								{(checked) => (
-									<Show when={checked} fallback={<IoChevronCollapse />}>
-										<IoChevronExpand />
-									</Show>
-								)}
-							</Toggle>
-						</li>
+						<Show when={["android", "ios"].includes(projectFrame.platform)}>
+							<li>
+								<Toggle
+									style={{ "font-size": "1.325rem" }}
+									title="Expand / Collapse"
+									checked={projectFrame.state.expanded}
+									onChange={(checked) =>
+										setProjectFrame("state", "expanded", checked)
+									}
+								>
+									{(checked) => (
+										<Show when={checked} fallback={<IoChevronCollapse />}>
+											<IoChevronExpand />
+										</Show>
+									)}
+								</Toggle>
+							</li>
+						</Show>
 					</Show>
 
 					<li>

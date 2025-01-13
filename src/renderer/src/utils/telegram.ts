@@ -343,8 +343,12 @@ export const tgEventHandler = (
 			tgEmitEvent(
 				"viewport_changed",
 				{
-					height: Math.round(height),
-					width: Math.round(width),
+					height: Math.round(
+						height / (width / preferences.viewport[projectFrame.platform]),
+					),
+					width: Math.round(
+						width / (width / preferences.viewport[projectFrame.platform]),
+					),
 					is_expanded: projectFrame.state.expanded,
 					is_state_stable: true,
 				},

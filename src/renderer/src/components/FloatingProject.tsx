@@ -15,6 +15,7 @@ import { generateProjectFrame } from "@renderer/utils/telegram";
 import { deserializeObject } from "@renderer/utils/general";
 import { useSettings } from "@renderer/contexts/SettingsContext";
 import { PlatformNames } from "@renderer/utils/platforms";
+import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
@@ -62,11 +63,11 @@ const FloatingProject: Component = () => {
 	return (
 		<Switch>
 			<Match when={platform === "android"}>
-				<div id="section-telegram-android">
+				<div id={`section-telegram-${platform}`}>
 					<div>
 						<HeaderWidget
 							project={project}
-							platform="android"
+							platform={platform}
 							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
@@ -82,17 +83,37 @@ const FloatingProject: Component = () => {
 			</Match>
 
 			<Match when={platform === "ios"}>
-				<div id="section-telegram-ios">
+				<div id={`section-telegram-${platform}`}>
 					<div>
 						<HeaderWidget
 							project={project}
-							platform="ios"
+							platform={platform}
 							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
 
 						<ViewportIOS
+							project={project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={false}
+						/>
+					</div>
+				</div>
+			</Match>
+
+			<Match when={platform === "tdesktop"}>
+				<div id={`section-telegram-${platform}`}>
+					<div>
+						<HeaderWidget
+							project={project}
+							platform={platform}
+							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={false}
+						/>
+
+						<ViewportDesktop
 							project={project}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}

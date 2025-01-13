@@ -25,3 +25,15 @@ export const AndroidFrame: ParentComponent<{
 		</div>
 	);
 };
+
+export const DesktopFrame: ParentComponent<{
+	classList?: {
+		[k: string]: boolean | undefined;
+	};
+}> = (props) => {
+	return (
+		<div id="frame-desktop" classList={props.classList}>
+			<div>{props.children}</div>
+		</div>
+	);
+};

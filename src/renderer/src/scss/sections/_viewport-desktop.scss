@@ -1,31 +1,25 @@
-#viewport-telegram-ios {
+#viewport-telegram-desktop {
 	display: flex;
 	width: 100%;
 	height: 100%;
 	flex-direction: column;
 	position: relative;
-
-	> svg {
-		display: block;
-		width: 100%;
-		height: auto;
-		position: absolute;
-		inset: 0;
-		margin-top: 0.375rem;
-	}
+	border-radius: 0.625rem;
+	overflow: hidden;
+	box-shadow: var(--shadow-deep);
 
 	> header {
-		display: grid;
-		grid-template-columns: 1fr 2fr 1fr;
-		padding: 3.125rem 0.5rem 0.425rem;
+		display: flex;
+		padding: 1rem;
 		cursor: default;
+		gap: 1rem;
 
 		* {
 			cursor: default;
 		}
 
 		> div {
-			&:nth-child(1) {
+			&:nth-child(2) {
 				display: flex;
 				align-items: center;
 
@@ -36,77 +30,96 @@
 
 					> svg {
 						display: inline;
-						font-size: 1.125rem;
+						font-size: 1.425rem;
 					}
 				}
 			}
 
-			&:nth-child(2) {
+			&:nth-child(1) {
+				flex-grow: 1;
 				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				overflow: hidden;
-				max-width: 100%;
-				text-overflow: ellipsis;
+				gap: 0.75rem;
 
-				> h2 {
-					line-height: normal;
-					font-size: 1rem;
-					font-weight: 600;
-					text-overflow: ellipsis;
-					white-space: nowrap;
-					overflow: hidden;
+				> div:first-child {
 					display: flex;
-					max-width: 12rem;
-				}
-
-				> span {
-					line-height: normal;
-					font-size: 0.75rem;
-				}
-			}
-
-			&:nth-child(3) {
-				display: flex;
-				align-items: center;
-				justify-content: end;
-
-				> span {
-					display: flex;
-					color: white;
-					aspect-ratio: 1/1;
-					border-radius: 50%;
-					width: 2rem;
 					align-items: center;
+					justify-content: end;
+
+					> span {
+						display: flex;
+						color: white;
+						aspect-ratio: 1/1;
+						border-radius: 50%;
+						width: 2.25rem;
+						align-items: center;
+						justify-content: center;
+						text-align: center;
+						font-weight: 500;
+					}
+				}
+
+				> div:last-child {
+					display: flex;
+					flex-direction: column;
 					justify-content: center;
-					text-align: center;
-					font-weight: 500;
+					align-items: flex-start;
+					text-align: initial;
+					overflow: hidden;
+					max-width: 100%;
+					text-overflow: ellipsis;
+
+					> h2 {
+						line-height: normal;
+						font-size: 1rem;
+						font-weight: 600;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						overflow: hidden;
+						display: flex;
+						max-width: 12rem;
+					}
+
+					> span {
+						line-height: normal;
+						font-size: 0.75rem;
+						opacity: 0.75;
+					}
 				}
 			}
 		}
 	}
 
 	&.dark {
-		> div:nth-child(3) {
-			background: var(--telegram-ios-bg-gradient-dark);
+		border-color: var(--tg-var-tdesktop-dark-section_separator_color);
+
+		> header {
+			border-color: var(--tg-var-tdesktop-dark-section_separator_color);
+		}
+
+		> div:nth-child(2) {
+			background: var(--tg-var-tdesktop-dark-bg_color);
 
 			&::before {
 				filter: invert(1);
 			}
 		}
+
+		> section {
+			> footer {
+				background-color: var(--tg-var-tdesktop-dark-bottom_bar_bg_color);
+			}
+		}
 	}
 
-	> div:nth-child(3) {
+	> div:nth-child(2) {
 		display: flex;
 		content: "";
 		flex-grow: 1;
-		background: var(--telegram-ios-bg-gradient-light);
+		background: var(--telegram-desktop-bg-gradient-light);
 		position: relative;
 
 		&::before {
-			background: url("/assets/patterns/pattern-3.svg") repeat;
+			background: url("/assets/patterns/pattern-2.svg") repeat;
 			position: absolute;
 			inset: 0;
 			width: 100%;
@@ -116,27 +129,22 @@
 		}
 	}
 
-	> span:nth-child(4) {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.25);
-	}
-
-	&.open.expanded {
+	&.open {
 		background-color: black;
 
 		> header {
-			margin: 3.5rem 1rem 0;
-			border-top-left-radius: 1rem;
-			border-top-right-radius: 1rem;
-			background-color: var(--tg-var-ios-light-section_bg_color) !important;
+			background-color: var(--tg-var-tdesktop-light-section_bg_color) !important;
 		}
 
 		&.dark {
 			> header {
-				background-color: var(--tg-var-ios-dark-section_bg_color) !important;
+				background-color: var(--tg-var-tdesktop-dark-section_bg_color) !important;
+			}
+
+			> section {
+				> header {
+					border-bottom: 1px solid var(--tg-var-tdesktop-dark-section_separator_color);
+				}
 			}
 		}
 	}
@@ -149,19 +157,14 @@
 		top: auto;
 		display: flex;
 		flex-direction: column;
-		border-top-left-radius: 1rem;
-		border-top-right-radius: 1rem;
 		overflow: hidden;
-		height: 68%;
-
-		&.expanded {
-			height: calc(100% - 4.25rem);
-		}
+		height: 100%;
 
 		> header {
-			display: grid;
-			grid-template-columns: 1fr 2fr 1fr;
-			padding: 0.5rem;
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 0 1rem;
 			cursor: default;
 
 			> div {
@@ -172,7 +175,7 @@
 					> span {
 						display: flex;
 						align-items: center;
-						font-size: 0.875rem;
+						font-size: 1.375rem;
 						cursor: pointer;
 					}
 				}
@@ -181,15 +184,18 @@
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
-					align-items: center;
-					text-align: center;
+					align-items: flex-start;
+					text-align: initial;
 					overflow: hidden;
 					max-width: 100%;
 					text-overflow: ellipsis;
+					flex-grow: 1;
+					margin-inline-start: -0.325rem;
+					padding: 1.25rem 0;
 
 					> h2 {
 						line-height: normal;
-						font-size: 0.925rem;
+						font-size: 1.175rem;
 						font-weight: 600;
 						text-overflow: ellipsis;
 						white-space: nowrap;
@@ -197,22 +203,15 @@
 						display: flex;
 						max-width: 100%;
 					}
-
-					> span {
-						line-height: normal;
-						font-size: 0.75rem;
-					}
 				}
 
-				&:nth-child(3) {
+				&:nth-child(3),
+				&:nth-child(4) {
 					display: flex;
 					align-items: center;
 					justify-content: end;
-					font-size: 1.125rem;
-
-					svg {
-						cursor: pointer;
-					}
+					font-size: 1.375rem;
+					cursor: pointer;
 				}
 			}
 		}
@@ -238,6 +237,19 @@
 				flex-grow: 1;
 				width: 100%;
 				height: 100%;
+			}
+		}
+
+		> footer {
+			background-color: var(--tg-var-tdesktop-light-bottom_bar_bg_color);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			padding: 1rem;
+
+			> span {
+				color: var(--tg-var-tdesktop-light-hint_color);
 			}
 		}
 	}
@@ -283,6 +295,12 @@
 
 		svg {
 			font-size: 1.325rem;
+		}
+	}
+
+	#section-telegram-bottombar {
+		> ul {
+			padding: 1rem;
 		}
 	}
 }

@@ -32,6 +32,7 @@ import type {
 import type { WebviewTag } from "electron";
 import type { MenuMoreStore } from "./MenuMore";
 import { preferences } from "@renderer/utils/preferences";
+import { sleep } from "telegram/Helpers";
 
 declare module "solid-js" {
 	namespace JSX {
@@ -96,8 +97,12 @@ export const TMAView: Component<{
 				tgEmitEvent(
 					"viewport_changed",
 					{
-						height: Math.round(height),
-						width: Math.round(width),
+						height: Math.round(
+							height / (width / preferences.viewport[projectFrame.platform]),
+						),
+						width: Math.round(
+							width / (width / preferences.viewport[projectFrame.platform]),
+						),
 						is_expanded: projectFrame.state.expanded,
 						is_state_stable: true,
 					},
@@ -359,7 +364,10 @@ export const TMAView: Component<{
 				if (!projectFrame.state.open) {
 					batch(() => {
 						setProjectFrame("inspectElement", "open", false);
-						setProjectFrame("state", "expanded", false);
+
+						if (["android", "ios"].includes(projectFrame.platform)) {
+							setProjectFrame("state", "expanded", false);
+						}
 
 						setProjectInner("backButton", "enabled", false);
 						setProjectInner("settingsButton", "enabled", false);
@@ -409,16 +417,27 @@ export const TMAView: Component<{
 		});
 
 		projectInner.webview.addEventListener("dom-ready", () => {
-			projectInner.webview?.insertCSS(webviewStyle);
+			if (["android", "ios"].includes(projectFrame.platform)) {
+				projectInner.webview?.insertCSS(webviewStyle);
+			}
 			setProjectInner("ready", true);
 		});
 
-		projectInner.webview.addEventListener("did-stop-loading", () => {
-			projectInner.webview?.setZoomFactor(
-				projectInner.webview?.clientWidth /
-					preferences.viewport[projectFrame.platform],
-			);
-		});
+		const handleZoomEvent = async () => {
+			const setZoom = () => {
+				projectInner.webview?.setZoomFactor(
+					projectInner.webview?.clientWidth /
+						preferences.viewport[projectFrame.platform],
+				);
+			};
+
+			for (let i = 0; i <= 10; i++) {
+				setZoom();
+				await sleep(10);
+			}
+		};
+
+		projectInner.webview.addEventListener("did-stop-loading", handleZoomEvent);
 
 		onCleanup(() => {
 			if (projectFrame.state.open && projectInner.webview?.isDevToolsOpened()) {

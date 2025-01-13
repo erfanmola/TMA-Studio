@@ -28,7 +28,8 @@ body.floating-project {
 	color: var(--text-color);
 
 	#section-telegram-ios,
-	#section-telegram-android {
+	#section-telegram-android,
+	#section-telegram-tdesktop {
 		> div {
 			width: 100%;
 
@@ -41,7 +42,20 @@ body.floating-project {
 	}
 
 	#frame-iphone,
-	#frame-android {
+	#frame-android,
+	#frame-desktop {
 		width: 100% !important;
+	}
+
+	#viewport-telegram-desktop {
+		> section {
+			> header {
+				> div {
+					&:nth-child(2) {
+						app-region: drag;
+					}
+				}
+			}
+		}
 	}
 }

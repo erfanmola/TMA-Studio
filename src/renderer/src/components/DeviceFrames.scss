@@ -36,7 +36,6 @@
 	aspect-ratio: 0.485;
 	max-width: 100%;
 	height: 100%;
-	border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
 	position: relative;
 	overflow: hidden;
 	background: url("/assets/devices/Samsung-S22.svg") no-repeat;
@@ -65,8 +64,24 @@
 	}
 }
 
+#frame-desktop {
+	display: flex;
+	aspect-ratio: 0.566;
+	max-width: 100%;
+	height: 80%;
+	position: relative;
+	overflow: hidden;
+
+	> div {
+		display: flex;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+}
+
 #frame-iphone,
-#frame-android {
+#frame-android,
+#frame-desktop {
 	&.placeholder {
 		background-color: var(--device-frame-color-placeholder);
 		border-color: var(--device-frame-border-placeholder);
@@ -89,4 +104,8 @@
 
 #frame-android.placeholder {
 	border-radius: 12% / 6%;
+}
+
+#frame-desktop.placeholder {
+	border-radius: 0.625rem;
 }

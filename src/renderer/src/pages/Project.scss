@@ -1,112 +1,114 @@
 #container-page-project {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-    > svg {
-        z-index: -1;
-    }
+	> svg {
+		z-index: -1;
+	}
 
-    > div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        flex-grow: 1;
-        padding: 1rem;
-        grid-gap: 1rem;
-        width: 100%;
-        height: 100%;
-        max-height: 1024px;
-    }
+	> div {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		flex-grow: 1;
+		padding: 1rem;
+		grid-gap: 1rem;
+		width: 100%;
+		height: 100%;
+		max-height: 1024px;
+	}
 }
 
 #section-telegram-ios,
-#section-telegram-android {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+#section-telegram-android,
+#section-telegram-tdesktop {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
 
-    > div {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        flex-grow: 1;
-        flex-shrink: 0;
-        align-items: center;
-        justify-content: center;
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		flex-grow: 1;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: flex-start;
 
-        > header {
-            display: flex;
-            justify-content: flex-start;
-            background-color: var(--bg-color);
-            box-shadow: var(--shadow-card);
-            border: 1px solid rgba(var(--opposite-rgb), 0.125);
-            border-radius: 0.25rem;
-            padding: 0;
-            align-items: center;
-            width: 100%;
+		> header {
+			display: flex;
+			justify-content: flex-start;
+			background-color: var(--bg-color);
+			box-shadow: var(--shadow-card);
+			border: 1px solid rgba(var(--opposite-rgb), 0.125);
+			border-radius: 0.25rem;
+			padding: 0;
+			align-items: center;
+			width: 100%;
+			gap: 1rem;
 
-            > h2 {
-                display: flex;
-                font-weight: 600;
-                flex-grow: 1;
-                height: 100%;
-                align-items: center;
-                padding-inline-start: 1rem;
-                min-height: 3.5rem;
-            }
+			> h2 {
+				display: flex;
+				font-weight: 600;
+				flex-grow: 1;
+				height: 100%;
+				align-items: center;
+				padding-inline-start: 1rem;
+				min-height: 3.5rem;
+			}
 
-            > ul {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                padding: 0.5rem 1rem 0.5rem 0;
-            }
-        }
-    }
+			> ul {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				padding: 0.5rem 1rem 0.5rem 0;
+			}
+		}
+	}
 }
 
 .shake {
-    animation: vibrate 0.5s;
-    animation-iteration-count: infinite;
+	animation: vibrate 0.5s;
+	animation-iteration-count: infinite;
 
-    @keyframes vibrate {
-        0% {
-            transform: rotate(0deg);
-        }
-        10% {
-            transform: rotate(-1deg);
-        }
-        20% {
-            transform: rotate(1deg);
-        }
-        30% {
-            transform: rotate(0deg);
-        }
-        40% {
-            transform: rotate(1deg);
-        }
-        50% {
-            transform: rotate(-1deg);
-        }
-        60% {
-            transform: rotate(0deg);
-        }
-        70% {
-            transform: rotate(-1deg);
-        }
-        80% {
-            transform: rotate(1deg);
-        }
-        90% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(-1deg);
-        }
-    }
+	@keyframes vibrate {
+		0% {
+			transform: rotate(0deg);
+		}
+		10% {
+			transform: rotate(-1deg);
+		}
+		20% {
+			transform: rotate(1deg);
+		}
+		30% {
+			transform: rotate(0deg);
+		}
+		40% {
+			transform: rotate(1deg);
+		}
+		50% {
+			transform: rotate(-1deg);
+		}
+		60% {
+			transform: rotate(0deg);
+		}
+		70% {
+			transform: rotate(-1deg);
+		}
+		80% {
+			transform: rotate(1deg);
+		}
+		90% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(-1deg);
+		}
+	}
 }

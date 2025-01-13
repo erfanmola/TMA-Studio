@@ -187,7 +187,7 @@ const PreferencesPage: Component = () => {
 				<h2>Viewport Settings</h2>
 
 				<ul>
-					<For each={["android", "ios"] as TelegramPlatform[]}>
+					<For each={["android", "ios", "tdesktop"] as TelegramPlatform[]}>
 						{(platform) => (
 							<li>
 								<span>{PlatformNames[platform]} Viewport</span>

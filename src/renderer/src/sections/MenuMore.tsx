@@ -63,6 +63,10 @@ export const MenuMore: Component<{
 				<Match when={projectFrame.platform === "android"}>
 					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
 				</Match>
+
+				<Match when={projectFrame.platform === "tdesktop"}>
+					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
+				</Match>
 			</Switch>
 
 			<div classList={{ active: menuMore.open }}>

@@ -129,4 +129,48 @@
 			}
 		}
 	}
+
+	&.tdesktop {
+		> div {
+			border-radius: 0.5rem;
+			overflow: hidden;
+			-webkit-backdrop-filter: saturate(180%) blur(20px);
+			backdrop-filter: saturate(180%) blur(20px);
+			border: 1px solid;
+
+			> ul {
+				> li:not(:last-child) {
+					border-bottom: 1px solid;
+				}
+			}
+		}
+
+		&.light {
+			> div {
+				background-color: rgba(255, 255, 255, 0.75);
+				color: #000000;
+				border-color: rgba(0, 0, 0, 0.25);
+
+				> ul {
+					> li {
+						border-color: rgba(0, 0, 0, 0.25);
+					}
+				}
+			}
+		}
+
+		&.dark {
+			> div {
+				background-color: rgba(38, 38, 38, 0.75);
+				color: #ffffff;
+				border-color: rgba(255, 255, 255, 0.25);
+
+				> ul {
+					> li {
+						border-color: rgba(255, 255, 255, 0.25);
+					}
+				}
+			}
+		}
+	}
 }

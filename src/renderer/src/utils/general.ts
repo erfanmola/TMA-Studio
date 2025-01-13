@@ -85,3 +85,7 @@ export const isValidURL = (url) => {
 		validator.isURL(url, { host_whitelist: ["localhost"] })
 	);
 };
+
+export const sleep = (ms: number) => {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+};
