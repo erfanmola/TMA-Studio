@@ -1,12 +1,15 @@
 #viewport-telegram-desktop {
 	display: flex;
-	width: 100%;
-	height: 100%;
+	width: calc(100% - 1rem);
+	height: calc(100% - 1rem);
+	margin: 0.5rem;
 	flex-direction: column;
 	position: relative;
 	border-radius: 0.625rem;
 	overflow: hidden;
-	box-shadow: var(--shadow-deep);
+	box-shadow:
+		0 4px 8px rgba(0, 0, 0, 0.12),
+		0 2px 4px rgba(0, 0, 0, 0.08);
 
 	> header {
 		display: flex;
