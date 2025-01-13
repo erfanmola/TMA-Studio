@@ -13,7 +13,7 @@
 		"format": "biome format ./src",
 		"start": "electron-vite preview",
 		"dev": "electron-vite dev",
-		"build": "npm run typecheck && npm run lint && npm run format && electron-vite build",
+		"build": "npm run typecheck && npm run lint && electron-vite build",
 		"postinstall": "electron-builder install-app-deps",
 		"build:unpack": "npm run build && electron-builder --dir",
 		"build:win": "npm run build && electron-builder --win",
