@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import Input from "./Input";
 import { isValidURL } from "@renderer/utils/general";
 import type { TelegramPlatform } from "@renderer/utils/themes";
+import Alert from "./Alert";
 
 const DialogCreateProject: Component = () => {
 	const [form, setForm] = createStore({
@@ -123,6 +124,35 @@ const DialogCreateProject: Component = () => {
 					/>
 				</div>
 			</div>
+
+			<Alert type="info" style={{ width: "30rem", "margin-top": "0.5rem" }}>
+				<p
+					style={{
+						"line-height": "2",
+						"font-size": "0.925rem",
+						"text-align": "justify",
+					}}
+				>
+					User{" "}
+					<b>
+						{preferences.users.users.find(
+							(item) => item.id === preferences.users.active,
+						)?.first_name ?? "Guest"}
+					</b>{" "}
+					will be used for this project. You can{" "}
+					<span
+						onClick={() => setModals("user", "new", "open", true)}
+						style={{
+							cursor: "pointer",
+							"border-bottom": "0.125rem dotted currentColor",
+							"padding-bottom": "0.125rem",
+						}}
+					>
+						create new user
+					</span>{" "}
+					and seamlessly switch between them in real-time.
+				</p>
+			</Alert>
 		</Modal>
 	);
 };
