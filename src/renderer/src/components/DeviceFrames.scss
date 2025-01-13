@@ -1,92 +1,92 @@
 #frame-iphone {
-    display: flex;
-    aspect-ratio: 0.485;
-    max-width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    background: url("/assets/devices/iPhone-16-Pro.svg") no-repeat;
-    background-size: contain;
-    padding: 3.5% 3.75% 4.5% 3.75%;
+	display: flex;
+	aspect-ratio: 0.485;
+	max-width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	background: url("/assets/devices/iPhone-16-Pro.svg") no-repeat;
+	background-size: contain;
+	padding: 3.5% 3.75% 4.5% 3.75%;
 
-    &::before {
-        content: "";
-        background-color: #000;
-        top: 2.625%;
-        width: 25%;
-        height: 3.75%;
-        position: absolute;
-        border-radius: 100rem;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 9999;
-        border: 1px solid rgba(255, 255, 255, 0.125);
-    }
+	&::before {
+		content: "";
+		background-color: #000;
+		top: 2.625%;
+		width: 25%;
+		height: 3.75%;
+		position: absolute;
+		border-radius: 100rem;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 9999;
+		border: 1px solid rgba(255, 255, 255, 0.125);
+	}
 
-    > div {
-        display: flex;
-        flex-grow: 1;
-        border-radius: 14% / 7%;
-        overflow: hidden;
-    }
+	> div {
+		display: flex;
+		flex-grow: 1;
+		border-radius: 14% / 7%;
+		overflow: hidden;
+	}
 }
 
 #frame-android {
-    display: flex;
-    aspect-ratio: 0.485;
-    max-width: 100%;
-    height: 100%;
-    border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
-    position: relative;
-    overflow: hidden;
-    background: url("/assets/devices/Samsung-S22.svg") no-repeat;
-    background-size: contain;
-    padding: 4.5% 4.925% 5.25% 4.325%;
+	display: flex;
+	aspect-ratio: 0.485;
+	max-width: 100%;
+	height: 100%;
+	border-radius: calc(var(--android-frame-radius) - var(--android-frame-border));
+	position: relative;
+	overflow: hidden;
+	background: url("/assets/devices/Samsung-S22.svg") no-repeat;
+	background-size: contain;
+	padding: 4.5% 4.925% 5.25% 4.325%;
 
-    &::before {
-        content: "";
-        background-color: #000;
-        border: 1px solid rgba(255, 255, 255, 0.125);
-        top: 4%;
-        width: 5%;
-        aspect-ratio: 1/1;
-        position: absolute;
-        border-radius: 50%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 9999;
-    }
+	&::before {
+		content: "";
+		background-color: #000;
+		border: 1px solid rgba(255, 255, 255, 0.125);
+		top: 4%;
+		width: 5%;
+		aspect-ratio: 1/1;
+		position: absolute;
+		border-radius: 50%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 9999;
+	}
 
-    > div {
-        display: flex;
-        flex-grow: 1;
-        border-radius: 9% / 4.5%;
-        overflow: hidden;
-    }
+	> div {
+		display: flex;
+		flex-grow: 1;
+		border-radius: 9% / 4.5%;
+		overflow: hidden;
+	}
 }
 
 #frame-iphone,
 #frame-android {
-    &.placeholder {
-        background-color: var(--device-frame-color-placeholder);
-        border-color: var(--device-frame-border-placeholder);
-        padding: 0;
-        background-image: none;
+	&.placeholder {
+		background-color: var(--device-frame-color-placeholder);
+		border-color: var(--device-frame-border-placeholder);
+		padding: 0;
+		background-image: none;
 
-        &::before {
-            background-color: var(--device-frame-color-placeholder);
-        }
+		&::before {
+			background-color: var(--device-frame-color-placeholder);
+		}
 
-        > div {
-            background-color: var(--device-frame-bg-placeholder);
-        }
-    }
+		> div {
+			background-color: var(--device-frame-bg-placeholder);
+		}
+	}
 }
 
 #frame-iphone.placeholder {
-    border-radius: 16% / 8%;
+	border-radius: 16% / 8%;
 }
 
 #frame-android.placeholder {
-    border-radius: 12% / 6%;
+	border-radius: 12% / 6%;
 }

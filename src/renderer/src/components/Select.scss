@@ -1,110 +1,110 @@
 div.select {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 
-    &.required {
-        > label {
-            &::after {
-                content: "*";
-                color: var(--material-color-red-400);
-                position: absolute;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                line-height: normal;
-                padding-inline-start: 0.25rem;
-            }
-        }
-    }
+	&.required {
+		> label {
+			&::after {
+				content: "*";
+				color: var(--material-color-red-400);
+				position: absolute;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				line-height: normal;
+				padding-inline-start: 0.25rem;
+			}
+		}
+	}
 
-    > label {
-        font-weight: 500;
-        position: relative;
-        line-height: normal;
-    }
+	> label {
+		font-weight: 500;
+		position: relative;
+		line-height: normal;
+	}
 
-    > span {
-        font-size: 0.925rem;
-        color: rgba(var(--opposite-rgb), 0.875);
-        cursor: help;
-    }
+	> span {
+		font-size: 0.925rem;
+		color: rgba(var(--opposite-rgb), 0.875);
+		cursor: help;
+	}
 
-    &.valid {
-        > .selectbox {
-            .solid-select-control {
-                border-color: var(--material-color-blue-a200) !important;
-            }
-        }
-    }
+	&.valid {
+		> .selectbox {
+			.solid-select-control {
+				border-color: var(--material-color-blue-a200) !important;
+			}
+		}
+	}
 }
 
 .selectbox {
-    cursor: pointer;
+	cursor: pointer;
 
-    * {
-        transition: border-color 0.25s;
-    }
+	* {
+		transition: border-color 0.25s;
+	}
 
-    &.solid-select-container {
-        color: var(--text-color);
-        background-color: transparent;
-    }
+	&.solid-select-container {
+		color: var(--text-color);
+		background-color: transparent;
+	}
 
-    .solid-select-control {
-        background-color: transparent;
-        outline: none;
-        border: 2px solid rgba(var(--opposite-rgb), 0.175);
-        line-height: normal;
-        padding: 0.625rem;
-        border-radius: 0.325rem;
-        font-size: 1rem;
-        cursor: pointer;
+	.solid-select-control {
+		background-color: transparent;
+		outline: none;
+		border: 2px solid rgba(var(--opposite-rgb), 0.175);
+		line-height: normal;
+		padding: 0.625rem;
+		border-radius: 0.325rem;
+		font-size: 1rem;
+		cursor: pointer;
 
-        * {
-            cursor: pointer !important;
-        }
+		* {
+			cursor: pointer !important;
+		}
 
-        &:hover,
-        &:focus {
-            border-color: rgba(var(--opposite-rgb), 0.325);
-        }
-    }
-    .solid-select-placeholder {
-        cursor: pointer;
-    }
-    .solid-select-option {
-        border-radius: 0.25rem;
-        cursor: pointer;
-        &:not(:last-child) {
-            margin-bottom: 0.125rem;
-        }
+		&:hover,
+		&:focus {
+			border-color: rgba(var(--opposite-rgb), 0.325);
+		}
+	}
+	.solid-select-placeholder {
+		cursor: pointer;
+	}
+	.solid-select-option {
+		border-radius: 0.25rem;
+		cursor: pointer;
+		&:not(:last-child) {
+			margin-bottom: 0.125rem;
+		}
 
-        &[data-focused="true"] {
-            background-color: transparent;
-        }
-        &:hover {
-            background-color: var(--material-color-blue-a400);
-            color: #fff;
-        }
-        &[data-disabled="true"] {
-            background-color: var(--material-color-blue-a400);
-            color: #fff;
-            pointer-events: all;
-        }
-    }
-    .solid-select-input {
-        cursor: pointer;
-    }
+		&[data-focused="true"] {
+			background-color: transparent;
+		}
+		&:hover {
+			background-color: var(--material-color-blue-a400);
+			color: #fff;
+		}
+		&[data-disabled="true"] {
+			background-color: var(--material-color-blue-a400);
+			color: #fff;
+			pointer-events: all;
+		}
+	}
+	.solid-select-input {
+		cursor: pointer;
+	}
 
-    .solid-select-list {
-        max-height: 20rem;
-        padding: 0;
-        border-radius: 0.325rem;
-        overflow: auto;
-        background-color: var(--bg-card);
-        box-shadow: var(--shadow-card);
-        border: 1px solid rgba(var(--opposite-rgb), 0.175);
-        padding: 0.25rem;
-    }
+	.solid-select-list {
+		max-height: 20rem;
+		padding: 0;
+		border-radius: 0.325rem;
+		overflow: auto;
+		background-color: var(--bg-card);
+		box-shadow: var(--shadow-card);
+		border: 1px solid rgba(var(--opposite-rgb), 0.175);
+		padding: 0.25rem;
+	}
 }

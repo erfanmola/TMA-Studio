@@ -1,214 +1,214 @@
 .popup-overlay.ios {
-    position: absolute;
-    inset: 0;
-    z-index: 99999999;
+	position: absolute;
+	inset: 0;
+	z-index: 99999999;
 
-    > div {
-        position: absolute;
-        inset: 0;
-        transition: all 0.25s;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
+	> div {
+		position: absolute;
+		inset: 0;
+		transition: all 0.25s;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
 
-    &.light {
-        > section {
-            background-color: rgba(255, 255, 255, 0.75);
-            color: #000000;
+	&.light {
+		> section {
+			background-color: rgba(255, 255, 255, 0.75);
+			color: #000000;
 
-            > ul {
-                border-color: rgba(0, 0, 0, 0.2);
+			> ul {
+				border-color: rgba(0, 0, 0, 0.2);
 
-                > li {
-                    color: rgba(0, 128, 255);
-                    border-color: rgba(0, 0, 0, 0.2) !important;
+				> li {
+					color: rgba(0, 128, 255);
+					border-color: rgba(0, 0, 0, 0.2) !important;
 
-                    &:active {
-                        background-color: rgba(0, 0, 0, 0.1);
-                    }
-                }
-            }
-        }
-    }
+					&:active {
+						background-color: rgba(0, 0, 0, 0.1);
+					}
+				}
+			}
+		}
+	}
 
-    &.dark {
-        > section {
-            background-color: rgba(38, 38, 38, 0.75);
-            color: #ffffff;
+	&.dark {
+		> section {
+			background-color: rgba(38, 38, 38, 0.75);
+			color: #ffffff;
 
-            > ul {
-                border-color: rgba(255, 255, 255, 0.15);
+			> ul {
+				border-color: rgba(255, 255, 255, 0.15);
 
-                > li {
-                    color: rgba(0, 128, 255);
-                    border-color: rgba(255, 255, 255, 0.15) !important;
+				> li {
+					color: rgba(0, 128, 255);
+					border-color: rgba(255, 255, 255, 0.15) !important;
 
-                    &:active {
-                        background-color: rgba(255, 255, 255, 0.1);
-                    }
-                }
-            }
-        }
-    }
+					&:active {
+						background-color: rgba(255, 255, 255, 0.1);
+					}
+				}
+			}
+		}
+	}
 
-    > section {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        backdrop-filter: saturate(180%) blur(20px);
-        transform: translateX(-50%) translateY(-50%);
-        border-radius: 0.75rem;
-        width: 70%;
-        overflow: hidden;
+	> section {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		-webkit-backdrop-filter: saturate(180%) blur(20px);
+		backdrop-filter: saturate(180%) blur(20px);
+		transform: translateX(-50%) translateY(-50%);
+		border-radius: 0.75rem;
+		width: 70%;
+		overflow: hidden;
 
-        > div {
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
+		> div {
+			display: flex;
+			flex-direction: column;
+			padding: 1rem;
 
-            > b {
-                font-weight: bold;
-                font-size: 1.25rem;
-                text-align: center;
-                width: 100%;
-            }
+			> b {
+				font-weight: bold;
+				font-size: 1.25rem;
+				text-align: center;
+				width: 100%;
+			}
 
-            > p {
-                font-size: 1rem;
-                text-align: center;
-                width: 100%;
-            }
-        }
+			> p {
+				font-size: 1rem;
+				text-align: center;
+				width: 100%;
+			}
+		}
 
-        > ul {
-            border-top: 1px solid;
-            display: flex;
-            align-items: center;
+		> ul {
+			border-top: 1px solid;
+			display: flex;
+			align-items: center;
 
-            > li {
-                display: flex;
-                flex-grow: 1;
-                flex-shrink: 0;
-                flex-basis: 0;
-                padding: 0.5rem 0;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
+			> li {
+				display: flex;
+				flex-grow: 1;
+				flex-shrink: 0;
+				flex-basis: 0;
+				padding: 0.5rem 0;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
 
-                > span.destructive {
-                    color: rgba(255, 0, 32);
-                }
+				> span.destructive {
+					color: rgba(255, 0, 32);
+				}
 
-                &:not(:last-child) {
-                    border-inline-end: 1px solid;
-                }
-            }
-        }
-    }
+				&:not(:last-child) {
+					border-inline-end: 1px solid;
+				}
+			}
+		}
+	}
 }
 
 .popup-overlay.android {
-    position: absolute;
-    inset: 0;
-    z-index: 99999999;
+	position: absolute;
+	inset: 0;
+	z-index: 99999999;
 
-    > div {
-        position: absolute;
-        inset: 0;
-        transition: all 0.25s;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
+	> div {
+		position: absolute;
+		inset: 0;
+		transition: all 0.25s;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
 
-    &.light {
-        > section {
-            background-color: var(--tg-var-android-light-bg_color);
-            color: #000000;
+	&.light {
+		> section {
+			background-color: var(--tg-var-android-light-bg_color);
+			color: #000000;
 
-            > ul {
-                > li {
-                    color: rgba(0, 128, 255);
-                    border-color: rgba(0, 0, 0, 0.2) !important;
+			> ul {
+				> li {
+					color: rgba(0, 128, 255);
+					border-color: rgba(0, 0, 0, 0.2) !important;
 
-                    &:active {
-                        background-color: rgba(0, 0, 0, 0.1);
-                    }
-                }
-            }
-        }
-    }
+					&:active {
+						background-color: rgba(0, 0, 0, 0.1);
+					}
+				}
+			}
+		}
+	}
 
-    &.dark {
-        > section {
-            background-color: var(--tg-var-android-dark-bg_color);
-            color: #ffffff;
+	&.dark {
+		> section {
+			background-color: var(--tg-var-android-dark-bg_color);
+			color: #ffffff;
 
-            > ul {
-                > li {
-                    color: var(--tg-var-android-light-button_color);
-                    border-color: rgba(255, 255, 255, 0.15) !important;
+			> ul {
+				> li {
+					color: var(--tg-var-android-light-button_color);
+					border-color: rgba(255, 255, 255, 0.15) !important;
 
-                    &:active {
-                        background-color: rgba(255, 255, 255, 0.1);
-                    }
-                }
-            }
-        }
-    }
+					&:active {
+						background-color: rgba(255, 255, 255, 0.1);
+					}
+				}
+			}
+		}
+	}
 
-    > section {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        border-radius: 0.75rem;
-        width: 90%;
-        overflow: hidden;
+	> section {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%) translateY(-50%);
+		border-radius: 0.75rem;
+		width: 90%;
+		overflow: hidden;
 
-        > div {
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
+		> div {
+			display: flex;
+			flex-direction: column;
+			padding: 1rem;
 
-            > b {
-                font-weight: bold;
-                font-size: 1.25rem;
-                text-align: initial;
-                width: 100%;
-                padding-bottom: 0.5rem;
-            }
+			> b {
+				font-weight: bold;
+				font-size: 1.25rem;
+				text-align: initial;
+				width: 100%;
+				padding-bottom: 0.5rem;
+			}
 
-            > p {
-                font-size: 1rem;
-                text-align: initial;
-                width: 100%;
-            }
-        }
+			> p {
+				font-size: 1rem;
+				text-align: initial;
+				width: 100%;
+			}
+		}
 
-        > ul {
-            display: flex;
-            align-items: center;
-            direction: rtl;
-            padding: 0 0.5rem 0.25rem;
+		> ul {
+			display: flex;
+			align-items: center;
+			direction: rtl;
+			padding: 0 0.5rem 0.25rem;
 
-            > li {
-                display: flex;
-                padding: 0.5rem;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
+			> li {
+				display: flex;
+				padding: 0.5rem;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
 
-                > span.destructive {
-                    direction: ltr;
-                    color: var(--tg-var-android-light-destructive_text_color);
-                }
+				> span.destructive {
+					direction: ltr;
+					color: var(--tg-var-android-light-destructive_text_color);
+				}
 
-                &:nth-child(3) {
-                    flex-grow: 1;
-                    justify-content: end;
-                }
-            }
-        }
-    }
+				&:nth-child(3) {
+					flex-grow: 1;
+					justify-content: end;
+				}
+			}
+		}
+	}
 }

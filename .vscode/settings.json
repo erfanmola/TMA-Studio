@@ -1,5 +1,32 @@
 {
 	"html.customData": [
 		"./node_modules/@electron-uikit/titlebar/custom-elements.json"
-	]
+	],
+	"editor.tabSize": 3,
+	"editor.insertSpaces": false,
+	"editor.formatOnSave": true,
+	"editor.detectIndentation": false,
+	"editor.defaultFormatter": "biomejs.biome",
+	"[javascript]": {
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false,
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false,
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[html]": {
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false
+	},
+	"[css]": {
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false
+	},
+	"[scss]": {
+		"editor.tabSize": 3,
+		"editor.insertSpaces": false
+	}
 }

@@ -3,45 +3,45 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    user-select: none;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	box-sizing: border-box;
+	user-select: none;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 :root {
-    font-family: "Inter", Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
+	font-family: "Inter", Avenir, Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
 }
 
 body.floating-project {
-    padding: 0.5rem 0 0;
-    color: var(--text-color);
+	padding: 0.5rem 0 0;
+	color: var(--text-color);
 
-    #section-telegram-ios,
-    #section-telegram-android {
-        > div {
-            width: 100%;
+	#section-telegram-ios,
+	#section-telegram-android {
+		> div {
+			width: 100%;
 
-            > header {
-                > h2 {
-                    app-region: drag;
-                }
-            }
-        }
-    }
+			> header {
+				> h2 {
+					app-region: drag;
+				}
+			}
+		}
+	}
 
-    #frame-iphone,
-    #frame-android {
-        width: 100% !important;
-    }
+	#frame-iphone,
+	#frame-android {
+		width: 100% !important;
+	}
 }

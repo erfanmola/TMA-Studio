@@ -1,22 +1,22 @@
 /* Target all scrollbars */
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+	width: 4px;
+	height: 4px;
 }
 
 /* Track (background of the scrollbar) */
 ::-webkit-scrollbar-track {
-    background: transparent; /* Light background for visibility on dark screens */
-    border-radius: 4px;
+	background: transparent; /* Light background for visibility on dark screens */
+	border-radius: 4px;
 }
 
 /* Handle (draggable part of the scrollbar) */
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3); /* Light gray for visibility */
-    border-radius: 4px;
+	background: rgba(255, 255, 255, 0.3); /* Light gray for visibility */
+	border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5); /* Slightly lighter on hover for visibility */
+	background: rgba(255, 255, 255, 0.5); /* Slightly lighter on hover for visibility */
 }

@@ -1,35 +1,35 @@
 div.checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
 
-    &.required {
-        > span {
-            &::after {
-                content: "*";
-                color: var(--material-color-red-400);
-                position: absolute;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                line-height: normal;
-                padding-inline-start: 0.25rem;
-            }
-        }
-    }
+	&.required {
+		> span {
+			&::after {
+				content: "*";
+				color: var(--material-color-red-400);
+				position: absolute;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				line-height: normal;
+				padding-inline-start: 0.25rem;
+			}
+		}
+	}
 
-    > svg {
-        font-size: 1.125rem;
+	> svg {
+		font-size: 1.125rem;
 
-        &.empty {
-            border: 1px solid var(--material-color-blue-300);
-            border-radius: 0.175rem;
-            color: var(--material-color-blue-100);
-        }
+		&.empty {
+			border: 1px solid var(--material-color-blue-300);
+			border-radius: 0.175rem;
+			color: var(--material-color-blue-100);
+		}
 
-        &.checked {
-            color: var(--material-color-blue-a200);
-        }
-    }
+		&.checked {
+			color: var(--material-color-blue-a200);
+		}
+	}
 }

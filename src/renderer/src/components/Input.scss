@@ -1,58 +1,58 @@
 div.input {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 
-    * {
-        transition: border-color 0.25s;
-    }
+	* {
+		transition: border-color 0.25s;
+	}
 
-    &.required {
-        > label {
-            &::after {
-                content: "*";
-                color: var(--material-color-red-400);
-                position: absolute;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                line-height: normal;
-                padding-inline-start: 0.25rem;
-            }
-        }
-    }
+	&.required {
+		> label {
+			&::after {
+				content: "*";
+				color: var(--material-color-red-400);
+				position: absolute;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				line-height: normal;
+				padding-inline-start: 0.25rem;
+			}
+		}
+	}
 
-    &.valid {
-        > input {
-            border-color: var(--material-color-blue-a200) !important;
-        }
-    }
+	&.valid {
+		> input {
+			border-color: var(--material-color-blue-a200) !important;
+		}
+	}
 
-    > label {
-        cursor: pointer;
-        font-weight: 500;
-        position: relative;
-        line-height: normal;
-    }
+	> label {
+		cursor: pointer;
+		font-weight: 500;
+		position: relative;
+		line-height: normal;
+	}
 
-    > input {
-        background-color: transparent;
-        outline: none;
-        border: 2px solid rgba(var(--opposite-rgb), 0.175);
-        line-height: normal;
-        padding: 0.625rem;
-        border-radius: 0.325rem;
-        font-size: 1rem;
+	> input {
+		background-color: transparent;
+		outline: none;
+		border: 2px solid rgba(var(--opposite-rgb), 0.175);
+		line-height: normal;
+		padding: 0.625rem;
+		border-radius: 0.325rem;
+		font-size: 1rem;
 
-        &:hover,
-        &:focus {
-            border-color: rgba(var(--opposite-rgb), 0.325);
-        }
-    }
+		&:hover,
+		&:focus {
+			border-color: rgba(var(--opposite-rgb), 0.325);
+		}
+	}
 
-    > span {
-        font-size: 0.925rem;
-        color: rgba(var(--opposite-rgb), 0.875);
-        cursor: help;
-    }
+	> span {
+		font-size: 0.925rem;
+		color: rgba(var(--opposite-rgb), 0.875);
+		cursor: help;
+	}
 }

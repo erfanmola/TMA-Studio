@@ -1,75 +1,75 @@
 #tabbar-main {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
 
-    > ul {
-        display: flex;
-        border-bottom: 1px solid rgba(var(--opposite-rgb), 0.25);
+	> ul {
+		display: flex;
+		border-bottom: 1px solid rgba(var(--opposite-rgb), 0.25);
 
-        > li {
-            display: flex;
-            font-weight: 500;
-            padding: 1rem 1.5rem;
-            border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.25);
-            min-width: 10rem;
-            max-width: 16rem;
-            overflow: hidden;
-            // text-align: center;
-            justify-content: flex-start;
-            align-items: center;
-            line-height: normal;
-            transition:
-                background-color 0.15s,
-                opacity 0.15s;
-            opacity: 0.75;
-            border-bottom: 3px solid transparent;
+		> li {
+			display: flex;
+			font-weight: 500;
+			padding: 1rem 1.5rem;
+			border-inline-end: 1px solid rgba(var(--opposite-rgb), 0.25);
+			min-width: 10rem;
+			max-width: 16rem;
+			overflow: hidden;
+			// text-align: center;
+			justify-content: flex-start;
+			align-items: center;
+			line-height: normal;
+			transition:
+				background-color 0.15s,
+				opacity 0.15s;
+			opacity: 0.75;
+			border-bottom: 3px solid transparent;
 
-            &:hover:not(.active) {
-                background-color: rgba(var(--opposite-rgb), 0.075);
-                opacity: 1;
-            }
+			&:hover:not(.active) {
+				background-color: rgba(var(--opposite-rgb), 0.075);
+				opacity: 1;
+			}
 
-            &.active {
-                border-bottom: 3px solid var(--accent-200);
-                opacity: 1;
-            }
+			&.active {
+				border-bottom: 3px solid var(--accent-200);
+				opacity: 1;
+			}
 
-            > span {
-                white-space: nowrap;
-                display: flex;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                cursor: default;
-                flex-grow: 1;
-            }
+			> span {
+				white-space: nowrap;
+				display: flex;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				cursor: default;
+				flex-grow: 1;
+			}
 
-            > svg {
-                flex-shrink: 0;
-                display: inline;
-                font-size: 1.25rem;
-                opacity: 0.75;
-                transition: opacity 0.15s;
-                margin-inline-start: 0.325rem;
-                cursor: pointer;
+			> svg {
+				flex-shrink: 0;
+				display: inline;
+				font-size: 1.25rem;
+				opacity: 0.75;
+				transition: opacity 0.15s;
+				margin-inline-start: 0.325rem;
+				cursor: pointer;
 
-                &:hover {
-                    opacity: 1;
-                }
-            }
-        }
-    }
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
 
-    > div {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        overflow: hidden;
-        overflow-y: auto;
+	> div {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		overflow: hidden;
+		overflow-y: auto;
 
-        > * {
-            flex-grow: 1;
-        }
-    }
+		> * {
+			flex-grow: 1;
+		}
+	}
 }

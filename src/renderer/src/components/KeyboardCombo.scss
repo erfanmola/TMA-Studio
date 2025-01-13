@@ -1,20 +1,20 @@
 span.kbd {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 500;
-    background-color: rgba(var(--opposite-rgb), 0.075);
-    border: 1px solid rgba(var(--opposite-rgb), 0.15);
-    border-radius: 0.125rem;
-    padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	font-size: 1rem;
+	font-weight: 500;
+	background-color: rgba(var(--opposite-rgb), 0.075);
+	border: 1px solid rgba(var(--opposite-rgb), 0.15);
+	border-radius: 0.125rem;
+	padding: 0.5rem;
 
-    > b {
-        font-weight: 500;
-        margin-inline-start: 0.25rem;
-    }
+	> b {
+		font-weight: 500;
+		margin-inline-start: 0.25rem;
+	}
 
-    > svg {
-        display: inline;
-        margin-inline-end: 0.25rem;
-    }
+	> svg {
+		display: inline;
+		margin-inline-end: 0.25rem;
+	}
 }

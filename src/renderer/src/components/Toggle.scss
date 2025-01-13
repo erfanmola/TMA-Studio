@@ -1,22 +1,22 @@
 div.toggle {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    height: 2.325rem;
-    width: 2.325rem;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 0.25rem;
-    transition: background-color 0.25s;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	height: 2.325rem;
+	width: 2.325rem;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	border-radius: 0.25rem;
+	transition: background-color 0.25s;
 
-    background-color: rgba(var(--opposite-rgb), 0.0425);
+	background-color: rgba(var(--opposite-rgb), 0.0425);
 
-    &:hover {
-        background-color: rgba(var(--opposite-rgb), 0.125);
-    }
+	&:hover {
+		background-color: rgba(var(--opposite-rgb), 0.125);
+	}
 
-    &.checked {
-        background-color: rgba(var(--opposite-rgb), 0.175);
-    }
+	&.checked {
+		background-color: rgba(var(--opposite-rgb), 0.175);
+	}
 }
