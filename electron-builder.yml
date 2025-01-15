@@ -44,7 +44,7 @@ linux:
     - target: AppImage
       arch:
         - x64
-        - arm64
+        # - arm64
     # - target: snap
     #   arch:
     #     - x64
