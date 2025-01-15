@@ -29,7 +29,9 @@ Menu.setApplicationMenu(
 Store.initRenderer();
 
 export const store: any = new Store({
-	defaults: defaultPreferences,
+	defaults: {
+		preferences: defaultPreferences,
+	},
 });
 
 // Initialize the ipcMain Preferences Store
