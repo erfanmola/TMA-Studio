@@ -65,10 +65,10 @@ importers:
         version: 1.9.4
       '@electron-toolkit/tsconfig':
         specifier: ^1.0.1
-        version: 1.0.1(@types/node@22.10.6)
+        version: 1.0.1(@types/node@22.10.7)
       '@types/node':
-        specifier: ^22.10.6
-        version: 22.10.6
+        specifier: ^22.10.7
+        version: 22.10.7
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.1)
@@ -80,7 +80,7 @@ importers:
         version: 25.1.8(electron-builder-squirrel-windows@24.13.3)
       electron-vite:
         specifier: ^2.3.0
-        version: 2.3.0(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
+        version: 2.3.0(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
       postcss:
         specifier: ^8.5.1
         version: 8.5.1
@@ -101,10 +101,10 @@ importers:
         version: 5.7.3
       vite:
         specifier: ^6.0.7
-        version: 6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
+        version: 6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
       vite-plugin-solid:
         specifier: ^2.11.0
-        version: 2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
+        version: 2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
 
 packages:
 
@@ -879,8 +879,8 @@ packages:
   '@types/node@20.17.1':
     resolution: {integrity: sha512-j2VlPv1NnwPJbaCNv69FO/1z4lId0QmGvpT41YxitRtWlg96g/j8qcv2RKsLKe2F6OJgyXhupN1Xo17b2m139Q==}
 
-  '@types/node@22.10.6':
-    resolution: {integrity: sha512-qNiuwC4ZDAUNcY47xgaSuS92cjf8JbSUoaKS77bmLG1rU7MlATVSiw/IlrjtIyyskXBZ8KkNfjK/P5na7rgXbQ==}
+  '@types/node@22.10.7':
+    resolution: {integrity: sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==}
 
   '@types/plist@3.0.5':
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
@@ -3199,9 +3199,9 @@ snapshots:
     dependencies:
       electron: 34.0.0
 
-  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.10.6)':
+  '@electron-toolkit/tsconfig@1.0.1(@types/node@22.10.7)':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@electron-toolkit/utils@3.0.0(electron@34.0.0)':
     dependencies:
@@ -3687,7 +3687,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       '@types/responselike': 1.0.3
 
   '@types/debug@4.1.12':
@@ -3698,13 +3698,13 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/http-cache-semantics@4.0.4': {}
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/ms@0.7.34': {}
 
@@ -3712,26 +3712,26 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.10.6':
+  '@types/node@22.10.7':
     dependencies:
       undici-types: 6.20.0
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       xmlbuilder: 15.1.1
     optional: true
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/verror@1.10.10':
     optional: true
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
     optional: true
 
   '@xmldom/xmldom@0.8.10': {}
@@ -4487,7 +4487,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron-vite@2.3.0(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
+  electron-vite@2.3.0(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-arrow-functions': 7.25.9(@babel/core@7.26.0)
@@ -4495,7 +4495,7 @@ snapshots:
       esbuild: 0.21.5
       magic-string: 0.30.12
       picocolors: 1.1.1
-      vite: 6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
+      vite: 6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6017,7 +6017,7 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
+  vite-plugin-solid@2.11.0(solid-js@1.9.4)(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
     dependencies:
       '@babel/core': 7.26.0
       '@types/babel__core': 7.20.5
@@ -6025,26 +6025,26 @@ snapshots:
       merge-anything: 5.1.7
       solid-js: 1.9.4
       solid-refresh: 0.6.3(solid-js@1.9.4)
-      vite: 6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
-      vitefu: 1.0.4(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
+      vite: 6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
+      vitefu: 1.0.4(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0))
     transitivePeerDependencies:
       - supports-color
 
-  vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0):
+  vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0):
     dependencies:
       esbuild: 0.24.2
       postcss: 8.5.1
       rollup: 4.24.0
     optionalDependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       fsevents: 2.3.3
       jiti: 1.21.6
       sass-embedded: 1.83.4
       yaml: 2.6.0
 
-  vitefu@1.0.4(vite@6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
+  vitefu@1.0.4(vite@6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)):
     optionalDependencies:
-      vite: 6.0.7(@types/node@22.10.6)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
+      vite: 6.0.7(@types/node@22.10.7)(jiti@1.21.6)(sass-embedded@1.83.4)(yaml@2.6.0)
 
   wcwidth@1.0.1:
     dependencies:

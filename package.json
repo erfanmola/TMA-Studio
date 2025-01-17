@@ -42,7 +42,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"@electron-toolkit/tsconfig": "^1.0.1",
-		"@types/node": "^22.10.6",
+		"@types/node": "^22.10.7",
 		"autoprefixer": "^10.4.20",
 		"electron": "^34.0.0",
 		"electron-builder": "^25.1.8",
