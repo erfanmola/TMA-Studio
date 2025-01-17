@@ -16,6 +16,7 @@ export type Project = {
 			floating: boolean;
 		};
 	};
+	platforms?: TelegramPlatform[];
 };
 
 export type TabbarTab = {

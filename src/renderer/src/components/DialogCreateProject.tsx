@@ -67,6 +67,7 @@ const DialogCreateProject: Component = () => {
 					tdesktop: defaultSettings,
 					web: defaultSettings,
 					weba: defaultSettings,
+					macos: defaultSettings,
 				},
 			},
 		]);

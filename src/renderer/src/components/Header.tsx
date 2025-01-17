@@ -10,6 +10,7 @@ import { preferences, setPreferences } from "@renderer/utils/preferences";
 import DialogRemoveUser from "./DialogRemoveUser";
 import GHButton from "./GHButton";
 import type { HTMLTitleBarElementAttributes } from "@electron-uikit/titlebar/renderer";
+import { PlatformToggle } from "./PlatformToggle";
 import { TbDeviceMobileCode } from "solid-icons/tb";
 import { createStore } from "solid-js/store";
 import { onMount } from "solid-js";
@@ -115,6 +116,12 @@ const Header = () => {
 				</div>
 
 				<div>
+					<Show
+						when={preferences.tabbar.active.toString().startsWith("project-")}
+					>
+						<PlatformToggle />
+					</Show>
+
 					<Select
 						class="selectbox"
 						{...createOptions(

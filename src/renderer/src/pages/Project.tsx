@@ -1,6 +1,6 @@
 import "./Project.scss";
 
-import { createEffect, type Component } from "solid-js";
+import { createEffect, Show, type Component } from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 
@@ -14,6 +14,7 @@ import { generateProjectFrame } from "@renderer/utils/telegram";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { PlatformNames } from "@renderer/utils/platforms";
 import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
+import { defaultProjectPlatforms } from "@renderer/utils/project";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;
@@ -182,11 +183,27 @@ const ProjectPage: Component<{ id: Project["id"] }> = (props) => {
 			/>
 
 			<div>
-				<SectionIOS project={project as Project} />
+				<Show
+					when={(project?.platforms ?? defaultProjectPlatforms).includes("ios")}
+				>
+					<SectionIOS project={project as Project} />
+				</Show>
 
-				<SectionAndroid project={project as Project} />
+				<Show
+					when={(project?.platforms ?? defaultProjectPlatforms).includes(
+						"android",
+					)}
+				>
+					<SectionAndroid project={project as Project} />
+				</Show>
 
-				<SectionDesktop project={project as Project} />
+				<Show
+					when={(project?.platforms ?? defaultProjectPlatforms).includes(
+						"tdesktop",
+					)}
+				>
+					<SectionDesktop project={project as Project} />
+				</Show>
 			</div>
 		</div>
 	);

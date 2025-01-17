@@ -1,6 +1,14 @@
 import type { Project, TabbarTab } from "../types";
 import { preferences, setPreferences } from "./preferences";
 
+import type { TelegramPlatform } from "./themes";
+
+export const defaultProjectPlatforms: TelegramPlatform[] = [
+	"ios",
+	"android",
+	"tdesktop",
+];
+
 export const openProject = (
 	projectId: Project["id"],
 	component: TabbarTab["component"],

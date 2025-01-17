@@ -65,5 +65,6 @@ export const defaultPreferences: Preferences = {
 		tdesktop: 384,
 		web: 480,
 		weba: 420,
+		macos: 400,
 	},
 };

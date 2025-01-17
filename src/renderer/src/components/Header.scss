@@ -20,6 +20,9 @@
 
 	> div:last-child {
 		flex-shrink: 0;
+		display: flex;
+		gap: 1rem;
+		align-items: center;
 
 		.selectbox {
 			min-width: 12rem;

@@ -1,4 +1,10 @@
-export type TelegramPlatform = "tdesktop" | "ios" | "android" | "web" | "weba";
+export type TelegramPlatform =
+	| "tdesktop"
+	| "ios"
+	| "android"
+	| "web"
+	| "weba"
+	| "macos";
 
 export type ThemeMode = "dark" | "light";
 
@@ -203,6 +209,42 @@ export const TelegramThemes: {
 			destructive_text_color: "#e53935",
 			bottom_bar_bg_color: "",
 			section_separator_color: "",
+		},
+	},
+	macos: {
+		light: {
+			bottom_bar_bg_color: "#e4e4e4",
+			section_header_text_color: "#6d6d71",
+			destructive_text_color: "#ff3b30",
+			bg_color: "#ffffff",
+			section_separator_color: "#eaeaea",
+			hint_color: "#999999",
+			button_color: "#2481cc",
+			link_color: "#2481cc",
+			subtitle_text_color: "#999999",
+			secondary_bg_color: "#efeff3",
+			section_bg_color: "#ffffff",
+			button_text_color: "#ffffff",
+			header_bg_color: "#efeff3",
+			text_color: "#000000",
+			accent_text_color: "#2481cc",
+		},
+		dark: {
+			accent_text_color: "#2ea6ff",
+			hint_color: "#b1c3d5",
+			subtitle_text_color: "#b1c3d5",
+			bottom_bar_bg_color: "#213040",
+			button_color: "#2ea6ff",
+			header_bg_color: "#131415",
+			text_color: "#ffffff",
+			button_text_color: "#ffffff",
+			section_separator_color: "#213040",
+			secondary_bg_color: "#131415",
+			section_bg_color: "#18222d",
+			bg_color: "#18222d",
+			link_color: "#62bcf9",
+			destructive_text_color: "#ef5b5b",
+			section_header_text_color: "#b1c3d5",
 		},
 	},
 };

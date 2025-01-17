@@ -30,4 +30,7 @@ export const Viewport: {
 	weba: [
 		{ name: "Web A", size: 420 }, // 420x690
 	],
+	macos: [
+		{ name: "Mac OS", size: 400 }, // 400x644
+	],
 };
