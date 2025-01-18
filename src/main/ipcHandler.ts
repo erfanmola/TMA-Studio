@@ -30,16 +30,29 @@ const initializeIPCMisc = () => {
 
 	ipcMain.on("update-available", async (_, version) => {
 		if (ipcMainPreferences.windows.main) {
-			dialog
-				.showMessageBox(ipcMainPreferences.windows.main, {
-					title: "New Version Available",
-					message: `There is a newer version of TMA Studio available, please update the app to version ${version}.`,
-					buttons: ["Update"],
-				})
-				.then(() => {
-					shell.openExternal("https://tma-studio.pages.dev/");
-					app.quit();
-				});
+			try {
+				const { response } = await dialog.showMessageBox(
+					ipcMainPreferences.windows.main,
+					{
+						title: "New Version Available",
+						message: `There is a newer version of TMA Studio available. Please update the app to version ${version}.`,
+						buttons: ["Update", "Later"],
+						defaultId: 0, // "Update" will be preselected
+						cancelId: 1, // "Later" will act as cancel
+					},
+				);
+
+				if (response === 0) {
+					// User chose "Update"
+					await shell.openExternal("https://tma-studio.pages.dev/");
+					app.quit(); // Quit the app only after opening the URL
+				}
+			} catch (error) {
+				console.error(
+					"Failed to display update dialog or open the URL:",
+					error,
+				);
+			}
 		}
 	});
 
