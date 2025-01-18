@@ -193,7 +193,7 @@ export const tgEventHandler = (
 			break;
 
 		case "web_app_expand":
-			setProjectFrame("state", "expanded", false);
+			setProjectFrame("state", "expanded", true);
 			break;
 
 		case "web_app_set_header_color": {
