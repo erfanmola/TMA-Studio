@@ -36,7 +36,8 @@ https://github.com/user-attachments/assets/c6f3f79c-d56d-4329-86f2-8a8d7acb68ae
 ## Platforms Support
 - [x] Telegram Android
 - [x] Telegram iOS
-- [ ] Telegram Desktop
+- [x] Telegram Desktop
+- [x] Telegram MacOS
 - [ ] Telegram WebK
 - [ ] Telegram WebA
 
@@ -131,7 +132,7 @@ This phase has started from October 2024 and ended until January 2025.
 ### Phase 2 (WIP)
 This phase is planned for early to mid 2025.
 - [ ] Full compatibility with Telegram Mini Apps 2.0.
-- [ ] Add support for Telegram Desktop, WebK, and WebA platforms.
+- [ ] Add support for Telegram Desktop, MacOS, WebK, and WebA platforms.
 - [x] Add support for auto-updates in app and streamline release process.
 ### Phase 3 (Planned)
 This phase is planned for mid to late 2025.
