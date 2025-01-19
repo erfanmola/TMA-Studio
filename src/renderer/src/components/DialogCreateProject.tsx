@@ -3,7 +3,6 @@ import { createMemo, type Component } from "solid-js";
 import { createStore } from "solid-js/store";
 import { openProject } from "../utils/project";
 import ProjectPage from "../pages/Project";
-import type { Project } from "../types";
 import {
 	preferences,
 	setModals,
@@ -12,7 +11,6 @@ import {
 import Modal from "./Modal";
 import Input from "./Input";
 import { isValidURL } from "@renderer/utils/general";
-import type { TelegramPlatform } from "@renderer/utils/themes";
 import Alert from "./Alert";
 import { defaultProjectSettings } from "@renderer/utils/telegram";
 

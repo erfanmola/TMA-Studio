@@ -11,10 +11,7 @@ import { initStore } from "@renderer/utils/store";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { createStore, produce } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
-import {
-	defaultProjectSettings,
-	generateProjectFrame,
-} from "@renderer/utils/telegram";
+import { generateProjectFrame } from "@renderer/utils/telegram";
 import { deserializeObject } from "@renderer/utils/general";
 import { useSettings } from "@renderer/contexts/SettingsContext";
 import { PlatformNames } from "@renderer/utils/platforms";
