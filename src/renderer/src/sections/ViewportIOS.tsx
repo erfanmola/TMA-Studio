@@ -1,6 +1,6 @@
 import "../scss/sections/_viewport-ios.scss";
 
-import { IPhoneFrame } from "@renderer/components/DeviceFrames";
+import { FrameIPhone } from "@renderer/components/DeviceFrames";
 import type { Project } from "@renderer/types";
 import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
 import {
@@ -54,7 +54,7 @@ export const ViewportIOS: Component<{
 	});
 
 	return (
-		<IPhoneFrame
+		<FrameIPhone
 			classList={{
 				shake: preferences.project.shake_on_haptic && projectInner.shake,
 				placeholder: props.placeholder,
@@ -312,6 +312,6 @@ export const ViewportIOS: Component<{
 					/>
 				</div>
 			</Show>
-		</IPhoneFrame>
+		</FrameIPhone>
 	);
 };

@@ -105,6 +105,7 @@ export const tgEmitEvent = async (
 			code = `window.Telegram.WebView.receiveEvent('${eventType}', ${JSON.stringify(eventData)})`;
 			break;
 		case "tdesktop":
+		case "macos":
 			code = `window.TelegramGameProxy.receiveEvent('${eventType}', ${JSON.stringify(eventData)})`;
 			break;
 	}
@@ -508,12 +509,12 @@ export const generateProjectFrame = (
 			open: false,
 		},
 		state: {
-			open: project.settings[platform].open,
-			expanded: project.settings[platform].expanded,
-			mode: project.settings[platform].mode,
+			open: (project.settings[platform] ?? defaultProjectSettings).open,
+			expanded: (project.settings[platform] ?? defaultProjectSettings).expanded,
+			mode: (project.settings[platform] ?? defaultProjectSettings).mode,
 		},
 		window: {
-			floating: project.settings[platform].floating,
+			floating: (project.settings[platform] ?? defaultProjectSettings).floating,
 		},
 	};
 };
@@ -600,4 +601,11 @@ export const generateProjectMenuMore = (): MenuMoreStore => {
 			clicked: false,
 		},
 	};
+};
+
+export const defaultProjectSettings: Project["settings"][TelegramPlatform] = {
+	expanded: false,
+	mode: "light",
+	open: true,
+	floating: false,
 };

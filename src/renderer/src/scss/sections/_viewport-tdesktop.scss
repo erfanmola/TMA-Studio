@@ -1,4 +1,4 @@
-#viewport-telegram-desktop {
+#viewport-telegram-tdesktop {
 	display: flex;
 	width: calc(100% - 1rem);
 	height: calc(100% - 1rem);
@@ -118,7 +118,7 @@
 		display: flex;
 		content: "";
 		flex-grow: 1;
-		background: var(--telegram-desktop-bg-gradient-light);
+		background: var(--telegram-tdesktop-bg-gradient-light);
 		position: relative;
 
 		&::before {

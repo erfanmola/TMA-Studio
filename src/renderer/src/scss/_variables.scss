@@ -23,7 +23,8 @@
 		rgba(208, 214, 140, 1) 100%
 	);
 	--telegram-android-bg-gradient-light: var(--telegram-ios-bg-gradient-light);
-	--telegram-desktop-bg-gradient-light: var(--telegram-ios-bg-gradient-light);
+	--telegram-tdesktop-bg-gradient-light: var(--telegram-ios-bg-gradient-light);
+	--telegram-macos-bg-gradient-light: var(--telegram-ios-bg-gradient-light);
 
 	--telegram-ios-bg-gradient-dark: linear-gradient(
 		135deg,

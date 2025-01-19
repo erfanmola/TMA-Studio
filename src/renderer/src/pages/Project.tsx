@@ -1,6 +1,13 @@
 import "./Project.scss";
 
-import { createEffect, Show, type Component } from "solid-js";
+import {
+	createEffect,
+	For,
+	Match,
+	Show,
+	Switch,
+	type Component,
+} from "solid-js";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
 
@@ -15,6 +22,7 @@ import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { PlatformNames } from "@renderer/utils/platforms";
 import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
 import { defaultProjectPlatforms } from "@renderer/utils/project";
+import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;
@@ -31,11 +39,12 @@ export type TMAProjectFrame = {
 	};
 };
 
-const SectionAndroid: Component<{ project: Project }> = (props) => {
-	const platform: TelegramPlatform = "android";
-
+const SectionPlatform: Component<{
+	project: Project;
+	platform: TelegramPlatform;
+}> = (props) => {
 	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
-		generateProjectFrame(platform, props.project),
+		generateProjectFrame(props.platform, props.project),
 	);
 
 	createEffect(async () => {
@@ -45,125 +54,63 @@ const SectionAndroid: Component<{ project: Project }> = (props) => {
 				const projectItem = store.projects.find(
 					(item) => item.id === props.project.id,
 				);
+
 				if (projectItem) {
-					projectItem.settings[platform].mode = projectFrame.state.mode;
-					projectItem.settings[platform].expanded = projectFrame.state.expanded;
-					projectItem.settings[platform].open = projectFrame.state.open;
-					projectItem.settings[platform].floating =
-						projectFrame.window.floating;
+					projectItem.settings[props.platform] = {
+						expanded: projectFrame.state.expanded,
+						floating: projectFrame.window.floating,
+						mode: projectFrame.state.mode,
+						open: projectFrame.state.open,
+					};
 				}
 			}),
 		);
 	});
 
 	return (
-		<div id={`section-telegram-${platform}`}>
+		<div id={`section-telegram-${props.platform}`}>
 			<div>
 				<HeaderWidget
 					project={props.project}
-					platform={platform}
+					platform={props.platform}
 					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
 					projectFrameStore={[projectFrame, setProjectFrame]}
 					placeholder={projectFrame.window.floating}
 				/>
 
-				<ViewportAndroid
-					project={props.project}
-					projectFrameStore={[projectFrame, setProjectFrame]}
-					placeholder={projectFrame.window.floating}
-				/>
-			</div>
-		</div>
-	);
-};
+				<Switch>
+					<Match when={props.platform === "android"}>
+						<ViewportAndroid
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
 
-const SectionIOS: Component<{ project: Project }> = (props) => {
-	const platform: TelegramPlatform = "ios";
+					<Match when={props.platform === "ios"}>
+						<ViewportIOS
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
 
-	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
-		generateProjectFrame(platform, props.project),
-	);
+					<Match when={props.platform === "tdesktop"}>
+						<ViewportDesktop
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
 
-	createEffect(async () => {
-		// TODO: handle this in a better place
-		setPreferences(
-			produce((store) => {
-				const projectItem = store.projects.find(
-					(item) => item.id === props.project.id,
-				);
-				if (projectItem) {
-					projectItem.settings[platform].mode = projectFrame.state.mode;
-					projectItem.settings[platform].expanded = projectFrame.state.expanded;
-					projectItem.settings[platform].open = projectFrame.state.open;
-					projectItem.settings[platform].floating =
-						projectFrame.window.floating;
-				}
-			}),
-		);
-	});
-
-	return (
-		<div id={`section-telegram-${platform}`}>
-			<div>
-				<HeaderWidget
-					project={props.project}
-					platform={platform}
-					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
-					projectFrameStore={[projectFrame, setProjectFrame]}
-					placeholder={projectFrame.window.floating}
-				/>
-
-				<ViewportIOS
-					project={props.project}
-					projectFrameStore={[projectFrame, setProjectFrame]}
-					placeholder={projectFrame.window.floating}
-				/>
-			</div>
-		</div>
-	);
-};
-
-const SectionDesktop: Component<{ project: Project }> = (props) => {
-	const platform: TelegramPlatform = "tdesktop";
-
-	const [projectFrame, setProjectFrame] = createStore<TMAProjectFrame>(
-		generateProjectFrame(platform, props.project),
-	);
-
-	createEffect(async () => {
-		// TODO: handle this in a better place
-		setPreferences(
-			produce((store) => {
-				const projectItem = store.projects.find(
-					(item) => item.id === props.project.id,
-				);
-				if (projectItem) {
-					projectItem.settings[platform].mode = projectFrame.state.mode;
-					projectItem.settings[platform].expanded = projectFrame.state.expanded;
-					projectItem.settings[platform].open = projectFrame.state.open;
-					projectItem.settings[platform].floating =
-						projectFrame.window.floating;
-				}
-			}),
-		);
-	});
-
-	return (
-		<div id={`section-telegram-${platform}`}>
-			<div>
-				<HeaderWidget
-					project={props.project}
-					platform={platform}
-					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
-					projectFrameStore={[projectFrame, setProjectFrame]}
-					placeholder={projectFrame.window.floating}
-				/>
-
-				<ViewportDesktop
-					project={props.project}
-					projectFrameStore={[projectFrame, setProjectFrame]}
-					placeholder={projectFrame.window.floating}
-				/>
+					<Match when={props.platform === "macos"}>
+						<ViewportMacOS
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
+				</Switch>
 			</div>
 		</div>
 	);
@@ -183,27 +130,22 @@ const ProjectPage: Component<{ id: Project["id"] }> = (props) => {
 			/>
 
 			<div>
-				<Show
-					when={(project?.platforms ?? defaultProjectPlatforms).includes("ios")}
+				<For
+					each={["ios", "android", "tdesktop", "macos"] as TelegramPlatform[]}
 				>
-					<SectionIOS project={project as Project} />
-				</Show>
-
-				<Show
-					when={(project?.platforms ?? defaultProjectPlatforms).includes(
-						"android",
+					{(platform) => (
+						<Show
+							when={(project?.platforms ?? defaultProjectPlatforms).includes(
+								platform,
+							)}
+						>
+							<SectionPlatform
+								project={project as Project}
+								platform={platform}
+							/>
+						</Show>
 					)}
-				>
-					<SectionAndroid project={project as Project} />
-				</Show>
-
-				<Show
-					when={(project?.platforms ?? defaultProjectPlatforms).includes(
-						"tdesktop",
-					)}
-				>
-					<SectionDesktop project={project as Project} />
-				</Show>
+				</For>
 			</div>
 		</div>
 	);

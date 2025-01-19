@@ -4,6 +4,7 @@ import type { TelegramPlatform, ThemeMode } from "./utils/themes";
 import type { JSX } from "solid-js";
 
 export type Project = {
+	[x: string]: any;
 	id: string;
 	name: string;
 	url: string;

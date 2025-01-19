@@ -64,7 +64,7 @@
 	}
 }
 
-#frame-desktop {
+#frame-tdesktop {
 	display: flex;
 	aspect-ratio: 0.566;
 	max-width: 100%;
@@ -79,9 +79,25 @@
 	}
 }
 
+#frame-macos {
+	display: flex;
+	aspect-ratio: 0.621;
+	max-width: 100%;
+	height: 70%;
+	position: relative;
+	overflow: hidden;
+
+	> div {
+		display: flex;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+}
+
 #frame-iphone,
 #frame-android,
-#frame-desktop {
+#frame-tdesktop,
+#frame-macos {
 	&.placeholder {
 		background-color: var(--device-frame-color-placeholder);
 		border-color: var(--device-frame-border-placeholder);
@@ -106,6 +122,10 @@
 	border-radius: 12% / 6%;
 }
 
-#frame-desktop.placeholder {
+#frame-tdesktop.placeholder {
+	border-radius: 0.625rem;
+}
+
+#frame-macos.placeholder {
 	border-radius: 0.625rem;
 }

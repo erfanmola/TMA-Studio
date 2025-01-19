@@ -14,6 +14,7 @@ import Input from "./Input";
 import { isValidURL } from "@renderer/utils/general";
 import type { TelegramPlatform } from "@renderer/utils/themes";
 import Alert from "./Alert";
+import { defaultProjectSettings } from "@renderer/utils/telegram";
 
 const DialogCreateProject: Component = () => {
 	const [form, setForm] = createStore({
@@ -50,24 +51,17 @@ const DialogCreateProject: Component = () => {
 			token: form.token,
 		};
 
-		const defaultSettings: Project["settings"][TelegramPlatform] = {
-			expanded: false,
-			mode: "light",
-			open: true,
-			floating: false,
-		};
-
 		setPreferences("projects", [
 			...preferences.projects,
 			{
 				...project,
 				settings: {
-					android: defaultSettings,
-					ios: defaultSettings,
-					tdesktop: defaultSettings,
-					web: defaultSettings,
-					weba: defaultSettings,
-					macos: defaultSettings,
+					android: defaultProjectSettings,
+					ios: defaultProjectSettings,
+					tdesktop: defaultProjectSettings,
+					web: defaultProjectSettings,
+					weba: defaultProjectSettings,
+					macos: defaultProjectSettings,
 				},
 			},
 		]);

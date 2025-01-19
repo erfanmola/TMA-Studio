@@ -25,12 +25,12 @@ export const Viewport: {
 		{ name: "Zoom 125%", size: 480 },
 	],
 	web: [
-		{ name: "Web K", size: 480 }, // 480x640
+		{ name: "Default", size: 480 }, // 480x640
 	],
 	weba: [
-		{ name: "Web A", size: 420 }, // 420x690
+		{ name: "Default", size: 420 }, // 420x690
 	],
 	macos: [
-		{ name: "Mac OS", size: 400 }, // 400x644
+		{ name: "Default", size: 400 }, // 400x644
 	],
 };

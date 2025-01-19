@@ -11,11 +11,15 @@ import { initStore } from "@renderer/utils/store";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { createStore, produce } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
-import { generateProjectFrame } from "@renderer/utils/telegram";
+import {
+	defaultProjectSettings,
+	generateProjectFrame,
+} from "@renderer/utils/telegram";
 import { deserializeObject } from "@renderer/utils/general";
 import { useSettings } from "@renderer/contexts/SettingsContext";
 import { PlatformNames } from "@renderer/utils/platforms";
 import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
+import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
@@ -40,12 +44,14 @@ const FloatingProject: Component = () => {
 				const projectItem = store.projects.find(
 					(item) => item.id === project.id,
 				);
+
 				if (projectItem) {
-					projectItem.settings[platform].mode = projectFrame.state.mode;
-					projectItem.settings[platform].expanded = projectFrame.state.expanded;
-					projectItem.settings[platform].open = projectFrame.state.open;
-					projectItem.settings[platform].floating =
-						projectFrame.window.floating;
+					projectItem.settings[platform] = {
+						expanded: projectFrame.state.expanded,
+						floating: projectFrame.window.floating,
+						mode: projectFrame.state.mode,
+						open: projectFrame.state.open,
+					};
 				}
 			}),
 		);
@@ -61,67 +67,50 @@ const FloatingProject: Component = () => {
 	});
 
 	return (
-		<Switch>
-			<Match when={platform === "android"}>
-				<div id={`section-telegram-${platform}`}>
-					<div>
-						<HeaderWidget
-							project={project}
-							platform={platform}
-							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
-							projectFrameStore={[projectFrame, setProjectFrame]}
-							placeholder={false}
-						/>
-
+		<div id={`section-telegram-${platform}`}>
+			<div>
+				<HeaderWidget
+					project={project}
+					platform={platform}
+					title={`Telegram ${PlatformNames[projectFrame.platform]}`}
+					projectFrameStore={[projectFrame, setProjectFrame]}
+					placeholder={false}
+				/>
+				<Switch>
+					<Match when={platform === "android"}>
 						<ViewportAndroid
 							project={project}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
-					</div>
-				</div>
-			</Match>
+					</Match>
 
-			<Match when={platform === "ios"}>
-				<div id={`section-telegram-${platform}`}>
-					<div>
-						<HeaderWidget
-							project={project}
-							platform={platform}
-							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
-							projectFrameStore={[projectFrame, setProjectFrame]}
-							placeholder={false}
-						/>
-
+					<Match when={platform === "ios"}>
 						<ViewportIOS
 							project={project}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
-					</div>
-				</div>
-			</Match>
+					</Match>
 
-			<Match when={platform === "tdesktop"}>
-				<div id={`section-telegram-${platform}`}>
-					<div>
-						<HeaderWidget
-							project={project}
-							platform={platform}
-							title={`Telegram ${PlatformNames[projectFrame.platform]}`}
-							projectFrameStore={[projectFrame, setProjectFrame]}
-							placeholder={false}
-						/>
-
+					<Match when={platform === "tdesktop"}>
 						<ViewportDesktop
 							project={project}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}
 						/>
-					</div>
-				</div>
-			</Match>
-		</Switch>
+					</Match>
+
+					<Match when={platform === "macos"}>
+						<ViewportMacOS
+							project={project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={false}
+						/>
+					</Match>
+				</Switch>
+			</div>
+		</div>
 	);
 };
 

@@ -25,7 +25,8 @@
 
 #section-telegram-ios,
 #section-telegram-android,
-#section-telegram-tdesktop {
+#section-telegram-tdesktop,
+#section-telegram-macos {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
@@ -33,6 +34,7 @@
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
+	flex-basis: 0;
 
 	> div {
 		display: flex;

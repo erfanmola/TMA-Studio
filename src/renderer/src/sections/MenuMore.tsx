@@ -8,6 +8,7 @@ import { FiMoreVertical, FiSettings } from "solid-icons/fi";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { SetStoreFunction } from "solid-js/store";
 import type { TMAProjectInner } from "@renderer/utils/telegram";
+import { BsThreeDots } from "solid-icons/bs";
 
 export type MenuMoreStore = {
 	open: boolean;
@@ -66,6 +67,10 @@ export const MenuMore: Component<{
 
 				<Match when={projectFrame.platform === "tdesktop"}>
 					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
+				</Match>
+
+				<Match when={projectFrame.platform === "macos"}>
+					<BsThreeDots onClick={() => setMenuMore("open", !menuMore.open)} />
 				</Match>
 			</Switch>
 

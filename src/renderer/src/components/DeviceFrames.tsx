@@ -2,7 +2,7 @@ import "./DeviceFrames.scss";
 
 import type { ParentComponent } from "solid-js";
 
-export const IPhoneFrame: ParentComponent<{
+export const FrameIPhone: ParentComponent<{
 	classList?: {
 		[k: string]: boolean | undefined;
 	};
@@ -14,7 +14,7 @@ export const IPhoneFrame: ParentComponent<{
 	);
 };
 
-export const AndroidFrame: ParentComponent<{
+export const FrameAndroid: ParentComponent<{
 	classList?: {
 		[k: string]: boolean | undefined;
 	};
@@ -26,13 +26,25 @@ export const AndroidFrame: ParentComponent<{
 	);
 };
 
-export const DesktopFrame: ParentComponent<{
+export const FrameDesktop: ParentComponent<{
 	classList?: {
 		[k: string]: boolean | undefined;
 	};
 }> = (props) => {
 	return (
-		<div id="frame-desktop" classList={props.classList}>
+		<div id="frame-tdesktop" classList={props.classList}>
+			<div>{props.children}</div>
+		</div>
+	);
+};
+
+export const FrameMacOS: ParentComponent<{
+	classList?: {
+		[k: string]: boolean | undefined;
+	};
+}> = (props) => {
+	return (
+		<div id="frame-macos" classList={props.classList}>
 			<div>{props.children}</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
-import "../scss/sections/_viewport-tdesktop.scss";
+import "../scss/sections/_viewport-macos.scss";
 
-import { FrameDesktop } from "@renderer/components/DeviceFrames";
+import { FrameMacOS } from "@renderer/components/DeviceFrames";
 import type { Project } from "@renderer/types";
 import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
 import {
@@ -24,7 +24,7 @@ import { FiMoreVertical } from "solid-icons/fi";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import { TMAView, TMAViewOverlay } from "./TMAView";
 
-export const ViewportDesktop: Component<{
+export const ViewportMacOS: Component<{
 	project: Project;
 	projectFrameStore: [TMAProjectFrame, SetStoreFunction<TMAProjectFrame>];
 	placeholder: boolean;
@@ -40,7 +40,7 @@ export const ViewportDesktop: Component<{
 	setProjectFrame("state", "expanded", true);
 
 	return (
-		<FrameDesktop
+		<FrameMacOS
 			classList={{
 				// shake: preferences.project.shake_on_haptic && projectInner.shake,
 				placeholder: props.placeholder,
@@ -48,7 +48,7 @@ export const ViewportDesktop: Component<{
 		>
 			<Show when={!props.placeholder}>
 				<div
-					id="viewport-telegram-tdesktop"
+					id="viewport-telegram-macos"
 					classList={{
 						open: projectFrame.state.open,
 						// expanded: projectFrame.state.expanded,
@@ -162,7 +162,7 @@ export const ViewportDesktop: Component<{
 							style={{
 								"background-color":
 									TelegramThemes[projectFrame.platform][projectFrame.state.mode]
-										.bg_color,
+										.header_bg_color,
 								color:
 									TelegramThemes[projectFrame.platform][projectFrame.state.mode]
 										.text_color,
@@ -172,49 +172,62 @@ export const ViewportDesktop: Component<{
 								<header
 									style={{
 										"background-color":
-											projectInner.theme.color.header ??
-											(projectFrame.state.expanded
-												? TelegramThemes[projectFrame.platform][
-														projectFrame.state.mode
-													].bg_color
-												: TelegramThemes[projectFrame.platform][
-														projectFrame.state.mode
-													].header_bg_color),
+											TelegramThemes[projectFrame.platform][
+												projectFrame.state.mode
+											].header_bg_color,
 										color:
-											projectInner.theme.color.headerText ??
 											TelegramThemes[projectFrame.platform][
 												projectFrame.state.mode
 											].text_color,
 									}}
 								>
 									<div>
-										<Show when={projectInner.backButton.enabled}>
-											<span
-												style={{
-													color:
-														projectInner.theme.color.headerText ??
-														TelegramThemes[projectFrame.platform][
-															projectFrame.state.mode
-														].button_color,
-												}}
-												onClick={() =>
-													setMenuMore("closeOrBack", "clicked", true)
-												}
+										<span
+											style={{
+												color:
+													TelegramThemes[projectFrame.platform][
+														projectFrame.state.mode
+													].text_color,
+											}}
+											onClick={() =>
+												setMenuMore("closeOrBack", "clicked", true)
+											}
+										>
+											<Show
+												when={projectInner.backButton.enabled}
+												fallback={<RiSystemCloseFill />}
 											>
 												<IoArrowBackOutline />
-											</span>
-										</Show>
+											</Show>
+										</span>
 									</div>
 									<div>
-										<h2>{props.project.name}</h2>
+										<div
+											style={{
+												"background-color":
+													TelegramThemes[projectFrame.platform][
+														projectFrame.state.mode
+													].bg_color,
+											}}
+										>
+											<span
+												style={{
+													"background-color": stringToColorDark(
+														props.project.id,
+													),
+												}}
+											>
+												{getNameInitials(props.project.name)}
+											</span>
+											<h2>{props.project.name}</h2>
+										</div>
 									</div>
 									<div
 										style={{
 											color:
-												projectInner.theme.color.headerText ??
 												TelegramThemes[projectFrame.platform][
 													projectFrame.state.mode
-												].button_color,
+												].text_color,
 										}}
 									>
 										<MenuMore
@@ -222,19 +235,6 @@ export const ViewportDesktop: Component<{
 											projectFrameStore={[projectFrame, setProjectFrame]}
 											projectInnerStore={[projectInner, setProjectInner]}
 										/>
-									</div>
-									<div
-										style={{
-											color:
-												projectInner.theme.color.headerText ??
-												TelegramThemes[projectFrame.platform][
-													projectFrame.state.mode
-												].button_color,
-											"font-size": "1.5rem",
-										}}
-										onClick={() => setProjectFrame("state", "open", false)}
-									>
-										<RiSystemCloseFill />
 									</div>
 								</header>
 							</Show>
@@ -255,30 +255,10 @@ export const ViewportDesktop: Component<{
 									projectInnerStore={[projectInner, setProjectInner]}
 								/>
 							</section>
-							<Show
-								when={
-									projectInner.buttonMain.is_visible ||
-									projectInner.buttonSecondary.is_visible
-								}
-								fallback={
-									<footer
-										style={{
-											"background-color":
-												projectInner.theme.color.bottomBar ??
-												TelegramThemes[projectFrame.platform][
-													projectFrame.state.mode
-												].bottom_bar_bg_color,
-										}}
-									>
-										<span>{props.project.name}</span>
-									</footer>
-								}
-							>
-								<BottomBar
-									projectFrameStore={[projectFrame, setProjectFrame]}
-									projectInnerStore={[projectInner, setProjectInner]}
-								/>
-							</Show>
+							<BottomBar
+								projectFrameStore={[projectFrame, setProjectFrame]}
+								projectInnerStore={[projectInner, setProjectInner]}
+							/>
 						</section>
 					</Show>
 
@@ -288,6 +268,6 @@ export const ViewportDesktop: Component<{
 					/>
 				</div>
 			</Show>
-		</FrameDesktop>
+		</FrameMacOS>
 	);
 };

@@ -10,7 +10,7 @@ import { produce } from "solid-js/store";
 export const PlatformToggle: Component = () => {
 	return (
 		<ul id="container-platform-toggle">
-			<For each={["android", "ios", "tdesktop"] as TelegramPlatform[]}>
+			<For each={["ios", "android", "tdesktop", "macos"] as TelegramPlatform[]}>
 				{(platform) => {
 					setPreferences(
 						produce((state) => {
