@@ -23,9 +23,13 @@ The ultimate development and testing environment for Telegram Mini Apps. Build, 
 
 - **Familiar Developer UI**: Inspired by VSCode with multiple tabs and projects, enhancing productivity.
 
-![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/demo-2.png?raw=true)
+![SimpList Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/sample-1.png?raw=true)
 
-![TMA Studio Sample Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/demo-3.png?raw=true)
+![SimpList Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/sample-2.png?raw=true)
+
+![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/sample-3.png?raw=true)
+
+![DPXWallet Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/sample-4.png?raw=true)
 
 ![Simplist Floating Demo](https://github.com/erfanmola/TMA-Studio/blob/master/demo/demo-4.png?raw=true)
 
