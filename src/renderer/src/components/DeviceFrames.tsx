@@ -49,3 +49,27 @@ export const FrameMacOS: ParentComponent<{
 		</div>
 	);
 };
+
+export const FrameWeb: ParentComponent<{
+	classList?: {
+		[k: string]: boolean | undefined;
+	};
+}> = (props) => {
+	return (
+		<div id="frame-web" classList={props.classList}>
+			<div>{props.children}</div>
+		</div>
+	);
+};
+
+export const FrameWebA: ParentComponent<{
+	classList?: {
+		[k: string]: boolean | undefined;
+	};
+}> = (props) => {
+	return (
+		<div id="frame-weba" classList={props.classList}>
+			<div>{props.children}</div>
+		</div>
+	);
+};

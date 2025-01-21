@@ -438,6 +438,7 @@ export const TMAView: Component<{
 		};
 
 		projectInner.webview.addEventListener("did-stop-loading", handleZoomEvent);
+		projectInner.webview.addEventListener("did-finish-load", handleZoomEvent);
 
 		onCleanup(() => {
 			if (projectFrame.state.open && projectInner.webview?.isDevToolsOpened()) {

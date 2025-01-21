@@ -17,6 +17,8 @@ import { useSettings } from "@renderer/contexts/SettingsContext";
 import { PlatformNames } from "@renderer/utils/platforms";
 import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
 import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
+import { ViewportWeb } from "@renderer/sections/ViewportWeb";
+import { ViewportWebA } from "@renderer/sections/ViewportWebA";
 
 const FloatingProject: Component = () => {
 	const params = useParams();
@@ -100,6 +102,22 @@ const FloatingProject: Component = () => {
 
 					<Match when={platform === "macos"}>
 						<ViewportMacOS
+							project={project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={false}
+						/>
+					</Match>
+
+					<Match when={platform === "web"}>
+						<ViewportWeb
+							project={project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={false}
+						/>
+					</Match>
+
+					<Match when={platform === "weba"}>
+						<ViewportWebA
 							project={project}
 							projectFrameStore={[projectFrame, setProjectFrame]}
 							placeholder={false}

@@ -188,7 +188,16 @@ const PreferencesPage: Component = () => {
 
 				<ul>
 					<For
-						each={["android", "ios", "tdesktop", "macos"] as TelegramPlatform[]}
+						each={
+							[
+								"android",
+								"ios",
+								"tdesktop",
+								"macos",
+								"web",
+								"weba",
+							] as TelegramPlatform[]
+						}
 					>
 						{(platform) => (
 							<li>

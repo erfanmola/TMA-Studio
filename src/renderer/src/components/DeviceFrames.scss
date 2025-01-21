@@ -19,7 +19,7 @@
 		border-radius: 100rem;
 		left: 50%;
 		transform: translateX(-50%);
-		z-index: 9999;
+		z-index: 9999999999;
 		border: 1px solid rgba(255, 255, 255, 0.125);
 	}
 
@@ -53,7 +53,7 @@
 		border-radius: 50%;
 		left: 50%;
 		transform: translateX(-50%);
-		z-index: 9999;
+		z-index: 9999999999;
 	}
 
 	> div {
@@ -94,10 +94,42 @@
 	}
 }
 
+#frame-web {
+	display: flex;
+	aspect-ratio: 0.695;
+	max-width: 100%;
+	height: 70%;
+	position: relative;
+	overflow: hidden;
+
+	> div {
+		display: flex;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+}
+
+#frame-weba {
+	display: flex;
+	aspect-ratio: 0.575;
+	max-width: 100%;
+	height: 70%;
+	position: relative;
+	overflow: hidden;
+
+	> div {
+		display: flex;
+		flex-grow: 1;
+		overflow: hidden;
+	}
+}
+
 #frame-iphone,
 #frame-android,
 #frame-tdesktop,
-#frame-macos {
+#frame-macos,
+#frame-web,
+#frame-weba {
 	&.placeholder {
 		background-color: var(--device-frame-color-placeholder);
 		border-color: var(--device-frame-border-placeholder);
@@ -127,5 +159,13 @@
 }
 
 #frame-macos.placeholder {
+	border-radius: 0.625rem;
+}
+
+#frame-web.placeholder {
+	border-radius: 0.625rem;
+}
+
+#frame-weba.placeholder {
 	border-radius: 0.625rem;
 }

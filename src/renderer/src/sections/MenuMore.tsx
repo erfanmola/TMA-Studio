@@ -72,6 +72,14 @@ export const MenuMore: Component<{
 				<Match when={projectFrame.platform === "macos"}>
 					<BsThreeDots onClick={() => setMenuMore("open", !menuMore.open)} />
 				</Match>
+
+				<Match when={projectFrame.platform === "web"}>
+					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
+				</Match>
+
+				<Match when={projectFrame.platform === "weba"}>
+					<FiMoreVertical onClick={() => setMenuMore("open", !menuMore.open)} />
+				</Match>
 			</Switch>
 
 			<div classList={{ active: menuMore.open }}>

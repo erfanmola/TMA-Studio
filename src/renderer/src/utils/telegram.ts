@@ -102,6 +102,8 @@ export const tgEmitEvent = async (
 	switch (platform) {
 		case "android":
 		case "ios":
+		case "web":
+		case "weba":
 			code = `window.Telegram.WebView.receiveEvent('${eventType}', ${JSON.stringify(eventData)})`;
 			break;
 		case "tdesktop":

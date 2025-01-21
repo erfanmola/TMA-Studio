@@ -1,6 +1,6 @@
 import "./PlatformToggle.scss";
 
-import { PlatformIcons } from "@renderer/utils/platforms";
+import { PlatformIcons, PlatformNames } from "@renderer/utils/platforms";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { defaultProjectPlatforms } from "@renderer/utils/project";
 import type { TelegramPlatform } from "@renderer/utils/themes";
@@ -10,7 +10,18 @@ import { produce } from "solid-js/store";
 export const PlatformToggle: Component = () => {
 	return (
 		<ul id="container-platform-toggle">
-			<For each={["ios", "android", "tdesktop", "macos"] as TelegramPlatform[]}>
+			<For
+				each={
+					[
+						"ios",
+						"android",
+						"tdesktop",
+						"macos",
+						"web",
+						"weba",
+					] as TelegramPlatform[]
+				}
+			>
 				{(platform) => {
 					setPreferences(
 						produce((state) => {
@@ -28,6 +39,7 @@ export const PlatformToggle: Component = () => {
 
 					return (
 						<li
+							title={PlatformNames[platform]}
 							class={`${platform}`}
 							classList={{
 								active: preferences.projects

@@ -38,8 +38,8 @@ https://github.com/user-attachments/assets/c6f3f79c-d56d-4329-86f2-8a8d7acb68ae
 - [x] Telegram iOS
 - [x] Telegram Desktop
 - [x] Telegram MacOS
-- [ ] Telegram WebK
-- [ ] Telegram WebA
+- [x] Telegram WebK
+- [x] Telegram WebA
 
 ## Parameters Support
 - [x] initData
@@ -131,9 +131,9 @@ This phase has started from October 2024 and ended until January 2025.
 - [x] Add support for Telegram Android and iOS platforms.
 ### Phase 2 (WIP)
 This phase is planned for early to mid 2025.
-- [ ] Full compatibility with Telegram Mini Apps 2.0.
-- [ ] Add support for Telegram Desktop, MacOS, WebK, and WebA platforms.
+- [x] Add support for Telegram Desktop, MacOS, WebK, and WebA platforms.
 - [x] Add support for auto-updates in app and streamline release process.
+- [ ] Full compatibility with Telegram Mini Apps 2.0.
 ### Phase 3 (Planned)
 This phase is planned for mid to late 2025.
 - [ ] Improve mock data customization and support real user account login.

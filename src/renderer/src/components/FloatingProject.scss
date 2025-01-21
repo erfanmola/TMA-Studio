@@ -30,7 +30,9 @@ body.floating-project {
 	#section-telegram-ios,
 	#section-telegram-android,
 	#section-telegram-tdesktop,
-	#section-telegram-macos {
+	#section-telegram-macos,
+	#section-telegram-web,
+	#section-telegram-weba {
 		> div {
 			width: 100%;
 
@@ -45,12 +47,16 @@ body.floating-project {
 	#frame-iphone,
 	#frame-android,
 	#frame-tdesktop,
-	#frame-macos {
+	#frame-macos,
+	#frame-web,
+	#frame-weba {
 		width: 100% !important;
 	}
 
 	#viewport-telegram-tdesktop,
-	#viewport-telegram-macos {
+	#viewport-telegram-macos,
+	#viewport-telegram-web,
+	#viewport-telegram-weba {
 		> section {
 			> header {
 				> div {

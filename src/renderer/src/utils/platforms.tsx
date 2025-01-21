@@ -11,8 +11,8 @@ export const PlatformNames: { [key in TelegramPlatform]: string } = {
 	android: "Android",
 	ios: "iOS",
 	tdesktop: "Desktop",
-	web: "K",
-	weba: "A",
+	web: "Web K",
+	weba: "Web A",
 	macos: "MacOS",
 };
 

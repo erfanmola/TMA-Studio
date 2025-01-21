@@ -23,6 +23,8 @@ import { PlatformNames } from "@renderer/utils/platforms";
 import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
 import { defaultProjectPlatforms } from "@renderer/utils/project";
 import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
+import { ViewportWeb } from "@renderer/sections/ViewportWeb";
+import { ViewportWebA } from "@renderer/sections/ViewportWebA";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;
@@ -110,6 +112,22 @@ const SectionPlatform: Component<{
 							placeholder={projectFrame.window.floating}
 						/>
 					</Match>
+
+					<Match when={props.platform === "web"}>
+						<ViewportWeb
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
+
+					<Match when={props.platform === "weba"}>
+						<ViewportWebA
+							project={props.project}
+							projectFrameStore={[projectFrame, setProjectFrame]}
+							placeholder={projectFrame.window.floating}
+						/>
+					</Match>
 				</Switch>
 			</div>
 		</div>
@@ -131,7 +149,16 @@ const ProjectPage: Component<{ id: Project["id"] }> = (props) => {
 
 			<div>
 				<For
-					each={["ios", "android", "tdesktop", "macos"] as TelegramPlatform[]}
+					each={
+						[
+							"ios",
+							"android",
+							"tdesktop",
+							"macos",
+							"web",
+							"weba",
+						] as TelegramPlatform[]
+					}
 				>
 					{(platform) => (
 						<Show
