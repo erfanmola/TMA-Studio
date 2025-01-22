@@ -128,6 +128,25 @@ https://github.com/user-attachments/assets/c6f3f79c-d56d-4329-86f2-8a8d7acb68ae
 
 ---
 
+## External Libraries Compatibility
+
+TMA Studio provides full compatibility with widely-used libraries for Telegram Mini Apps development:
+
+- **[telegram-web-app.js](https://core.telegram.org/bots/webapps#initializing-mini-apps)**
+  - Fully compatible across **all platforms**.
+
+- **[@telegram-apps/sdk](https://www.npmjs.com/package/@telegram-apps/sdk)** and its sub-packages:
+  - Fully compatible for **all platforms except `web` and `weba`**.
+  - For `web` and `weba`, the library limits the origin of the iframe post message, preventing us from receiving events from the parent.
+  - To resolve this issue, you can adjust the `$targetOrigin` setting in `@telegram-apps/sdk-react`:
+    ```javascript
+    import { $targetOrigin } from "@telegram-apps/sdk";
+    $targetOrigin.set("*");
+    ```
+    This change ensures seamless event communication, allowing TMA Studio to function correctly.
+
+---
+
 ## Roadmap
 ### Phase 1 (Completed)
 This phase has started from October 2024 and ended until January 2025.
