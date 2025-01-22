@@ -32,7 +32,9 @@ import type {
 import type { WebviewTag } from "electron";
 import type { MenuMoreStore } from "./MenuMore";
 import { preferences } from "@renderer/utils/preferences";
-import { sleep } from "telegram/Helpers";
+import { Viewport } from "@renderer/utils/viewport";
+
+export type ExtendedWebviewTag = WebviewTag & { attached?: boolean };
 
 declare module "solid-js" {
 	namespace JSX {
@@ -54,7 +56,7 @@ export const TMAView: Component<{
 	const [menuMore, setMenuMore] = props.menuMoreStore;
 
 	const [webAppUrl] = createResource(async () => {
-		return `${props.project.url}${await tgWebAppData(
+		const url = `${props.project.url}${await tgWebAppData(
 			projectFrame.platform,
 			projectFrame.state.mode,
 			preferences.users.users.find(
@@ -62,6 +64,16 @@ export const TMAView: Component<{
 			),
 			props.project.token,
 		)}`;
+
+		if (["web", "weba"].includes(projectFrame.platform)) {
+			if (import.meta.env.DEV) {
+				return `${window.api.general.rendererUrl}/iframe.html?url=${encodeURIComponent(url)}`;
+			}
+
+			return `${window.api.general.rendererPath}/iframe.html?url=${encodeURIComponent(url)}`;
+		}
+
+		return url;
 	});
 
 	// Notify the webview about theme change
@@ -123,6 +135,7 @@ export const TMAView: Component<{
 
 				if (
 					projectFrame.inspectElement.open &&
+					projectInner.webview?.attached &&
 					!projectInner.webview?.isDevToolsOpened()
 				) {
 					projectInner.webview?.openDevTools();
@@ -407,6 +420,8 @@ export const TMAView: Component<{
 		});
 
 		projectInner.webview.addEventListener("did-attach", () => {
+			projectInner.webview!.attached = true;
+
 			projectInner.webview?.addEventListener("devtools-opened", () => {
 				setProjectFrame("inspectElement", "open", true);
 			});
@@ -423,25 +438,30 @@ export const TMAView: Component<{
 			setProjectInner("ready", true);
 		});
 
-		const handleZoomEvent = async () => {
-			const setZoom = () => {
-				projectInner.webview?.setZoomFactor(
-					projectInner.webview?.clientWidth /
-						preferences.viewport[projectFrame.platform],
-				);
-			};
-
-			for (let i = 0; i <= 10; i++) {
-				setZoom();
-				await sleep(10);
-			}
+		const handleViewport = async () => {
+			window.api.webcontents.viewport.set(
+				projectInner.webview!.getWebContentsId(),
+				preferences.viewport[projectFrame.platform],
+				Viewport[projectFrame.platform].find(
+					(item) =>
+						Number.parseInt(item.width.toString()) ===
+						Number.parseInt(
+							preferences.viewport[projectFrame.platform].toString(),
+						),
+				)!.height,
+				projectInner.webview!.clientWidth,
+			);
 		};
 
-		projectInner.webview.addEventListener("did-stop-loading", handleZoomEvent);
-		projectInner.webview.addEventListener("did-finish-load", handleZoomEvent);
+		projectInner.webview.addEventListener("did-stop-loading", handleViewport);
+		// projectInner.webview.addEventListener("did-finish-load", handleViewport);
 
 		onCleanup(() => {
-			if (projectFrame.state.open && projectInner.webview?.isDevToolsOpened()) {
+			if (
+				projectFrame.state.open &&
+				projectInner.webview?.attached &&
+				projectInner.webview?.isDevToolsOpened()
+			) {
 				try {
 					projectInner.webview.closeDevTools();
 				} catch (e) {}
@@ -506,13 +526,16 @@ export const TMAView: Component<{
 					}}
 				/>
 			</Show>
-			<webview
-				// @ts-ignore
-				ref={(el) => setProjectInner("webview", el)}
-				id={`webview-${props.project.id}-${projectFrame.platform}`}
-				src={webAppUrl() ?? ""}
-				partition={`persist:${props.project.id}-${projectFrame.platform}`}
-			/>
+			<Show when={webAppUrl()}>
+				<webview
+					// @ts-ignore
+					ref={(el) => setProjectInner("webview", el)}
+					id={`webview-${props.project.id}-${projectFrame.platform}`}
+					src={webAppUrl() ?? ""}
+					partition={`persist:${props.project.id}-${projectFrame.platform}`}
+					webpreferences=""
+				/>
+			</Show>
 		</>
 	);
 };
@@ -553,6 +576,6 @@ export const TMAViewOverlay: Component<{
 export const getProjectWebview = (
 	projectId: Project["id"],
 	platform: TelegramPlatform,
-): WebviewTag | null => {
+): ExtendedWebviewTag | null => {
 	return document.querySelector(`#webview-${projectId}-${platform}`);
 };

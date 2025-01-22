@@ -259,6 +259,11 @@ export const ViewportAndroid: Component<{
 											TelegramThemes[projectFrame.platform][
 												projectFrame.state.mode
 											].text_color,
+										"border-bottom-color": projectInner.theme.color.header
+											? "transparent"
+											: TelegramThemes[projectFrame.platform][
+													projectFrame.state.mode
+												].section_separator_color,
 									}}
 								>
 									<div>

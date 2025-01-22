@@ -29,6 +29,20 @@ declare global {
 			haptic: {
 				vibrate: () => void;
 			};
+			general: {
+				rendererUrl: string | undefined;
+				rendererPath: string;
+			};
+			webcontents: {
+				viewport: {
+					set: (
+						id: number,
+						width: number,
+						height: number,
+						vwidth: number,
+					) => void;
+				};
+			};
 		};
 	}
 }

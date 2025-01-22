@@ -20,9 +20,9 @@ import { batch } from "solid-js";
 import { isHexColor, isColorDark } from "./color";
 import type { SetStoreFunction } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
-import type { WebviewTag } from "electron";
 import type { MenuMoreStore } from "@renderer/sections/MenuMore";
 import { preferences } from "./preferences";
+import type { ExtendedWebviewTag } from "@renderer/sections/TMAView";
 
 export const TGWebAppVersion = "7.10";
 
@@ -93,7 +93,7 @@ export const tgWebAppDataHash = async (webAppData: any, token: string) => {
 export const tgEmitEvent = async (
 	eventType: string,
 	eventData: any,
-	webview: WebviewTag | undefined,
+	webview: ExtendedWebviewTag | undefined,
 	platform: TelegramPlatform,
 ) => {
 	if (!webview) return;
@@ -102,14 +102,20 @@ export const tgEmitEvent = async (
 	switch (platform) {
 		case "android":
 		case "ios":
-		case "web":
-		case "weba":
-			code = `window.Telegram.WebView.receiveEvent('${eventType}', ${JSON.stringify(eventData)})`;
+			code = `window.Telegram.WebView.receiveEvent('${eventType}', ${JSON.stringify(eventData).replace(/'/g, "\\'")})`;
 			break;
 		case "tdesktop":
 		case "macos":
-			code = `window.TelegramGameProxy.receiveEvent('${eventType}', ${JSON.stringify(eventData)})`;
+			code = `window.TelegramGameProxy.receiveEvent('${eventType}', ${JSON.stringify(eventData).replace(/'/g, "\\'")})`;
 			break;
+		case "web":
+		case "weba":
+			code = `document.querySelector('iframe#tma-webview-iframe')?.contentWindow.postMessage('${JSON.stringify(
+				{
+					eventType,
+					eventData,
+				},
+			).replace(/'/g, "\\'")}', '*')`;
 	}
 
 	try {
@@ -118,7 +124,7 @@ export const tgEmitEvent = async (
 };
 
 export type TMAProjectInner = {
-	webview: WebviewTag | undefined;
+	webview: ExtendedWebviewTag | undefined;
 	ready: boolean;
 	backButton: {
 		enabled: boolean;
@@ -188,7 +194,7 @@ export const tgEventHandler = (
 
 		case "web_app_close":
 			// TODO: check if this method respects the enableCloseConfirmation on different clients
-			if (webview?.isDevToolsOpened) {
+			if (webview?.isDevToolsOpened()) {
 				webview?.closeDevTools();
 			}
 			webview = undefined;

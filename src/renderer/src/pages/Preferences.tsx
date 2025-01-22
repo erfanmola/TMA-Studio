@@ -209,7 +209,7 @@ const PreferencesPage: Component = () => {
 										{...createOptions(
 											Viewport[platform].map((item) => ({
 												label: item.name,
-												value: item.size,
+												value: item.width,
 											})),
 											{
 												format: (item) => (
@@ -240,7 +240,7 @@ const PreferencesPage: Component = () => {
 										initialValue={{
 											value: preferences.viewport[platform],
 											label: Viewport[platform].find(
-												(item) => item.size === preferences.viewport[platform],
+												(item) => item.width === preferences.viewport[platform],
 											),
 										}}
 										format={(item, type) =>

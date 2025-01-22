@@ -1,4 +1,4 @@
-import { app, dialog, ipcMain, shell } from "electron";
+import { app, dialog, ipcMain, shell, webContents } from "electron";
 import { ipcMainPreferences, store } from "./init";
 
 import { createWindowProjectFloating } from "./window-project-floating";
@@ -11,6 +11,7 @@ export const initializeIPCHandlers = () => {
 	initializeIPCMisc();
 	initializeIPCProject();
 	initializeIPCSettings();
+	initializeIPCWebContents();
 };
 
 const initializeIPCStore = () => {
@@ -132,4 +133,35 @@ const initializeIPCSettings = () => {
 			} catch (e) {}
 		}
 	});
+};
+
+const initializeIPCWebContents = () => {
+	ipcMain.on(
+		"webcontents-viewport-set",
+		async (_, id, width, height, vwidth) => {
+			const wc = webContents.fromId(id);
+
+			const scale = vwidth / width;
+
+			if (wc) {
+				wc.enableDeviceEmulation({
+					scale: scale,
+					deviceScaleFactor: scale,
+					screenPosition: "mobile",
+					screenSize: {
+						height: height * scale,
+						width: width,
+					},
+					viewPosition: {
+						x: 0,
+						y: 0,
+					},
+					viewSize: {
+						height: height * scale,
+						width: width,
+					},
+				});
+			}
+		},
+	);
 };

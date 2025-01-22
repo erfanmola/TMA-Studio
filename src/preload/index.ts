@@ -1,6 +1,7 @@
 import { clipboard, contextBridge, ipcRenderer } from "electron";
 
 import { electronAPI } from "@electron-toolkit/preload";
+import { join } from "node:path";
 
 const api = {
 	store: {
@@ -41,6 +42,17 @@ const api = {
 		},
 	},
 	onShortcutPressed: (callback) => ipcRenderer.on("shortcut-pressed", callback),
+	general: {
+		rendererUrl: process.env.ELECTRON_RENDERER_URL,
+		rendererPath: join(__dirname, "../renderer"),
+	},
+	webcontents: {
+		viewport: {
+			set: (id: number, width: number, height: number, vwidth: number) => {
+				ipcRenderer.send("webcontents-viewport-set", id, width, height, vwidth);
+			},
+		},
+	},
 };
 
 if (process.contextIsolated) {

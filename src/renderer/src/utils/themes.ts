@@ -154,8 +154,8 @@ export const TelegramThemes: {
 			section_header_text_color: "#3390ec",
 			subtitle_text_color: "#707579",
 			destructive_text_color: "#df3f40",
-			bottom_bar_bg_color: "",
-			section_separator_color: "",
+			bottom_bar_bg_color: "#ffffff",
+			section_separator_color: "#707579",
 		},
 		dark: {
 			bg_color: "#212121",
@@ -171,8 +171,8 @@ export const TelegramThemes: {
 			section_header_text_color: "#8774e1",
 			subtitle_text_color: "#aaaaaa",
 			destructive_text_color: "#ff595a",
-			bottom_bar_bg_color: "",
-			section_separator_color: "",
+			bottom_bar_bg_color: "#212121",
+			section_separator_color: "#aaaaaa",
 		},
 	},
 	weba: {
@@ -190,8 +190,8 @@ export const TelegramThemes: {
 			section_header_text_color: "#707579",
 			subtitle_text_color: "#707579",
 			destructive_text_color: "#e53935",
-			bottom_bar_bg_color: "",
-			section_separator_color: "",
+			bottom_bar_bg_color: "#ffffff",
+			section_separator_color: "#707579",
 		},
 		dark: {
 			bg_color: "#212121",
@@ -207,8 +207,8 @@ export const TelegramThemes: {
 			section_header_text_color: "#aaaaaa",
 			subtitle_text_color: "#aaaaaa",
 			destructive_text_color: "#e53935",
-			bottom_bar_bg_color: "",
-			section_separator_color: "",
+			bottom_bar_bg_color: "#212121",
+			section_separator_color: "#aaaaaa",
 		},
 	},
 	macos: {
