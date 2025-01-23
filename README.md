@@ -137,7 +137,7 @@ TMA Studio provides full compatibility with widely-used libraries for Telegram M
 
 - **[@telegram-apps/sdk](https://www.npmjs.com/package/@telegram-apps/sdk)** and its sub-packages:
   - Fully compatible for **all platforms except `web` and `weba`**.
-  - For `web` and `weba`, the library limits the origin of the iframe post message, preventing us from receiving events from the parent.
+  - For `web` and `weba`, the library limits the origin of the iframe post message, preventing us from receiving events in the parent.
   - To resolve this issue, you can adjust the `$targetOrigin` setting in `@telegram-apps/sdk-react`:
     ```javascript
     import { $targetOrigin } from "@telegram-apps/sdk";
