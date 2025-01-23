@@ -67,10 +67,10 @@ export const TMAView: Component<{
 
 		if (["web", "weba"].includes(projectFrame.platform)) {
 			if (import.meta.env.DEV) {
-				return `${window.api.general.rendererUrl}/iframe.html?url=${encodeURIComponent(url)}`;
+				return `${window.api.general.rendererUrl}/iframe.html#/?url=${encodeURIComponent(url)}`;
 			}
 
-			return `${window.api.general.rendererPath}/iframe.html?url=${encodeURIComponent(url)}`;
+			return `${window.api.general.rendererPath}/iframe.html#/?url=${encodeURIComponent(url)}`;
 		}
 
 		return url;

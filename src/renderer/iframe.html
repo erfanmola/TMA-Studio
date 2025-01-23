@@ -30,7 +30,7 @@
 	<body>
 		<script>
 			document.addEventListener('DOMContentLoaded', () => {
-				const urlParams = new URL(window.location.href);
+				const urlParams = new URL(window.location.href.replace('iframe.html#/?', 'iframe.html?'));
 				const url = urlParams.searchParams.get('url');
 
 				if (!url) return;
