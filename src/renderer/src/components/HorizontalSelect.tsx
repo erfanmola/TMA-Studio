@@ -1,4 +1,4 @@
-import { For, type Component, type Signal } from "solid-js";
+import { type Component, For, type Signal } from "solid-js";
 import "./HorizontalSelect.scss";
 
 export type HorizontalSelectItem = {

@@ -1,10 +1,10 @@
 import { FaSolidA, FaSolidK } from "solid-icons/fa";
 
 import { FiMonitor } from "solid-icons/fi";
-import type { JSX } from "solid-js";
 import { RiLogosAndroidLine } from "solid-icons/ri";
 import { SiIos } from "solid-icons/si";
-import { TbBrandApple } from "solid-icons/tb";
+import { TbOutlineBrandApple } from "solid-icons/tb";
+import type { JSX } from "solid-js";
 import type { TelegramPlatform } from "./themes";
 
 export const PlatformNames: { [key in TelegramPlatform]: string } = {
@@ -22,5 +22,5 @@ export const PlatformIcons: { [key in TelegramPlatform]: () => JSX.Element } = {
 	tdesktop: () => <FiMonitor />,
 	web: () => <FaSolidK />,
 	weba: () => <FaSolidA />,
-	macos: () => <TbBrandApple />,
+	macos: () => <TbOutlineBrandApple />,
 };

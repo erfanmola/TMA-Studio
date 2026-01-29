@@ -1,7 +1,7 @@
-import { clipboard, contextBridge, ipcRenderer } from "electron";
+import { join } from "node:path";
 
 import { electronAPI } from "@electron-toolkit/preload";
-import { join } from "node:path";
+import { clipboard, contextBridge, ipcRenderer } from "electron";
 
 const api = {
 	store: {
@@ -63,8 +63,8 @@ if (process.contextIsolated) {
 		console.error(error);
 	}
 } else {
-	// @ts-ignore (define in dts)
+	// @ts-expect-error (define in dts)
 	window.electron = electronAPI;
-	// @ts-ignore (define in dts)
+	// @ts-expect-error (define in dts)
 	window.api = api;
 }

@@ -1,7 +1,6 @@
 import type { BrowserWindow, Tray } from "electron";
-import type { TelegramPlatform, ThemeMode } from "./utils/themes";
-
 import type { JSX } from "solid-js";
+import type { TelegramPlatform, ThemeMode } from "./utils/themes";
 
 export type Project = {
 	[x: string]: any;

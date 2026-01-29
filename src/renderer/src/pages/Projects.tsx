@@ -1,15 +1,14 @@
 import "./Projects.scss";
 import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
-
+import DialogEditProject from "@renderer/components/DialogEditProject";
+import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
+import { preferences, setModals } from "@renderer/utils/preferences";
 import { type Component, For, Show } from "solid-js";
+import { createStore } from "solid-js/store";
+import KeyboardCombo from "../components/KeyboardCombo";
 import type { Project } from "../types";
 import { openProject } from "../utils/project";
 import ProjectPage from "./Project";
-import KeyboardCombo from "../components/KeyboardCombo";
-import DialogRemoveProject from "@renderer/components/DialogRemoveProject";
-import { preferences, setModals } from "@renderer/utils/preferences";
-import DialogEditProject from "@renderer/components/DialogEditProject";
-import { createStore } from "solid-js/store";
 
 export type ProjectContextMenuStore = {
 	delete: {

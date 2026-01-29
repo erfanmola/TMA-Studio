@@ -1,29 +1,27 @@
 import "../scss/sections/_viewport-weba.scss";
 
 import { FrameWebA } from "@renderer/components/DeviceFrames";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
-import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
+import { getNameInitials, stringToColorDark } from "@renderer/utils/general";
 import {
 	generateProjectInner,
 	generateProjectMenuMore,
 	type TMAProjectInner,
 } from "@renderer/utils/telegram";
 import { TelegramThemes } from "@renderer/utils/themes";
-
-import { type Component, Show } from "solid-js";
-import { BottomBar } from "./BottomBar";
-import { RiEditorAttachment2, RiSystemCloseFill } from "solid-icons/ri";
-import { TbSticker } from "solid-icons/tb";
-import { TiMicrophoneOutline } from "solid-icons/ti";
-import { BiRegularCollapseAlt, BiRegularWindow } from "solid-icons/bi";
-
-import { createStore, type SetStoreFunction } from "solid-js/store";
-import { MenuMore, type MenuMoreStore } from "./MenuMore";
-import { IoArrowBackOutline } from "solid-icons/io";
-import { FiMoreVertical } from "solid-icons/fi";
-import type { TMAProjectFrame } from "@renderer/pages/Project";
-import { TMAView, TMAViewOverlay } from "./TMAView";
 import { AiOutlinePlus } from "solid-icons/ai";
+import { BiRegularCollapseAlt, BiRegularWindow } from "solid-icons/bi";
+import { FiMoreVertical } from "solid-icons/fi";
+import { IoArrowBackOutline } from "solid-icons/io";
+import { RiEditorAttachment2, RiSystemCloseFill } from "solid-icons/ri";
+import { TbOutlineSticker } from "solid-icons/tb";
+import { TiMicrophoneOutline } from "solid-icons/ti";
+import { type Component, Show } from "solid-js";
+import { createStore, type SetStoreFunction } from "solid-js/store";
+import { BottomBar } from "./BottomBar";
+import { MenuMore, type MenuMoreStore } from "./MenuMore";
+import { TMAView, TMAViewOverlay } from "./TMAView";
 
 export const ViewportWebA: Component<{
 	project: Project;
@@ -148,7 +146,7 @@ export const ViewportWebA: Component<{
 									}}
 								>
 									<span>Message</span>
-									<TbSticker />
+									<TbOutlineSticker />
 								</div>
 								<TiMicrophoneOutline />
 							</footer>

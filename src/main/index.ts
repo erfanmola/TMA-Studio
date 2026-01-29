@@ -1,13 +1,12 @@
-import { BrowserWindow, app, ipcMain } from "electron";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
+import { registerContextMenuListener } from "@electron-uikit/contextmenu/main";
+import { useUIKit } from "@electron-uikit/core/main";
+import { registerTitleBarListener } from "@electron-uikit/titlebar";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { ipcMainPreferences, store } from "./init";
-
+import { initializeIPCHandlers } from "./ipcHandler";
 import { createWindowMain } from "./window-main";
 import { createWindowWelcome } from "./window-welcome";
-import { initializeIPCHandlers } from "./ipcHandler";
-import { registerContextMenuListener } from "@electron-uikit/contextmenu/main";
-import { registerTitleBarListener } from "@electron-uikit/titlebar";
-import { useUIKit } from "@electron-uikit/core/main";
 
 declare module "electron" {
 	interface BrowserWindow {

@@ -1,7 +1,7 @@
 import "./KeyboardCombo.scss";
 
 import { FiCommand } from "solid-icons/fi";
-import { Show, type Component } from "solid-js";
+import { type Component, Show } from "solid-js";
 
 const KeyboardCombo: Component<{ includeSuper?: boolean; key: string }> = (
 	props,

@@ -1,38 +1,36 @@
-import webviewStyle from "../scss/_webview.scss?inline";
-
-import {
-	batch,
-	createEffect,
-	createResource,
-	on,
-	onCleanup,
-	Show,
-	type Component,
-} from "solid-js";
-import type { SetStoreFunction } from "solid-js/store";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
-import {
-	generateProjectFrame,
-	generateProjectInner,
-	tgEmitEvent,
-	tgEventHandler,
-	tgWebAppData,
-	type TMAProjectInner,
-} from "@renderer/utils/telegram";
-import { PopupHandler } from "./PopupHandler";
-import { PopupQRHandler } from "./PopupQRHandler";
-import { PopupStoryHandler } from "./PopupStory";
-import { type TelegramPlatform, TelegramThemes } from "@renderer/utils/themes";
-
 import type {
 	Project,
 	TelegramMethodEvent,
 	TelegramPopup,
 } from "@renderer/types";
-import type { WebviewTag } from "electron";
-import type { MenuMoreStore } from "./MenuMore";
 import { preferences } from "@renderer/utils/preferences";
+import {
+	generateProjectFrame,
+	generateProjectInner,
+	type TMAProjectInner,
+	tgEmitEvent,
+	tgEventHandler,
+	tgWebAppData,
+} from "@renderer/utils/telegram";
+import { type TelegramPlatform, TelegramThemes } from "@renderer/utils/themes";
 import { Viewport } from "@renderer/utils/viewport";
+import type { WebviewTag } from "electron";
+import {
+	batch,
+	type Component,
+	createEffect,
+	createResource,
+	on,
+	onCleanup,
+	Show,
+} from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
+import webviewStyle from "../scss/_webview.scss?inline";
+import type { MenuMoreStore } from "./MenuMore";
+import { PopupHandler } from "./PopupHandler";
+import { PopupQRHandler } from "./PopupQRHandler";
+import { PopupStoryHandler } from "./PopupStory";
 
 export type ExtendedWebviewTag = WebviewTag & { attached?: boolean };
 
@@ -444,9 +442,10 @@ export const TMAView: Component<{
 				preferences.viewport[projectFrame.platform],
 				Viewport[projectFrame.platform].find(
 					(item) =>
-						Number.parseInt(item.width.toString()) ===
+						Number.parseInt(item.width.toString(), 10) ===
 						Number.parseInt(
 							preferences.viewport[projectFrame.platform].toString(),
+							10,
 						),
 				)!.height,
 				projectInner.webview!.clientWidth,
@@ -464,7 +463,7 @@ export const TMAView: Component<{
 			) {
 				try {
 					projectInner.webview.closeDevTools();
-				} catch (e) {}
+				} catch (_e) {}
 			}
 		});
 	};
@@ -528,7 +527,7 @@ export const TMAView: Component<{
 			</Show>
 			<Show when={webAppUrl()}>
 				<webview
-					// @ts-ignore
+					// @ts-expect-error
 					ref={(el) => setProjectInner("webview", el)}
 					id={`webview-${props.project.id}-${projectFrame.platform}`}
 					src={webAppUrl() ?? ""}

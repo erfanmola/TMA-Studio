@@ -1,6 +1,6 @@
-import type { IPCMainPreferences } from "../renderer/src/types";
 import { Menu } from "electron";
 import Store from "electron-store";
+import type { IPCMainPreferences } from "../renderer/src/types";
 import { defaultPreferences } from "./preferences";
 
 // Setup the application menu

@@ -11,7 +11,7 @@ const IndexPage = () => {
 		navigate("/welcome", { replace: true });
 	}
 
-	return <></>;
+	return <>Nothing</>;
 };
 
 export default IndexPage;

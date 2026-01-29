@@ -1,3 +1,11 @@
 {
-	"recommendations": ["biomejs.biome"]
+	"recommendations": [
+		"biomejs.biome",
+		"vscode.html-language-features",
+		"vscode.css-language-features",
+		"vscode.typescript-language-features",
+		"vscode.json-language-features",
+		"vscode.markdown-language-features",
+		"vscode.builtin-extensions"
+	]
 }

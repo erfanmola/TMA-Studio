@@ -1,27 +1,25 @@
 import "../scss/sections/_viewport-tdesktop.scss";
 
 import { FrameDesktop } from "@renderer/components/DeviceFrames";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
-import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
+import { getNameInitials, stringToColorDark } from "@renderer/utils/general";
 import {
 	generateProjectInner,
 	generateProjectMenuMore,
 	type TMAProjectInner,
 } from "@renderer/utils/telegram";
 import { TelegramThemes } from "@renderer/utils/themes";
-
-import { type Component, Show } from "solid-js";
-import { BottomBar } from "./BottomBar";
-import { RiEditorAttachment2, RiSystemCloseFill } from "solid-icons/ri";
-import { TbSticker } from "solid-icons/tb";
-import { TiMicrophoneOutline } from "solid-icons/ti";
 import { BiRegularWindow } from "solid-icons/bi";
-
-import { createStore, type SetStoreFunction } from "solid-js/store";
-import { MenuMore, type MenuMoreStore } from "./MenuMore";
-import { IoArrowBackOutline } from "solid-icons/io";
 import { FiMoreVertical } from "solid-icons/fi";
-import type { TMAProjectFrame } from "@renderer/pages/Project";
+import { IoArrowBackOutline } from "solid-icons/io";
+import { RiEditorAttachment2, RiSystemCloseFill } from "solid-icons/ri";
+import { TbOutlineSticker } from "solid-icons/tb";
+import { TiMicrophoneOutline } from "solid-icons/ti";
+import { type Component, Show } from "solid-js";
+import { createStore, type SetStoreFunction } from "solid-js/store";
+import { BottomBar } from "./BottomBar";
+import { MenuMore, type MenuMoreStore } from "./MenuMore";
 import { TMAView, TMAViewOverlay } from "./TMAView";
 
 export const ViewportDesktop: Component<{
@@ -147,7 +145,7 @@ export const ViewportDesktop: Component<{
 									}}
 								>
 									<span>Message</span>
-									<TbSticker />
+									<TbOutlineSticker />
 								</div>
 								<TiMicrophoneOutline />
 							</footer>

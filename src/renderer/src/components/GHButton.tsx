@@ -1,7 +1,7 @@
 import "./GHButton.scss";
 
 import { BsGithub } from "solid-icons/bs";
-import { Show, type Component } from "solid-js";
+import { type Component, Show } from "solid-js";
 
 const GHButton: Component<{
 	stars: number;

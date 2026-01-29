@@ -5,8 +5,8 @@ import {
 	type JSX,
 	onCleanup,
 	onMount,
-	Show,
 	type ParentComponent,
+	Show,
 } from "solid-js";
 
 const Modal: ParentComponent<{

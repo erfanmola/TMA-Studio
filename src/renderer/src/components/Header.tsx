@@ -1,19 +1,17 @@
 import "./Header.scss";
 
+import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
+import type { HTMLTitleBarElementAttributes } from "@electron-uikit/titlebar/renderer";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
+import { createOptions, Select } from "@thisbeyond/solid-select";
 import { FaRegularUser, FaSolidCheck } from "solid-icons/fa";
 import { FiMoon, FiSun } from "solid-icons/fi";
-import { Menu, MenuItem } from "@electron-uikit/contextmenu/renderer";
-import { Select, createOptions } from "@thisbeyond/solid-select";
-import { Show, createSignal } from "solid-js";
-import { preferences, setPreferences } from "@renderer/utils/preferences";
-
+import { TbOutlineDeviceMobileCode } from "solid-icons/tb";
+import { createSignal, onMount, Show } from "solid-js";
+import { createStore } from "solid-js/store";
 import DialogRemoveUser from "./DialogRemoveUser";
 import GHButton from "./GHButton";
-import type { HTMLTitleBarElementAttributes } from "@electron-uikit/titlebar/renderer";
 import { PlatformToggle } from "./PlatformToggle";
-import { TbDeviceMobileCode } from "solid-icons/tb";
-import { createStore } from "solid-js/store";
-import { onMount } from "solid-js";
 
 const [ghStars, setGHStars] = createSignal(0);
 export const ghRepoURL = "https://github.com/erfanmola/TMA-Studio";
@@ -48,7 +46,7 @@ const Header = () => {
 				if (result && "stargazers_count" in result) {
 					setGHStars(result.stargazers_count);
 				}
-			} catch (e) {}
+			} catch (_e) {}
 		}
 	});
 
@@ -111,7 +109,7 @@ const Header = () => {
 
 			<header id="header-main">
 				<div>
-					<TbDeviceMobileCode />
+					<TbOutlineDeviceMobileCode />
 					<GHButton stars={ghStars()} url={ghRepoURL} />
 				</div>
 

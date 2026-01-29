@@ -1,10 +1,9 @@
-import { ipcMainPreferences, store } from "./init";
-
+import { join } from "node:path";
+import { is } from "@electron-toolkit/utils";
 import { BrowserWindow } from "electron";
 import type { Project } from "../renderer/src/types";
 import type { TelegramPlatform } from "../renderer/src/utils/themes";
-import { is } from "@electron-toolkit/utils";
-import { join } from "node:path";
+import { ipcMainPreferences, store } from "./init";
 
 export const createWindowProjectFloating = (
 	project: Project["id"],

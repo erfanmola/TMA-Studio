@@ -4,7 +4,7 @@ import { PlatformIcons, PlatformNames } from "@renderer/utils/platforms";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
 import { defaultProjectPlatforms } from "@renderer/utils/project";
 import type { TelegramPlatform } from "@renderer/utils/themes";
-import { For, type Component } from "solid-js";
+import { type Component, For } from "solid-js";
 import { produce } from "solid-js/store";
 
 export const PlatformToggle: Component = () => {
@@ -42,6 +42,7 @@ export const PlatformToggle: Component = () => {
 							title={PlatformNames[platform]}
 							class={`${platform}`}
 							classList={{
+								// biome-ignore lint/suspicious/noNonNullAssertedOptionalChain: false positive
 								active: preferences.projects
 									.find(
 										(item) =>
@@ -50,6 +51,7 @@ export const PlatformToggle: Component = () => {
 									)
 									?.platforms!.includes(platform),
 								disabled:
+									// biome-ignore lint/suspicious/noNonNullAssertedOptionalChain: false positive
 									(preferences.projects
 										.find(
 											(item) =>

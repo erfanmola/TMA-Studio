@@ -1,26 +1,25 @@
 import "../scss/sections/_viewport-ios.scss";
 
 import { FrameIPhone } from "@renderer/components/DeviceFrames";
+import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
-import { stringToColorDark, getNameInitials } from "@renderer/utils/general";
+import { getNameInitials, stringToColorDark } from "@renderer/utils/general";
+import { preferences } from "@renderer/utils/preferences";
 import {
-	type TMAProjectInner,
 	generateProjectInner,
 	generateProjectMenuMore,
+	type TMAProjectInner,
 } from "@renderer/utils/telegram";
 import { TelegramThemes } from "@renderer/utils/themes";
-import { FaSolidChevronLeft } from "solid-icons/fa";
-import { type Component, createSignal, createEffect, Show } from "solid-js";
-import { BottomBar } from "./BottomBar";
-import { RiEditorAttachment2 } from "solid-icons/ri";
-import { TbSticker } from "solid-icons/tb";
-import { TiMicrophoneOutline } from "solid-icons/ti";
 import { BiRegularWindow } from "solid-icons/bi";
-
+import { FaSolidChevronLeft } from "solid-icons/fa";
+import { RiEditorAttachment2 } from "solid-icons/ri";
+import { TbOutlineSticker } from "solid-icons/tb";
+import { TiMicrophoneOutline } from "solid-icons/ti";
+import { type Component, createEffect, createSignal, Show } from "solid-js";
 import { createStore, type SetStoreFunction } from "solid-js/store";
+import { BottomBar } from "./BottomBar";
 import { MenuMore, type MenuMoreStore } from "./MenuMore";
-import { preferences } from "@renderer/utils/preferences";
-import type { TMAProjectFrame } from "@renderer/pages/Project";
 import { TMAView, TMAViewOverlay } from "./TMAView";
 
 export const ViewportIOS: Component<{
@@ -205,7 +204,7 @@ export const ViewportIOS: Component<{
 									}}
 								>
 									<span>Message</span>
-									<TbSticker />
+									<TbOutlineSticker />
 								</div>
 								<TiMicrophoneOutline />
 							</footer>

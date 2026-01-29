@@ -1,12 +1,11 @@
 import { HashRouter, Route } from "@solidjs/router";
-
+import semver from "semver";
+import { onMount } from "solid-js";
+import { ghRepoURL } from "./components/Header";
+import { SettingsProvider } from "./contexts/SettingsContext";
 import IndexPage from "./pages/Index";
 import MainPage from "./pages/Main";
-import { SettingsProvider } from "./contexts/SettingsContext";
 import WelcomePage from "./pages/Welcome";
-import { ghRepoURL } from "./components/Header";
-import { onMount } from "solid-js";
-import semver from "semver";
 
 const App = () => {
 	onMount(async () => {
@@ -18,7 +17,7 @@ const App = () => {
 			if (semver.gt(result.version, window.api.version.get())) {
 				window.electron.ipcRenderer.send("update-available", result.version);
 			}
-		} catch (e) {}
+		} catch (_e) {}
 	});
 
 	return (

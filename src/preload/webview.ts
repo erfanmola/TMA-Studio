@@ -5,7 +5,7 @@ contextBridge.exposeInMainWorld("TelegramWebviewProxy", {
 		if (import.meta.env.DEV) {
 			console.log("Mini App Method Emit", { eventType, eventData });
 		}
-		// @ts-ignore
+
 		ipcRenderer.sendToHost("method", { eventType, eventData });
 	},
 });
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (import.meta.env.DEV) {
 				console.log("Mini App Method Emit", { eventType, eventData });
 			}
-			// @ts-ignore
+
 			ipcRenderer.sendToHost("method", { eventType, eventData });
 		}
 	});

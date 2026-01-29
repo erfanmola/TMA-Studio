@@ -1,10 +1,6 @@
-import {
-	TelegramThemes,
-	type TelegramPlatform,
-	type ThemeMode,
-} from "./themes";
-import hmac from "js-crypto-hmac";
-
+import type { TMAProjectFrame } from "@renderer/pages/Project";
+import type { MenuMoreStore } from "@renderer/sections/MenuMore";
+import type { ExtendedWebviewTag } from "@renderer/sections/TMAView";
 import type {
 	Project,
 	TelegramButtonMain,
@@ -15,14 +11,17 @@ import type {
 	TelegramStory,
 	User,
 } from "@renderer/types";
-import { buffer2Hex, deserializeObject, ksort } from "./general";
+import hmac from "js-crypto-hmac";
 import { batch } from "solid-js";
-import { isHexColor, isColorDark } from "./color";
 import type { SetStoreFunction } from "solid-js/store";
-import type { TMAProjectFrame } from "@renderer/pages/Project";
-import type { MenuMoreStore } from "@renderer/sections/MenuMore";
+import { isColorDark, isHexColor } from "./color";
+import { buffer2Hex, deserializeObject, ksort } from "./general";
 import { preferences } from "./preferences";
-import type { ExtendedWebviewTag } from "@renderer/sections/TMAView";
+import {
+	type TelegramPlatform,
+	TelegramThemes,
+	type ThemeMode,
+} from "./themes";
 
 export const TGWebAppVersion = "7.10";
 
@@ -120,7 +119,7 @@ export const tgEmitEvent = async (
 
 	try {
 		return await webview.executeJavaScript(code);
-	} catch (e) {}
+	} catch (_) {}
 };
 
 export type TMAProjectInner = {
@@ -175,7 +174,7 @@ export const tgEventHandler = (
 
 	try {
 		eventData = JSON.parse(eventData);
-	} catch (e) {}
+	} catch (_) {}
 
 	const [projectFrame, setProjectFrame] = projectFrameStore;
 	const [, setProjectInner] = projectInnerStore;

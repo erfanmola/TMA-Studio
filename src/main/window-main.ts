@@ -1,9 +1,8 @@
-import { BrowserWindow, Tray, shell } from "electron";
-
-import { attachTitleBarToWindow } from "@electron-uikit/titlebar/main";
-import { ipcMainPreferences } from "./init";
-import { is } from "@electron-toolkit/utils";
 import { join } from "node:path";
+import { is } from "@electron-toolkit/utils";
+import { attachTitleBarToWindow } from "@electron-uikit/titlebar/main";
+import { BrowserWindow, shell, Tray } from "electron";
+import { ipcMainPreferences } from "./init";
 
 export const createWindowMain = (): void => {
 	ipcMainPreferences.windows.main = new BrowserWindow({

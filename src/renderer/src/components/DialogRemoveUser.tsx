@@ -1,8 +1,7 @@
-import { batch, createEffect, on, type Component } from "solid-js";
-
 import { preferences, setPreferences } from "@renderer/utils/preferences";
-import type { UserContextMenuStore } from "./Header";
+import { batch, type Component, createEffect, on } from "solid-js";
 import type { SetStoreFunction } from "solid-js/store";
+import type { UserContextMenuStore } from "./Header";
 import Modal from "./Modal";
 
 const DialogRemoveUser: Component<{
@@ -33,7 +32,7 @@ const DialogRemoveUser: Component<{
 				active: "none",
 				users: preferences.users.users.filter(
 					(item) =>
-						item.id !== Number.parseInt(contextMenuStore.delete.id ?? ""),
+						item.id !== Number.parseInt(contextMenuStore.delete.id ?? "", 10),
 				),
 			});
 			setContextMenuStore("delete", "open", false);
@@ -73,7 +72,8 @@ const DialogRemoveUser: Component<{
 						{
 							preferences.users.users.find(
 								(item) =>
-									item.id === Number.parseInt(contextMenuStore.delete.id ?? ""),
+									item.id ===
+									Number.parseInt(contextMenuStore.delete.id ?? "", 10),
 							)?.first_name
 						}
 					</b>{" "}

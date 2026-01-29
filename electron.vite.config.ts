@@ -1,16 +1,15 @@
-import { defineConfig, externalizeDepsPlugin } from "electron-vite";
-
 import { resolve } from "node:path";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "electron-vite";
 import solid from "vite-plugin-solid";
-import tailwindcss from "tailwindcss";
 
 export default defineConfig({
 	main: {
-		plugins: [
-			externalizeDepsPlugin({
+		build: {
+			externalizeDeps: {
 				exclude: ["electron-store"],
-			}),
-		],
+			},
+		},
 	},
 	preload: {
 		build: {
@@ -20,12 +19,11 @@ export default defineConfig({
 					webview: resolve(__dirname, "src/preload/webview.ts"),
 				},
 			},
-		},
-		plugins: [
-			externalizeDepsPlugin({
+			externalizeDeps: {
 				exclude: ["electron-store"],
-			}),
-		],
+			},
+		},
+		plugins: [],
 	},
 	renderer: {
 		resolve: {
@@ -33,10 +31,10 @@ export default defineConfig({
 				"@renderer": resolve("src/renderer/src"),
 			},
 		},
-		plugins: [solid()],
+		plugins: [tailwindcss(), solid()],
 		css: {
 			postcss: {
-				plugins: [tailwindcss()],
+				plugins: [],
 			},
 		},
 		build: {

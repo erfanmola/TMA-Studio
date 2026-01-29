@@ -1,6 +1,5 @@
+import { type Component, For } from "solid-js";
 import { Motion } from "solid-motionone";
-
-import { For, type Component } from "solid-js";
 
 interface LetterPullupProps {
 	class?: string;

@@ -1,21 +1,20 @@
-import { createMemo, type Component } from "solid-js";
-
-import { createStore, produce } from "solid-js/store";
-import { ietfLanguages } from "../utils/ietf";
-import type { User } from "../types";
+import { toast } from "@electron-uikit/toast/renderer";
+import { isValidURL } from "@renderer/utils/general";
 import {
 	preferences,
 	setModals,
 	setPreferences,
 } from "@renderer/utils/preferences";
-import Modal from "./Modal";
-import Input from "./Input";
-import Select from "./Select";
-import Checkbox from "./Checkbox";
-import { isValidURL } from "@renderer/utils/general";
-import validator from "validator";
 import { FiGlobe } from "solid-icons/fi";
-import { toast } from "@electron-uikit/toast/renderer";
+import { type Component, createMemo } from "solid-js";
+import { createStore, produce } from "solid-js/store";
+import validator from "validator";
+import type { User } from "../types";
+import { ietfLanguages } from "../utils/ietf";
+import Checkbox from "./Checkbox";
+import Input from "./Input";
+import Modal from "./Modal";
+import Select from "./Select";
 
 const DialogAddUser: Component = () => {
 	const [form, setForm] = createStore({
@@ -60,13 +59,13 @@ const DialogAddUser: Component = () => {
 
 		if (
 			preferences.users.users.find(
-				(item) => item.id === Number.parseInt(form.id),
+				(item) => item.id === Number.parseInt(form.id, 10),
 			)
 		)
 			return toast.text("User with given id already exists.");
 
 		const user: User = {
-			id: Number.parseInt(form.id),
+			id: Number.parseInt(form.id, 10),
 			first_name: form.first_name,
 		};
 
@@ -75,18 +74,18 @@ const DialogAddUser: Component = () => {
 				typeof form[key as keyof typeof form] === "string" &&
 				form[key as keyof typeof form].toString().length > 0
 			) {
-				// @ts-ignore
+				// @ts-expect-error
 				user[key as keyof User] = form[key as keyof typeof form] as string;
 			} else if (
 				typeof form[key as keyof typeof form] === "boolean" &&
 				form[key as keyof typeof form]
 			) {
-				// @ts-ignore
+				// @ts-expect-error
 				user[key as keyof User] = true;
 			}
 		}
 
-		user.id = Number.parseInt(user.id.toString());
+		user.id = Number.parseInt(user.id.toString(), 10);
 
 		setPreferences(
 			produce((store) => {

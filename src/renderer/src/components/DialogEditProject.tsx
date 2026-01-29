@@ -1,12 +1,11 @@
-import { createEffect, createMemo, on, type Component } from "solid-js";
-
-import { closeTab } from "./Tabbar";
 import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
-import { createStore, type SetStoreFunction } from "solid-js/store";
 import { deserializeObject, isValidURL } from "@renderer/utils/general";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
-import Modal from "./Modal";
+import { type Component, createEffect, createMemo, on } from "solid-js";
+import { createStore, type SetStoreFunction } from "solid-js/store";
 import Input from "./Input";
+import Modal from "./Modal";
+import { closeTab } from "./Tabbar";
 
 const DialogEditProject: Component<{
 	ProjectContextMenuStore: [

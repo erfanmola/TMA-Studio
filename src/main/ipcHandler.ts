@@ -1,10 +1,9 @@
-import { app, dialog, ipcMain, shell, webContents } from "electron";
-import { ipcMainPreferences, store } from "./init";
-
-import { createWindowProjectFloating } from "./window-project-floating";
 import { execFile } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
+import { app, dialog, ipcMain, shell, webContents } from "electron";
+import { ipcMainPreferences, store } from "./init";
+import { createWindowProjectFloating } from "./window-project-floating";
 
 export const initializeIPCHandlers = () => {
 	initializeIPCStore();
@@ -130,7 +129,7 @@ const initializeIPCSettings = () => {
 						].color,
 					height: 32,
 				});
-			} catch (e) {}
+			} catch (_e) {}
 		}
 	});
 };

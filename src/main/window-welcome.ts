@@ -1,8 +1,7 @@
-import { BrowserWindow, shell } from "electron";
-
-import { ipcMainPreferences } from "./init";
-import { is } from "@electron-toolkit/utils";
 import { join } from "node:path";
+import { is } from "@electron-toolkit/utils";
+import { BrowserWindow, shell } from "electron";
+import { ipcMainPreferences } from "./init";
 
 export const createWindowWelcome = (): void => {
 	ipcMainPreferences.windows.welcome = new BrowserWindow({

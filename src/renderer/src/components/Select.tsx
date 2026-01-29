@@ -7,10 +7,10 @@ import {
 import "@thisbeyond/solid-select/style.css";
 
 import {
-	createUniqueId,
 	type Component,
-	Show,
+	createUniqueId,
 	type JSXElement,
+	Show,
 } from "solid-js";
 
 const Select: Component<{

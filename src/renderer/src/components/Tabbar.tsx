@@ -1,11 +1,11 @@
 import "./Tabbar.scss";
 
-import { For, Show, createMemo } from "solid-js";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
+import type { TelegramPlatform } from "@renderer/utils/themes";
 
 import { IoClose } from "solid-icons/io";
+import { createMemo, For, Show } from "solid-js";
 import type { TabbarTab } from "../types";
-import type { TelegramPlatform } from "@renderer/utils/themes";
 
 export const closeTab = (id: TabbarTab["id"], fromTabId?: TabbarTab["id"]) => {
 	const tab = preferences.tabbar.tabs.find((item) => item.id === id);

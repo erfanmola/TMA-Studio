@@ -51,7 +51,7 @@ export function GridPattern({
 					{squares.map(([x, y]) => (
 						<rect
 							stroke-width="0"
-							// @ts-ignore
+							// @ts-expect-error
 							key={`${x}-${y}`}
 							width={width - 1}
 							height={height - 1}

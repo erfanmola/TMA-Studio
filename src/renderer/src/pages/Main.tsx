@@ -1,29 +1,28 @@
 import "./Main.scss";
 
-import { Show, createEffect, createSignal, onMount } from "solid-js";
-import { Tabbar, closeTab } from "../components/Tabbar";
+import { toast } from "@electron-uikit/toast/renderer";
+import type { TabbarTab } from "@renderer/types";
+import { deserializeObject } from "@renderer/utils/general";
 import {
 	modals,
 	preferences,
 	setModals,
 	setPreferences,
 } from "@renderer/utils/preferences";
-
-import DialogAddUser from "../components/DialogCreateUser";
-import DialogCreateProject from "../components/DialogCreateProject";
+import { initStore } from "@renderer/utils/store";
 import { FaSolidPlus } from "solid-icons/fa";
 import { FiUserPlus } from "solid-icons/fi";
+import { createEffect, createSignal, onMount, Show } from "solid-js";
+import DialogCreateProject from "../components/DialogCreateProject";
+import DialogAddUser from "../components/DialogCreateUser";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
+import { closeTab, Tabbar } from "../components/Tabbar";
+import { useSettings } from "../contexts/SettingsContext";
 import PreferencesPage from "./Preferences";
 import ProjectPage from "./Project";
 import ProjectsPage from "./Projects";
-import Sidebar from "../components/Sidebar";
-import type { TabbarTab } from "@renderer/types";
-import { deserializeObject } from "@renderer/utils/general";
-import { initStore } from "@renderer/utils/store";
-import { toast } from "@electron-uikit/toast/renderer";
-import { useSettings } from "../contexts/SettingsContext";
 
 const MainPage = () => {
 	const { settings } = useSettings();

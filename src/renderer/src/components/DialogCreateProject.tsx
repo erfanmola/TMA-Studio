@@ -1,18 +1,17 @@
-import { createMemo, type Component } from "solid-js";
-
-import { createStore } from "solid-js/store";
-import { openProject } from "../utils/project";
-import ProjectPage from "../pages/Project";
+import { isValidURL } from "@renderer/utils/general";
 import {
 	preferences,
 	setModals,
 	setPreferences,
 } from "@renderer/utils/preferences";
-import Modal from "./Modal";
-import Input from "./Input";
-import { isValidURL } from "@renderer/utils/general";
-import Alert from "./Alert";
 import { defaultProjectSettings } from "@renderer/utils/telegram";
+import { type Component, createMemo } from "solid-js";
+import { createStore } from "solid-js/store";
+import ProjectPage from "../pages/Project";
+import { openProject } from "../utils/project";
+import Alert from "./Alert";
+import Input from "./Input";
+import Modal from "./Modal";
 
 const DialogCreateProject: Component = () => {
 	const [form, setForm] = createStore({

@@ -1,5 +1,5 @@
-import { setPreferences } from "./preferences";
 import { useSettings } from "../contexts/SettingsContext";
+import { setPreferences } from "./preferences";
 
 export const initStore = () => {
 	const { settings } = useSettings();
@@ -7,7 +7,7 @@ export const initStore = () => {
 	const preferencesSaved = settings.get("preferences");
 	if (preferencesSaved) {
 		for (const key in preferencesSaved) {
-			// @ts-ignore
+			// @ts-expect-error
 			setPreferences(key, preferencesSaved[key]);
 		}
 	}

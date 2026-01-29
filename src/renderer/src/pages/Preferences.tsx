@@ -1,23 +1,22 @@
 import "./Preferences.scss";
 
+import { HorizontalSelect } from "@renderer/components/HorizontalSelect";
+import Switch from "@renderer/components/Switch";
+import { PlatformNames } from "@renderer/utils/platforms";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
-
+import type { TelegramPlatform } from "@renderer/utils/themes";
+import { Viewport } from "@renderer/utils/viewport";
+import { createOptions, Select } from "@thisbeyond/solid-select";
+import { AiOutlineMobile } from "solid-icons/ai";
+import { FaSolidCheck } from "solid-icons/fa";
 import {
+	type Component,
 	createEffect,
 	createSignal,
 	For,
 	on,
 	Show,
-	type Component,
 } from "solid-js";
-import { HorizontalSelect } from "@renderer/components/HorizontalSelect";
-import Switch from "@renderer/components/Switch";
-import { createOptions, Select } from "@thisbeyond/solid-select";
-import { Viewport } from "@renderer/utils/viewport";
-import { FaSolidCheck } from "solid-icons/fa";
-import { AiOutlineMobile } from "solid-icons/ai";
-import type { TelegramPlatform } from "@renderer/utils/themes";
-import { PlatformNames } from "@renderer/utils/platforms";
 
 const PreferencesPage: Component = () => {
 	const [hsUIScale, setHSUIScale] = createSignal(preferences.ui.scale);

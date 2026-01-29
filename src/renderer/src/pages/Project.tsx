@@ -1,30 +1,28 @@
 import "./Project.scss";
 
+import { HeaderWidget } from "@renderer/sections/HeaderWidget";
+import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
+import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
+import { ViewportIOS } from "@renderer/sections/ViewportIOS";
+import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
+import { ViewportWeb } from "@renderer/sections/ViewportWeb";
+import { ViewportWebA } from "@renderer/sections/ViewportWebA";
+import { PlatformNames } from "@renderer/utils/platforms";
+import { preferences, setPreferences } from "@renderer/utils/preferences";
+import { defaultProjectPlatforms } from "@renderer/utils/project";
+import { generateProjectFrame } from "@renderer/utils/telegram";
 import {
+	type Component,
 	createEffect,
 	For,
 	Match,
 	Show,
 	Switch,
-	type Component,
 } from "solid-js";
+import { createStore, produce } from "solid-js/store";
 import { GridPattern } from "../components/GridPattern";
 import type { Project } from "../types";
-
 import type { TelegramPlatform, ThemeMode } from "../utils/themes";
-
-import { ViewportAndroid } from "@renderer/sections/ViewportAndroid";
-import { HeaderWidget } from "@renderer/sections/HeaderWidget";
-import { ViewportIOS } from "@renderer/sections/ViewportIOS";
-import { createStore, produce } from "solid-js/store";
-import { generateProjectFrame } from "@renderer/utils/telegram";
-import { preferences, setPreferences } from "@renderer/utils/preferences";
-import { PlatformNames } from "@renderer/utils/platforms";
-import { ViewportDesktop } from "@renderer/sections/ViewportDesktop";
-import { defaultProjectPlatforms } from "@renderer/utils/project";
-import { ViewportMacOS } from "@renderer/sections/ViewportMacOS";
-import { ViewportWeb } from "@renderer/sections/ViewportWeb";
-import { ViewportWebA } from "@renderer/sections/ViewportWebA";
 
 export type TMAProjectFrame = {
 	platform: TelegramPlatform;

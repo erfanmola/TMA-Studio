@@ -1,10 +1,9 @@
-import { createEffect, on, type Component } from "solid-js";
-
-import { closeTab } from "./Tabbar";
 import type { ProjectContextMenuStore } from "@renderer/pages/Projects";
-import type { SetStoreFunction } from "solid-js/store";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
+import { type Component, createEffect, on } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 import Modal from "./Modal";
+import { closeTab } from "./Tabbar";
 
 const DialogRemoveProject: Component<{
 	ProjectContextMenuStore: [

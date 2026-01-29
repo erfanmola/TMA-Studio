@@ -1,14 +1,13 @@
 import "../scss/sections/_menu-more.scss";
 
-import { Match, Show, Switch, type Component } from "solid-js";
-
-import { CgMoreO } from "solid-icons/cg";
-import { IoReload } from "solid-icons/io";
-import { FiMoreVertical, FiSettings } from "solid-icons/fi";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
-import type { SetStoreFunction } from "solid-js/store";
 import type { TMAProjectInner } from "@renderer/utils/telegram";
 import { BsThreeDots } from "solid-icons/bs";
+import { CgMoreO } from "solid-icons/cg";
+import { FiMoreVertical, FiSettings } from "solid-icons/fi";
+import { IoReload } from "solid-icons/io";
+import { type Component, Match, Show, Switch } from "solid-js";
+import type { SetStoreFunction } from "solid-js/store";
 
 export type MenuMoreStore = {
 	open: boolean;

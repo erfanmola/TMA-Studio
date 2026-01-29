@@ -3,7 +3,7 @@ import { useSettings } from "@renderer/contexts/SettingsContext";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
 import type { Project } from "@renderer/types";
 import type { TelegramPlatform } from "@renderer/utils/themes";
-import { CgArrowTopRightR, CgArrowBottomLeftR } from "solid-icons/cg";
+import { CgArrowBottomLeftR, CgArrowTopRightR } from "solid-icons/cg";
 import { FaSolidCode } from "solid-icons/fa";
 import { FiMoon, FiSun } from "solid-icons/fi";
 import { IoChevronCollapse, IoChevronExpand } from "solid-icons/io";

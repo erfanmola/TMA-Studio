@@ -1,11 +1,11 @@
+import "./tailwind.css";
 import "./app.scss";
 
 import { HashRouter, Route } from "@solidjs/router";
-
-import FloatingProject from "./components/FloatingProject";
-import { SettingsProvider } from "./contexts/SettingsContext";
 /* @refresh reload */
 import { render } from "solid-js/web";
+import FloatingProject from "./components/FloatingProject";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 render(
 	() => (

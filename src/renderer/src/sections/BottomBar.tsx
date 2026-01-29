@@ -1,10 +1,10 @@
-import { tgEmitEvent, type TMAProjectInner } from "@renderer/utils/telegram";
+import { type TMAProjectInner, tgEmitEvent } from "@renderer/utils/telegram";
 import "../scss/sections/_bottom-bar.scss";
 
-import { TelegramThemes } from "@renderer/utils/themes";
-import { TbLoader2 } from "solid-icons/tb";
-import { type Component, Show } from "solid-js";
 import type { TMAProjectFrame } from "@renderer/pages/Project";
+import { TelegramThemes } from "@renderer/utils/themes";
+import { TbOutlineLoader2 } from "solid-icons/tb";
+import { type Component, Show } from "solid-js";
 import type { SetStoreFunction } from "solid-js/store";
 
 export const BottomBar: Component<{
@@ -77,7 +77,7 @@ export const BottomBar: Component<{
 									when={projectInner.buttonSecondary.is_progress_visible}
 									fallback={<span>{projectInner.buttonSecondary.text}</span>}
 								>
-									<TbLoader2 />
+									<TbOutlineLoader2 />
 								</Show>
 							</button>
 						</li>
@@ -99,7 +99,7 @@ export const BottomBar: Component<{
 									when={projectInner.buttonMain.is_progress_visible}
 									fallback={<span>{projectInner.buttonMain.text}</span>}
 								>
-									<TbLoader2 />
+									<TbOutlineLoader2 />
 								</Show>
 							</button>
 						</li>

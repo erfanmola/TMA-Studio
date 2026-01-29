@@ -1,11 +1,10 @@
 import "./Footer.scss";
 
+import PreferencesPage from "@renderer/pages/Preferences";
 import { preferences, setPreferences } from "@renderer/utils/preferences";
-
 import { FaSolidHeart } from "solid-icons/fa";
 import { IoSettingsSharp } from "solid-icons/io";
 import { OcSidebarcollapse2 } from "solid-icons/oc";
-import PreferencesPage from "@renderer/pages/Preferences";
 import { Show } from "solid-js";
 
 const Footer = () => {
