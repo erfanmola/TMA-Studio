@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  bufferutil: true
+  electron: true
+  electron-winstaller: false
+  es5-ext: true
+  esbuild: true
+  utf-8-validate: true
