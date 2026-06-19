@@ -9,6 +9,7 @@
 		"src/main/preferences.ts"
 	],
 	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
 		"composite": true,
 		"jsxImportSource": "solid-js",
 		"baseUrl": ".",
