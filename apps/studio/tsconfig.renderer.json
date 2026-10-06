@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
+    "types": [],
+    "resolveJsonModule": true,
+    "tsBuildInfoFile": "./.cache/renderer.tsbuildinfo"
+  },
+  "include": ["src", "../../packages/ui/src/components"]
+}

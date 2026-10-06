@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>TMA Studio protocol tutorial</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="intro">
+        <p class="eyebrow">TMA Studio · Tutorial fixture</p>
+        <h1>Mini App lifecycle</h1>
+        <p class="lede">A small offline page for exploring Telegram WebApp signals. Values are summarized; launch data is never displayed.</p>
+      </header>
+
+      <section class="card" aria-labelledby="lifecycle-title">
+        <h2 id="lifecycle-title">Host state</h2>
+        <dl class="status-list">
+          <div><dt>Ready</dt><dd id="ready-status" data-state="pending">Waiting</dd></div>
+          <div><dt>Theme</dt><dd id="theme-status">Host unavailable</dd></div>
+          <div><dt>Viewport</dt><dd id="viewport-status">Host unavailable</dd></div>
+        </dl>
+      </section>
+
+      <section class="card" aria-labelledby="controls-title">
+        <h2 id="controls-title">Host controls</h2>
+        <p class="hint">The main and back buttons appear in Telegram’s interface when the host supports them.</p>
+        <div class="actions">
+          <button id="main-toggle" type="button">Show main button</button>
+          <button id="back-toggle" type="button">Show back button</button>
+          <button id="popup-button" type="button">Open host popup</button>
+        </div>
+        <p class="result" id="controls-status" role="status" aria-live="polite">No action yet.</p>
+      </section>
+
+      <section class="card" aria-labelledby="data-title">
+        <h2 id="data-title">Launch data</h2>
+        <dl class="status-list">
+          <div><dt>initData</dt><dd id="initdata-status">Checking…</dd></div>
+          <div><dt>Signature validation</dt><dd id="validation-status">Server-side only; not performed here</dd></div>
+        </dl>
+        <button id="recheck-data" class="secondary" type="button">Recheck presence</button>
+        <p class="hint">This fixture checks only whether initData is present. It does not print, store, or transmit it. A backend must validate its signature before trusting it.</p>
+      </section>
+
+      <footer>Static fixture · loads only Telegram’s official Mini Apps SDK</footer>
+    </main>
+  </body>
+</html>

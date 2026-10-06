@@ -1,0 +1,8 @@
+node_modules/
+apps/studio/bunium/native/tma-studio-capture
+dist/
+.cache/
+.vite/
+coverage/
+*.tsbuildinfo
+.DS_Store

@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "types": ["bun-types"],
+    "typeRoots": [
+      "../../../apps/studio/node_modules",
+      "../../../apps/studio/node_modules/@types"
+    ]
+  },
+  "include": ["*.smoke.ts"]
+}

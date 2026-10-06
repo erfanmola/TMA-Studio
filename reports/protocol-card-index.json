@@ -1,0 +1,22 @@
+{
+  "source": "Telegram Mini Apps WebView event inventory",
+  "sourceSdkSha256": "3549138a7934039fe7dfd1291a4ee739bd2b705a614308053a8b08a87d85c451",
+  "status": "inventory assignment only; no protocol method is implemented or platform-verified by this index",
+  "total": 122,
+  "countsByDirection": {
+    "outgoing": 64,
+    "incoming": 58
+  },
+  "countsByOwner": {
+    "04b": 30,
+    "04c": 8,
+    "04d": 9,
+    "04e": 28,
+    "04f": 16,
+    "04g": 11,
+    "04h": 20
+  },
+  "allRowsAssignedExactlyOnce": true,
+  "unverifiedRows": 122,
+  "implementedRows": 0
+}

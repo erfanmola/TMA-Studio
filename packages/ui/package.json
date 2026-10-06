@@ -1,0 +1,13 @@
+{
+  "name": "@tma-studio/ui",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "exports": {
+    "./components": "./src/components/index.ts"
+  },
+  "dependencies": {
+    "@solidjs/web": "2.0.0-rc.9",
+    "solid-js": "2.0.0-rc.9"
+  }
+}

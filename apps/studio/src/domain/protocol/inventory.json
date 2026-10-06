@@ -1,0 +1,2094 @@
+{
+  "schemaVersion": 1,
+  "inventoryGeneratedAt": "2026-09-21T19:18:49.912Z",
+  "sdkSha256": "3549138a7934039fe7dfd1291a4ee739bd2b705a614308053a8b08a87d85c451",
+  "profiles": ["android", "ios", "tdesktop", "macos", "weba", "webk"],
+  "events": [
+    {
+      "id": "TG-OUT-001",
+      "name": "iframe_ready",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#iframe-ready",
+      "minimumVersion": null,
+      "replyEvents": ["set_custom_style"],
+      "testIds": [
+        "TG-iframe_ready-valid",
+        "TG-iframe_ready-invalid-payload",
+        "TG-iframe_ready-unsupported-version",
+        "TG-iframe_ready-cross-instance-isolation",
+        "TG-iframe_ready-navigation-stale-event",
+        "TG-iframe_ready-cancel-or-denied",
+        "TG-iframe_ready-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-002",
+      "name": "iframe_will_reload",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#iframe-will-reload",
+      "minimumVersion": null,
+      "replyEvents": [],
+      "testIds": [
+        "TG-iframe_will_reload-valid",
+        "TG-iframe_will_reload-invalid-payload",
+        "TG-iframe_will_reload-unsupported-version",
+        "TG-iframe_will_reload-cross-instance-isolation",
+        "TG-iframe_will_reload-navigation-stale-event",
+        "TG-iframe_will_reload-cancel-or-denied",
+        "TG-iframe_will_reload-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-003",
+      "name": "web_app_add_to_home_screen",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-add-to-home-screen",
+      "minimumVersion": "8.0",
+      "replyEvents": ["home_screen_added", "home_screen_failed"],
+      "testIds": [
+        "TG-web_app_add_to_home_screen-valid",
+        "TG-web_app_add_to_home_screen-invalid-payload",
+        "TG-web_app_add_to_home_screen-unsupported-version",
+        "TG-web_app_add_to_home_screen-cross-instance-isolation",
+        "TG-web_app_add_to_home_screen-navigation-stale-event",
+        "TG-web_app_add_to_home_screen-cancel-or-denied",
+        "TG-web_app_add_to_home_screen-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-004",
+      "name": "web_app_biometry_get_info",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-biometry-get-info",
+      "minimumVersion": "7.2",
+      "replyEvents": ["biometry_info_received"],
+      "testIds": [
+        "TG-web_app_biometry_get_info-valid",
+        "TG-web_app_biometry_get_info-invalid-payload",
+        "TG-web_app_biometry_get_info-unsupported-version",
+        "TG-web_app_biometry_get_info-cross-instance-isolation",
+        "TG-web_app_biometry_get_info-navigation-stale-event",
+        "TG-web_app_biometry_get_info-cancel-or-denied",
+        "TG-web_app_biometry_get_info-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-005",
+      "name": "web_app_biometry_open_settings",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-biometry-open-settings",
+      "minimumVersion": "7.2",
+      "replyEvents": ["biometry_info_received"],
+      "testIds": [
+        "TG-web_app_biometry_open_settings-valid",
+        "TG-web_app_biometry_open_settings-invalid-payload",
+        "TG-web_app_biometry_open_settings-unsupported-version",
+        "TG-web_app_biometry_open_settings-cross-instance-isolation",
+        "TG-web_app_biometry_open_settings-navigation-stale-event",
+        "TG-web_app_biometry_open_settings-cancel-or-denied",
+        "TG-web_app_biometry_open_settings-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-006",
+      "name": "web_app_biometry_request_access",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-biometry-request-access",
+      "minimumVersion": "7.2",
+      "replyEvents": ["biometry_info_received"],
+      "testIds": [
+        "TG-web_app_biometry_request_access-valid",
+        "TG-web_app_biometry_request_access-invalid-payload",
+        "TG-web_app_biometry_request_access-unsupported-version",
+        "TG-web_app_biometry_request_access-cross-instance-isolation",
+        "TG-web_app_biometry_request_access-navigation-stale-event",
+        "TG-web_app_biometry_request_access-cancel-or-denied",
+        "TG-web_app_biometry_request_access-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-007",
+      "name": "web_app_biometry_request_auth",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-biometry-request-auth",
+      "minimumVersion": "7.2",
+      "replyEvents": ["biometry_auth_requested", "biometry_info_received"],
+      "testIds": [
+        "TG-web_app_biometry_request_auth-valid",
+        "TG-web_app_biometry_request_auth-invalid-payload",
+        "TG-web_app_biometry_request_auth-unsupported-version",
+        "TG-web_app_biometry_request_auth-cross-instance-isolation",
+        "TG-web_app_biometry_request_auth-navigation-stale-event",
+        "TG-web_app_biometry_request_auth-cancel-or-denied",
+        "TG-web_app_biometry_request_auth-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-008",
+      "name": "web_app_biometry_update_token",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-biometry-update-token",
+      "minimumVersion": "7.2",
+      "replyEvents": ["biometry_token_updated", "biometry_info_received"],
+      "testIds": [
+        "TG-web_app_biometry_update_token-valid",
+        "TG-web_app_biometry_update_token-invalid-payload",
+        "TG-web_app_biometry_update_token-unsupported-version",
+        "TG-web_app_biometry_update_token-cross-instance-isolation",
+        "TG-web_app_biometry_update_token-navigation-stale-event",
+        "TG-web_app_biometry_update_token-cancel-or-denied",
+        "TG-web_app_biometry_update_token-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-009",
+      "name": "web_app_check_home_screen",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-check-home-screen",
+      "minimumVersion": "8.0",
+      "replyEvents": ["home_screen_checked"],
+      "testIds": [
+        "TG-web_app_check_home_screen-valid",
+        "TG-web_app_check_home_screen-invalid-payload",
+        "TG-web_app_check_home_screen-unsupported-version",
+        "TG-web_app_check_home_screen-cross-instance-isolation",
+        "TG-web_app_check_home_screen-navigation-stale-event",
+        "TG-web_app_check_home_screen-cancel-or-denied",
+        "TG-web_app_check_home_screen-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-010",
+      "name": "web_app_check_location",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-check-location",
+      "minimumVersion": "8.0",
+      "replyEvents": ["location_checked"],
+      "testIds": [
+        "TG-web_app_check_location-valid",
+        "TG-web_app_check_location-invalid-payload",
+        "TG-web_app_check_location-unsupported-version",
+        "TG-web_app_check_location-cross-instance-isolation",
+        "TG-web_app_check_location-navigation-stale-event",
+        "TG-web_app_check_location-cancel-or-denied",
+        "TG-web_app_check_location-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-011",
+      "name": "web_app_close",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-close",
+      "minimumVersion": null,
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_close-valid",
+        "TG-web_app_close-invalid-payload",
+        "TG-web_app_close-unsupported-version",
+        "TG-web_app_close-cross-instance-isolation",
+        "TG-web_app_close-navigation-stale-event",
+        "TG-web_app_close-cancel-or-denied",
+        "TG-web_app_close-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-012",
+      "name": "web_app_close_scan_qr_popup",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-close-scan-qr-popup",
+      "minimumVersion": "6.4",
+      "replyEvents": ["scan_qr_popup_closed"],
+      "testIds": [
+        "TG-web_app_close_scan_qr_popup-valid",
+        "TG-web_app_close_scan_qr_popup-invalid-payload",
+        "TG-web_app_close_scan_qr_popup-unsupported-version",
+        "TG-web_app_close_scan_qr_popup-cross-instance-isolation",
+        "TG-web_app_close_scan_qr_popup-navigation-stale-event",
+        "TG-web_app_close_scan_qr_popup-cancel-or-denied",
+        "TG-web_app_close_scan_qr_popup-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-013",
+      "name": "web_app_data_send",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-data-send",
+      "minimumVersion": null,
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_data_send-valid",
+        "TG-web_app_data_send-invalid-payload",
+        "TG-web_app_data_send-unsupported-version",
+        "TG-web_app_data_send-cross-instance-isolation",
+        "TG-web_app_data_send-navigation-stale-event",
+        "TG-web_app_data_send-cancel-or-denied",
+        "TG-web_app_data_send-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-014",
+      "name": "web_app_device_storage_clear",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-device-storage-clear",
+      "minimumVersion": "9.0",
+      "replyEvents": ["device_storage_cleared", "device_storage_failed"],
+      "testIds": [
+        "TG-web_app_device_storage_clear-valid",
+        "TG-web_app_device_storage_clear-invalid-payload",
+        "TG-web_app_device_storage_clear-unsupported-version",
+        "TG-web_app_device_storage_clear-cross-instance-isolation",
+        "TG-web_app_device_storage_clear-navigation-stale-event",
+        "TG-web_app_device_storage_clear-cancel-or-denied",
+        "TG-web_app_device_storage_clear-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-015",
+      "name": "web_app_device_storage_get_key",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-device-storage-get-key",
+      "minimumVersion": "9.0",
+      "replyEvents": ["device_storage_key_received", "device_storage_failed"],
+      "testIds": [
+        "TG-web_app_device_storage_get_key-valid",
+        "TG-web_app_device_storage_get_key-invalid-payload",
+        "TG-web_app_device_storage_get_key-unsupported-version",
+        "TG-web_app_device_storage_get_key-cross-instance-isolation",
+        "TG-web_app_device_storage_get_key-navigation-stale-event",
+        "TG-web_app_device_storage_get_key-cancel-or-denied",
+        "TG-web_app_device_storage_get_key-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-016",
+      "name": "web_app_device_storage_save_key",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-device-storage-save-key",
+      "minimumVersion": "9.0",
+      "replyEvents": ["device_storage_key_saved", "device_storage_failed"],
+      "testIds": [
+        "TG-web_app_device_storage_save_key-valid",
+        "TG-web_app_device_storage_save_key-invalid-payload",
+        "TG-web_app_device_storage_save_key-unsupported-version",
+        "TG-web_app_device_storage_save_key-cross-instance-isolation",
+        "TG-web_app_device_storage_save_key-navigation-stale-event",
+        "TG-web_app_device_storage_save_key-cancel-or-denied",
+        "TG-web_app_device_storage_save_key-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-017",
+      "name": "web_app_exit_fullscreen",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-exit-fullscreen",
+      "minimumVersion": "8.0",
+      "replyEvents": ["fullscreen_changed", "fullscreen_failed"],
+      "testIds": [
+        "TG-web_app_exit_fullscreen-valid",
+        "TG-web_app_exit_fullscreen-invalid-payload",
+        "TG-web_app_exit_fullscreen-unsupported-version",
+        "TG-web_app_exit_fullscreen-cross-instance-isolation",
+        "TG-web_app_exit_fullscreen-navigation-stale-event",
+        "TG-web_app_exit_fullscreen-cancel-or-denied",
+        "TG-web_app_exit_fullscreen-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-018",
+      "name": "web_app_expand",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-expand",
+      "minimumVersion": null,
+      "replyEvents": ["viewport_changed"],
+      "testIds": [
+        "TG-web_app_expand-valid",
+        "TG-web_app_expand-invalid-payload",
+        "TG-web_app_expand-unsupported-version",
+        "TG-web_app_expand-cross-instance-isolation",
+        "TG-web_app_expand-navigation-stale-event",
+        "TG-web_app_expand-cancel-or-denied",
+        "TG-web_app_expand-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-019",
+      "name": "web_app_hide_keyboard",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-hide-keyboard",
+      "minimumVersion": "9.1",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_hide_keyboard-valid",
+        "TG-web_app_hide_keyboard-invalid-payload",
+        "TG-web_app_hide_keyboard-unsupported-version",
+        "TG-web_app_hide_keyboard-cross-instance-isolation",
+        "TG-web_app_hide_keyboard-navigation-stale-event",
+        "TG-web_app_hide_keyboard-cancel-or-denied",
+        "TG-web_app_hide_keyboard-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-020",
+      "name": "web_app_invoke_custom_method",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-invoke-custom-method",
+      "minimumVersion": "6.9",
+      "replyEvents": ["custom_method_invoked"],
+      "testIds": [
+        "TG-web_app_invoke_custom_method-valid",
+        "TG-web_app_invoke_custom_method-invalid-payload",
+        "TG-web_app_invoke_custom_method-unsupported-version",
+        "TG-web_app_invoke_custom_method-cross-instance-isolation",
+        "TG-web_app_invoke_custom_method-navigation-stale-event",
+        "TG-web_app_invoke_custom_method-cancel-or-denied",
+        "TG-web_app_invoke_custom_method-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-021",
+      "name": "web_app_open_invoice",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-invoice",
+      "minimumVersion": "6.1",
+      "replyEvents": ["invoice_closed"],
+      "testIds": [
+        "TG-web_app_open_invoice-valid",
+        "TG-web_app_open_invoice-invalid-payload",
+        "TG-web_app_open_invoice-unsupported-version",
+        "TG-web_app_open_invoice-cross-instance-isolation",
+        "TG-web_app_open_invoice-navigation-stale-event",
+        "TG-web_app_open_invoice-cancel-or-denied",
+        "TG-web_app_open_invoice-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-022",
+      "name": "web_app_open_link",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-link",
+      "minimumVersion": "6.4",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_open_link-valid",
+        "TG-web_app_open_link-invalid-payload",
+        "TG-web_app_open_link-unsupported-version",
+        "TG-web_app_open_link-cross-instance-isolation",
+        "TG-web_app_open_link-navigation-stale-event",
+        "TG-web_app_open_link-cancel-or-denied",
+        "TG-web_app_open_link-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-023",
+      "name": "web_app_open_location_settings",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-location-settings",
+      "minimumVersion": "8.0",
+      "replyEvents": ["location_checked"],
+      "testIds": [
+        "TG-web_app_open_location_settings-valid",
+        "TG-web_app_open_location_settings-invalid-payload",
+        "TG-web_app_open_location_settings-unsupported-version",
+        "TG-web_app_open_location_settings-cross-instance-isolation",
+        "TG-web_app_open_location_settings-navigation-stale-event",
+        "TG-web_app_open_location_settings-cancel-or-denied",
+        "TG-web_app_open_location_settings-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-024",
+      "name": "web_app_open_popup",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-popup",
+      "minimumVersion": "6.2",
+      "replyEvents": ["popup_closed"],
+      "testIds": [
+        "TG-web_app_open_popup-valid",
+        "TG-web_app_open_popup-invalid-payload",
+        "TG-web_app_open_popup-unsupported-version",
+        "TG-web_app_open_popup-cross-instance-isolation",
+        "TG-web_app_open_popup-navigation-stale-event",
+        "TG-web_app_open_popup-cancel-or-denied",
+        "TG-web_app_open_popup-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-025",
+      "name": "web_app_open_scan_qr_popup",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-scan-qr-popup",
+      "minimumVersion": "6.4",
+      "replyEvents": ["qr_text_received", "scan_qr_popup_closed"],
+      "testIds": [
+        "TG-web_app_open_scan_qr_popup-valid",
+        "TG-web_app_open_scan_qr_popup-invalid-payload",
+        "TG-web_app_open_scan_qr_popup-unsupported-version",
+        "TG-web_app_open_scan_qr_popup-cross-instance-isolation",
+        "TG-web_app_open_scan_qr_popup-navigation-stale-event",
+        "TG-web_app_open_scan_qr_popup-cancel-or-denied",
+        "TG-web_app_open_scan_qr_popup-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-026",
+      "name": "web_app_open_tg_link",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-open-tg-link",
+      "minimumVersion": "6.1",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_open_tg_link-valid",
+        "TG-web_app_open_tg_link-invalid-payload",
+        "TG-web_app_open_tg_link-unsupported-version",
+        "TG-web_app_open_tg_link-cross-instance-isolation",
+        "TG-web_app_open_tg_link-navigation-stale-event",
+        "TG-web_app_open_tg_link-cancel-or-denied",
+        "TG-web_app_open_tg_link-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-027",
+      "name": "web_app_read_text_from_clipboard",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-read-text-from-clipboard",
+      "minimumVersion": "6.4",
+      "replyEvents": ["clipboard_text_received"],
+      "testIds": [
+        "TG-web_app_read_text_from_clipboard-valid",
+        "TG-web_app_read_text_from_clipboard-invalid-payload",
+        "TG-web_app_read_text_from_clipboard-unsupported-version",
+        "TG-web_app_read_text_from_clipboard-cross-instance-isolation",
+        "TG-web_app_read_text_from_clipboard-navigation-stale-event",
+        "TG-web_app_read_text_from_clipboard-cancel-or-denied",
+        "TG-web_app_read_text_from_clipboard-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-028",
+      "name": "web_app_ready",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-ready",
+      "minimumVersion": null,
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_ready-valid",
+        "TG-web_app_ready-invalid-payload",
+        "TG-web_app_ready-unsupported-version",
+        "TG-web_app_ready-cross-instance-isolation",
+        "TG-web_app_ready-navigation-stale-event",
+        "TG-web_app_ready-cancel-or-denied",
+        "TG-web_app_ready-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-029",
+      "name": "web_app_request_chat",
+      "direction": "outgoing",
+      "source": "https://telegram.org/js/telegram-web-app.js?63",
+      "minimumVersion": "9.6",
+      "replyEvents": ["requested_chat_sent", "requested_chat_failed"],
+      "testIds": [
+        "TG-web_app_request_chat-valid",
+        "TG-web_app_request_chat-invalid-payload",
+        "TG-web_app_request_chat-unsupported-version",
+        "TG-web_app_request_chat-cross-instance-isolation",
+        "TG-web_app_request_chat-navigation-stale-event",
+        "TG-web_app_request_chat-cancel-or-denied",
+        "TG-web_app_request_chat-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-030",
+      "name": "web_app_request_content_safe_area",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-content-safe-area",
+      "minimumVersion": "8.0",
+      "replyEvents": ["content_safe_area_changed"],
+      "testIds": [
+        "TG-web_app_request_content_safe_area-valid",
+        "TG-web_app_request_content_safe_area-invalid-payload",
+        "TG-web_app_request_content_safe_area-unsupported-version",
+        "TG-web_app_request_content_safe_area-cross-instance-isolation",
+        "TG-web_app_request_content_safe_area-navigation-stale-event",
+        "TG-web_app_request_content_safe_area-cancel-or-denied",
+        "TG-web_app_request_content_safe_area-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-031",
+      "name": "web_app_request_emoji_status_access",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-emoji-status-access",
+      "minimumVersion": "8.0",
+      "replyEvents": ["emoji_status_access_requested"],
+      "testIds": [
+        "TG-web_app_request_emoji_status_access-valid",
+        "TG-web_app_request_emoji_status_access-invalid-payload",
+        "TG-web_app_request_emoji_status_access-unsupported-version",
+        "TG-web_app_request_emoji_status_access-cross-instance-isolation",
+        "TG-web_app_request_emoji_status_access-navigation-stale-event",
+        "TG-web_app_request_emoji_status_access-cancel-or-denied",
+        "TG-web_app_request_emoji_status_access-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-032",
+      "name": "web_app_request_file_download",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-file-download",
+      "minimumVersion": "8.0",
+      "replyEvents": ["file_download_requested"],
+      "testIds": [
+        "TG-web_app_request_file_download-valid",
+        "TG-web_app_request_file_download-invalid-payload",
+        "TG-web_app_request_file_download-unsupported-version",
+        "TG-web_app_request_file_download-cross-instance-isolation",
+        "TG-web_app_request_file_download-navigation-stale-event",
+        "TG-web_app_request_file_download-cancel-or-denied",
+        "TG-web_app_request_file_download-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-033",
+      "name": "web_app_request_fullscreen",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-fullscreen",
+      "minimumVersion": "8.0",
+      "replyEvents": ["fullscreen_changed", "fullscreen_failed"],
+      "testIds": [
+        "TG-web_app_request_fullscreen-valid",
+        "TG-web_app_request_fullscreen-invalid-payload",
+        "TG-web_app_request_fullscreen-unsupported-version",
+        "TG-web_app_request_fullscreen-cross-instance-isolation",
+        "TG-web_app_request_fullscreen-navigation-stale-event",
+        "TG-web_app_request_fullscreen-cancel-or-denied",
+        "TG-web_app_request_fullscreen-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-034",
+      "name": "web_app_request_location",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-location",
+      "minimumVersion": "8.0",
+      "replyEvents": ["location_requested"],
+      "testIds": [
+        "TG-web_app_request_location-valid",
+        "TG-web_app_request_location-invalid-payload",
+        "TG-web_app_request_location-unsupported-version",
+        "TG-web_app_request_location-cross-instance-isolation",
+        "TG-web_app_request_location-navigation-stale-event",
+        "TG-web_app_request_location-cancel-or-denied",
+        "TG-web_app_request_location-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-035",
+      "name": "web_app_request_phone",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-phone",
+      "minimumVersion": "6.9",
+      "replyEvents": ["phone_requested"],
+      "testIds": [
+        "TG-web_app_request_phone-valid",
+        "TG-web_app_request_phone-invalid-payload",
+        "TG-web_app_request_phone-unsupported-version",
+        "TG-web_app_request_phone-cross-instance-isolation",
+        "TG-web_app_request_phone-navigation-stale-event",
+        "TG-web_app_request_phone-cancel-or-denied",
+        "TG-web_app_request_phone-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-036",
+      "name": "web_app_request_safe_area",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-safe-area",
+      "minimumVersion": "8.0",
+      "replyEvents": ["safe_area_changed"],
+      "testIds": [
+        "TG-web_app_request_safe_area-valid",
+        "TG-web_app_request_safe_area-invalid-payload",
+        "TG-web_app_request_safe_area-unsupported-version",
+        "TG-web_app_request_safe_area-cross-instance-isolation",
+        "TG-web_app_request_safe_area-navigation-stale-event",
+        "TG-web_app_request_safe_area-cancel-or-denied",
+        "TG-web_app_request_safe_area-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-037",
+      "name": "web_app_request_theme",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-theme",
+      "minimumVersion": null,
+      "replyEvents": ["theme_changed"],
+      "testIds": [
+        "TG-web_app_request_theme-valid",
+        "TG-web_app_request_theme-invalid-payload",
+        "TG-web_app_request_theme-unsupported-version",
+        "TG-web_app_request_theme-cross-instance-isolation",
+        "TG-web_app_request_theme-navigation-stale-event",
+        "TG-web_app_request_theme-cancel-or-denied",
+        "TG-web_app_request_theme-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-038",
+      "name": "web_app_request_viewport",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-viewport",
+      "minimumVersion": null,
+      "replyEvents": ["viewport_changed"],
+      "testIds": [
+        "TG-web_app_request_viewport-valid",
+        "TG-web_app_request_viewport-invalid-payload",
+        "TG-web_app_request_viewport-unsupported-version",
+        "TG-web_app_request_viewport-cross-instance-isolation",
+        "TG-web_app_request_viewport-navigation-stale-event",
+        "TG-web_app_request_viewport-cancel-or-denied",
+        "TG-web_app_request_viewport-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-039",
+      "name": "web_app_request_write_access",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-request-write-access",
+      "minimumVersion": "6.9",
+      "replyEvents": ["write_access_requested"],
+      "testIds": [
+        "TG-web_app_request_write_access-valid",
+        "TG-web_app_request_write_access-invalid-payload",
+        "TG-web_app_request_write_access-unsupported-version",
+        "TG-web_app_request_write_access-cross-instance-isolation",
+        "TG-web_app_request_write_access-navigation-stale-event",
+        "TG-web_app_request_write_access-cancel-or-denied",
+        "TG-web_app_request_write_access-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-040",
+      "name": "web_app_secure_storage_clear",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-secure-storage-clear",
+      "minimumVersion": "9.0",
+      "replyEvents": ["secure_storage_cleared", "secure_storage_failed"],
+      "testIds": [
+        "TG-web_app_secure_storage_clear-valid",
+        "TG-web_app_secure_storage_clear-invalid-payload",
+        "TG-web_app_secure_storage_clear-unsupported-version",
+        "TG-web_app_secure_storage_clear-cross-instance-isolation",
+        "TG-web_app_secure_storage_clear-navigation-stale-event",
+        "TG-web_app_secure_storage_clear-cancel-or-denied",
+        "TG-web_app_secure_storage_clear-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-041",
+      "name": "web_app_secure_storage_get_key",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-secure-storage-get-key",
+      "minimumVersion": "9.0",
+      "replyEvents": ["secure_storage_key_received", "secure_storage_failed"],
+      "testIds": [
+        "TG-web_app_secure_storage_get_key-valid",
+        "TG-web_app_secure_storage_get_key-invalid-payload",
+        "TG-web_app_secure_storage_get_key-unsupported-version",
+        "TG-web_app_secure_storage_get_key-cross-instance-isolation",
+        "TG-web_app_secure_storage_get_key-navigation-stale-event",
+        "TG-web_app_secure_storage_get_key-cancel-or-denied",
+        "TG-web_app_secure_storage_get_key-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-042",
+      "name": "web_app_secure_storage_restore_key",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-secure-storage-restore-key",
+      "minimumVersion": "9.0",
+      "replyEvents": ["secure_storage_key_restored", "secure_storage_failed"],
+      "testIds": [
+        "TG-web_app_secure_storage_restore_key-valid",
+        "TG-web_app_secure_storage_restore_key-invalid-payload",
+        "TG-web_app_secure_storage_restore_key-unsupported-version",
+        "TG-web_app_secure_storage_restore_key-cross-instance-isolation",
+        "TG-web_app_secure_storage_restore_key-navigation-stale-event",
+        "TG-web_app_secure_storage_restore_key-cancel-or-denied",
+        "TG-web_app_secure_storage_restore_key-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-043",
+      "name": "web_app_secure_storage_save_key",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-secure-storage-save-key",
+      "minimumVersion": "9.0",
+      "replyEvents": ["secure_storage_key_saved", "secure_storage_failed"],
+      "testIds": [
+        "TG-web_app_secure_storage_save_key-valid",
+        "TG-web_app_secure_storage_save_key-invalid-payload",
+        "TG-web_app_secure_storage_save_key-unsupported-version",
+        "TG-web_app_secure_storage_save_key-cross-instance-isolation",
+        "TG-web_app_secure_storage_save_key-navigation-stale-event",
+        "TG-web_app_secure_storage_save_key-cancel-or-denied",
+        "TG-web_app_secure_storage_save_key-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-044",
+      "name": "web_app_send_prepared_message",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-send-prepared-message",
+      "minimumVersion": "8.0",
+      "replyEvents": ["prepared_message_sent", "prepared_message_failed"],
+      "testIds": [
+        "TG-web_app_send_prepared_message-valid",
+        "TG-web_app_send_prepared_message-invalid-payload",
+        "TG-web_app_send_prepared_message-unsupported-version",
+        "TG-web_app_send_prepared_message-cross-instance-isolation",
+        "TG-web_app_send_prepared_message-navigation-stale-event",
+        "TG-web_app_send_prepared_message-cancel-or-denied",
+        "TG-web_app_send_prepared_message-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-045",
+      "name": "web_app_set_background_color",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-set-background-color",
+      "minimumVersion": "6.1",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_set_background_color-valid",
+        "TG-web_app_set_background_color-invalid-payload",
+        "TG-web_app_set_background_color-unsupported-version",
+        "TG-web_app_set_background_color-cross-instance-isolation",
+        "TG-web_app_set_background_color-navigation-stale-event",
+        "TG-web_app_set_background_color-cancel-or-denied",
+        "TG-web_app_set_background_color-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-046",
+      "name": "web_app_set_bottom_bar_color",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-set-bottom-bar-color",
+      "minimumVersion": "7.10",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_set_bottom_bar_color-valid",
+        "TG-web_app_set_bottom_bar_color-invalid-payload",
+        "TG-web_app_set_bottom_bar_color-unsupported-version",
+        "TG-web_app_set_bottom_bar_color-cross-instance-isolation",
+        "TG-web_app_set_bottom_bar_color-navigation-stale-event",
+        "TG-web_app_set_bottom_bar_color-cancel-or-denied",
+        "TG-web_app_set_bottom_bar_color-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-047",
+      "name": "web_app_set_emoji_status",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-set-emoji-status",
+      "minimumVersion": "8.0",
+      "replyEvents": ["emoji_status_set", "emoji_status_failed"],
+      "testIds": [
+        "TG-web_app_set_emoji_status-valid",
+        "TG-web_app_set_emoji_status-invalid-payload",
+        "TG-web_app_set_emoji_status-unsupported-version",
+        "TG-web_app_set_emoji_status-cross-instance-isolation",
+        "TG-web_app_set_emoji_status-navigation-stale-event",
+        "TG-web_app_set_emoji_status-cancel-or-denied",
+        "TG-web_app_set_emoji_status-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-048",
+      "name": "web_app_set_header_color",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-set-header-color",
+      "minimumVersion": "6.1",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_set_header_color-valid",
+        "TG-web_app_set_header_color-invalid-payload",
+        "TG-web_app_set_header_color-unsupported-version",
+        "TG-web_app_set_header_color-cross-instance-isolation",
+        "TG-web_app_set_header_color-navigation-stale-event",
+        "TG-web_app_set_header_color-cancel-or-denied",
+        "TG-web_app_set_header_color-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-049",
+      "name": "web_app_setup_back_button",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-back-button",
+      "minimumVersion": "6.1",
+      "replyEvents": ["back_button_pressed"],
+      "testIds": [
+        "TG-web_app_setup_back_button-valid",
+        "TG-web_app_setup_back_button-invalid-payload",
+        "TG-web_app_setup_back_button-unsupported-version",
+        "TG-web_app_setup_back_button-cross-instance-isolation",
+        "TG-web_app_setup_back_button-navigation-stale-event",
+        "TG-web_app_setup_back_button-cancel-or-denied",
+        "TG-web_app_setup_back_button-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-050",
+      "name": "web_app_setup_closing_behavior",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-closing-behavior",
+      "minimumVersion": null,
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_setup_closing_behavior-valid",
+        "TG-web_app_setup_closing_behavior-invalid-payload",
+        "TG-web_app_setup_closing_behavior-unsupported-version",
+        "TG-web_app_setup_closing_behavior-cross-instance-isolation",
+        "TG-web_app_setup_closing_behavior-navigation-stale-event",
+        "TG-web_app_setup_closing_behavior-cancel-or-denied",
+        "TG-web_app_setup_closing_behavior-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-051",
+      "name": "web_app_setup_main_button",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-main-button",
+      "minimumVersion": "7.8",
+      "replyEvents": ["main_button_pressed"],
+      "testIds": [
+        "TG-web_app_setup_main_button-valid",
+        "TG-web_app_setup_main_button-invalid-payload",
+        "TG-web_app_setup_main_button-unsupported-version",
+        "TG-web_app_setup_main_button-cross-instance-isolation",
+        "TG-web_app_setup_main_button-navigation-stale-event",
+        "TG-web_app_setup_main_button-cancel-or-denied",
+        "TG-web_app_setup_main_button-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-052",
+      "name": "web_app_setup_secondary_button",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-secondary-button",
+      "minimumVersion": "7.10",
+      "replyEvents": ["secondary_button_pressed"],
+      "testIds": [
+        "TG-web_app_setup_secondary_button-valid",
+        "TG-web_app_setup_secondary_button-invalid-payload",
+        "TG-web_app_setup_secondary_button-unsupported-version",
+        "TG-web_app_setup_secondary_button-cross-instance-isolation",
+        "TG-web_app_setup_secondary_button-navigation-stale-event",
+        "TG-web_app_setup_secondary_button-cancel-or-denied",
+        "TG-web_app_setup_secondary_button-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-053",
+      "name": "web_app_setup_settings_button",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-settings-button",
+      "minimumVersion": "6.10",
+      "replyEvents": ["settings_button_pressed"],
+      "testIds": [
+        "TG-web_app_setup_settings_button-valid",
+        "TG-web_app_setup_settings_button-invalid-payload",
+        "TG-web_app_setup_settings_button-unsupported-version",
+        "TG-web_app_setup_settings_button-cross-instance-isolation",
+        "TG-web_app_setup_settings_button-navigation-stale-event",
+        "TG-web_app_setup_settings_button-cancel-or-denied",
+        "TG-web_app_setup_settings_button-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-054",
+      "name": "web_app_setup_swipe_behavior",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-setup-swipe-behavior",
+      "minimumVersion": "7.7",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_setup_swipe_behavior-valid",
+        "TG-web_app_setup_swipe_behavior-invalid-payload",
+        "TG-web_app_setup_swipe_behavior-unsupported-version",
+        "TG-web_app_setup_swipe_behavior-cross-instance-isolation",
+        "TG-web_app_setup_swipe_behavior-navigation-stale-event",
+        "TG-web_app_setup_swipe_behavior-cancel-or-denied",
+        "TG-web_app_setup_swipe_behavior-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-055",
+      "name": "web_app_share_to_story",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-share-to-story",
+      "minimumVersion": "7.8",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_share_to_story-valid",
+        "TG-web_app_share_to_story-invalid-payload",
+        "TG-web_app_share_to_story-unsupported-version",
+        "TG-web_app_share_to_story-cross-instance-isolation",
+        "TG-web_app_share_to_story-navigation-stale-event",
+        "TG-web_app_share_to_story-cancel-or-denied",
+        "TG-web_app_share_to_story-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-056",
+      "name": "web_app_start_accelerometer",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-start-accelerometer",
+      "minimumVersion": "8.0",
+      "replyEvents": [
+        "accelerometer_started",
+        "accelerometer_failed",
+        "accelerometer_changed"
+      ],
+      "testIds": [
+        "TG-web_app_start_accelerometer-valid",
+        "TG-web_app_start_accelerometer-invalid-payload",
+        "TG-web_app_start_accelerometer-unsupported-version",
+        "TG-web_app_start_accelerometer-cross-instance-isolation",
+        "TG-web_app_start_accelerometer-navigation-stale-event",
+        "TG-web_app_start_accelerometer-cancel-or-denied",
+        "TG-web_app_start_accelerometer-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-057",
+      "name": "web_app_start_device_orientation",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-start-device-orientation",
+      "minimumVersion": "8.0",
+      "replyEvents": [
+        "device_orientation_started",
+        "device_orientation_failed",
+        "device_orientation_changed"
+      ],
+      "testIds": [
+        "TG-web_app_start_device_orientation-valid",
+        "TG-web_app_start_device_orientation-invalid-payload",
+        "TG-web_app_start_device_orientation-unsupported-version",
+        "TG-web_app_start_device_orientation-cross-instance-isolation",
+        "TG-web_app_start_device_orientation-navigation-stale-event",
+        "TG-web_app_start_device_orientation-cancel-or-denied",
+        "TG-web_app_start_device_orientation-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-058",
+      "name": "web_app_start_gyroscope",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-start-gyroscope",
+      "minimumVersion": "8.0",
+      "replyEvents": [
+        "gyroscope_started",
+        "gyroscope_failed",
+        "gyroscope_changed"
+      ],
+      "testIds": [
+        "TG-web_app_start_gyroscope-valid",
+        "TG-web_app_start_gyroscope-invalid-payload",
+        "TG-web_app_start_gyroscope-unsupported-version",
+        "TG-web_app_start_gyroscope-cross-instance-isolation",
+        "TG-web_app_start_gyroscope-navigation-stale-event",
+        "TG-web_app_start_gyroscope-cancel-or-denied",
+        "TG-web_app_start_gyroscope-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-059",
+      "name": "web_app_stop_accelerometer",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-stop-accelerometer",
+      "minimumVersion": "8.0",
+      "replyEvents": ["accelerometer_stopped"],
+      "testIds": [
+        "TG-web_app_stop_accelerometer-valid",
+        "TG-web_app_stop_accelerometer-invalid-payload",
+        "TG-web_app_stop_accelerometer-unsupported-version",
+        "TG-web_app_stop_accelerometer-cross-instance-isolation",
+        "TG-web_app_stop_accelerometer-navigation-stale-event",
+        "TG-web_app_stop_accelerometer-cancel-or-denied",
+        "TG-web_app_stop_accelerometer-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-060",
+      "name": "web_app_stop_device_orientation",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-stop-device-orientation",
+      "minimumVersion": "8.0",
+      "replyEvents": ["device_orientation_stopped"],
+      "testIds": [
+        "TG-web_app_stop_device_orientation-valid",
+        "TG-web_app_stop_device_orientation-invalid-payload",
+        "TG-web_app_stop_device_orientation-unsupported-version",
+        "TG-web_app_stop_device_orientation-cross-instance-isolation",
+        "TG-web_app_stop_device_orientation-navigation-stale-event",
+        "TG-web_app_stop_device_orientation-cancel-or-denied",
+        "TG-web_app_stop_device_orientation-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-061",
+      "name": "web_app_stop_gyroscope",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-stop-gyroscope",
+      "minimumVersion": "8.0",
+      "replyEvents": ["gyroscope_stopped"],
+      "testIds": [
+        "TG-web_app_stop_gyroscope-valid",
+        "TG-web_app_stop_gyroscope-invalid-payload",
+        "TG-web_app_stop_gyroscope-unsupported-version",
+        "TG-web_app_stop_gyroscope-cross-instance-isolation",
+        "TG-web_app_stop_gyroscope-navigation-stale-event",
+        "TG-web_app_stop_gyroscope-cancel-or-denied",
+        "TG-web_app_stop_gyroscope-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-062",
+      "name": "web_app_switch_inline_query",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-switch-inline-query",
+      "minimumVersion": "6.7",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_switch_inline_query-valid",
+        "TG-web_app_switch_inline_query-invalid-payload",
+        "TG-web_app_switch_inline_query-unsupported-version",
+        "TG-web_app_switch_inline_query-cross-instance-isolation",
+        "TG-web_app_switch_inline_query-navigation-stale-event",
+        "TG-web_app_switch_inline_query-cancel-or-denied",
+        "TG-web_app_switch_inline_query-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-063",
+      "name": "web_app_toggle_orientation_lock",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-toggle-orientation-lock",
+      "minimumVersion": "8.0",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_toggle_orientation_lock-valid",
+        "TG-web_app_toggle_orientation_lock-invalid-payload",
+        "TG-web_app_toggle_orientation_lock-unsupported-version",
+        "TG-web_app_toggle_orientation_lock-cross-instance-isolation",
+        "TG-web_app_toggle_orientation_lock-navigation-stale-event",
+        "TG-web_app_toggle_orientation_lock-cancel-or-denied",
+        "TG-web_app_toggle_orientation_lock-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-OUT-064",
+      "name": "web_app_trigger_haptic_feedback",
+      "direction": "outgoing",
+      "source": "https://docs.telegram-mini-apps.com/platform/methods#web-app-trigger-haptic-feedback",
+      "minimumVersion": "6.1",
+      "replyEvents": [],
+      "testIds": [
+        "TG-web_app_trigger_haptic_feedback-valid",
+        "TG-web_app_trigger_haptic_feedback-invalid-payload",
+        "TG-web_app_trigger_haptic_feedback-unsupported-version",
+        "TG-web_app_trigger_haptic_feedback-cross-instance-isolation",
+        "TG-web_app_trigger_haptic_feedback-navigation-stale-event",
+        "TG-web_app_trigger_haptic_feedback-cancel-or-denied",
+        "TG-web_app_trigger_haptic_feedback-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-001",
+      "name": "accelerometer_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#accelerometer-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-accelerometer_changed-valid",
+        "TG-accelerometer_changed-invalid-payload",
+        "TG-accelerometer_changed-unsupported-version",
+        "TG-accelerometer_changed-cross-instance-isolation",
+        "TG-accelerometer_changed-navigation-stale-event",
+        "TG-accelerometer_changed-cancel-or-denied",
+        "TG-accelerometer_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-002",
+      "name": "accelerometer_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#accelerometer-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-accelerometer_failed-valid",
+        "TG-accelerometer_failed-invalid-payload",
+        "TG-accelerometer_failed-unsupported-version",
+        "TG-accelerometer_failed-cross-instance-isolation",
+        "TG-accelerometer_failed-navigation-stale-event",
+        "TG-accelerometer_failed-cancel-or-denied",
+        "TG-accelerometer_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-003",
+      "name": "accelerometer_started",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#accelerometer-started",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-accelerometer_started-valid",
+        "TG-accelerometer_started-invalid-payload",
+        "TG-accelerometer_started-unsupported-version",
+        "TG-accelerometer_started-cross-instance-isolation",
+        "TG-accelerometer_started-navigation-stale-event",
+        "TG-accelerometer_started-cancel-or-denied",
+        "TG-accelerometer_started-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-004",
+      "name": "accelerometer_stopped",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#accelerometer-stopped",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-accelerometer_stopped-valid",
+        "TG-accelerometer_stopped-invalid-payload",
+        "TG-accelerometer_stopped-unsupported-version",
+        "TG-accelerometer_stopped-cross-instance-isolation",
+        "TG-accelerometer_stopped-navigation-stale-event",
+        "TG-accelerometer_stopped-cancel-or-denied",
+        "TG-accelerometer_stopped-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-005",
+      "name": "back_button_pressed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#back-button-pressed",
+      "minimumVersion": "6.1",
+      "replyEvents": null,
+      "testIds": [
+        "TG-back_button_pressed-valid",
+        "TG-back_button_pressed-invalid-payload",
+        "TG-back_button_pressed-unsupported-version",
+        "TG-back_button_pressed-cross-instance-isolation",
+        "TG-back_button_pressed-navigation-stale-event",
+        "TG-back_button_pressed-cancel-or-denied",
+        "TG-back_button_pressed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-006",
+      "name": "biometry_auth_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#biometry-auth-requested",
+      "minimumVersion": "7.2",
+      "replyEvents": null,
+      "testIds": [
+        "TG-biometry_auth_requested-valid",
+        "TG-biometry_auth_requested-invalid-payload",
+        "TG-biometry_auth_requested-unsupported-version",
+        "TG-biometry_auth_requested-cross-instance-isolation",
+        "TG-biometry_auth_requested-navigation-stale-event",
+        "TG-biometry_auth_requested-cancel-or-denied",
+        "TG-biometry_auth_requested-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-007",
+      "name": "biometry_info_received",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#biometry-info-received",
+      "minimumVersion": "7.2",
+      "replyEvents": null,
+      "testIds": [
+        "TG-biometry_info_received-valid",
+        "TG-biometry_info_received-invalid-payload",
+        "TG-biometry_info_received-unsupported-version",
+        "TG-biometry_info_received-cross-instance-isolation",
+        "TG-biometry_info_received-navigation-stale-event",
+        "TG-biometry_info_received-cancel-or-denied",
+        "TG-biometry_info_received-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-008",
+      "name": "biometry_token_updated",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#biometry-token-updated",
+      "minimumVersion": "7.2",
+      "replyEvents": null,
+      "testIds": [
+        "TG-biometry_token_updated-valid",
+        "TG-biometry_token_updated-invalid-payload",
+        "TG-biometry_token_updated-unsupported-version",
+        "TG-biometry_token_updated-cross-instance-isolation",
+        "TG-biometry_token_updated-navigation-stale-event",
+        "TG-biometry_token_updated-cancel-or-denied",
+        "TG-biometry_token_updated-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-009",
+      "name": "clipboard_text_received",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#clipboard-text-received",
+      "minimumVersion": "6.4",
+      "replyEvents": null,
+      "testIds": [
+        "TG-clipboard_text_received-valid",
+        "TG-clipboard_text_received-invalid-payload",
+        "TG-clipboard_text_received-unsupported-version",
+        "TG-clipboard_text_received-cross-instance-isolation",
+        "TG-clipboard_text_received-navigation-stale-event",
+        "TG-clipboard_text_received-cancel-or-denied",
+        "TG-clipboard_text_received-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-010",
+      "name": "content_safe_area_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#content-safe-area-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-content_safe_area_changed-valid",
+        "TG-content_safe_area_changed-invalid-payload",
+        "TG-content_safe_area_changed-unsupported-version",
+        "TG-content_safe_area_changed-cross-instance-isolation",
+        "TG-content_safe_area_changed-navigation-stale-event",
+        "TG-content_safe_area_changed-cancel-or-denied",
+        "TG-content_safe_area_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-011",
+      "name": "custom_method_invoked",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#custom-method-invoked",
+      "minimumVersion": "6.9",
+      "replyEvents": null,
+      "testIds": [
+        "TG-custom_method_invoked-valid",
+        "TG-custom_method_invoked-invalid-payload",
+        "TG-custom_method_invoked-unsupported-version",
+        "TG-custom_method_invoked-cross-instance-isolation",
+        "TG-custom_method_invoked-navigation-stale-event",
+        "TG-custom_method_invoked-cancel-or-denied",
+        "TG-custom_method_invoked-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-012",
+      "name": "device_orientation_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-orientation-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_orientation_changed-valid",
+        "TG-device_orientation_changed-invalid-payload",
+        "TG-device_orientation_changed-unsupported-version",
+        "TG-device_orientation_changed-cross-instance-isolation",
+        "TG-device_orientation_changed-navigation-stale-event",
+        "TG-device_orientation_changed-cancel-or-denied",
+        "TG-device_orientation_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-013",
+      "name": "device_orientation_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-orientation-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_orientation_failed-valid",
+        "TG-device_orientation_failed-invalid-payload",
+        "TG-device_orientation_failed-unsupported-version",
+        "TG-device_orientation_failed-cross-instance-isolation",
+        "TG-device_orientation_failed-navigation-stale-event",
+        "TG-device_orientation_failed-cancel-or-denied",
+        "TG-device_orientation_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-014",
+      "name": "device_orientation_started",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-orientation-started",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_orientation_started-valid",
+        "TG-device_orientation_started-invalid-payload",
+        "TG-device_orientation_started-unsupported-version",
+        "TG-device_orientation_started-cross-instance-isolation",
+        "TG-device_orientation_started-navigation-stale-event",
+        "TG-device_orientation_started-cancel-or-denied",
+        "TG-device_orientation_started-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-015",
+      "name": "device_orientation_stopped",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-orientation-stopped",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_orientation_stopped-valid",
+        "TG-device_orientation_stopped-invalid-payload",
+        "TG-device_orientation_stopped-unsupported-version",
+        "TG-device_orientation_stopped-cross-instance-isolation",
+        "TG-device_orientation_stopped-navigation-stale-event",
+        "TG-device_orientation_stopped-cancel-or-denied",
+        "TG-device_orientation_stopped-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-016",
+      "name": "device_storage_cleared",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-storage-cleared",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_storage_cleared-valid",
+        "TG-device_storage_cleared-invalid-payload",
+        "TG-device_storage_cleared-unsupported-version",
+        "TG-device_storage_cleared-cross-instance-isolation",
+        "TG-device_storage_cleared-navigation-stale-event",
+        "TG-device_storage_cleared-cancel-or-denied",
+        "TG-device_storage_cleared-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-017",
+      "name": "device_storage_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-storage-failed",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_storage_failed-valid",
+        "TG-device_storage_failed-invalid-payload",
+        "TG-device_storage_failed-unsupported-version",
+        "TG-device_storage_failed-cross-instance-isolation",
+        "TG-device_storage_failed-navigation-stale-event",
+        "TG-device_storage_failed-cancel-or-denied",
+        "TG-device_storage_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-018",
+      "name": "device_storage_key_received",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-storage-key-received",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_storage_key_received-valid",
+        "TG-device_storage_key_received-invalid-payload",
+        "TG-device_storage_key_received-unsupported-version",
+        "TG-device_storage_key_received-cross-instance-isolation",
+        "TG-device_storage_key_received-navigation-stale-event",
+        "TG-device_storage_key_received-cancel-or-denied",
+        "TG-device_storage_key_received-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-019",
+      "name": "device_storage_key_saved",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#device-storage-key-saved",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-device_storage_key_saved-valid",
+        "TG-device_storage_key_saved-invalid-payload",
+        "TG-device_storage_key_saved-unsupported-version",
+        "TG-device_storage_key_saved-cross-instance-isolation",
+        "TG-device_storage_key_saved-navigation-stale-event",
+        "TG-device_storage_key_saved-cancel-or-denied",
+        "TG-device_storage_key_saved-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-020",
+      "name": "emoji_status_access_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#emoji-status-access-requested",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-emoji_status_access_requested-valid",
+        "TG-emoji_status_access_requested-invalid-payload",
+        "TG-emoji_status_access_requested-unsupported-version",
+        "TG-emoji_status_access_requested-cross-instance-isolation",
+        "TG-emoji_status_access_requested-navigation-stale-event",
+        "TG-emoji_status_access_requested-cancel-or-denied",
+        "TG-emoji_status_access_requested-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-021",
+      "name": "emoji_status_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#emoji-status-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-emoji_status_failed-valid",
+        "TG-emoji_status_failed-invalid-payload",
+        "TG-emoji_status_failed-unsupported-version",
+        "TG-emoji_status_failed-cross-instance-isolation",
+        "TG-emoji_status_failed-navigation-stale-event",
+        "TG-emoji_status_failed-cancel-or-denied",
+        "TG-emoji_status_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-022",
+      "name": "emoji_status_set",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#emoji-status-set",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-emoji_status_set-valid",
+        "TG-emoji_status_set-invalid-payload",
+        "TG-emoji_status_set-unsupported-version",
+        "TG-emoji_status_set-cross-instance-isolation",
+        "TG-emoji_status_set-navigation-stale-event",
+        "TG-emoji_status_set-cancel-or-denied",
+        "TG-emoji_status_set-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-023",
+      "name": "file_download_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#file-download-requested",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-file_download_requested-valid",
+        "TG-file_download_requested-invalid-payload",
+        "TG-file_download_requested-unsupported-version",
+        "TG-file_download_requested-cross-instance-isolation",
+        "TG-file_download_requested-navigation-stale-event",
+        "TG-file_download_requested-cancel-or-denied",
+        "TG-file_download_requested-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-024",
+      "name": "fullscreen_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#fullscreen-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-fullscreen_changed-valid",
+        "TG-fullscreen_changed-invalid-payload",
+        "TG-fullscreen_changed-unsupported-version",
+        "TG-fullscreen_changed-cross-instance-isolation",
+        "TG-fullscreen_changed-navigation-stale-event",
+        "TG-fullscreen_changed-cancel-or-denied",
+        "TG-fullscreen_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-025",
+      "name": "fullscreen_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#fullscreen-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-fullscreen_failed-valid",
+        "TG-fullscreen_failed-invalid-payload",
+        "TG-fullscreen_failed-unsupported-version",
+        "TG-fullscreen_failed-cross-instance-isolation",
+        "TG-fullscreen_failed-navigation-stale-event",
+        "TG-fullscreen_failed-cancel-or-denied",
+        "TG-fullscreen_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-026",
+      "name": "gyroscope_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#gyroscope-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-gyroscope_changed-valid",
+        "TG-gyroscope_changed-invalid-payload",
+        "TG-gyroscope_changed-unsupported-version",
+        "TG-gyroscope_changed-cross-instance-isolation",
+        "TG-gyroscope_changed-navigation-stale-event",
+        "TG-gyroscope_changed-cancel-or-denied",
+        "TG-gyroscope_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-027",
+      "name": "gyroscope_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#gyroscope-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-gyroscope_failed-valid",
+        "TG-gyroscope_failed-invalid-payload",
+        "TG-gyroscope_failed-unsupported-version",
+        "TG-gyroscope_failed-cross-instance-isolation",
+        "TG-gyroscope_failed-navigation-stale-event",
+        "TG-gyroscope_failed-cancel-or-denied",
+        "TG-gyroscope_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-028",
+      "name": "gyroscope_started",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#gyroscope-started",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-gyroscope_started-valid",
+        "TG-gyroscope_started-invalid-payload",
+        "TG-gyroscope_started-unsupported-version",
+        "TG-gyroscope_started-cross-instance-isolation",
+        "TG-gyroscope_started-navigation-stale-event",
+        "TG-gyroscope_started-cancel-or-denied",
+        "TG-gyroscope_started-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-029",
+      "name": "gyroscope_stopped",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#gyroscope-stopped",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-gyroscope_stopped-valid",
+        "TG-gyroscope_stopped-invalid-payload",
+        "TG-gyroscope_stopped-unsupported-version",
+        "TG-gyroscope_stopped-cross-instance-isolation",
+        "TG-gyroscope_stopped-navigation-stale-event",
+        "TG-gyroscope_stopped-cancel-or-denied",
+        "TG-gyroscope_stopped-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-030",
+      "name": "home_screen_added",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#home-screen-added",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-home_screen_added-valid",
+        "TG-home_screen_added-invalid-payload",
+        "TG-home_screen_added-unsupported-version",
+        "TG-home_screen_added-cross-instance-isolation",
+        "TG-home_screen_added-navigation-stale-event",
+        "TG-home_screen_added-cancel-or-denied",
+        "TG-home_screen_added-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-031",
+      "name": "home_screen_checked",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#home-screen-checked",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-home_screen_checked-valid",
+        "TG-home_screen_checked-invalid-payload",
+        "TG-home_screen_checked-unsupported-version",
+        "TG-home_screen_checked-cross-instance-isolation",
+        "TG-home_screen_checked-navigation-stale-event",
+        "TG-home_screen_checked-cancel-or-denied",
+        "TG-home_screen_checked-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-032",
+      "name": "home_screen_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#home-screen-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-home_screen_failed-valid",
+        "TG-home_screen_failed-invalid-payload",
+        "TG-home_screen_failed-unsupported-version",
+        "TG-home_screen_failed-cross-instance-isolation",
+        "TG-home_screen_failed-navigation-stale-event",
+        "TG-home_screen_failed-cancel-or-denied",
+        "TG-home_screen_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-033",
+      "name": "invoice_closed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#invoice-closed",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-invoice_closed-valid",
+        "TG-invoice_closed-invalid-payload",
+        "TG-invoice_closed-unsupported-version",
+        "TG-invoice_closed-cross-instance-isolation",
+        "TG-invoice_closed-navigation-stale-event",
+        "TG-invoice_closed-cancel-or-denied",
+        "TG-invoice_closed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-034",
+      "name": "location_checked",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#location-checked",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-location_checked-valid",
+        "TG-location_checked-invalid-payload",
+        "TG-location_checked-unsupported-version",
+        "TG-location_checked-cross-instance-isolation",
+        "TG-location_checked-navigation-stale-event",
+        "TG-location_checked-cancel-or-denied",
+        "TG-location_checked-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-035",
+      "name": "location_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#location-requested",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-location_requested-valid",
+        "TG-location_requested-invalid-payload",
+        "TG-location_requested-unsupported-version",
+        "TG-location_requested-cross-instance-isolation",
+        "TG-location_requested-navigation-stale-event",
+        "TG-location_requested-cancel-or-denied",
+        "TG-location_requested-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-036",
+      "name": "main_button_pressed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#main-button-pressed",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-main_button_pressed-valid",
+        "TG-main_button_pressed-invalid-payload",
+        "TG-main_button_pressed-unsupported-version",
+        "TG-main_button_pressed-cross-instance-isolation",
+        "TG-main_button_pressed-navigation-stale-event",
+        "TG-main_button_pressed-cancel-or-denied",
+        "TG-main_button_pressed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-037",
+      "name": "phone_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#phone-requested",
+      "minimumVersion": "6.9",
+      "replyEvents": null,
+      "testIds": [
+        "TG-phone_requested-valid",
+        "TG-phone_requested-invalid-payload",
+        "TG-phone_requested-unsupported-version",
+        "TG-phone_requested-cross-instance-isolation",
+        "TG-phone_requested-navigation-stale-event",
+        "TG-phone_requested-cancel-or-denied",
+        "TG-phone_requested-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-038",
+      "name": "popup_closed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#popup-closed",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-popup_closed-valid",
+        "TG-popup_closed-invalid-payload",
+        "TG-popup_closed-unsupported-version",
+        "TG-popup_closed-cross-instance-isolation",
+        "TG-popup_closed-navigation-stale-event",
+        "TG-popup_closed-cancel-or-denied",
+        "TG-popup_closed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-039",
+      "name": "prepared_message_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#prepared-message-failed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-prepared_message_failed-valid",
+        "TG-prepared_message_failed-invalid-payload",
+        "TG-prepared_message_failed-unsupported-version",
+        "TG-prepared_message_failed-cross-instance-isolation",
+        "TG-prepared_message_failed-navigation-stale-event",
+        "TG-prepared_message_failed-cancel-or-denied",
+        "TG-prepared_message_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-040",
+      "name": "prepared_message_sent",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#prepared-message-sent",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-prepared_message_sent-valid",
+        "TG-prepared_message_sent-invalid-payload",
+        "TG-prepared_message_sent-unsupported-version",
+        "TG-prepared_message_sent-cross-instance-isolation",
+        "TG-prepared_message_sent-navigation-stale-event",
+        "TG-prepared_message_sent-cancel-or-denied",
+        "TG-prepared_message_sent-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-041",
+      "name": "qr_text_received",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#qr-text-received",
+      "minimumVersion": "6.4",
+      "replyEvents": null,
+      "testIds": [
+        "TG-qr_text_received-valid",
+        "TG-qr_text_received-invalid-payload",
+        "TG-qr_text_received-unsupported-version",
+        "TG-qr_text_received-cross-instance-isolation",
+        "TG-qr_text_received-navigation-stale-event",
+        "TG-qr_text_received-cancel-or-denied",
+        "TG-qr_text_received-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-042",
+      "name": "reload_iframe",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#reload-iframe",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-reload_iframe-valid",
+        "TG-reload_iframe-invalid-payload",
+        "TG-reload_iframe-unsupported-version",
+        "TG-reload_iframe-cross-instance-isolation",
+        "TG-reload_iframe-navigation-stale-event",
+        "TG-reload_iframe-cancel-or-denied",
+        "TG-reload_iframe-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-043",
+      "name": "requested_chat_failed",
+      "direction": "incoming",
+      "source": "https://telegram.org/js/telegram-web-app.js?63",
+      "minimumVersion": "9.6",
+      "replyEvents": null,
+      "testIds": [
+        "TG-requested_chat_failed-valid",
+        "TG-requested_chat_failed-invalid-payload",
+        "TG-requested_chat_failed-unsupported-version",
+        "TG-requested_chat_failed-cross-instance-isolation",
+        "TG-requested_chat_failed-navigation-stale-event",
+        "TG-requested_chat_failed-cancel-or-denied",
+        "TG-requested_chat_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-044",
+      "name": "requested_chat_sent",
+      "direction": "incoming",
+      "source": "https://telegram.org/js/telegram-web-app.js?63",
+      "minimumVersion": "9.6",
+      "replyEvents": null,
+      "testIds": [
+        "TG-requested_chat_sent-valid",
+        "TG-requested_chat_sent-invalid-payload",
+        "TG-requested_chat_sent-unsupported-version",
+        "TG-requested_chat_sent-cross-instance-isolation",
+        "TG-requested_chat_sent-navigation-stale-event",
+        "TG-requested_chat_sent-cancel-or-denied",
+        "TG-requested_chat_sent-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-045",
+      "name": "safe_area_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#safe-area-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-safe_area_changed-valid",
+        "TG-safe_area_changed-invalid-payload",
+        "TG-safe_area_changed-unsupported-version",
+        "TG-safe_area_changed-cross-instance-isolation",
+        "TG-safe_area_changed-navigation-stale-event",
+        "TG-safe_area_changed-cancel-or-denied",
+        "TG-safe_area_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-046",
+      "name": "scan_qr_popup_closed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#scan-qr-popup-closed",
+      "minimumVersion": "6.4",
+      "replyEvents": null,
+      "testIds": [
+        "TG-scan_qr_popup_closed-valid",
+        "TG-scan_qr_popup_closed-invalid-payload",
+        "TG-scan_qr_popup_closed-unsupported-version",
+        "TG-scan_qr_popup_closed-cross-instance-isolation",
+        "TG-scan_qr_popup_closed-navigation-stale-event",
+        "TG-scan_qr_popup_closed-cancel-or-denied",
+        "TG-scan_qr_popup_closed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-047",
+      "name": "secondary_button_pressed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secondary-button-pressed",
+      "minimumVersion": "7.10",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secondary_button_pressed-valid",
+        "TG-secondary_button_pressed-invalid-payload",
+        "TG-secondary_button_pressed-unsupported-version",
+        "TG-secondary_button_pressed-cross-instance-isolation",
+        "TG-secondary_button_pressed-navigation-stale-event",
+        "TG-secondary_button_pressed-cancel-or-denied",
+        "TG-secondary_button_pressed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-048",
+      "name": "secure_storage_cleared",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secure-storage-cleared",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secure_storage_cleared-valid",
+        "TG-secure_storage_cleared-invalid-payload",
+        "TG-secure_storage_cleared-unsupported-version",
+        "TG-secure_storage_cleared-cross-instance-isolation",
+        "TG-secure_storage_cleared-navigation-stale-event",
+        "TG-secure_storage_cleared-cancel-or-denied",
+        "TG-secure_storage_cleared-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-049",
+      "name": "secure_storage_failed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secure-storage-failed",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secure_storage_failed-valid",
+        "TG-secure_storage_failed-invalid-payload",
+        "TG-secure_storage_failed-unsupported-version",
+        "TG-secure_storage_failed-cross-instance-isolation",
+        "TG-secure_storage_failed-navigation-stale-event",
+        "TG-secure_storage_failed-cancel-or-denied",
+        "TG-secure_storage_failed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-050",
+      "name": "secure_storage_key_received",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secure-storage-key-received",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secure_storage_key_received-valid",
+        "TG-secure_storage_key_received-invalid-payload",
+        "TG-secure_storage_key_received-unsupported-version",
+        "TG-secure_storage_key_received-cross-instance-isolation",
+        "TG-secure_storage_key_received-navigation-stale-event",
+        "TG-secure_storage_key_received-cancel-or-denied",
+        "TG-secure_storage_key_received-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-051",
+      "name": "secure_storage_key_restored",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secure-storage-key-restored",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secure_storage_key_restored-valid",
+        "TG-secure_storage_key_restored-invalid-payload",
+        "TG-secure_storage_key_restored-unsupported-version",
+        "TG-secure_storage_key_restored-cross-instance-isolation",
+        "TG-secure_storage_key_restored-navigation-stale-event",
+        "TG-secure_storage_key_restored-cancel-or-denied",
+        "TG-secure_storage_key_restored-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-052",
+      "name": "secure_storage_key_saved",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#secure-storage-key-saved",
+      "minimumVersion": "9.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-secure_storage_key_saved-valid",
+        "TG-secure_storage_key_saved-invalid-payload",
+        "TG-secure_storage_key_saved-unsupported-version",
+        "TG-secure_storage_key_saved-cross-instance-isolation",
+        "TG-secure_storage_key_saved-navigation-stale-event",
+        "TG-secure_storage_key_saved-cancel-or-denied",
+        "TG-secure_storage_key_saved-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-053",
+      "name": "set_custom_style",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#set-custom-style",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-set_custom_style-valid",
+        "TG-set_custom_style-invalid-payload",
+        "TG-set_custom_style-unsupported-version",
+        "TG-set_custom_style-cross-instance-isolation",
+        "TG-set_custom_style-navigation-stale-event",
+        "TG-set_custom_style-cancel-or-denied",
+        "TG-set_custom_style-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-054",
+      "name": "settings_button_pressed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#settings-button-pressed",
+      "minimumVersion": "6.1",
+      "replyEvents": null,
+      "testIds": [
+        "TG-settings_button_pressed-valid",
+        "TG-settings_button_pressed-invalid-payload",
+        "TG-settings_button_pressed-unsupported-version",
+        "TG-settings_button_pressed-cross-instance-isolation",
+        "TG-settings_button_pressed-navigation-stale-event",
+        "TG-settings_button_pressed-cancel-or-denied",
+        "TG-settings_button_pressed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-055",
+      "name": "theme_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#theme-changed",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-theme_changed-valid",
+        "TG-theme_changed-invalid-payload",
+        "TG-theme_changed-unsupported-version",
+        "TG-theme_changed-cross-instance-isolation",
+        "TG-theme_changed-navigation-stale-event",
+        "TG-theme_changed-cancel-or-denied",
+        "TG-theme_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-056",
+      "name": "viewport_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#viewport-changed",
+      "minimumVersion": null,
+      "replyEvents": null,
+      "testIds": [
+        "TG-viewport_changed-valid",
+        "TG-viewport_changed-invalid-payload",
+        "TG-viewport_changed-unsupported-version",
+        "TG-viewport_changed-cross-instance-isolation",
+        "TG-viewport_changed-navigation-stale-event",
+        "TG-viewport_changed-cancel-or-denied",
+        "TG-viewport_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-057",
+      "name": "visibility_changed",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#visibility-changed",
+      "minimumVersion": "8.0",
+      "replyEvents": null,
+      "testIds": [
+        "TG-visibility_changed-valid",
+        "TG-visibility_changed-invalid-payload",
+        "TG-visibility_changed-unsupported-version",
+        "TG-visibility_changed-cross-instance-isolation",
+        "TG-visibility_changed-navigation-stale-event",
+        "TG-visibility_changed-cancel-or-denied",
+        "TG-visibility_changed-duplicate-or-late-reply"
+      ]
+    },
+    {
+      "id": "TG-IN-058",
+      "name": "write_access_requested",
+      "direction": "incoming",
+      "source": "https://docs.telegram-mini-apps.com/platform/events#write-access-requested",
+      "minimumVersion": "6.9",
+      "replyEvents": null,
+      "testIds": [
+        "TG-write_access_requested-valid",
+        "TG-write_access_requested-invalid-payload",
+        "TG-write_access_requested-unsupported-version",
+        "TG-write_access_requested-cross-instance-isolation",
+        "TG-write_access_requested-navigation-stale-event",
+        "TG-write_access_requested-cancel-or-denied",
+        "TG-write_access_requested-duplicate-or-late-reply"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "tma-studio",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "engines": {
+    "bun": "1.4.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter @tma-studio/desktop dev",
+    "build": "bun run --filter @tma-studio/desktop build",
+    "build:studio": "bun run --filter @tma-studio/desktop build",
+    "typecheck": "tsc -b",
+    "typecheck:studio": "tsc -b apps/studio/tsconfig.json",
+    "check": "bun run typecheck && bun run check:lint && bun run check:style && bun run check:tokens && bun run check:locales && bun run check:protocol && bun run check:protocol-conformance && bun test tests/unit",
+    "check:lint": "biome check .",
+    "check:style": "bun scripts/check-style.mjs",
+    "check:tokens": "bun scripts/check-tokens.mjs",
+    "check:locales": "bun scripts/check-locales.mjs",
+    "check:protocol": "bun scripts/generate-protocol-registry.mjs --check && bun test tests/unit/protocol-registry.test.ts",
+    "check:protocol-conformance": "bun scripts/protocol-conformance-report.mjs --check",
+    "generate:protocol": "bun scripts/generate-protocol-registry.mjs && bunx biome check --write apps/studio/src/domain/protocol/registry.generated.json apps/studio/src/domain/protocol/events.generated.ts reports/protocol-card-index.json",
+    "test:unit": "bun test tests/unit",
+    "test:vault:native": "bun test tests/native/vault",
+    "test:visual": "bun scripts/run-fixtures.mjs visual",
+    "typecheck:visual": "tsc --noEmit -p tests/visual/browser/tsconfig.json",
+    "test:visual:browser": "bun scripts/visual-harness.mjs run",
+    "test:visual:accept": "bun scripts/visual-harness.mjs accept",
+    "test:visual:selftest": "bun scripts/visual-harness.mjs selftest",
+    "test:native": "bun scripts/run-fixtures.mjs native",
+    "perf": "bun scripts/perf-runner.mjs",
+    "package:mac": "bun scripts/package-studio-mac.mjs",
+    "build:site": "bun run --filter @tma-studio/site build",
+    "check:site": "bun scripts/check-site.mjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.2",
+    "postcss": "8.5.28",
+    "sass": "1.104.1",
+    "typescript": "7.0.2"
+  },
+  "overrides": {
+    "@solidjs/babel-plugin": "2.0.0-rc.9",
+    "@solidjs/compiler": "2.0.0-rc.9",
+    "@solidjs/signals": "2.0.0-rc.9",
+    "@solidjs/vite-plugin": "3.0.0-next.44"
+  }
+}

@@ -1,0 +1,144 @@
+.tma-view {
+  --tma-toolbar-size: var(--size-simulator-toolbar, 2.625rem);
+  --tma-gap: var(--size-simulator-toolbar-gap, 0.5rem);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-canvas);
+  color: var(--color-text);
+}
+
+.tma-view__rail {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--tma-gap);
+  min-width: 0;
+  min-height: 0;
+  padding: 0.25rem;
+  border: var(--size-border) solid var(--color-border);
+  border-radius: 0.625rem;
+  background: var(--color-raised);
+  box-shadow: var(--shadow-popup);
+}
+
+.tma-view[data-side="top"] .tma-view__rail,
+.tma-view[data-side="bottom"] .tma-view__rail {
+  left: 50%;
+  max-width: calc(100% - 1rem);
+  height: var(--tma-toolbar-size);
+  transform: translateX(-50%);
+}
+.tma-view[data-side="top"] .tma-view__rail { top: 0; }
+.tma-view[data-side="bottom"] .tma-view__rail { bottom: 0; }
+.tma-view[data-side="left"] .tma-view__rail,
+.tma-view[data-side="right"] .tma-view__rail {
+  top: 50%;
+  width: 6.5rem;
+  max-height: calc(100% - 1rem);
+  flex-direction: column;
+  transform: translateY(-50%);
+}
+.tma-view[data-side="left"] .tma-view__rail { left: 0; }
+.tma-view[data-side="right"] .tma-view__rail { right: 0; }
+.tma-view__group {
+  display: flex;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  gap: 0.125rem;
+}
+.tma-view__legend {
+  position: absolute;
+  width: var(--size-border);
+  height: var(--size-border);
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+.tma-view[data-side="left"] .tma-view__group,
+.tma-view[data-side="right"] .tma-view__group { flex-direction: column; }
+.tma-view__rail button {
+  min-width: 2rem;
+  min-height: 2rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.tma-view__rail button[aria-pressed="true"] { background: var(--color-selected); }
+.tma-view__rail button:focus-visible { outline: var(--size-focus) solid var(--color-focus); outline-offset: var(--size-border); }
+.tma-view__divider { width: var(--size-border); height: 1.5rem; background: var(--color-border); }
+.tma-view[data-side="left"] .tma-view__divider,
+.tma-view[data-side="right"] .tma-view__divider { width: 1.5rem; height: var(--size-border); }
+.tma-view__theme { text-transform: capitalize; }
+.tma-view__location { position: relative; }
+.tma-view__location summary { min-width: 2rem; min-height: 2rem; display: grid; place-items: center; padding: 0 0.5rem; border-radius: 0.375rem; cursor: pointer; list-style: none; white-space: nowrap; }
+.tma-view__location summary::-webkit-details-marker { display: none; }
+.tma-view__location[open] summary { background: var(--color-selected); }
+.tma-view__location form { position: absolute; z-index: 4; top: calc(100% + 0.5rem); right: 0; display: grid; gap: 0.5rem; min-width: 13rem; padding: 0.75rem; border: var(--size-border) solid var(--color-border); border-radius: 0.625rem; background: var(--color-raised); box-shadow: var(--shadow-popup); }
+.tma-view[data-side="bottom"] .tma-view__location form { top: auto; bottom: calc(100% + 0.5rem); }
+.tma-view[data-side="left"] .tma-view__location form { top: 0; left: calc(100% + 0.5rem); right: auto; }
+.tma-view[data-side="right"] .tma-view__location form { top: 0; right: calc(100% + 0.5rem); }
+.tma-view__location label { display: grid; gap: 0.25rem; font-size: 0.75rem; }
+.tma-view__location input { min-height: 2rem; min-width: 0; padding: 0 0.5rem; border: var(--size-border) solid var(--color-border); border-radius: 0.375rem; color: inherit; background: var(--color-canvas); font: inherit; }
+.tma-view__location form button { background: var(--color-selected); }
+.tma-view__capture-scope select { min-width: 5rem; min-height: 2rem; border: 0; border-radius: 0.375rem; color: inherit; background: var(--color-raised); font: inherit; }
+.tma-view__capture-status { position: absolute; right: 0.75rem; bottom: 0.75rem; max-width: calc(100% - 1.5rem); overflow: hidden; padding: 0.25rem 0.5rem; border-radius: 0.375rem; background: var(--color-raised); color: var(--color-text); text-overflow: ellipsis; white-space: nowrap; }
+.tma-view__guest-region { position: absolute; inset: 0; pointer-events: none; }
+
+.android-chrome { position: absolute; z-index: 2; inset: 0; pointer-events: none; color: var(--color-text); }
+.android-chrome-overlay-root { position: fixed; inset: 0; overflow: hidden; background: transparent; }
+.android-chrome__status { position: absolute; inset: 0 0 auto; height: 1.5rem; padding: 0 0.75rem; display: flex; align-items: center; justify-content: space-between; background: var(--color-raised); font-size: 0.75rem; font-weight: 600; }
+.android-chrome__navigation { position: absolute; inset: auto 0 0; height: 2.5rem; display: flex; align-items: center; justify-content: space-around; background: var(--color-raised); pointer-events: auto; }
+.android-chrome__navigation button { display: grid; place-items: center; width: 3rem; height: 2.25rem; border: 0; border-radius: 0.5rem; background: transparent; color: inherit; cursor: pointer; }
+.android-chrome__navigation button:focus-visible { outline: var(--size-focus) solid var(--color-focus); }
+.android-chrome__back { width: 0.625rem; height: 0.625rem; border: solid currentColor; border-width: 0 0 0.125rem 0.125rem; transform: rotate(45deg); }
+.android-chrome__home { width: 0.75rem; height: 0.75rem; border: 0.125rem solid currentColor; border-radius: 50%; }
+.android-chrome__tasks { width: 0.75rem; height: 0.625rem; border: 0.125rem solid currentColor; border-radius: 0.125rem; }
+.android-chrome__background { position: absolute; inset: 1.5rem 0 2.5rem; display: grid; align-content: center; justify-items: center; gap: 0.75rem; padding: 2rem; text-align: center; background: var(--color-canvas); pointer-events: auto; }
+.android-chrome[data-region="background"] .android-chrome__background { inset: 0; }
+.android-chrome__background p { max-width: 28rem; margin: 0; color: var(--color-muted); }
+.android-chrome__background button { padding: 0.5rem 1rem; border: 0; border-radius: 0.5rem; color: var(--color-on-accent); background: var(--color-accent); font: inherit; cursor: pointer; }
+.android-chrome__mode { position: absolute; right: 0.5rem; top: 1.75rem; padding: 0.125rem 0.375rem; border-radius: 0.25rem; background: var(--color-raised); font-size: 0.6875rem; text-transform: capitalize; }
+
+.ios-chrome { position: absolute; z-index: 2; inset: 0; pointer-events: none; color: var(--color-text); }
+.ios-chrome__status { position: absolute; inset: 0 0 auto; height: 1.75rem; padding: 0 1.25rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 600; }
+.ios-chrome__island { position: absolute; left: 50%; top: 0.375rem; width: 5.5rem; height: 1rem; border-radius: 1rem; background: #171719; transform: translateX(-50%); }
+.ios-chrome__header { position: absolute; inset: 1.75rem 0 auto; height: 2.75rem; display: grid; grid-template-columns: 3rem 1fr 3rem; align-items: center; padding: 0 0.75rem; border-bottom: var(--size-border) solid var(--color-border); background: var(--color-raised); pointer-events: auto; }
+.ios-chrome__header strong { overflow: hidden; text-align: center; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9375rem; }
+.ios-chrome__header button { width: 2.5rem; height: 2.25rem; border: 0; border-radius: 0.625rem; color: var(--color-accent); background: transparent; font: inherit; cursor: pointer; }
+.ios-chrome__header button:focus-visible { outline: var(--size-focus) solid var(--color-focus); }
+.ios-chrome__back { justify-self: start; font-size: 1.75rem !important; line-height: 1; }
+.ios-chrome__menu { justify-self: end; font-size: 1.25rem !important; font-weight: 700 !important; }
+.ios-chrome__engine { position: absolute; top: 4.75rem; left: 50%; max-width: calc(100% - 3rem); padding: 0.25rem 0.5rem; border: var(--size-border) solid var(--color-border); border-radius: 1rem; color: var(--color-muted); background: var(--color-raised); font-size: 0.6875rem; transform: translateX(-50%); white-space: nowrap; }
+.ios-chrome__safe-area { position: absolute; bottom: 0.75rem; left: 50%; padding: 0.125rem 0.375rem; border-radius: 0.25rem; color: var(--color-muted); background: var(--color-raised); font-size: 0.625rem; transform: translateX(-50%); white-space: nowrap; }
+.ios-chrome__home-indicator { position: absolute; bottom: 0.375rem; left: 50%; width: 6.75rem; height: 0.25rem; border-radius: 1rem; background: currentColor; transform: translateX(-50%); }
+.ios-chrome__frame { position: absolute; inset: 0; border: 0.125rem solid color-mix(in srgb, var(--color-border) 75%, transparent); border-radius: 2rem; box-shadow: inset 0 0 0 0.25rem color-mix(in srgb, var(--color-raised) 45%, transparent); pointer-events: none; }
+.ios-chrome__mode { position: absolute; right: 0.5rem; bottom: 3rem; padding: 0.125rem 0.375rem; border-radius: 0.25rem; background: var(--color-raised); font-size: 0.6875rem; text-transform: capitalize; }
+.ios-chrome__sheet { position: fixed; inset: auto 0 0; width: 100%; max-width: none; margin: 0; border-radius: 1.25rem 1.25rem 0 0; background: var(--color-raised); text-align: center; pointer-events: auto; }
+.ios-chrome__sheet::backdrop { background: rgb(0 0 0 / 35%); }
+.ios-chrome__sheet::before { display: block; width: 2.5rem; height: 0.25rem; margin: 0.75rem auto; border-radius: 1rem; background: var(--color-border); content: ""; }
+.ios-chrome__sheet .studio-dialog__body { align-items: center; padding-top: 0.5rem; }
+.ios-chrome__sheet .studio-dialog__description { max-width: 28rem; }
+.ios-chrome__sheet .studio-dialog__footer { justify-content: center; padding-bottom: 2.5rem; }
+.ios-chrome__sheet button { min-width: 6rem; min-height: 2.5rem; }
+
+.ios-profile-review { position: fixed; inset: 0; display: grid; grid-template-rows: auto 1fr; gap: 0.75rem; padding: 1rem; box-sizing: border-box; background: var(--color-canvas); color: var(--color-text); }
+.ios-profile-review__controls { display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+.ios-profile-review__controls label { display: flex; align-items: center; gap: 0.5rem; }
+.ios-profile-review__controls select, .ios-profile-review__controls button { min-height: 2.5rem; padding: 0.375rem 0.75rem; border: var(--size-border) solid var(--color-border); border-radius: 0.625rem; color: inherit; background: var(--color-raised); font: inherit; }
+.ios-profile-review__device { position: relative; justify-self: center; width: auto; height: 100%; max-width: 100%; aspect-ratio: 9 / 19; overflow: hidden; border-radius: 2rem; background: var(--color-canvas); box-shadow: 0 0 0 0.25rem var(--color-border), var(--shadow-popup); }
+.ios-profile-review__guest { position: relative; z-index: 0; display: grid; align-content: center; justify-items: center; gap: 0.75rem; height: 100%; padding: 6rem 2rem; box-sizing: border-box; text-align: center; }
+.ios-profile-review__guest span { color: var(--color-muted); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.0625rem; }
+.ios-profile-review__guest strong { font-size: 1.5rem; }
+.ios-profile-review__guest p { margin: 0; color: var(--color-muted); }

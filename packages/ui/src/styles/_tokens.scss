@@ -1,0 +1,109 @@
+/* Generated semantic tokens for Studio-owned UI. */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --color-canvas: #E5E3E7;
+  --color-surface: #F7F6F8;
+  --color-sidebar: #EEECF0;
+  --color-raised: #FFFFFF;
+  --color-hover: #E7E4E9;
+  --color-selected: #DBE8FA;
+  --color-text: #242226;
+  --color-secondary: #514D55;
+  --color-muted: #625C67;
+  --color-border: #C8C4CC;
+  --color-control-border: #85808B;
+  --color-accent: #0055B8;
+  --color-on-accent: #FFFFFF;
+  --color-danger: #AE2440;
+  --color-success: #17623D;
+  --color-warning: #795100;
+  --color-focus: #0055B8;
+  --color-title-top: #F4F2F5;
+  --color-title-bottom: #E5E2E8;
+  --color-control-top: #FFFFFF;
+  --color-control-bottom: #F0EDF2;
+  --color-field: #FFFFFF;
+  --color-selected-control: #FFFFFF;
+  --shadow-popup: 0 0.5rem 1.5rem #29202F26, 0 0.125rem 0.375rem #29202F20;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-canvas: #19191B;
+  --color-surface: #29292C;
+  --color-sidebar: #232326;
+  --color-raised: #37373B;
+  --color-hover: #3C3C41;
+  --color-selected: #34475E;
+  --color-text: #F5F5F7;
+  --color-secondary: #D0D0D5;
+  --color-muted: #B9B9C0;
+  --color-border: #49494F;
+  --color-control-border: #8F8F98;
+  --color-accent: #9AC5FF;
+  --color-on-accent: #14253D;
+  --color-danger: #FFABB6;
+  --color-success: #94DBB0;
+  --color-warning: #F0CF88;
+  --color-focus: #9AC5FF;
+  --color-title-top: #414145;
+  --color-title-bottom: #343438;
+  --color-control-top: #57575E;
+  --color-control-bottom: #494950;
+  --color-field: #1E1E21;
+  --color-selected-control: #5B5B64;
+  --shadow-popup: 0 0.5rem 1.5rem #00000055, 0 0.125rem 0.375rem #00000055;
+}
+
+:root {
+  --size-control: 1.75rem;
+  --size-control-small: 1.5rem;
+  --size-control-comfortable: 2rem;
+  --size-titlebar: 2.75rem;
+  --size-simulator-toolbar: 2.625rem;
+  --size-icon: 1.125rem;
+  --size-icon-hit-area: 1.75rem;
+  --size-border: 0.0625rem;
+  --size-focus: 0.125rem;
+  --size-control-radius: 0.3125rem;
+  --size-window-radius: 0.75rem;
+  --size-sidebar: 15rem;
+  --size-simulator-toolbar-gap: 0.5rem;
+  --size-toolbar-gap: 0.5rem;
+  --font-family-sans: "Inter", "Vazirmatn", sans-serif;
+  --font-size-body: 0.8125rem;
+  --line-height-body: 1.125rem;
+  --font-size-caption: 0.75rem;
+  --line-height-caption: 1rem;
+  --font-size-heading: 1.25rem;
+  --line-height-heading: 1.75rem;
+  --font-size-hero: 1.75rem;
+  --line-height-hero: 2.125rem;
+  --line-height-arabic: 1.5rem;
+  --font-weight-body: 400;
+  --font-weight-label: 500;
+  --font-weight-heading: 600;
+  --font-weight-hero: 650;
+  --motion-fast: 120ms;
+  --motion-normal: 180ms;
+  --motion-reduced: 0ms;
+}
+
+/* Telegram Android peer colors (DrKLO/Telegram c848017, ThemeColors.java). */
+:root {
+  --avatar-ink: #FFFFFF;
+  --avatar-0-top: #FF845E;
+  --avatar-0-bottom: #D45246;
+  --avatar-1-top: #FEBB5B;
+  --avatar-1-bottom: #F68136;
+  --avatar-2-top: #B694F9;
+  --avatar-2-bottom: #6C61DF;
+  --avatar-3-top: #9AD164;
+  --avatar-3-bottom: #46BA43;
+  --avatar-4-top: #5BCBE3;
+  --avatar-4-bottom: #359AD4;
+  --avatar-5-top: #5CAFFA;
+  --avatar-5-bottom: #408ACF;
+  --avatar-6-top: #FF8AAC;
+  --avatar-6-bottom: #D95574;
+}

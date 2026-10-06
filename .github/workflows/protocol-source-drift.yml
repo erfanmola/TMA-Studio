@@ -1,0 +1,41 @@
+name: Protocol source drift
+
+on:
+  pull_request:
+    paths:
+      - "apps/studio/src/domain/protocol/inventory.json"
+      - "apps/studio/src/domain/protocol/**"
+      - "tests/fixtures/official-telegram-sdk/**"
+      - "reports/protocol-source-baseline.json"
+      - "scripts/protocol-source-drift.mjs"
+      - ".github/workflows/protocol-source-drift.yml"
+  schedule:
+    - cron: "23 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check Telegram source drift
+        id: drift
+        continue-on-error: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: node scripts/protocol-source-drift.mjs ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && '--report-only' || '' }}
+      - name: Upload drift report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protocol-source-drift-report
+          path: reports/protocol-source-drift-report.md
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fail review gate on drift
+        if: github.event_name == 'pull_request' && steps.drift.outcome == 'failure'
+        run: exit 1

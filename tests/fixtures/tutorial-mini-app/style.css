@@ -1,0 +1,161 @@
+:root {
+  color-scheme: light dark;
+  font-family:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --page: #f4f6f8;
+  --surface: #fff;
+  --text: #17212b;
+  --muted: #64707d;
+  --line: #dce2e8;
+  --accent: #2481cc;
+  --accent-text: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #101820;
+    --surface: #1b2732;
+    --text: #edf3f8;
+    --muted: #a5b3c0;
+    --line: #344351;
+    --accent: #55a8ed;
+    --accent-text: #10202e;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+}
+
+.page {
+  width: min(100% - 2rem, 42rem);
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.intro {
+  margin-bottom: 1.5rem;
+}
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(1.8rem, 7vw, 2.5rem);
+  line-height: 1.1;
+}
+h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+.lede,
+.hint,
+footer {
+  color: var(--muted);
+  line-height: 1.55;
+}
+.lede {
+  max-width: 36rem;
+  margin: 0;
+}
+
+.card {
+  margin: 1rem 0;
+  padding: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--surface);
+}
+
+.status-list {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+}
+.status-list > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 2fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+dt {
+  color: var(--muted);
+}
+dd {
+  margin: 0;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+dd[data-state="ready"],
+dd[data-state="present"] {
+  color: #23834f;
+}
+dd[data-state="missing"],
+dd[data-state="unavailable"] {
+  color: #a45125;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+button {
+  min-height: 2.75rem;
+  padding: 0.65rem 0.9rem;
+  border: 0;
+  border-radius: 0.7rem;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+}
+button:hover {
+  filter: brightness(1.08);
+}
+button:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+button.secondary {
+  margin-top: 1rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.result {
+  min-height: 1.5em;
+  margin: 0.9rem 0 0;
+  color: var(--muted);
+}
+footer {
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 28rem) {
+  .page {
+    width: min(100% - 1.25rem, 42rem);
+    padding-top: 1.25rem;
+  }
+  .card {
+    padding: 1rem;
+  }
+  .status-list > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}

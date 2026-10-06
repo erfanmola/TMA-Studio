@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "languageName": "Deutsch",
+    "siteName": "TMA Studio",
+    "description": "Eine fokussierte Desktop-Arbeitsumgebung zum Erstellen und Testen von Telegram Mini Apps. Version 2 ist in Entwicklung."
+  },
+  "a11y": {
+    "skip": "Zum Inhalt springen",
+    "primaryNav": "Website",
+    "languageNav": "Sprache",
+    "footerNav": "Mehr",
+    "home": "TMA Studio Startseite",
+    "external": "(öffnet GitHub)"
+  },
+  "nav": {
+    "home": "Start",
+    "download": "Download",
+    "gettingStarted": "Erste Schritte",
+    "compatibility": "Kompatibilität",
+    "changelog": "Änderungen",
+    "privacy": "Datenschutz",
+    "support": "Support",
+    "github": "GitHub"
+  },
+  "footer": {
+    "tagline": "TMA Studio · Open Source",
+    "independent": "Unabhängige Open-Source-Software. Nicht mit Telegram verbunden und nicht von Telegram unterstützt."
+  },
+  "home": {
+    "title": "TMA Studio — eine Arbeitsumgebung für Telegram Mini Apps",
+    "badge": "Eine fokussierte Arbeitsumgebung für Telegram Mini Apps",
+    "headingLine1": "Hier entwickeln.",
+    "headingLine2": "Wie zu Hause in Telegram.",
+    "lead": "Bringen Sie Ihre lokale App in einen eigenen Simulator. Testen Sie Benutzer, Startmodi und Telegram-Interaktionen, ohne Ihren Arbeitsfluss zu unterbrechen.",
+    "primary": "Erste Schritte",
+    "secondary": "Auf GitHub ansehen",
+    "status": "Version 2 in Entwicklung · geplant für Windows, macOS und Linux",
+    "mediaAlt": "Designvorschau eines schwebenden Telefonsimulators mit kompakter Werkzeugleiste darüber",
+    "mediaCaption": "Designvorschau aus der Designgrundlage von Version 2 (September 2026). Keine Aufnahme veröffentlichter Software.",
+    "featureUsersTitle": "Ihre Benutzer. Ihre Szenarien.",
+    "featureUsersBody": "Test-Identitäten, Sprache, Premium und Startkontext in einem wiederverwendbaren Projekt.",
+    "featureInspectTitle": "Jede Interaktion prüfen.",
+    "featureInspectBody": "Entwicklerwerkzeuge für die Gastseite, reproduzierbare Protokoll-Fixtures und klare Angaben zu Fähigkeiten.",
+    "featureFocusTitle": "Kleines Fenster. Voller Fokus.",
+    "featureFocusBody": "Ein schwebendes Gerät, eine kompakte Werkzeugleiste und die nötigen Bedienelemente griffbereit.",
+    "profilesTitle": "Sechs Profile. Ehrliche Abdeckung.",
+    "profilesList": "Android · iOS · Telegram Desktop · macOS · Web A · Web K",
+    "profilesNote": "Die Funktionsunterstützung wird pro Profil veröffentlicht. Ein Simulator ersetzt nicht den abschließenden Test in echten Telegram-Clients.",
+    "profilesAction": "Hinweise zur Kompatibilität"
+  },
+  "download": {
+    "title": "Download",
+    "intro": "Version 2 ist noch nicht veröffentlicht, daher gibt es noch keine Installationsprogramme.",
+    "notice": "Sobald eine Version qualifiziert ist, listet diese Seite jedes Betriebssystem und jede Architektur mit Prüfsumme und Signatur auf. Nichts wird aus Ihrem Browser erkannt.",
+    "sourceTitle": "Den Quellcode ausprobieren",
+    "sourceBody": "Entwickler können den Quellcode von Version 2 bereits bauen. Die genauen Befehle stehen unter Erste Schritte."
+  },
+  "gettingStarted": {
+    "title": "Erste Schritte",
+    "intro": "Diese Schritte bauen den Quellcode von Version 2. Sie erzeugen kein signiertes Installationsprogramm.",
+    "requirementsTitle": "Voraussetzungen",
+    "requirementsBody": "Bun 1.4.0 und ein macOS-, Windows- oder Linux-Desktop. Die Desktop-Laufzeit ist derzeit auf macOS mit Apple Silicon qualifiziert; andere Plattformen werden noch geprüft.",
+    "installTitle": "Abhängigkeiten installieren",
+    "runTitle": "In der Entwicklung starten",
+    "runBody": "Startet die Oberfläche und den Desktop-Host gemeinsam.",
+    "buildTitle": "Oberfläche bauen",
+    "buildBody": "Prüft die Typen und baut die Oberfläche. Paketierung und Signierung für die Plattformen sind noch in Arbeit."
+  },
+  "compatibility": {
+    "title": "Kompatibilität",
+    "intro": "TMA Studio zielt auf sechs Telegram-Clientprofile. Für jedes werden verifizierte, simulierte und nicht unterstützte Fähigkeiten getrennt ausgewiesen.",
+    "profile": "Profil",
+    "status": "Status",
+    "inDevelopment": "In Entwicklung — noch nicht verifiziert",
+    "engineTitle": "Rendering-Engine",
+    "engineBody": "Jedes Profil stellt Mini Apps mit Chromium über CEF dar. Studio führt weder Android noch iOS oder deren native Browser-Engines aus; prüfen Sie engine-spezifisches Verhalten auf echten Geräten.",
+    "fontsTitle": "Studio-Typografie",
+    "fontsBody": "Die eigene Oberfläche von Studio nutzt in jedem Profil Inter und Vazirmatn. Das weicht von manchen Telegram-Clients ab und ändert nie die Schriften Ihrer Mini App."
+  },
+  "changelog": {
+    "title": "Änderungen",
+    "versionTitle": "Version 2 — unveröffentlicht",
+    "versionBody": "In Entwicklung. Versionshinweise erscheinen hier mit der ersten qualifizierten Veröffentlichung."
+  },
+  "privacy": {
+    "title": "Datenschutz",
+    "siteTitle": "Diese Website",
+    "siteBody": "Diese Website ist statisch. Sie lädt keine Skripte, Schriften, Analysen oder Tracker von Drittanbietern und setzt keine Cookies.",
+    "appTitle": "Die App",
+    "appBody": "Version 2 ist so konzipiert, dass Kontositzungen und Bot-Tokens im Host-Prozess und im geschützten Anmeldedatenspeicher des Systems bleiben, getrennt von den Browserdaten der Mini Apps. Simulierte Ergebnisse und echte Telegram-Aktionen sind getrennte Modi. Diese Anforderungen werden derzeit umgesetzt und geprüft.",
+    "reportsTitle": "Probleme melden",
+    "reportsBody": "Fügen Sie niemals Bot-Tokens, Telegram-Sitzungen oder ungeschwärzte Startdaten in Fehlerberichte ein."
+  },
+  "support": {
+    "title": "Support",
+    "issuesTitle": "Fragen und Fehler",
+    "issuesBody": "Eröffnen Sie ein Issue im GitHub-Repository. Beschreiben Sie Plattform, App-Version, Schritte zur Reproduktion und das erwartete Verhalten.",
+    "issuesAction": "GitHub-Issues öffnen",
+    "securityTitle": "Sicherheit",
+    "securityBody": "Melden Sie Sicherheitsprobleme bitte privat über den im GitHub-Repository angegebenen Kontakt an den Maintainer, nicht in einem öffentlichen Issue.",
+    "sponsorTitle": "Entwicklung unterstützen",
+    "sponsorBody": "Sponsoring würde plattformübergreifende Tests, Protokollpflege, barrierefreie Oberflächen und verlässliche Veröffentlichungen finanzieren. Sponsoring-Optionen werden hier aufgeführt, sobald sie verfügbar sind."
+  },
+  "chooser": {
+    "title": "Sprache wählen"
+  }
+}

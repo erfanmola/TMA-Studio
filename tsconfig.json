@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/studio/tsconfig.renderer.json"
+    },
+    {
+      "path": "./apps/studio/tsconfig.host.json"
+    },
+    {
+      "path": "./apps/site/tsconfig.json"
+    }
+  ]
+}

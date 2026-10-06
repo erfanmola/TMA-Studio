@@ -1,0 +1,22 @@
+{
+  "name": "@tma-studio/site",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir .cache/ssr && bun scripts/prerender.ts",
+    "preview": "vite preview --host 127.0.0.1 --port 5195 --strictPort",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@solidjs/web": "2.0.0-rc.9",
+    "@tma-studio/ui": "workspace:*",
+    "solid-js": "2.0.0-rc.9"
+  },
+  "devDependencies": {
+    "bun-types": "1.4.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vite-plugin-solid": "3.0.0-next.27"
+  }
+}

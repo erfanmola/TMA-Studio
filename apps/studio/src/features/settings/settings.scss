@@ -1,0 +1,39 @@
+.settings-window {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.settings-window__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.settings-window__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.settings-window__note {
+  color: var(--studio-text-muted, inherit);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.settings-window__status {
+  padding: 1.5rem 1rem;
+}
+
+.settings-window__save-error {
+  color: var(--studio-danger-text, #b42318);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.settings-window__badge {
+  font-size: 0.75rem;
+  margin-inline-end: auto;
+}

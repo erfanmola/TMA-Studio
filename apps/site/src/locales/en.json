@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "languageName": "English",
+    "siteName": "TMA Studio",
+    "description": "A focused desktop workspace for building and testing Telegram Mini Apps. Version 2 is in development."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "primaryNav": "Site",
+    "languageNav": "Language",
+    "footerNav": "More",
+    "home": "TMA Studio home",
+    "external": "(opens GitHub)"
+  },
+  "nav": {
+    "home": "Home",
+    "download": "Download",
+    "gettingStarted": "Getting started",
+    "compatibility": "Compatibility",
+    "changelog": "Changelog",
+    "privacy": "Privacy",
+    "support": "Support",
+    "github": "GitHub"
+  },
+  "footer": {
+    "tagline": "TMA Studio · Open source",
+    "independent": "Independent open-source software. Not affiliated with or endorsed by Telegram."
+  },
+  "home": {
+    "title": "TMA Studio — a workspace for Telegram Mini Apps",
+    "badge": "A focused workspace for Telegram Mini Apps",
+    "headingLine1": "Build here.",
+    "headingLine2": "Feel at home in Telegram.",
+    "lead": "Bring your local app into a dedicated simulator. Explore users, launch modes and Telegram interactions without losing your development flow.",
+    "primary": "Get started",
+    "secondary": "View on GitHub",
+    "status": "Version 2 in development · planned for Windows, macOS and Linux",
+    "mediaAlt": "Design preview of a floating phone simulator with a compact toolbar above it",
+    "mediaCaption": "Design preview from the version 2 design baseline (September 2026). It is not a capture of released software.",
+    "featureUsersTitle": "Your users. Your scenarios.",
+    "featureUsersBody": "Mock identities, language, Premium and launch context in one reusable project.",
+    "featureInspectTitle": "Inspect every interaction.",
+    "featureInspectBody": "Guest developer tools, deterministic protocol fixtures and clear capability reporting.",
+    "featureFocusTitle": "Small window. Full focus.",
+    "featureFocusBody": "A floating device, a compact toolbar and the controls you need close at hand.",
+    "profilesTitle": "Six profiles. Honest coverage.",
+    "profilesList": "Android · iOS · Telegram Desktop · macOS · Web A · Web K",
+    "profilesNote": "Feature support will be published per profile. A simulator does not replace final testing in real Telegram clients.",
+    "profilesAction": "Read compatibility notes"
+  },
+  "download": {
+    "title": "Download",
+    "intro": "Version 2 has not been released yet, so there are no installers to download.",
+    "notice": "When a release is qualified, this page will list each operating system and architecture with its checksum and signature. Nothing here is detected from your browser.",
+    "sourceTitle": "Try the source",
+    "sourceBody": "Developers can build the version 2 source today. See Getting started for the exact commands."
+  },
+  "gettingStarted": {
+    "title": "Getting started",
+    "intro": "These steps build the version 2 source. They do not produce a signed installer.",
+    "requirementsTitle": "Requirements",
+    "requirementsBody": "Bun 1.4.0 and a macOS, Windows or Linux desktop. The desktop runtime is currently qualified on macOS on Apple silicon; other platforms are still being verified.",
+    "installTitle": "Install dependencies",
+    "runTitle": "Run in development",
+    "runBody": "This starts the interface and the desktop host together.",
+    "buildTitle": "Build the interface",
+    "buildBody": "This checks types and builds the interface. Platform packaging and signing are still in progress."
+  },
+  "compatibility": {
+    "title": "Compatibility",
+    "intro": "TMA Studio targets six Telegram client profiles. Each will report verified, simulated and unsupported capabilities separately.",
+    "profile": "Profile",
+    "status": "Status",
+    "inDevelopment": "In development — not yet verified",
+    "engineTitle": "Rendering engine",
+    "engineBody": "Every profile renders Mini Apps with Chromium through CEF. Studio does not run Android, iOS or their native browser engines, so confirm engine-specific behavior on real devices.",
+    "fontsTitle": "Studio typography",
+    "fontsBody": "Studio's own interface uses Inter and Vazirmatn in every profile. This differs from some Telegram clients and never changes your Mini App's fonts."
+  },
+  "changelog": {
+    "title": "Changelog",
+    "versionTitle": "Version 2 — unreleased",
+    "versionBody": "In development. Release notes will be published here with the first qualified release."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "siteTitle": "This website",
+    "siteBody": "This website is static. It loads no third-party scripts, fonts, analytics or trackers, and it sets no cookies.",
+    "appTitle": "The app",
+    "appBody": "Version 2 is designed to keep account sessions and bot tokens in the host process and protected system credential storage, separate from Mini App browser data. Simulated outcomes and real Telegram actions are separate modes. These requirements are being implemented and verified.",
+    "reportsTitle": "Reporting problems",
+    "reportsBody": "Never include bot tokens, Telegram sessions or unredacted launch data in issue reports."
+  },
+  "support": {
+    "title": "Support",
+    "issuesTitle": "Questions and bugs",
+    "issuesBody": "Open an issue in the GitHub repository. Describe your platform, app version, steps to reproduce and what you expected.",
+    "issuesAction": "Open GitHub issues",
+    "securityTitle": "Security",
+    "securityBody": "Please report security problems privately to the maintainer through the contact listed on the GitHub repository, not in a public issue.",
+    "sponsorTitle": "Supporting development",
+    "sponsorBody": "Sponsorship would fund cross-platform testing, protocol maintenance, accessible interfaces and reliable releases. Sponsorship options will be listed here when they are available."
+  },
+  "chooser": {
+    "title": "Choose a language"
+  }
+}

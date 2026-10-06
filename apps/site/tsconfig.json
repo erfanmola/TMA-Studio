@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
+    "types": ["bun-types"],
+    "resolveJsonModule": true,
+    "tsBuildInfoFile": "./.cache/site.tsbuildinfo"
+  },
+  "include": ["src", "scripts", "vite.config.ts"]
+}

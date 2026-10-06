@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "types": ["bun-types", "node"],
+    "tsBuildInfoFile": "./.cache/host.tsbuildinfo"
+  },
+  "include": ["bunium", "src/contracts", "src/domain"]
+}

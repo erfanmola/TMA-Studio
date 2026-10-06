@@ -1,0 +1,29 @@
+{
+  "name": "@tma-studio/desktop",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run ../../scripts/build-studio-capture.mjs && concurrently -k \"vite\" \"bun run bunium:dev\"",
+    "bunium:dev": "bun run --watch bunium/main.ts",
+    "build": "bun run typecheck && bun run build:renderer",
+    "typecheck": "tsc -b",
+    "build:renderer": "vite build",
+    "start": "bun run ../../scripts/build-studio-capture.mjs && bun run bunium/main.ts"
+  },
+  "dependencies": {
+    "@mtcute/bun": "0.32.2",
+    "@solidjs/web": "2.0.0-rc.9",
+    "@tma-studio/ui": "workspace:*",
+    "bunium": "0.0.7",
+    "solid-js": "2.0.0-rc.9"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.2",
+    "bun-types": "1.4.2",
+    "concurrently": "10.0.5",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vite-plugin-solid": "3.0.0-next.27"
+  }
+}
