@@ -443,19 +443,38 @@ function makeWindow(key: string): StudioWindow {
         const activeRegistry = partitionRegistry;
         const session = runtime.BuniumSession;
         const { partitionKey } = await import("./runtime/session");
-        const storageService = new HostStorageService(store, {
-          canonicalDirectory: (id) => activeRegistry.canonicalDirectory(id),
-          isInUse: (id) => {
-            try {
-              return session.isInUse(partitionKey(id));
-            } catch {
-              return true;
-            }
+        const { siteDataConfirmText } = await import(
+          "./services/storage-usage"
+        );
+        const storageService = new HostStorageService(
+          store,
+          {
+            canonicalDirectory: (id) => activeRegistry.canonicalDirectory(id),
+            isInUse: (id) => {
+              try {
+                return session.isInUse(partitionKey(id));
+              } catch {
+                return true;
+              }
+            },
+            clearSiteData: (id) => {
+              activeRegistry.clear(id);
+            },
           },
-          clearSiteData: (id) => {
-            activeRegistry.clear(id);
+          async (target) => {
+            const text = siteDataConfirmText(
+              store.getSnapshot().settings?.locale,
+              target,
+            );
+            const answer = await bunium.showMessageBox({
+              message: text.message,
+              detail: text.detail,
+              okLabel: text.okLabel,
+              cancelLabel: text.cancelLabel,
+            });
+            return answer.response === 0;
           },
-        });
+        );
         const reply = await handleStorageRequest(payload, storageService);
         const id = requestId(payload);
         if (reply) window.emit("storage.reply", reply);

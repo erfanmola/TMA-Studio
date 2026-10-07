@@ -1,4 +1,6 @@
 import { writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { deflateSync } from "node:zlib";
 import { app, BuniumWindow, trustedOriginsApiVersion } from "bunium";
 import { handleAccountRequest } from "../../../apps/studio/bunium/services/account-rpc";
@@ -180,7 +182,8 @@ async function finish(passed: boolean, reason?: string) {
     if (shot.width === 0 || shot.height === 0)
       return finish(false, "CEF produced no screenshot frame.");
     const output =
-      process.env.TMA_STUDIO_NATIVE_SCREENSHOT ?? "/tmp/06a-users-cef.png";
+      process.env.TMA_STUDIO_NATIVE_SCREENSHOT ??
+      join(tmpdir(), "06a-users-cef.png");
     writeFileSync(output, encodePng(shot.width, shot.height, shot.data));
     console.log(
       `NATIVE_USERS_SCREEN_GATE:PASS ${output} ${shot.width}x${shot.height}`,

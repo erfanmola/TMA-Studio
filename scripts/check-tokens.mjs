@@ -27,7 +27,8 @@ for (const directory of roots) {
     directory,
     (path, name) =>
       name.endsWith(".json") &&
-      (tokenDirectoryName.test(path.split("/").at(-2) ?? "") ||
+      // Split on both separators: collectFiles returns os-native paths.
+      (tokenDirectoryName.test(path.split(/[/\\]/).at(-2) ?? "") ||
         /tokens?/i.test(name)),
   );
   for (const file of files) {

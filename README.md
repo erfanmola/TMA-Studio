@@ -7,7 +7,7 @@ Independent open-source software. Not affiliated with or endorsed by Telegram. A
 ## Status
 
 - Version 2 — unreleased. Release notes will be published with the first qualified release.
-- Desktop runtime is currently qualified on macOS on Apple silicon; Windows and Linux verification is still in progress.
+- Desktop runtime is currently qualified on macOS on Apple silicon and Windows x64 (native gates PASS; trusted overlays/composition stay macOS-only, native capture is macOS-only); Linux verification is still in progress.
 - All six client profiles (Android, iOS, Telegram Desktop, macOS, Web A, Web K) are in development and not yet verified. Capability claims are published per profile only after proof; until then every profile reads “in development”.
 
 ## Repository layout
@@ -47,6 +47,23 @@ bun run build:site
 ```
 
 `bun run check` runs typecheck, Biome, style, token, locale-parity, protocol-registry and protocol-conformance checks, then the full unit suite. It must pass before any visual or native run is treated as evidence.
+
+## Native development (Bunium checkout)
+
+The published `bunium` package lags the APIs Studio needs (trusted origins,
+window controls, guests, sessions). Native runs — and `bun run dev` itself
+once saved settings require newer APIs — must resolve `bunium` to a local
+checkout (side-by-side `bunium/` directory), e.g. with directory junctions
+on Windows:
+
+```sh
+mklink /J node_modules\bunium ..\bunium
+mklink /J apps\studio\node_modules\bunium ..\..\..\bunium
+```
+
+then build it per `bunium/docs/guide/windows.md` (macOS/Linux: their own
+build guides) so `native/build` + the CEF distro exist. The `tests/native`
+fixtures take the checkout path explicitly via `BUNIUM_REPO` instead.
 
 ## Compatibility
 

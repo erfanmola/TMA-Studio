@@ -48,12 +48,15 @@ export class KeyedStudioWindowRegistry<
       return current;
     }
 
-    return this.registry.create(() => {
-      const window = factory();
-      this.windows.set(key, window);
-      window.onClose(() => this.removeIfCurrent(key, window));
-      return window;
-    });
+    // Record ownership only AFTER the registry accepts the window: if
+    // registration (e.g. applying always-on-top) throws, the registry closes
+    // the native window and the error propagates. Recording the key or the
+    // onClose listener first would emit an empty-transition on the way out,
+    // letting the app-wide shutdown path exit(0) before the error surfaces.
+    const window = this.registry.create(factory);
+    this.windows.set(key, window);
+    window.onClose(() => this.removeIfCurrent(key, window));
+    return window;
   }
 
   /** Remove ownership before closing, so a synchronous close callback is safe. */

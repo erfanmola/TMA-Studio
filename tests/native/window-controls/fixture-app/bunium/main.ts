@@ -1,4 +1,11 @@
-import { app, BuniumWindow, showMessageBox, WindowControlError } from "bunium";
+// Resolve the runtime the same way the guest/partition fixtures do: a local
+// Bunium checkout via BUNIUM_MODULE for unpackaged runs, falling back to the
+// installed `bunium` package for packaged launches. (Static `import "bunium"`
+// cannot see BUNIUM_MODULE, which broke unpackaged runs: the fixture package
+// has no node_modules of its own.)
+const { app, BuniumWindow, showMessageBox, WindowControlError } = (await import(
+  process.env.BUNIUM_MODULE ?? "bunium"
+)) as unknown as typeof import("bunium");
 
 const closed: string[] = [];
 const focusResults: string[] = [];

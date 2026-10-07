@@ -1,0 +1,4 @@
+# Normalize line endings: LF everywhere so Biome/prettier checks pass on
+# every OS regardless of core.autocrlf. (Windows quartz: no .bat/.cmd/.ps1
+# tracked in this repo, so no CRLF exceptions needed.)
+* text=auto eol=lf

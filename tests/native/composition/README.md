@@ -17,3 +17,12 @@ BUNIUM_REPO=/path/to/bunium bun test tests/native/composition/qualification.test
 The app itself prints a `COMPOSITION_EVIDENCE` JSON line before
 `NATIVE_COMPOSITION_GATE:PASS` for the trusted host overlay, guest stacking,
 clipping, and input. It does not certify other OS backends.
+
+## Capture helpers (not gates)
+
+`HOLD_OPEN=1` (with optional `HOLD_OPEN_MS`, default 30000) keeps windows
+open for actual-window capture: after a PASS it holds a decoy composition
+(`COMPOSITION_DECOY_READY`); on failure it holds whatever composed so far
+(`COMPOSITION_HOLD_ON_FAILURE`) before tearing down. On Windows the overlay
+API is macOS-only, so a held run captures the transparent host window
+without guests/overlays and still exits `NATIVE_COMPOSITION_GATE:FAIL`.

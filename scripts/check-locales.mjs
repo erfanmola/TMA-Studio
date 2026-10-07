@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { basename, resolve } from "node:path";
 import { checkDictionaryParity, collectFiles } from "./quality.mjs";
 
 const root = resolve(import.meta.dirname, "..");
@@ -11,7 +11,9 @@ const dictionaries = {};
 const issues = [];
 
 for (const file of files) {
-  const locale = file.slice(file.lastIndexOf("/") + 1, -5).toLowerCase();
+  // basename, not a "/" split: collectFiles returns os-native paths and "\\"
+  // never appears on macOS/Linux while "/" never separates on Windows.
+  const locale = basename(file, ".json").toLowerCase();
   try {
     dictionaries[locale] = JSON.parse(await readFile(file, "utf8"));
   } catch (error) {

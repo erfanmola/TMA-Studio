@@ -8,7 +8,7 @@ import {
   stat,
 } from "node:fs/promises";
 import { homedir } from "node:os";
-import { join, resolve } from "node:path";
+import { join, posix, resolve, win32 } from "node:path";
 import type {
   Identity,
   Platform,
@@ -62,16 +62,21 @@ export interface LegacyLocatorOptions {
 export function legacyConfigCandidate(
   options: LegacyLocatorOptions,
 ): string | null {
+  // Join with the TARGET platform's semantics, not the host's: the locator
+  // answers "where would the legacy app live on <platform>", which must be
+  // stable no matter which OS runs the check (host join() would emit "\\"
+  // for darwin/linux candidates when run on Windows).
+  const joinFor = options.platform === "win32" ? win32.join : posix.join;
   const appData =
     options.platform === "win32"
       ? options.environment.APPDATA
       : options.platform === "linux"
         ? options.environment.XDG_CONFIG_HOME ||
-          join(options.homeDirectory, ".config")
+          joinFor(options.homeDirectory, ".config")
         : options.platform === "darwin"
-          ? join(options.homeDirectory, "Library", "Application Support")
+          ? joinFor(options.homeDirectory, "Library", "Application Support")
           : null;
-  return appData ? join(appData, "tma-studio", "config.json") : null;
+  return appData ? joinFor(appData, "tma-studio", "config.json") : null;
 }
 
 export class LegacyImportError extends Error {

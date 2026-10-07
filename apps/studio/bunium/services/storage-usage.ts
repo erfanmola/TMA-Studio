@@ -8,6 +8,11 @@ import {
   parseStorageRequest,
   safeStorageReply,
 } from "../../src/contracts/storage-rpc";
+import ar from "../../src/locales/ar.json";
+import de from "../../src/locales/de.json";
+import en from "../../src/locales/en.json";
+import fa from "../../src/locales/fa.json";
+import ru from "../../src/locales/ru.json";
 import type { StudioStore } from "./store";
 
 export class StorageServiceError extends Error {
@@ -37,6 +42,33 @@ export interface StorageRuntime {
   canonicalDirectory(partitionId: string): string;
   isInUse(partitionId: string): boolean;
   clearSiteData(partitionId: string): void;
+}
+
+const localeDictionaries = { ar, de, en, fa, ru };
+
+export interface SiteDataConfirmText {
+  message: string;
+  detail: string;
+  okLabel: string;
+  cancelLabel: string;
+}
+
+/** Localized site-data confirm copy for the partition row being cleared. */
+export function siteDataConfirmText(
+  locale: string | undefined,
+  partition: Pick<StoragePartitionInfo, "projectId" | "platform">,
+): SiteDataConfirmText {
+  const storage = (
+    locale && Object.hasOwn(localeDictionaries, locale)
+      ? localeDictionaries[locale as keyof typeof localeDictionaries]
+      : en
+  ).settings.storage;
+  return {
+    message: storage.confirmSite,
+    detail: `${partition.projectId} · ${partition.platform}`,
+    okLabel: storage.clearSite,
+    cancelLabel: storage.cancel,
+  };
 }
 
 /** Cache-only subpaths (CEF/Chromium layout). Unknown layouts clear nothing. */
@@ -104,6 +136,9 @@ export class HostStorageService {
   constructor(
     private readonly store: StudioStore,
     private readonly runtime: StorageRuntime,
+    private readonly confirmSiteData?: (
+      partition: StoragePartitionInfo,
+    ) => Promise<boolean>,
   ) {}
 
   listTargets(): StoragePartitionInfo[] {
@@ -214,8 +249,15 @@ export class HostStorageService {
     return this.remeasure(target);
   }
 
-  clearSiteData(partitionId: string): StorageUsageRow {
+  async clearSiteData(partitionId: string): Promise<StorageUsageRow> {
     const target = this.requireIdle(partitionId);
+    // Destructive: confirm first. The renderer must NOT use window.confirm --
+    // CEF auto-cancels JS dialogs without a parent window handle, so the
+    // clear would never run. The host shows the native dialog instead; no
+    // confirmer (tests, headless) means proceed, preserving old behavior.
+    if (this.confirmSiteData && !(await this.confirmSiteData(target))) {
+      throw new StorageServiceError("ABORTED");
+    }
     const directory = this.safeDirectory(partitionId);
     try {
       // Remove contents but keep the canonical directory itself so the
@@ -314,7 +356,7 @@ export async function handleStorageRequest(
     const row =
       request.command.method === "clear-cache"
         ? service.clearCache(request.command.partitionId)
-        : service.clearSiteData(request.command.partitionId);
+        : await service.clearSiteData(request.command.partitionId);
     return safeStorageReply(request.requestId, row);
   } catch (error) {
     return {

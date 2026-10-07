@@ -152,7 +152,7 @@ describe("HostStorageService (09c)", () => {
       expect(store.getProject("project-b").project.name).toBe("Project B");
       expect(store.getIdentity("identity-b").id).toBe("identity-b");
 
-      const afterSite = service.clearSiteData("part-a");
+      const afterSite = await service.clearSiteData("part-a");
       expect(afterSite.bytes).toBe(0);
       expect(existsSync(join(dirB, "data.bin"))).toBe(true);
       const rescan = await service.scan();
@@ -170,7 +170,7 @@ describe("HostStorageService (09c)", () => {
     try {
       inUse.add("part-a");
       expect(() => service.clearCache("part-a")).toThrow("IN_USE");
-      expect(() => service.clearSiteData("part-a")).toThrow("IN_USE");
+      await expect(service.clearSiteData("part-a")).rejects.toThrow("IN_USE");
       const controller = new AbortController();
       controller.abort();
       await expect(service.scan(controller.signal)).rejects.toThrow("ABORTED");
@@ -183,6 +183,59 @@ describe("HostStorageService (09c)", () => {
     const { store, service } = setup();
     try {
       expect(() => service.clearCache("missing")).toThrow("NOT_FOUND");
+    } finally {
+      store.close();
+    }
+  });
+
+  test("site-data clear asks the native confirmer; decline aborts silently", async () => {
+    const { store, dirA, dirB } = setup();
+    try {
+      let asked = 0;
+      const confirming = new HostStorageService(
+        store,
+        {
+          canonicalDirectory: (id: string) => (id === "part-a" ? dirA : dirB),
+          isInUse: () => false,
+          clearSiteData: () => {},
+        },
+        async () => {
+          asked += 1;
+          return false;
+        },
+      );
+      await expect(confirming.clearSiteData("part-a")).rejects.toThrow(
+        "ABORTED",
+      );
+      expect(asked).toBe(1);
+      // Declined: nothing removed.
+      expect(existsSync(join(dirA, "Cache", "data.bin"))).toBe(true);
+      expect(existsSync(join(dirB, "data.bin"))).toBe(true);
+    } finally {
+      store.close();
+    }
+  });
+
+  test("site-data clear proceeds when the native confirmer accepts", async () => {
+    const { store, dirA, dirB } = setup();
+    try {
+      let asked = 0;
+      const confirming = new HostStorageService(
+        store,
+        {
+          canonicalDirectory: (id: string) => (id === "part-a" ? dirA : dirB),
+          isInUse: () => false,
+          clearSiteData: () => {},
+        },
+        async () => {
+          asked += 1;
+          return true;
+        },
+      );
+      const row = await confirming.clearSiteData("part-a");
+      expect(asked).toBe(1);
+      expect(row.bytes).toBe(0);
+      expect(existsSync(join(dirB, "data.bin"))).toBe(true);
     } finally {
       store.close();
     }

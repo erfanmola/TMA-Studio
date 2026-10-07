@@ -66,7 +66,9 @@ export function StorageSection(props: {
   };
 
   const clear = async (partitionId: string, kind: "cache" | "site") => {
-    if (kind === "site" && !window.confirm(storage.confirmSite)) return;
+    // No window.confirm here: CEF auto-cancels JS dialogs (no parent window
+    // handle), so the clear would never run. Site-data clears are confirmed
+    // by the host with a native dialog before reaching the service.
     setClearing(partitionId);
     try {
       const row =

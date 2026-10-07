@@ -120,4 +120,23 @@ describe("KeyedStudioWindowRegistry", () => {
       "non-empty strings",
     );
   });
+
+  test("a rejected registration throws without recording the key or emitting empty", () => {
+    // Startup pins always-on-top from saved settings before any window
+    // exists; a runtime without setAlwaysOnTop (e.g. an older installed
+    // Bunium package) then rejects the first window. The key must stay
+    // unrecorded and no empty-transition may fire -- otherwise the app-wide
+    // shutdown path exits(0) before the error surfaces (silent death).
+    const inner = new StudioWindowRegistry();
+    const registry = new KeyedStudioWindowRegistry<FakeWindow>(inner);
+    let emptyCalls = 0;
+    registry.onEmpty(() => emptyCalls++);
+    inner.setAlwaysOnTop(true);
+    const window = new FakeWindow();
+    expect(() => registry.open("home", () => window)).toThrow("unavailable");
+    expect(window.closed).toBe(true);
+    expect(registry.get("home")).toBeUndefined();
+    expect(registry.count).toBe(0);
+    expect(emptyCalls).toBe(0);
+  });
 });

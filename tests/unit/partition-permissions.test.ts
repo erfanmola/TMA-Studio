@@ -2,13 +2,12 @@ import { afterEach, describe, expect, test } from "bun:test";
 import {
   mkdirSync,
   mkdtempSync,
-  readlinkSync,
   realpathSync,
   rmSync,
   symlinkSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, sep } from "node:path";
 import { partitionKey } from "../../apps/studio/bunium/runtime/session";
 import { PartitionRegistryService } from "../../apps/studio/bunium/services/partition-registry";
 import { PermissionBroker } from "../../apps/studio/bunium/services/permission-broker";
@@ -108,14 +107,26 @@ describe("trusted partition registry and permission broker", () => {
   test("derives canonical storage from trusted IDs and rejects forged paths and symlinks", () => {
     const { base, root, store, partitions, partition } = setup();
     const canonical = partitions.canonicalDirectory(partition.id);
-    expect(canonical.startsWith(`${realpathSync(root)}/`)).toBe(true);
+    expect(canonical.startsWith(`${realpathSync(root)}${sep}`)).toBe(true);
     expect(() => partitions.canonicalDirectory("../../outside")).toThrow();
     expect(partitions.resolve("../../outside")).toBeUndefined();
     const outside = join(base, "outside");
     mkdirSync(outside);
     const directory = join(root, `bp.${partitionKey(partition.id)}.g1`);
-    symlinkSync(outside, directory);
-    expect(readlinkSync(directory)).toBe(outside);
+    // Symlink creation needs Developer Mode / SeCreateSymbolicLinkPrivilege
+    // on Windows, which locked-down runners may lack. Junctions need no
+    // privilege, still resolve outside the root, and report as symlinks to
+    // lstat — so the exact same rejection fires either way.
+    try {
+      symlinkSync(outside, directory);
+    } catch (error) {
+      if (
+        process.platform !== "win32" ||
+        (error as NodeJS.ErrnoException).code !== "EPERM"
+      )
+        throw error;
+      symlinkSync(outside, directory, "junction");
+    }
     expect(() => partitions.canonicalDirectory(partition.id)).toThrow(
       "symlink",
     );

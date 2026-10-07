@@ -126,7 +126,8 @@ describe("legacy TMA Studio import", () => {
         homeDirectory: "C:/Users/tester",
         environment: { APPDATA: "C:/Users/tester/AppData/Roaming" },
       }),
-    ).toBe("C:/Users/tester/AppData/Roaming/tma-studio/config.json");
+      // win32.join normalizes to backslashes even for slash-typed input.
+    ).toBe("C:\\Users\\tester\\AppData\\Roaming\\tma-studio\\config.json");
     expect(
       legacyConfigCandidate({
         platform: "linux",
@@ -182,7 +183,12 @@ describe("legacy TMA Studio import", () => {
         `legacy-${result.sourceSha256}.config.json`,
       );
       expect(readFileSync(backup)).toEqual(sourceBefore);
-      expect(statSync(backup).mode & 0o777).toBe(0o600);
+      // Windows has no Unix permission bits: chmod is best-effort there (see
+      // legacy-import.ts) and the mode stays 0666. Raw tokens still move to
+      // the vault on every OS; the backup lives in the user's profile dir.
+      expect(statSync(backup).mode & 0o777).toBe(
+        process.platform === "win32" ? 0o666 : 0o600,
+      );
       expect(context.credentials.entries.size).toBe(1);
       expect([...context.credentials.entries.values()]).toEqual([BOT_TOKEN]);
 

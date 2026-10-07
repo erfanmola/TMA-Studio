@@ -19,4 +19,4 @@ Studio’s own interface uses Inter (Latin/Cyrillic) and Vazirmatn (Arabic/Persi
 ## Current evidence
 
 - Protocol coverage is executable per family with pinned fixtures; profile support stays unverified until native and reference proof land.
-- Desktop runtime qualification is currently macOS on Apple silicon. Windows and Linux runs are recorded separately before any release claim.
+- Desktop runtime qualification is macOS on Apple silicon and Windows x64 (security, partition, guest, window-controls and composition-packaging gates plus the packaged Studio Settings/Storage/menu smokes pass on Windows; trusted overlays and native alpha composition stay macOS-only). Linux runs are recorded separately before any release claim.

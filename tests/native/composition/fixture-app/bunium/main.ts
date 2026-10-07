@@ -48,6 +48,9 @@ const native = (await import(`${repo}/src/native.ts`)) as {
 const evidence: Record<string, unknown> = {};
 let hostReady = false;
 let decoy: Host | undefined;
+let menuOverlay: Overlay | undefined;
+let a: Guest | undefined;
+let b: Guest | undefined;
 let nativeMenuReady = false;
 const nativeMenuClicks: Array<{ x: number; y: number }> = [];
 const hostBodyClicks: Array<{ x: number; y: number }> = [];
@@ -133,7 +136,7 @@ try {
   untrustedOverlayRejected = error instanceof TypeError;
 }
 if (!untrustedOverlayRejected) {
-  throw new Error("overlay accepted a URL outside the host trustedOrigins set");
+  await failEarly("overlay accepted a URL outside the host trustedOrigins set");
 }
 host.on("host-ready", () => {
   hostReady = true;
@@ -142,7 +145,7 @@ host.on("host-body-click", (payload) => {
   const value = payload as { x: number; y: number };
   hostBodyClicks.push({ x: value.x, y: value.y });
 });
-const menuOverlay = host.createOverlay({
+menuOverlay = host.createOverlay({
   url: `${origin}/menu`,
   x: 150,
   y: 90,
@@ -156,7 +159,7 @@ try {
   untrustedNavigationRejected = error instanceof TypeError;
 }
 if (!untrustedNavigationRejected) {
-  throw new Error("overlay navigation left the host trustedOrigins set");
+  await failEarly("overlay navigation left the host trustedOrigins set");
 }
 menuOverlay.on("menu-ready", () => {
   nativeMenuReady = true;
@@ -172,7 +175,7 @@ const bridgeScript = `
   },true);
   return function () {};
 `;
-const a = host.createGuest({
+a = host.createGuest({
   x: 80,
   y: 60,
   width: 300,
@@ -180,7 +183,7 @@ const a = host.createGuest({
   url: `${origin}/guest/a`,
   bridgeScript,
 });
-const b = host.createGuest({
+b = host.createGuest({
   x: 210,
   y: 160,
   width: 220,
@@ -234,6 +237,25 @@ function click(x: number, y: number) {
   const dispatch = native.lib.symbols.bunium_dispatch_mouse_click;
   (dispatch as NativeCall)(host.windowHandle, x, y, 0, 0, 1);
   (dispatch as NativeCall)(host.windowHandle, x, y, 0, 1, 1);
+}
+
+// Early setup failures (e.g. the overlay platform guard below) happen before
+// the main try block, so they need their own reporting + hold path instead
+// of dying uncaught with no gate line.
+async function failEarly(message: string): Promise<never> {
+  console.error(`NATIVE_COMPOSITION_GATE:FAIL ${message}`);
+  console.error(`COMPOSITION_EVIDENCE:${JSON.stringify(evidence)}`);
+  if (process.env.HOLD_OPEN === "1") {
+    const holdMs = Number(process.env.HOLD_OPEN_MS ?? 30_000);
+    console.log("COMPOSITION_HOLD_ON_FAILURE");
+    // Bun.sleep directly: the `sleep` helper below is still in TDZ when
+    // early setup fails.
+    await Bun.sleep(Number.isFinite(holdMs) ? Math.max(1_000, holdMs) : 30_000);
+  }
+  host.close();
+  server.stop(true);
+  runtime.app.shutdown();
+  process.exit(1);
 }
 
 try {
@@ -350,10 +372,18 @@ try {
   console.error(`NATIVE_COMPOSITION_GATE:FAIL ${String(error)}`);
   console.error(`COMPOSITION_EVIDENCE:${JSON.stringify(evidence)}`);
   process.exitCode = 1;
+  if (process.env.HOLD_OPEN === "1") {
+    // Hold the (partially composed) native window open for actual-window
+    // capture even when the gate fails -- e.g. transparent host without
+    // overlays on Windows, where the overlay API is macOS-only.
+    const holdMs = Number(process.env.HOLD_OPEN_MS ?? 30_000);
+    console.log("COMPOSITION_HOLD_ON_FAILURE");
+    await sleep(Number.isFinite(holdMs) ? Math.max(1_000, holdMs) : 30_000);
+  }
 } finally {
-  a.dispose();
-  b.dispose();
-  menuOverlay.dispose();
+  a?.dispose();
+  b?.dispose();
+  menuOverlay?.dispose();
   decoy?.close();
   host.close();
   runtime.app.shutdown();

@@ -59,7 +59,7 @@
     "title": "Erste Schritte",
     "intro": "Diese Schritte bauen den Quellcode von Version 2. Sie erzeugen kein signiertes Installationsprogramm.",
     "requirementsTitle": "Voraussetzungen",
-    "requirementsBody": "Bun 1.4.0 und ein macOS-, Windows- oder Linux-Desktop. Die Desktop-Laufzeit ist derzeit auf macOS mit Apple Silicon qualifiziert; andere Plattformen werden noch geprüft.",
+    "requirementsBody": "Bun 1.4.0 und ein macOS-, Windows- oder Linux-Desktop. Die Desktop-Laufzeit ist derzeit auf macOS mit Apple Silicon und Windows x64 qualifiziert; Linux wird noch geprüft.",
     "installTitle": "Abhängigkeiten installieren",
     "runTitle": "In der Entwicklung starten",
     "runBody": "Startet die Oberfläche und den Desktop-Host gemeinsam.",

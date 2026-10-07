@@ -28,6 +28,14 @@ async function listFiles(directory) {
 }
 
 const inventory = JSON.parse(await readFile(inventoryPath, "utf8"));
+// Repo-relative display path with forward slashes on every OS: listFiles
+// returns os-native paths, so on Windows a raw slice would embed "\\" and
+// break both the familySuite comparison below and mac-identical output.
+const toRepoPath = (path) =>
+  path
+    .slice(root.length + 1)
+    .split("\\")
+    .join("/");
 const familySuiteByOwner = {
   "04b": "tests/unit/protocol-core.test.ts",
   "04c": "tests/unit/protocol-interactions.test.ts",
@@ -73,8 +81,7 @@ const rows = inventory.events.map((event) => {
     ? familySuiteByOwner[generated.ownerCard]
     : undefined;
   const familySuitePath =
-    familySuite &&
-    unitFiles.some((path) => path.slice(root.length + 1) === familySuite)
+    familySuite && unitFiles.some((path) => toRepoPath(path) === familySuite)
       ? familySuite
       : undefined;
   const browserRefs = browserFiles.filter((path) =>
@@ -93,13 +100,9 @@ const rows = inventory.events.map((event) => {
       : "no owner suite",
     minimumVersion: event.minimumVersion,
     sdkSourceReference: sdk.includes(event.name),
-    unitLiteralReferences: literalUnitRefs.map((path) =>
-      path.slice(root.length + 1),
-    ),
+    unitLiteralReferences: literalUnitRefs.map((path) => toRepoPath(path)),
     unitFamilySuite: familySuitePath,
-    browserSourceReferences: browserRefs.map((path) =>
-      path.slice(root.length + 1),
-    ),
+    browserSourceReferences: browserRefs.map((path) => toRepoPath(path)),
     scenarioIds: event.testIds,
     directlyBoundScenarioIds: scenarioBindings,
   };

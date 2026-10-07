@@ -59,7 +59,7 @@
     "title": "Getting started",
     "intro": "These steps build the version 2 source. They do not produce a signed installer.",
     "requirementsTitle": "Requirements",
-    "requirementsBody": "Bun 1.4.0 and a macOS, Windows or Linux desktop. The desktop runtime is currently qualified on macOS on Apple silicon; other platforms are still being verified.",
+    "requirementsBody": "Bun 1.4.0 and a macOS, Windows or Linux desktop. The desktop runtime is currently qualified on macOS on Apple silicon and Windows x64; Linux is still being verified.",
     "installTitle": "Install dependencies",
     "runTitle": "Run in development",
     "runBody": "This starts the interface and the desktop host together.",
